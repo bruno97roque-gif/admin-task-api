@@ -28,11 +28,17 @@ export type AggregateProyecto = {
 export type ProyectoAvgAggregateOutputType = {
   id: number | null
   seguimientoId: number | null
+  rondasCambiosUsadas: number | null
+  disenadorId: number | null
+  desarrolladorId: number | null
 }
 
 export type ProyectoSumAggregateOutputType = {
   id: number | null
   seguimientoId: number | null
+  rondasCambiosUsadas: number | null
+  disenadorId: number | null
+  desarrolladorId: number | null
 }
 
 export type ProyectoMinAggregateOutputType = {
@@ -42,7 +48,7 @@ export type ProyectoMinAggregateOutputType = {
   estadoProyecto: $Enums.EstadoProyecto | null
   descripcion: string | null
   tecnologia: $Enums.Tecnologia | null
-  tipoProyecto: string | null
+  tipoProyecto: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo | null
   seguimientoId: number | null
   comentario: string | null
@@ -51,6 +57,20 @@ export type ProyectoMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  materialMarcaRecibido: boolean | null
+  catalogoRecibido: boolean | null
+  rondasCambiosUsadas: number | null
+  hostingContratado: boolean | null
+  factibilidadRevisadaAt: Date | null
+  disenoAprobadoAt: Date | null
+  productosCargados: boolean | null
+  presentadoAt: Date | null
+  subidoProduccionAt: Date | null
+  capacitacionAt: Date | null
+  fechaUltimoCambioEstado: Date | null
+  archivadoAt: Date | null
+  disenadorId: number | null
+  desarrolladorId: number | null
 }
 
 export type ProyectoMaxAggregateOutputType = {
@@ -60,7 +80,7 @@ export type ProyectoMaxAggregateOutputType = {
   estadoProyecto: $Enums.EstadoProyecto | null
   descripcion: string | null
   tecnologia: $Enums.Tecnologia | null
-  tipoProyecto: string | null
+  tipoProyecto: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo | null
   seguimientoId: number | null
   comentario: string | null
@@ -69,6 +89,20 @@ export type ProyectoMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  materialMarcaRecibido: boolean | null
+  catalogoRecibido: boolean | null
+  rondasCambiosUsadas: number | null
+  hostingContratado: boolean | null
+  factibilidadRevisadaAt: Date | null
+  disenoAprobadoAt: Date | null
+  productosCargados: boolean | null
+  presentadoAt: Date | null
+  subidoProduccionAt: Date | null
+  capacitacionAt: Date | null
+  fechaUltimoCambioEstado: Date | null
+  archivadoAt: Date | null
+  disenadorId: number | null
+  desarrolladorId: number | null
 }
 
 export type ProyectoCountAggregateOutputType = {
@@ -87,6 +121,20 @@ export type ProyectoCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   deletedAt: number
+  materialMarcaRecibido: number
+  catalogoRecibido: number
+  rondasCambiosUsadas: number
+  hostingContratado: number
+  factibilidadRevisadaAt: number
+  disenoAprobadoAt: number
+  productosCargados: number
+  presentadoAt: number
+  subidoProduccionAt: number
+  capacitacionAt: number
+  fechaUltimoCambioEstado: number
+  archivadoAt: number
+  disenadorId: number
+  desarrolladorId: number
   _all: number
 }
 
@@ -94,11 +142,17 @@ export type ProyectoCountAggregateOutputType = {
 export type ProyectoAvgAggregateInputType = {
   id?: true
   seguimientoId?: true
+  rondasCambiosUsadas?: true
+  disenadorId?: true
+  desarrolladorId?: true
 }
 
 export type ProyectoSumAggregateInputType = {
   id?: true
   seguimientoId?: true
+  rondasCambiosUsadas?: true
+  disenadorId?: true
+  desarrolladorId?: true
 }
 
 export type ProyectoMinAggregateInputType = {
@@ -117,6 +171,20 @@ export type ProyectoMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  materialMarcaRecibido?: true
+  catalogoRecibido?: true
+  rondasCambiosUsadas?: true
+  hostingContratado?: true
+  factibilidadRevisadaAt?: true
+  disenoAprobadoAt?: true
+  productosCargados?: true
+  presentadoAt?: true
+  subidoProduccionAt?: true
+  capacitacionAt?: true
+  fechaUltimoCambioEstado?: true
+  archivadoAt?: true
+  disenadorId?: true
+  desarrolladorId?: true
 }
 
 export type ProyectoMaxAggregateInputType = {
@@ -135,6 +203,20 @@ export type ProyectoMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  materialMarcaRecibido?: true
+  catalogoRecibido?: true
+  rondasCambiosUsadas?: true
+  hostingContratado?: true
+  factibilidadRevisadaAt?: true
+  disenoAprobadoAt?: true
+  productosCargados?: true
+  presentadoAt?: true
+  subidoProduccionAt?: true
+  capacitacionAt?: true
+  fechaUltimoCambioEstado?: true
+  archivadoAt?: true
+  disenadorId?: true
+  desarrolladorId?: true
 }
 
 export type ProyectoCountAggregateInputType = {
@@ -153,6 +235,20 @@ export type ProyectoCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  materialMarcaRecibido?: true
+  catalogoRecibido?: true
+  rondasCambiosUsadas?: true
+  hostingContratado?: true
+  factibilidadRevisadaAt?: true
+  disenoAprobadoAt?: true
+  productosCargados?: true
+  presentadoAt?: true
+  subidoProduccionAt?: true
+  capacitacionAt?: true
+  fechaUltimoCambioEstado?: true
+  archivadoAt?: true
+  disenadorId?: true
+  desarrolladorId?: true
   _all?: true
 }
 
@@ -249,7 +345,7 @@ export type ProyectoGroupByOutputType = {
   estadoProyecto: $Enums.EstadoProyecto
   descripcion: string
   tecnologia: $Enums.Tecnologia | null
-  tipoProyecto: string | null
+  tipoProyecto: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo
   seguimientoId: number
   comentario: string
@@ -258,6 +354,20 @@ export type ProyectoGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
+  materialMarcaRecibido: boolean
+  catalogoRecibido: boolean
+  rondasCambiosUsadas: number
+  hostingContratado: boolean
+  factibilidadRevisadaAt: Date | null
+  disenoAprobadoAt: Date | null
+  productosCargados: boolean
+  presentadoAt: Date | null
+  subidoProduccionAt: Date | null
+  capacitacionAt: Date | null
+  fechaUltimoCambioEstado: Date | null
+  archivadoAt: Date | null
+  disenadorId: number | null
+  desarrolladorId: number | null
   _count: ProyectoCountAggregateOutputType | null
   _avg: ProyectoAvgAggregateOutputType | null
   _sum: ProyectoSumAggregateOutputType | null
@@ -290,7 +400,7 @@ export type ProyectoWhereInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoFilter<"Proyecto"> | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFilter<"Proyecto"> | string
   tecnologia?: Prisma.EnumTecnologiaNullableFilter<"Proyecto"> | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.StringNullableFilter<"Proyecto"> | string | null
+  tipoProyecto?: Prisma.EnumTipoProyectoNullableFilter<"Proyecto"> | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFilter<"Proyecto"> | $Enums.Grupo
   seguimientoId?: Prisma.IntFilter<"Proyecto"> | number
   comentario?: Prisma.StringFilter<"Proyecto"> | string
@@ -299,8 +409,28 @@ export type ProyectoWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFilter<"Proyecto"> | boolean
+  catalogoRecibido?: Prisma.BoolFilter<"Proyecto"> | boolean
+  rondasCambiosUsadas?: Prisma.IntFilter<"Proyecto"> | number
+  hostingContratado?: Prisma.BoolFilter<"Proyecto"> | boolean
+  factibilidadRevisadaAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  disenoAprobadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  productosCargados?: Prisma.BoolFilter<"Proyecto"> | boolean
+  presentadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  subidoProduccionAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  capacitacionAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  archivadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  disenadorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
+  desarrolladorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   seguimiento?: Prisma.XOR<Prisma.SeguimientoScalarRelationFilter, Prisma.SeguimientoWhereInput>
   usuarios?: Prisma.UsuarioProyectoListRelationFilter
+  disenador?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  desarrollador?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  cobros?: Prisma.CobroListRelationFilter
+  historial?: Prisma.HistorialEtapaListRelationFilter
+  recordatorios?: Prisma.RecordatorioProyectoListRelationFilter
+  cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
 }
 
 export type ProyectoOrderByWithRelationInput = {
@@ -319,8 +449,28 @@ export type ProyectoOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  materialMarcaRecibido?: Prisma.SortOrder
+  catalogoRecibido?: Prisma.SortOrder
+  rondasCambiosUsadas?: Prisma.SortOrder
+  hostingContratado?: Prisma.SortOrder
+  factibilidadRevisadaAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  disenoAprobadoAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  productosCargados?: Prisma.SortOrder
+  presentadoAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  subidoProduccionAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  capacitacionAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaUltimoCambioEstado?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivadoAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  disenadorId?: Prisma.SortOrderInput | Prisma.SortOrder
+  desarrolladorId?: Prisma.SortOrderInput | Prisma.SortOrder
   seguimiento?: Prisma.SeguimientoOrderByWithRelationInput
   usuarios?: Prisma.UsuarioProyectoOrderByRelationAggregateInput
+  disenador?: Prisma.UserOrderByWithRelationInput
+  desarrollador?: Prisma.UserOrderByWithRelationInput
+  cobros?: Prisma.CobroOrderByRelationAggregateInput
+  historial?: Prisma.HistorialEtapaOrderByRelationAggregateInput
+  recordatorios?: Prisma.RecordatorioProyectoOrderByRelationAggregateInput
+  cotizaciones?: Prisma.CotizacionAdicionalOrderByRelationAggregateInput
 }
 
 export type ProyectoWhereUniqueInput = Prisma.AtLeast<{
@@ -333,7 +483,7 @@ export type ProyectoWhereUniqueInput = Prisma.AtLeast<{
   estadoProyecto?: Prisma.EnumEstadoProyectoFilter<"Proyecto"> | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFilter<"Proyecto"> | string
   tecnologia?: Prisma.EnumTecnologiaNullableFilter<"Proyecto"> | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.StringNullableFilter<"Proyecto"> | string | null
+  tipoProyecto?: Prisma.EnumTipoProyectoNullableFilter<"Proyecto"> | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFilter<"Proyecto"> | $Enums.Grupo
   seguimientoId?: Prisma.IntFilter<"Proyecto"> | number
   comentario?: Prisma.StringFilter<"Proyecto"> | string
@@ -342,8 +492,28 @@ export type ProyectoWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFilter<"Proyecto"> | boolean
+  catalogoRecibido?: Prisma.BoolFilter<"Proyecto"> | boolean
+  rondasCambiosUsadas?: Prisma.IntFilter<"Proyecto"> | number
+  hostingContratado?: Prisma.BoolFilter<"Proyecto"> | boolean
+  factibilidadRevisadaAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  disenoAprobadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  productosCargados?: Prisma.BoolFilter<"Proyecto"> | boolean
+  presentadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  subidoProduccionAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  capacitacionAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  archivadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  disenadorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
+  desarrolladorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   seguimiento?: Prisma.XOR<Prisma.SeguimientoScalarRelationFilter, Prisma.SeguimientoWhereInput>
   usuarios?: Prisma.UsuarioProyectoListRelationFilter
+  disenador?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  desarrollador?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  cobros?: Prisma.CobroListRelationFilter
+  historial?: Prisma.HistorialEtapaListRelationFilter
+  recordatorios?: Prisma.RecordatorioProyectoListRelationFilter
+  cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
 }, "id">
 
 export type ProyectoOrderByWithAggregationInput = {
@@ -362,6 +532,20 @@ export type ProyectoOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  materialMarcaRecibido?: Prisma.SortOrder
+  catalogoRecibido?: Prisma.SortOrder
+  rondasCambiosUsadas?: Prisma.SortOrder
+  hostingContratado?: Prisma.SortOrder
+  factibilidadRevisadaAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  disenoAprobadoAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  productosCargados?: Prisma.SortOrder
+  presentadoAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  subidoProduccionAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  capacitacionAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaUltimoCambioEstado?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivadoAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  disenadorId?: Prisma.SortOrderInput | Prisma.SortOrder
+  desarrolladorId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ProyectoCountOrderByAggregateInput
   _avg?: Prisma.ProyectoAvgOrderByAggregateInput
   _max?: Prisma.ProyectoMaxOrderByAggregateInput
@@ -379,7 +563,7 @@ export type ProyectoScalarWhereWithAggregatesInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoWithAggregatesFilter<"Proyecto"> | $Enums.EstadoProyecto
   descripcion?: Prisma.StringWithAggregatesFilter<"Proyecto"> | string
   tecnologia?: Prisma.EnumTecnologiaNullableWithAggregatesFilter<"Proyecto"> | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.StringNullableWithAggregatesFilter<"Proyecto"> | string | null
+  tipoProyecto?: Prisma.EnumTipoProyectoNullableWithAggregatesFilter<"Proyecto"> | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoWithAggregatesFilter<"Proyecto"> | $Enums.Grupo
   seguimientoId?: Prisma.IntWithAggregatesFilter<"Proyecto"> | number
   comentario?: Prisma.StringWithAggregatesFilter<"Proyecto"> | string
@@ -388,6 +572,20 @@ export type ProyectoScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Proyecto"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Proyecto"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolWithAggregatesFilter<"Proyecto"> | boolean
+  catalogoRecibido?: Prisma.BoolWithAggregatesFilter<"Proyecto"> | boolean
+  rondasCambiosUsadas?: Prisma.IntWithAggregatesFilter<"Proyecto"> | number
+  hostingContratado?: Prisma.BoolWithAggregatesFilter<"Proyecto"> | boolean
+  factibilidadRevisadaAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
+  disenoAprobadoAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
+  productosCargados?: Prisma.BoolWithAggregatesFilter<"Proyecto"> | boolean
+  presentadoAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
+  subidoProduccionAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
+  capacitacionAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
+  archivadoAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
+  disenadorId?: Prisma.IntNullableWithAggregatesFilter<"Proyecto"> | number | null
+  desarrolladorId?: Prisma.IntNullableWithAggregatesFilter<"Proyecto"> | number | null
 }
 
 export type ProyectoCreateInput = {
@@ -396,7 +594,7 @@ export type ProyectoCreateInput = {
   estadoProyecto?: $Enums.EstadoProyecto
   descripcion: string
   tecnologia?: $Enums.Tecnologia | null
-  tipoProyecto?: string | null
+  tipoProyecto?: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo
   comentario: string
   diasSinResponder?: string | null
@@ -404,8 +602,26 @@ export type ProyectoCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
+  disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
+  desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
+  cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoUncheckedCreateInput = {
@@ -415,7 +631,7 @@ export type ProyectoUncheckedCreateInput = {
   estadoProyecto?: $Enums.EstadoProyecto
   descripcion: string
   tecnologia?: $Enums.Tecnologia | null
-  tipoProyecto?: string | null
+  tipoProyecto?: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo
   seguimientoId: number
   comentario: string
@@ -424,7 +640,25 @@ export type ProyectoUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoUpdateInput = {
@@ -433,7 +667,7 @@ export type ProyectoUpdateInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -441,8 +675,26 @@ export type ProyectoUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
+  disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
+  desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
+  cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoUncheckedUpdateInput = {
@@ -452,7 +704,7 @@ export type ProyectoUncheckedUpdateInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
   seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
@@ -461,7 +713,25 @@ export type ProyectoUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoCreateManyInput = {
@@ -471,7 +741,7 @@ export type ProyectoCreateManyInput = {
   estadoProyecto?: $Enums.EstadoProyecto
   descripcion: string
   tecnologia?: $Enums.Tecnologia | null
-  tipoProyecto?: string | null
+  tipoProyecto?: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo
   seguimientoId: number
   comentario: string
@@ -480,6 +750,20 @@ export type ProyectoCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
 }
 
 export type ProyectoUpdateManyMutationInput = {
@@ -488,7 +772,7 @@ export type ProyectoUpdateManyMutationInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -496,6 +780,18 @@ export type ProyectoUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ProyectoUncheckedUpdateManyInput = {
@@ -505,7 +801,7 @@ export type ProyectoUncheckedUpdateManyInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
   seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
@@ -514,6 +810,20 @@ export type ProyectoUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ProyectoListRelationFilter = {
@@ -542,11 +852,28 @@ export type ProyectoCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  materialMarcaRecibido?: Prisma.SortOrder
+  catalogoRecibido?: Prisma.SortOrder
+  rondasCambiosUsadas?: Prisma.SortOrder
+  hostingContratado?: Prisma.SortOrder
+  factibilidadRevisadaAt?: Prisma.SortOrder
+  disenoAprobadoAt?: Prisma.SortOrder
+  productosCargados?: Prisma.SortOrder
+  presentadoAt?: Prisma.SortOrder
+  subidoProduccionAt?: Prisma.SortOrder
+  capacitacionAt?: Prisma.SortOrder
+  fechaUltimoCambioEstado?: Prisma.SortOrder
+  archivadoAt?: Prisma.SortOrder
+  disenadorId?: Prisma.SortOrder
+  desarrolladorId?: Prisma.SortOrder
 }
 
 export type ProyectoAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   seguimientoId?: Prisma.SortOrder
+  rondasCambiosUsadas?: Prisma.SortOrder
+  disenadorId?: Prisma.SortOrder
+  desarrolladorId?: Prisma.SortOrder
 }
 
 export type ProyectoMaxOrderByAggregateInput = {
@@ -565,6 +892,20 @@ export type ProyectoMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  materialMarcaRecibido?: Prisma.SortOrder
+  catalogoRecibido?: Prisma.SortOrder
+  rondasCambiosUsadas?: Prisma.SortOrder
+  hostingContratado?: Prisma.SortOrder
+  factibilidadRevisadaAt?: Prisma.SortOrder
+  disenoAprobadoAt?: Prisma.SortOrder
+  productosCargados?: Prisma.SortOrder
+  presentadoAt?: Prisma.SortOrder
+  subidoProduccionAt?: Prisma.SortOrder
+  capacitacionAt?: Prisma.SortOrder
+  fechaUltimoCambioEstado?: Prisma.SortOrder
+  archivadoAt?: Prisma.SortOrder
+  disenadorId?: Prisma.SortOrder
+  desarrolladorId?: Prisma.SortOrder
 }
 
 export type ProyectoMinOrderByAggregateInput = {
@@ -583,16 +924,117 @@ export type ProyectoMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  materialMarcaRecibido?: Prisma.SortOrder
+  catalogoRecibido?: Prisma.SortOrder
+  rondasCambiosUsadas?: Prisma.SortOrder
+  hostingContratado?: Prisma.SortOrder
+  factibilidadRevisadaAt?: Prisma.SortOrder
+  disenoAprobadoAt?: Prisma.SortOrder
+  productosCargados?: Prisma.SortOrder
+  presentadoAt?: Prisma.SortOrder
+  subidoProduccionAt?: Prisma.SortOrder
+  capacitacionAt?: Prisma.SortOrder
+  fechaUltimoCambioEstado?: Prisma.SortOrder
+  archivadoAt?: Prisma.SortOrder
+  disenadorId?: Prisma.SortOrder
+  desarrolladorId?: Prisma.SortOrder
 }
 
 export type ProyectoSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   seguimientoId?: Prisma.SortOrder
+  rondasCambiosUsadas?: Prisma.SortOrder
+  disenadorId?: Prisma.SortOrder
+  desarrolladorId?: Prisma.SortOrder
 }
 
 export type ProyectoScalarRelationFilter = {
   is?: Prisma.ProyectoWhereInput
   isNot?: Prisma.ProyectoWhereInput
+}
+
+export type ProyectoCreateNestedManyWithoutDisenadorInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutDisenadorInput, Prisma.ProyectoUncheckedCreateWithoutDisenadorInput> | Prisma.ProyectoCreateWithoutDisenadorInput[] | Prisma.ProyectoUncheckedCreateWithoutDisenadorInput[]
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutDisenadorInput | Prisma.ProyectoCreateOrConnectWithoutDisenadorInput[]
+  createMany?: Prisma.ProyectoCreateManyDisenadorInputEnvelope
+  connect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+}
+
+export type ProyectoCreateNestedManyWithoutDesarrolladorInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutDesarrolladorInput, Prisma.ProyectoUncheckedCreateWithoutDesarrolladorInput> | Prisma.ProyectoCreateWithoutDesarrolladorInput[] | Prisma.ProyectoUncheckedCreateWithoutDesarrolladorInput[]
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutDesarrolladorInput | Prisma.ProyectoCreateOrConnectWithoutDesarrolladorInput[]
+  createMany?: Prisma.ProyectoCreateManyDesarrolladorInputEnvelope
+  connect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+}
+
+export type ProyectoUncheckedCreateNestedManyWithoutDisenadorInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutDisenadorInput, Prisma.ProyectoUncheckedCreateWithoutDisenadorInput> | Prisma.ProyectoCreateWithoutDisenadorInput[] | Prisma.ProyectoUncheckedCreateWithoutDisenadorInput[]
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutDisenadorInput | Prisma.ProyectoCreateOrConnectWithoutDisenadorInput[]
+  createMany?: Prisma.ProyectoCreateManyDisenadorInputEnvelope
+  connect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+}
+
+export type ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutDesarrolladorInput, Prisma.ProyectoUncheckedCreateWithoutDesarrolladorInput> | Prisma.ProyectoCreateWithoutDesarrolladorInput[] | Prisma.ProyectoUncheckedCreateWithoutDesarrolladorInput[]
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutDesarrolladorInput | Prisma.ProyectoCreateOrConnectWithoutDesarrolladorInput[]
+  createMany?: Prisma.ProyectoCreateManyDesarrolladorInputEnvelope
+  connect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+}
+
+export type ProyectoUpdateManyWithoutDisenadorNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutDisenadorInput, Prisma.ProyectoUncheckedCreateWithoutDisenadorInput> | Prisma.ProyectoCreateWithoutDisenadorInput[] | Prisma.ProyectoUncheckedCreateWithoutDisenadorInput[]
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutDisenadorInput | Prisma.ProyectoCreateOrConnectWithoutDisenadorInput[]
+  upsert?: Prisma.ProyectoUpsertWithWhereUniqueWithoutDisenadorInput | Prisma.ProyectoUpsertWithWhereUniqueWithoutDisenadorInput[]
+  createMany?: Prisma.ProyectoCreateManyDisenadorInputEnvelope
+  set?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  disconnect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  delete?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  connect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  update?: Prisma.ProyectoUpdateWithWhereUniqueWithoutDisenadorInput | Prisma.ProyectoUpdateWithWhereUniqueWithoutDisenadorInput[]
+  updateMany?: Prisma.ProyectoUpdateManyWithWhereWithoutDisenadorInput | Prisma.ProyectoUpdateManyWithWhereWithoutDisenadorInput[]
+  deleteMany?: Prisma.ProyectoScalarWhereInput | Prisma.ProyectoScalarWhereInput[]
+}
+
+export type ProyectoUpdateManyWithoutDesarrolladorNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutDesarrolladorInput, Prisma.ProyectoUncheckedCreateWithoutDesarrolladorInput> | Prisma.ProyectoCreateWithoutDesarrolladorInput[] | Prisma.ProyectoUncheckedCreateWithoutDesarrolladorInput[]
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutDesarrolladorInput | Prisma.ProyectoCreateOrConnectWithoutDesarrolladorInput[]
+  upsert?: Prisma.ProyectoUpsertWithWhereUniqueWithoutDesarrolladorInput | Prisma.ProyectoUpsertWithWhereUniqueWithoutDesarrolladorInput[]
+  createMany?: Prisma.ProyectoCreateManyDesarrolladorInputEnvelope
+  set?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  disconnect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  delete?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  connect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  update?: Prisma.ProyectoUpdateWithWhereUniqueWithoutDesarrolladorInput | Prisma.ProyectoUpdateWithWhereUniqueWithoutDesarrolladorInput[]
+  updateMany?: Prisma.ProyectoUpdateManyWithWhereWithoutDesarrolladorInput | Prisma.ProyectoUpdateManyWithWhereWithoutDesarrolladorInput[]
+  deleteMany?: Prisma.ProyectoScalarWhereInput | Prisma.ProyectoScalarWhereInput[]
+}
+
+export type ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutDisenadorInput, Prisma.ProyectoUncheckedCreateWithoutDisenadorInput> | Prisma.ProyectoCreateWithoutDisenadorInput[] | Prisma.ProyectoUncheckedCreateWithoutDisenadorInput[]
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutDisenadorInput | Prisma.ProyectoCreateOrConnectWithoutDisenadorInput[]
+  upsert?: Prisma.ProyectoUpsertWithWhereUniqueWithoutDisenadorInput | Prisma.ProyectoUpsertWithWhereUniqueWithoutDisenadorInput[]
+  createMany?: Prisma.ProyectoCreateManyDisenadorInputEnvelope
+  set?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  disconnect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  delete?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  connect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  update?: Prisma.ProyectoUpdateWithWhereUniqueWithoutDisenadorInput | Prisma.ProyectoUpdateWithWhereUniqueWithoutDisenadorInput[]
+  updateMany?: Prisma.ProyectoUpdateManyWithWhereWithoutDisenadorInput | Prisma.ProyectoUpdateManyWithWhereWithoutDisenadorInput[]
+  deleteMany?: Prisma.ProyectoScalarWhereInput | Prisma.ProyectoScalarWhereInput[]
+}
+
+export type ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutDesarrolladorInput, Prisma.ProyectoUncheckedCreateWithoutDesarrolladorInput> | Prisma.ProyectoCreateWithoutDesarrolladorInput[] | Prisma.ProyectoUncheckedCreateWithoutDesarrolladorInput[]
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutDesarrolladorInput | Prisma.ProyectoCreateOrConnectWithoutDesarrolladorInput[]
+  upsert?: Prisma.ProyectoUpsertWithWhereUniqueWithoutDesarrolladorInput | Prisma.ProyectoUpsertWithWhereUniqueWithoutDesarrolladorInput[]
+  createMany?: Prisma.ProyectoCreateManyDesarrolladorInputEnvelope
+  set?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  disconnect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  delete?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  connect?: Prisma.ProyectoWhereUniqueInput | Prisma.ProyectoWhereUniqueInput[]
+  update?: Prisma.ProyectoUpdateWithWhereUniqueWithoutDesarrolladorInput | Prisma.ProyectoUpdateWithWhereUniqueWithoutDesarrolladorInput[]
+  updateMany?: Prisma.ProyectoUpdateManyWithWhereWithoutDesarrolladorInput | Prisma.ProyectoUpdateManyWithWhereWithoutDesarrolladorInput[]
+  deleteMany?: Prisma.ProyectoScalarWhereInput | Prisma.ProyectoScalarWhereInput[]
 }
 
 export type ProyectoCreateNestedManyWithoutSeguimientoInput = {
@@ -645,8 +1087,8 @@ export type NullableEnumTecnologiaFieldUpdateOperationsInput = {
   set?: $Enums.Tecnologia | null
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
+export type NullableEnumTipoProyectoFieldUpdateOperationsInput = {
+  set?: $Enums.TipoProyecto | null
 }
 
 export type EnumGrupoFieldUpdateOperationsInput = {
@@ -659,6 +1101,70 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type ProyectoCreateNestedOneWithoutCobrosInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutCobrosInput, Prisma.ProyectoUncheckedCreateWithoutCobrosInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutCobrosInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+}
+
+export type ProyectoUpdateOneRequiredWithoutCobrosNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutCobrosInput, Prisma.ProyectoUncheckedCreateWithoutCobrosInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutCobrosInput
+  upsert?: Prisma.ProyectoUpsertWithoutCobrosInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProyectoUpdateToOneWithWhereWithoutCobrosInput, Prisma.ProyectoUpdateWithoutCobrosInput>, Prisma.ProyectoUncheckedUpdateWithoutCobrosInput>
+}
+
+export type ProyectoCreateNestedOneWithoutHistorialInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutHistorialInput, Prisma.ProyectoUncheckedCreateWithoutHistorialInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutHistorialInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+}
+
+export type ProyectoUpdateOneRequiredWithoutHistorialNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutHistorialInput, Prisma.ProyectoUncheckedCreateWithoutHistorialInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutHistorialInput
+  upsert?: Prisma.ProyectoUpsertWithoutHistorialInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProyectoUpdateToOneWithWhereWithoutHistorialInput, Prisma.ProyectoUpdateWithoutHistorialInput>, Prisma.ProyectoUncheckedUpdateWithoutHistorialInput>
+}
+
+export type ProyectoCreateNestedOneWithoutRecordatoriosInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutRecordatoriosInput, Prisma.ProyectoUncheckedCreateWithoutRecordatoriosInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutRecordatoriosInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+}
+
+export type ProyectoUpdateOneRequiredWithoutRecordatoriosNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutRecordatoriosInput, Prisma.ProyectoUncheckedCreateWithoutRecordatoriosInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutRecordatoriosInput
+  upsert?: Prisma.ProyectoUpsertWithoutRecordatoriosInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProyectoUpdateToOneWithWhereWithoutRecordatoriosInput, Prisma.ProyectoUpdateWithoutRecordatoriosInput>, Prisma.ProyectoUncheckedUpdateWithoutRecordatoriosInput>
+}
+
+export type ProyectoCreateNestedOneWithoutCotizacionesInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutCotizacionesInput, Prisma.ProyectoUncheckedCreateWithoutCotizacionesInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutCotizacionesInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+}
+
+export type ProyectoUpdateOneRequiredWithoutCotizacionesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutCotizacionesInput, Prisma.ProyectoUncheckedCreateWithoutCotizacionesInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutCotizacionesInput
+  upsert?: Prisma.ProyectoUpsertWithoutCotizacionesInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProyectoUpdateToOneWithWhereWithoutCotizacionesInput, Prisma.ProyectoUpdateWithoutCotizacionesInput>, Prisma.ProyectoUncheckedUpdateWithoutCotizacionesInput>
 }
 
 export type ProyectoCreateNestedOneWithoutUsuariosInput = {
@@ -675,13 +1181,13 @@ export type ProyectoUpdateOneRequiredWithoutUsuariosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProyectoUpdateToOneWithWhereWithoutUsuariosInput, Prisma.ProyectoUpdateWithoutUsuariosInput>, Prisma.ProyectoUncheckedUpdateWithoutUsuariosInput>
 }
 
-export type ProyectoCreateWithoutSeguimientoInput = {
+export type ProyectoCreateWithoutDisenadorInput = {
   name: string
   estadoPago?: string
   estadoProyecto?: $Enums.EstadoProyecto
   descripcion: string
   tecnologia?: $Enums.Tecnologia | null
-  tipoProyecto?: string | null
+  tipoProyecto?: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo
   comentario: string
   diasSinResponder?: string | null
@@ -689,7 +1195,254 @@ export type ProyectoCreateWithoutSeguimientoInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
+  desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
+  cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoUncheckedCreateWithoutDisenadorInput = {
+  id?: number
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  seguimientoId: number
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  desarrolladorId?: number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoCreateOrConnectWithoutDisenadorInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutDisenadorInput, Prisma.ProyectoUncheckedCreateWithoutDisenadorInput>
+}
+
+export type ProyectoCreateManyDisenadorInputEnvelope = {
+  data: Prisma.ProyectoCreateManyDisenadorInput | Prisma.ProyectoCreateManyDisenadorInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProyectoCreateWithoutDesarrolladorInput = {
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
+  usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
+  disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
+  cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoUncheckedCreateWithoutDesarrolladorInput = {
+  id?: number
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  seguimientoId: number
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoCreateOrConnectWithoutDesarrolladorInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutDesarrolladorInput, Prisma.ProyectoUncheckedCreateWithoutDesarrolladorInput>
+}
+
+export type ProyectoCreateManyDesarrolladorInputEnvelope = {
+  data: Prisma.ProyectoCreateManyDesarrolladorInput | Prisma.ProyectoCreateManyDesarrolladorInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProyectoUpsertWithWhereUniqueWithoutDisenadorInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProyectoUpdateWithoutDisenadorInput, Prisma.ProyectoUncheckedUpdateWithoutDisenadorInput>
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutDisenadorInput, Prisma.ProyectoUncheckedCreateWithoutDisenadorInput>
+}
+
+export type ProyectoUpdateWithWhereUniqueWithoutDisenadorInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProyectoUpdateWithoutDisenadorInput, Prisma.ProyectoUncheckedUpdateWithoutDisenadorInput>
+}
+
+export type ProyectoUpdateManyWithWhereWithoutDisenadorInput = {
+  where: Prisma.ProyectoScalarWhereInput
+  data: Prisma.XOR<Prisma.ProyectoUpdateManyMutationInput, Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorInput>
+}
+
+export type ProyectoScalarWhereInput = {
+  AND?: Prisma.ProyectoScalarWhereInput | Prisma.ProyectoScalarWhereInput[]
+  OR?: Prisma.ProyectoScalarWhereInput[]
+  NOT?: Prisma.ProyectoScalarWhereInput | Prisma.ProyectoScalarWhereInput[]
+  id?: Prisma.IntFilter<"Proyecto"> | number
+  name?: Prisma.StringFilter<"Proyecto"> | string
+  estadoPago?: Prisma.StringFilter<"Proyecto"> | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFilter<"Proyecto"> | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFilter<"Proyecto"> | string
+  tecnologia?: Prisma.EnumTecnologiaNullableFilter<"Proyecto"> | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.EnumTipoProyectoNullableFilter<"Proyecto"> | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFilter<"Proyecto"> | $Enums.Grupo
+  seguimientoId?: Prisma.IntFilter<"Proyecto"> | number
+  comentario?: Prisma.StringFilter<"Proyecto"> | string
+  diasSinResponder?: Prisma.StringNullableFilter<"Proyecto"> | string | null
+  fechaEntrega?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFilter<"Proyecto"> | boolean
+  catalogoRecibido?: Prisma.BoolFilter<"Proyecto"> | boolean
+  rondasCambiosUsadas?: Prisma.IntFilter<"Proyecto"> | number
+  hostingContratado?: Prisma.BoolFilter<"Proyecto"> | boolean
+  factibilidadRevisadaAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  disenoAprobadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  productosCargados?: Prisma.BoolFilter<"Proyecto"> | boolean
+  presentadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  subidoProduccionAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  capacitacionAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  archivadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  disenadorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
+  desarrolladorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
+}
+
+export type ProyectoUpsertWithWhereUniqueWithoutDesarrolladorInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProyectoUpdateWithoutDesarrolladorInput, Prisma.ProyectoUncheckedUpdateWithoutDesarrolladorInput>
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutDesarrolladorInput, Prisma.ProyectoUncheckedCreateWithoutDesarrolladorInput>
+}
+
+export type ProyectoUpdateWithWhereUniqueWithoutDesarrolladorInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProyectoUpdateWithoutDesarrolladorInput, Prisma.ProyectoUncheckedUpdateWithoutDesarrolladorInput>
+}
+
+export type ProyectoUpdateManyWithWhereWithoutDesarrolladorInput = {
+  where: Prisma.ProyectoScalarWhereInput
+  data: Prisma.XOR<Prisma.ProyectoUpdateManyMutationInput, Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorInput>
+}
+
+export type ProyectoCreateWithoutSeguimientoInput = {
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
+  disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
+  desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
+  cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoUncheckedCreateWithoutSeguimientoInput = {
@@ -699,7 +1452,7 @@ export type ProyectoUncheckedCreateWithoutSeguimientoInput = {
   estadoProyecto?: $Enums.EstadoProyecto
   descripcion: string
   tecnologia?: $Enums.Tecnologia | null
-  tipoProyecto?: string | null
+  tipoProyecto?: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo
   comentario: string
   diasSinResponder?: string | null
@@ -707,7 +1460,25 @@ export type ProyectoUncheckedCreateWithoutSeguimientoInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoCreateOrConnectWithoutSeguimientoInput = {
@@ -736,25 +1507,636 @@ export type ProyectoUpdateManyWithWhereWithoutSeguimientoInput = {
   data: Prisma.XOR<Prisma.ProyectoUpdateManyMutationInput, Prisma.ProyectoUncheckedUpdateManyWithoutSeguimientoInput>
 }
 
-export type ProyectoScalarWhereInput = {
-  AND?: Prisma.ProyectoScalarWhereInput | Prisma.ProyectoScalarWhereInput[]
-  OR?: Prisma.ProyectoScalarWhereInput[]
-  NOT?: Prisma.ProyectoScalarWhereInput | Prisma.ProyectoScalarWhereInput[]
-  id?: Prisma.IntFilter<"Proyecto"> | number
-  name?: Prisma.StringFilter<"Proyecto"> | string
-  estadoPago?: Prisma.StringFilter<"Proyecto"> | string
-  estadoProyecto?: Prisma.EnumEstadoProyectoFilter<"Proyecto"> | $Enums.EstadoProyecto
-  descripcion?: Prisma.StringFilter<"Proyecto"> | string
-  tecnologia?: Prisma.EnumTecnologiaNullableFilter<"Proyecto"> | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.StringNullableFilter<"Proyecto"> | string | null
-  grupo?: Prisma.EnumGrupoFilter<"Proyecto"> | $Enums.Grupo
-  seguimientoId?: Prisma.IntFilter<"Proyecto"> | number
-  comentario?: Prisma.StringFilter<"Proyecto"> | string
-  diasSinResponder?: Prisma.StringNullableFilter<"Proyecto"> | string | null
-  fechaEntrega?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+export type ProyectoCreateWithoutCobrosInput = {
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
+  usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
+  disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
+  desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
+  historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoUncheckedCreateWithoutCobrosInput = {
+  id?: number
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  seguimientoId: number
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoCreateOrConnectWithoutCobrosInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutCobrosInput, Prisma.ProyectoUncheckedCreateWithoutCobrosInput>
+}
+
+export type ProyectoUpsertWithoutCobrosInput = {
+  update: Prisma.XOR<Prisma.ProyectoUpdateWithoutCobrosInput, Prisma.ProyectoUncheckedUpdateWithoutCobrosInput>
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutCobrosInput, Prisma.ProyectoUncheckedCreateWithoutCobrosInput>
+  where?: Prisma.ProyectoWhereInput
+}
+
+export type ProyectoUpdateToOneWithWhereWithoutCobrosInput = {
+  where?: Prisma.ProyectoWhereInput
+  data: Prisma.XOR<Prisma.ProyectoUpdateWithoutCobrosInput, Prisma.ProyectoUncheckedUpdateWithoutCobrosInput>
+}
+
+export type ProyectoUpdateWithoutCobrosInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
+  usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
+  disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
+  desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
+  historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoUncheckedUpdateWithoutCobrosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoCreateWithoutHistorialInput = {
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
+  usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
+  disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
+  desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
+  cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoUncheckedCreateWithoutHistorialInput = {
+  id?: number
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  seguimientoId: number
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoCreateOrConnectWithoutHistorialInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutHistorialInput, Prisma.ProyectoUncheckedCreateWithoutHistorialInput>
+}
+
+export type ProyectoUpsertWithoutHistorialInput = {
+  update: Prisma.XOR<Prisma.ProyectoUpdateWithoutHistorialInput, Prisma.ProyectoUncheckedUpdateWithoutHistorialInput>
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutHistorialInput, Prisma.ProyectoUncheckedCreateWithoutHistorialInput>
+  where?: Prisma.ProyectoWhereInput
+}
+
+export type ProyectoUpdateToOneWithWhereWithoutHistorialInput = {
+  where?: Prisma.ProyectoWhereInput
+  data: Prisma.XOR<Prisma.ProyectoUpdateWithoutHistorialInput, Prisma.ProyectoUncheckedUpdateWithoutHistorialInput>
+}
+
+export type ProyectoUpdateWithoutHistorialInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
+  usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
+  disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
+  desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
+  cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoUncheckedUpdateWithoutHistorialInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoCreateWithoutRecordatoriosInput = {
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
+  usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
+  disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
+  desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
+  cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoUncheckedCreateWithoutRecordatoriosInput = {
+  id?: number
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  seguimientoId: number
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoCreateOrConnectWithoutRecordatoriosInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutRecordatoriosInput, Prisma.ProyectoUncheckedCreateWithoutRecordatoriosInput>
+}
+
+export type ProyectoUpsertWithoutRecordatoriosInput = {
+  update: Prisma.XOR<Prisma.ProyectoUpdateWithoutRecordatoriosInput, Prisma.ProyectoUncheckedUpdateWithoutRecordatoriosInput>
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutRecordatoriosInput, Prisma.ProyectoUncheckedCreateWithoutRecordatoriosInput>
+  where?: Prisma.ProyectoWhereInput
+}
+
+export type ProyectoUpdateToOneWithWhereWithoutRecordatoriosInput = {
+  where?: Prisma.ProyectoWhereInput
+  data: Prisma.XOR<Prisma.ProyectoUpdateWithoutRecordatoriosInput, Prisma.ProyectoUncheckedUpdateWithoutRecordatoriosInput>
+}
+
+export type ProyectoUpdateWithoutRecordatoriosInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
+  usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
+  disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
+  desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
+  cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoUncheckedUpdateWithoutRecordatoriosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoCreateWithoutCotizacionesInput = {
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
+  usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
+  disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
+  desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
+  cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoUncheckedCreateWithoutCotizacionesInput = {
+  id?: number
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  seguimientoId: number
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoCreateOrConnectWithoutCotizacionesInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutCotizacionesInput, Prisma.ProyectoUncheckedCreateWithoutCotizacionesInput>
+}
+
+export type ProyectoUpsertWithoutCotizacionesInput = {
+  update: Prisma.XOR<Prisma.ProyectoUpdateWithoutCotizacionesInput, Prisma.ProyectoUncheckedUpdateWithoutCotizacionesInput>
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutCotizacionesInput, Prisma.ProyectoUncheckedCreateWithoutCotizacionesInput>
+  where?: Prisma.ProyectoWhereInput
+}
+
+export type ProyectoUpdateToOneWithWhereWithoutCotizacionesInput = {
+  where?: Prisma.ProyectoWhereInput
+  data: Prisma.XOR<Prisma.ProyectoUpdateWithoutCotizacionesInput, Prisma.ProyectoUncheckedUpdateWithoutCotizacionesInput>
+}
+
+export type ProyectoUpdateWithoutCotizacionesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
+  usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
+  disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
+  desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
+  cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoUncheckedUpdateWithoutCotizacionesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoCreateWithoutUsuariosInput = {
@@ -763,7 +2145,7 @@ export type ProyectoCreateWithoutUsuariosInput = {
   estadoProyecto?: $Enums.EstadoProyecto
   descripcion: string
   tecnologia?: $Enums.Tecnologia | null
-  tipoProyecto?: string | null
+  tipoProyecto?: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo
   comentario: string
   diasSinResponder?: string | null
@@ -771,7 +2153,25 @@ export type ProyectoCreateWithoutUsuariosInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
+  disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
+  desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
+  cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoUncheckedCreateWithoutUsuariosInput = {
@@ -781,7 +2181,7 @@ export type ProyectoUncheckedCreateWithoutUsuariosInput = {
   estadoProyecto?: $Enums.EstadoProyecto
   descripcion: string
   tecnologia?: $Enums.Tecnologia | null
-  tipoProyecto?: string | null
+  tipoProyecto?: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo
   seguimientoId: number
   comentario: string
@@ -790,6 +2190,24 @@ export type ProyectoUncheckedCreateWithoutUsuariosInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
+  cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoCreateOrConnectWithoutUsuariosInput = {
@@ -814,7 +2232,7 @@ export type ProyectoUpdateWithoutUsuariosInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -822,7 +2240,25 @@ export type ProyectoUpdateWithoutUsuariosInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
+  disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
+  desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
+  cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoUncheckedUpdateWithoutUsuariosInput = {
@@ -832,7 +2268,7 @@ export type ProyectoUncheckedUpdateWithoutUsuariosInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
   seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
@@ -841,6 +2277,290 @@ export type ProyectoUncheckedUpdateWithoutUsuariosInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoCreateManyDisenadorInput = {
+  id?: number
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  seguimientoId: number
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  desarrolladorId?: number | null
+}
+
+export type ProyectoCreateManyDesarrolladorInput = {
+  id?: number
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  seguimientoId: number
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+}
+
+export type ProyectoUpdateWithoutDisenadorInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
+  usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
+  desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
+  cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoUncheckedUpdateWithoutDisenadorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoUncheckedUpdateManyWithoutDisenadorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type ProyectoUpdateWithoutDesarrolladorInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
+  usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
+  disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
+  cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoUncheckedUpdateWithoutDesarrolladorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoUncheckedUpdateManyWithoutDesarrolladorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ProyectoCreateManySeguimientoInput = {
@@ -850,7 +2570,7 @@ export type ProyectoCreateManySeguimientoInput = {
   estadoProyecto?: $Enums.EstadoProyecto
   descripcion: string
   tecnologia?: $Enums.Tecnologia | null
-  tipoProyecto?: string | null
+  tipoProyecto?: $Enums.TipoProyecto | null
   grupo: $Enums.Grupo
   comentario: string
   diasSinResponder?: string | null
@@ -858,6 +2578,20 @@ export type ProyectoCreateManySeguimientoInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
 }
 
 export type ProyectoUpdateWithoutSeguimientoInput = {
@@ -866,7 +2600,7 @@ export type ProyectoUpdateWithoutSeguimientoInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -874,7 +2608,25 @@ export type ProyectoUpdateWithoutSeguimientoInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
+  disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
+  desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
+  cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoUncheckedUpdateWithoutSeguimientoInput = {
@@ -884,7 +2636,7 @@ export type ProyectoUncheckedUpdateWithoutSeguimientoInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -892,7 +2644,25 @@ export type ProyectoUncheckedUpdateWithoutSeguimientoInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoUncheckedUpdateManyWithoutSeguimientoInput = {
@@ -902,7 +2672,7 @@ export type ProyectoUncheckedUpdateManyWithoutSeguimientoInput = {
   estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
-  tipoProyecto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
   grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -910,6 +2680,20 @@ export type ProyectoUncheckedUpdateManyWithoutSeguimientoInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -919,10 +2703,18 @@ export type ProyectoUncheckedUpdateManyWithoutSeguimientoInput = {
 
 export type ProyectoCountOutputType = {
   usuarios: number
+  cobros: number
+  historial: number
+  recordatorios: number
+  cotizaciones: number
 }
 
 export type ProyectoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usuarios?: boolean | ProyectoCountOutputTypeCountUsuariosArgs
+  cobros?: boolean | ProyectoCountOutputTypeCountCobrosArgs
+  historial?: boolean | ProyectoCountOutputTypeCountHistorialArgs
+  recordatorios?: boolean | ProyectoCountOutputTypeCountRecordatoriosArgs
+  cotizaciones?: boolean | ProyectoCountOutputTypeCountCotizacionesArgs
 }
 
 /**
@@ -942,6 +2734,34 @@ export type ProyectoCountOutputTypeCountUsuariosArgs<ExtArgs extends runtime.Typ
   where?: Prisma.UsuarioProyectoWhereInput
 }
 
+/**
+ * ProyectoCountOutputType without action
+ */
+export type ProyectoCountOutputTypeCountCobrosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CobroWhereInput
+}
+
+/**
+ * ProyectoCountOutputType without action
+ */
+export type ProyectoCountOutputTypeCountHistorialArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HistorialEtapaWhereInput
+}
+
+/**
+ * ProyectoCountOutputType without action
+ */
+export type ProyectoCountOutputTypeCountRecordatoriosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecordatorioProyectoWhereInput
+}
+
+/**
+ * ProyectoCountOutputType without action
+ */
+export type ProyectoCountOutputTypeCountCotizacionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CotizacionAdicionalWhereInput
+}
+
 
 export type ProyectoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -959,8 +2779,28 @@ export type ProyectoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: boolean
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: boolean
+  disenoAprobadoAt?: boolean
+  productosCargados?: boolean
+  presentadoAt?: boolean
+  subidoProduccionAt?: boolean
+  capacitacionAt?: boolean
+  fechaUltimoCambioEstado?: boolean
+  archivadoAt?: boolean
+  disenadorId?: boolean
+  desarrolladorId?: boolean
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
   usuarios?: boolean | Prisma.Proyecto$usuariosArgs<ExtArgs>
+  disenador?: boolean | Prisma.Proyecto$disenadorArgs<ExtArgs>
+  desarrollador?: boolean | Prisma.Proyecto$desarrolladorArgs<ExtArgs>
+  cobros?: boolean | Prisma.Proyecto$cobrosArgs<ExtArgs>
+  historial?: boolean | Prisma.Proyecto$historialArgs<ExtArgs>
+  recordatorios?: boolean | Prisma.Proyecto$recordatoriosArgs<ExtArgs>
+  cotizaciones?: boolean | Prisma.Proyecto$cotizacionesArgs<ExtArgs>
   _count?: boolean | Prisma.ProyectoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proyecto"]>
 
@@ -980,7 +2820,23 @@ export type ProyectoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: boolean
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: boolean
+  disenoAprobadoAt?: boolean
+  productosCargados?: boolean
+  presentadoAt?: boolean
+  subidoProduccionAt?: boolean
+  capacitacionAt?: boolean
+  fechaUltimoCambioEstado?: boolean
+  archivadoAt?: boolean
+  disenadorId?: boolean
+  desarrolladorId?: boolean
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
+  disenador?: boolean | Prisma.Proyecto$disenadorArgs<ExtArgs>
+  desarrollador?: boolean | Prisma.Proyecto$desarrolladorArgs<ExtArgs>
 }, ExtArgs["result"]["proyecto"]>
 
 export type ProyectoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -999,7 +2855,23 @@ export type ProyectoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: boolean
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: boolean
+  disenoAprobadoAt?: boolean
+  productosCargados?: boolean
+  presentadoAt?: boolean
+  subidoProduccionAt?: boolean
+  capacitacionAt?: boolean
+  fechaUltimoCambioEstado?: boolean
+  archivadoAt?: boolean
+  disenadorId?: boolean
+  desarrolladorId?: boolean
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
+  disenador?: boolean | Prisma.Proyecto$disenadorArgs<ExtArgs>
+  desarrollador?: boolean | Prisma.Proyecto$desarrolladorArgs<ExtArgs>
 }, ExtArgs["result"]["proyecto"]>
 
 export type ProyectoSelectScalar = {
@@ -1018,19 +2890,43 @@ export type ProyectoSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: boolean
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: boolean
+  disenoAprobadoAt?: boolean
+  productosCargados?: boolean
+  presentadoAt?: boolean
+  subidoProduccionAt?: boolean
+  capacitacionAt?: boolean
+  fechaUltimoCambioEstado?: boolean
+  archivadoAt?: boolean
+  disenadorId?: boolean
+  desarrolladorId?: boolean
 }
 
-export type ProyectoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "estadoPago" | "estadoProyecto" | "descripcion" | "tecnologia" | "tipoProyecto" | "grupo" | "seguimientoId" | "comentario" | "diasSinResponder" | "fechaEntrega" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["proyecto"]>
+export type ProyectoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "estadoPago" | "estadoProyecto" | "descripcion" | "tecnologia" | "tipoProyecto" | "grupo" | "seguimientoId" | "comentario" | "diasSinResponder" | "fechaEntrega" | "createdAt" | "updatedAt" | "deletedAt" | "materialMarcaRecibido" | "catalogoRecibido" | "rondasCambiosUsadas" | "hostingContratado" | "factibilidadRevisadaAt" | "disenoAprobadoAt" | "productosCargados" | "presentadoAt" | "subidoProduccionAt" | "capacitacionAt" | "fechaUltimoCambioEstado" | "archivadoAt" | "disenadorId" | "desarrolladorId", ExtArgs["result"]["proyecto"]>
 export type ProyectoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
   usuarios?: boolean | Prisma.Proyecto$usuariosArgs<ExtArgs>
+  disenador?: boolean | Prisma.Proyecto$disenadorArgs<ExtArgs>
+  desarrollador?: boolean | Prisma.Proyecto$desarrolladorArgs<ExtArgs>
+  cobros?: boolean | Prisma.Proyecto$cobrosArgs<ExtArgs>
+  historial?: boolean | Prisma.Proyecto$historialArgs<ExtArgs>
+  recordatorios?: boolean | Prisma.Proyecto$recordatoriosArgs<ExtArgs>
+  cotizaciones?: boolean | Prisma.Proyecto$cotizacionesArgs<ExtArgs>
   _count?: boolean | Prisma.ProyectoCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProyectoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
+  disenador?: boolean | Prisma.Proyecto$disenadorArgs<ExtArgs>
+  desarrollador?: boolean | Prisma.Proyecto$desarrolladorArgs<ExtArgs>
 }
 export type ProyectoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
+  disenador?: boolean | Prisma.Proyecto$disenadorArgs<ExtArgs>
+  desarrollador?: boolean | Prisma.Proyecto$desarrolladorArgs<ExtArgs>
 }
 
 export type $ProyectoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1038,6 +2934,12 @@ export type $ProyectoPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     seguimiento: Prisma.$SeguimientoPayload<ExtArgs>
     usuarios: Prisma.$UsuarioProyectoPayload<ExtArgs>[]
+    disenador: Prisma.$UserPayload<ExtArgs> | null
+    desarrollador: Prisma.$UserPayload<ExtArgs> | null
+    cobros: Prisma.$CobroPayload<ExtArgs>[]
+    historial: Prisma.$HistorialEtapaPayload<ExtArgs>[]
+    recordatorios: Prisma.$RecordatorioProyectoPayload<ExtArgs>[]
+    cotizaciones: Prisma.$CotizacionAdicionalPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1046,7 +2948,7 @@ export type $ProyectoPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     estadoProyecto: $Enums.EstadoProyecto
     descripcion: string
     tecnologia: $Enums.Tecnologia | null
-    tipoProyecto: string | null
+    tipoProyecto: $Enums.TipoProyecto | null
     grupo: $Enums.Grupo
     seguimientoId: number
     comentario: string
@@ -1055,6 +2957,52 @@ export type $ProyectoPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    /**
+     * Bloqueos del cliente, separados a propósito: el material de marca frena el
+     * diseño, mientras que el catálogo solo frena la carga de productos.
+     */
+    materialMarcaRecibido: boolean
+    catalogoRecibido: boolean
+    /**
+     * Rondas de cambios de diseño ya consumidas. El plan incluye 1 presentación
+     * de avance + 2 rondas de cambios + la entrega final.
+     */
+    rondasCambiosUsadas: number
+    /**
+     * Contratación del hosting (nodo B11). Va al final del flujo a propósito:
+     * después del cobro de entrega y antes de subir a producción, para que el
+     * cliente aproveche al máximo el tiempo de su servicio. Bloquea producción
+     * y manda el proyecto al Grupo C mientras falte.
+     */
+    hostingContratado: boolean
+    /**
+     * Hitos de la Fase 1 que el diagrama no modela como estado pero sí como
+     * paso con responsable. `factibilidad` no bloquea (nodo F1): se registra
+     * solo para poder auditar que el desarrollador revisó antes de presentar.
+     */
+    factibilidadRevisadaAt: Date | null
+    disenoAprobadoAt: Date | null
+    /**
+     * Tramo final (nodos B4 a B14). Son sub-pasos dentro de `Desarrollo`: el
+     * diagrama no les asigna `estadoProyecto`, solo el nodo final B15 lo tiene.
+     * Por eso van como marcas de tiempo y no como valores nuevos del enum.
+     */
+    productosCargados: boolean
+    presentadoAt: Date | null
+    subidoProduccionAt: Date | null
+    capacitacionAt: Date | null
+    /**
+     * Momento del último cambio de etapa: de aquí sale el contador de los 3
+     * meses para archivar, que se reinicia en cada cambio de estado.
+     */
+    fechaUltimoCambioEstado: Date | null
+    archivadoAt: Date | null
+    /**
+     * Asignados en el registro del proyecto. No rotan, pero se pueden reasignar
+     * y el cambio queda en el historial.
+     */
+    disenadorId: number | null
+    desarrolladorId: number | null
   }, ExtArgs["result"]["proyecto"]>
   composites: {}
 }
@@ -1451,6 +3399,12 @@ export interface Prisma__ProyectoClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   seguimiento<T extends Prisma.SeguimientoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeguimientoDefaultArgs<ExtArgs>>): Prisma.Prisma__SeguimientoClient<runtime.Types.Result.GetResult<Prisma.$SeguimientoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   usuarios<T extends Prisma.Proyecto$usuariosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$usuariosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsuarioProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  disenador<T extends Prisma.Proyecto$disenadorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$disenadorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  desarrollador<T extends Prisma.Proyecto$desarrolladorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$desarrolladorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  cobros<T extends Prisma.Proyecto$cobrosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$cobrosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CobroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  historial<T extends Prisma.Proyecto$historialArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$historialArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HistorialEtapaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recordatorios<T extends Prisma.Proyecto$recordatoriosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$recordatoriosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecordatorioProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cotizaciones<T extends Prisma.Proyecto$cotizacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$cotizacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CotizacionAdicionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1486,7 +3440,7 @@ export interface ProyectoFieldRefs {
   readonly estadoProyecto: Prisma.FieldRef<"Proyecto", 'EstadoProyecto'>
   readonly descripcion: Prisma.FieldRef<"Proyecto", 'String'>
   readonly tecnologia: Prisma.FieldRef<"Proyecto", 'Tecnologia'>
-  readonly tipoProyecto: Prisma.FieldRef<"Proyecto", 'String'>
+  readonly tipoProyecto: Prisma.FieldRef<"Proyecto", 'TipoProyecto'>
   readonly grupo: Prisma.FieldRef<"Proyecto", 'Grupo'>
   readonly seguimientoId: Prisma.FieldRef<"Proyecto", 'Int'>
   readonly comentario: Prisma.FieldRef<"Proyecto", 'String'>
@@ -1495,6 +3449,20 @@ export interface ProyectoFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
+  readonly materialMarcaRecibido: Prisma.FieldRef<"Proyecto", 'Boolean'>
+  readonly catalogoRecibido: Prisma.FieldRef<"Proyecto", 'Boolean'>
+  readonly rondasCambiosUsadas: Prisma.FieldRef<"Proyecto", 'Int'>
+  readonly hostingContratado: Prisma.FieldRef<"Proyecto", 'Boolean'>
+  readonly factibilidadRevisadaAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
+  readonly disenoAprobadoAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
+  readonly productosCargados: Prisma.FieldRef<"Proyecto", 'Boolean'>
+  readonly presentadoAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
+  readonly subidoProduccionAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
+  readonly capacitacionAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
+  readonly fechaUltimoCambioEstado: Prisma.FieldRef<"Proyecto", 'DateTime'>
+  readonly archivadoAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
+  readonly disenadorId: Prisma.FieldRef<"Proyecto", 'Int'>
+  readonly desarrolladorId: Prisma.FieldRef<"Proyecto", 'Int'>
 }
     
 
@@ -1917,6 +3885,140 @@ export type Proyecto$usuariosArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.UsuarioProyectoScalarFieldEnum | Prisma.UsuarioProyectoScalarFieldEnum[]
+}
+
+/**
+ * Proyecto.disenador
+ */
+export type Proyecto$disenadorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * Proyecto.desarrollador
+ */
+export type Proyecto$desarrolladorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * Proyecto.cobros
+ */
+export type Proyecto$cobrosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Cobro
+   */
+  select?: Prisma.CobroSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Cobro
+   */
+  omit?: Prisma.CobroOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CobroInclude<ExtArgs> | null
+  where?: Prisma.CobroWhereInput
+  orderBy?: Prisma.CobroOrderByWithRelationInput | Prisma.CobroOrderByWithRelationInput[]
+  cursor?: Prisma.CobroWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CobroScalarFieldEnum | Prisma.CobroScalarFieldEnum[]
+}
+
+/**
+ * Proyecto.historial
+ */
+export type Proyecto$historialArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HistorialEtapa
+   */
+  select?: Prisma.HistorialEtapaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HistorialEtapa
+   */
+  omit?: Prisma.HistorialEtapaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HistorialEtapaInclude<ExtArgs> | null
+  where?: Prisma.HistorialEtapaWhereInput
+  orderBy?: Prisma.HistorialEtapaOrderByWithRelationInput | Prisma.HistorialEtapaOrderByWithRelationInput[]
+  cursor?: Prisma.HistorialEtapaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HistorialEtapaScalarFieldEnum | Prisma.HistorialEtapaScalarFieldEnum[]
+}
+
+/**
+ * Proyecto.recordatorios
+ */
+export type Proyecto$recordatoriosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecordatorioProyecto
+   */
+  select?: Prisma.RecordatorioProyectoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecordatorioProyecto
+   */
+  omit?: Prisma.RecordatorioProyectoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecordatorioProyectoInclude<ExtArgs> | null
+  where?: Prisma.RecordatorioProyectoWhereInput
+  orderBy?: Prisma.RecordatorioProyectoOrderByWithRelationInput | Prisma.RecordatorioProyectoOrderByWithRelationInput[]
+  cursor?: Prisma.RecordatorioProyectoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecordatorioProyectoScalarFieldEnum | Prisma.RecordatorioProyectoScalarFieldEnum[]
+}
+
+/**
+ * Proyecto.cotizaciones
+ */
+export type Proyecto$cotizacionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CotizacionAdicional
+   */
+  select?: Prisma.CotizacionAdicionalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CotizacionAdicional
+   */
+  omit?: Prisma.CotizacionAdicionalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CotizacionAdicionalInclude<ExtArgs> | null
+  where?: Prisma.CotizacionAdicionalWhereInput
+  orderBy?: Prisma.CotizacionAdicionalOrderByWithRelationInput | Prisma.CotizacionAdicionalOrderByWithRelationInput[]
+  cursor?: Prisma.CotizacionAdicionalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CotizacionAdicionalScalarFieldEnum | Prisma.CotizacionAdicionalScalarFieldEnum[]
 }
 
 /**

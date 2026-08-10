@@ -14,11 +14,39 @@ datasource db {
 }
 
 enum EstadoProyecto {
+  Registro
   Brief
   Taxonomia
   Diseno             @map("Diseño")
   Desarrollo
   ProyectoFinalizado @map("Proyecto Finalizado")
+  Archivado
+}
+
+/// Los tres momentos de cobro del flujo. Son fijos; lo variable es el
+/// porcentaje de cada uno, que administración carga a mano por proyecto.
+enum HitoCobro {
+  AbonoInicial
+  AprobacionDiseno
+  Entrega
+}
+
+/// Decide dos bifurcaciones del flujo: la web informativa saltea la taxonomía,
+/// y el catálogo y la carga de productos son solo de e-commerce.
+/// Los `@map` respetan los valores que ya había en la columna de texto.
+enum TipoProyecto {
+  Informativa
+  Ecommerce   @map("E-commerce")
+}
+
+/// Los cinco recordatorios del diagrama. Todos desembocan en archivado a los
+/// 3 meses (el conector «AR»).
+enum TipoRecordatorio {
+  MaterialMarca
+  Catalogo
+  CobroAprobacionDiseno
+  CobroEntrega
+  Hosting
 }
 
 enum Tecnologia {
@@ -52,13 +80,25 @@ model User {
   rol       Rol               @relation(fields: [roleId], references: [id])
   proyectos UsuarioProyecto[]
 
+  proyectosDisenados     Proyecto[]             @relation("ProyectosDisenados")
+  proyectosDesarrollados Proyecto[]             @relation("ProyectosDesarrollados")
+  cambiosDeEtapa         HistorialEtapa[]
+  recordatorios          RecordatorioProyecto[]
+  cotizaciones           CotizacionAdicional[]
+
   @@index([roleId])
   @@map("users")
 }
 
 model Seguimiento {
-  id        Int        @id @default(autoincrement())
-  name      String
+  id   Int    @id @default(autoincrement())
+  name String
+
+  /// Código estable del seguimiento, para automatizaciones que no pueden
+  /// depender de `name` (editable) ni del id (tiene huecos por borrados).
+  /// La columna ya existía en la base; todavía no hay código que la use.
+  codigo String? @unique
+
   proyectos Proyecto[]
 
   @@map("seguimientos")
@@ -71,7 +111,7 @@ model Proyecto {
   estadoProyecto   EstadoProyecto @default(Brief) @map("estado_proyecto")
   descripcion      String         @db.Text
   tecnologia       Tecnologia?
-  tipoProyecto     String?        @map("tipo_proyecto")
+  tipoProyecto     TipoProyecto?  @map("tipo_proyecto")
   grupo            Grupo
   seguimientoId    Int            @map("seguimiento_id")
   comentario       String         @db.Text
@@ -81,11 +121,146 @@ model Proyecto {
   updatedAt        DateTime       @updatedAt @map("updated_at")
   deletedAt        DateTime?      @map("deleted_at")
 
-  seguimiento Seguimiento       @relation(fields: [seguimientoId], references: [id])
-  usuarios    UsuarioProyecto[]
+  /// Bloqueos del cliente, separados a propósito: el material de marca frena el
+  /// diseño, mientras que el catálogo solo frena la carga de productos.
+  materialMarcaRecibido Boolean @default(false) @map("material_marca_recibido")
+  catalogoRecibido      Boolean @default(false) @map("catalogo_recibido")
+
+  /// Rondas de cambios de diseño ya consumidas. El plan incluye 1 presentación
+  /// de avance + 2 rondas de cambios + la entrega final.
+  rondasCambiosUsadas Int @default(0) @map("rondas_cambios_usadas")
+
+  /// Contratación del hosting (nodo B11). Va al final del flujo a propósito:
+  /// después del cobro de entrega y antes de subir a producción, para que el
+  /// cliente aproveche al máximo el tiempo de su servicio. Bloquea producción
+  /// y manda el proyecto al Grupo C mientras falte.
+  hostingContratado Boolean @default(false) @map("hosting_contratado")
+
+  /// Hitos de la Fase 1 que el diagrama no modela como estado pero sí como
+  /// paso con responsable. `factibilidad` no bloquea (nodo F1): se registra
+  /// solo para poder auditar que el desarrollador revisó antes de presentar.
+  factibilidadRevisadaAt DateTime? @map("factibilidad_revisada_at")
+  disenoAprobadoAt       DateTime? @map("diseno_aprobado_at")
+
+  /// Tramo final (nodos B4 a B14). Son sub-pasos dentro de `Desarrollo`: el
+  /// diagrama no les asigna `estadoProyecto`, solo el nodo final B15 lo tiene.
+  /// Por eso van como marcas de tiempo y no como valores nuevos del enum.
+  productosCargados  Boolean   @default(false) @map("productos_cargados")
+  presentadoAt       DateTime? @map("presentado_at")
+  subidoProduccionAt DateTime? @map("subido_produccion_at")
+  capacitacionAt     DateTime? @map("capacitacion_at")
+
+  /// Momento del último cambio de etapa: de aquí sale el contador de los 3
+  /// meses para archivar, que se reinicia en cada cambio de estado.
+  fechaUltimoCambioEstado DateTime? @map("fecha_ultimo_cambio_estado")
+  archivadoAt             DateTime? @map("archivado_at")
+
+  /// Asignados en el registro del proyecto. No rotan, pero se pueden reasignar
+  /// y el cambio queda en el historial.
+  disenadorId     Int? @map("disenador_id")
+  desarrolladorId Int? @map("desarrollador_id")
+
+  seguimiento   Seguimiento            @relation(fields: [seguimientoId], references: [id])
+  usuarios      UsuarioProyecto[]
+  disenador     User?                  @relation("ProyectosDisenados", fields: [disenadorId], references: [id])
+  desarrollador User?                  @relation("ProyectosDesarrollados", fields: [desarrolladorId], references: [id])
+  cobros        Cobro[]
+  historial     HistorialEtapa[]
+  recordatorios RecordatorioProyecto[]
+  cotizaciones  CotizacionAdicional[]
 
   @@index([seguimientoId])
+  @@index([disenadorId])
+  @@index([desarrolladorId])
   @@map("proyectos")
+}
+
+/// Un registro por hito de cobro. Los porcentajes los carga administración a
+/// mano; el sistema no maneja montos en dinero, solo el % y si está cobrado.
+model Cobro {
+  id         Int       @id @default(autoincrement())
+  proyectoId Int       @map("proyecto_id")
+  hito       HitoCobro
+  porcentaje Int
+  cobrado    Boolean   @default(false)
+  fechaCobro DateTime? @map("fecha_cobro")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  proyecto Proyecto @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+
+  @@unique([proyectoId, hito])
+  @@index([proyectoId])
+  @@map("cobros")
+}
+
+/// Trazabilidad: una fila por cambio de etapa o de grupo, con quién lo movió y
+/// cuándo. Es la base de los KPIs (cuánto dura cada etapa, cuántos días estuvo
+/// el proyecto esperando al cliente).
+model HistorialEtapa {
+  id             Int             @id @default(autoincrement())
+  proyectoId     Int             @map("proyecto_id")
+  estadoAnterior EstadoProyecto? @map("estado_anterior")
+  estadoNuevo    EstadoProyecto  @map("estado_nuevo")
+  grupoAnterior  Grupo?          @map("grupo_anterior")
+  grupoNuevo     Grupo           @map("grupo_nuevo")
+  motivo         String?         @db.Text
+  usuarioId      Int?            @map("usuario_id")
+  createdAt      DateTime        @default(now()) @map("created_at")
+
+  proyecto Proyecto @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+  usuario  User?    @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+
+  @@index([proyectoId])
+  @@index([usuarioId])
+  @@map("historial_etapas")
+}
+
+/// Los cinco recordatorios del diagrama, ligados al proyecto que los generó.
+/// Distinta de `recordatorios`, que es una lista de notas sueltas sin relación.
+///
+/// Un recordatorio abierto es lo que define «el proyecto está esperando al
+/// cliente»: de ahí salen los días sin responder y el contador de archivado.
+/// Solo puede haber uno abierto por tipo y proyecto a la vez.
+model RecordatorioProyecto {
+  id         Int              @id @default(autoincrement())
+  proyectoId Int              @map("proyecto_id")
+  tipo       TipoRecordatorio
+  /// Nulo mientras el bloqueo siga vigente; se completa cuando el cliente responde.
+  resueltoAt DateTime?        @map("resuelto_at")
+  usuarioId  Int?             @map("usuario_id")
+  createdAt  DateTime         @default(now()) @map("created_at")
+  updatedAt  DateTime         @updatedAt @map("updated_at")
+
+  proyecto Proyecto @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+  usuario  User?    @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+
+  @@index([proyectoId])
+  @@index([usuarioId])
+  @@index([resueltoAt])
+  @@map("recordatorios_proyecto")
+}
+
+/// Cotizaciones fuera del precio cerrado: rondas de diseño agotadas (A10c) y
+/// observaciones fuera del alcance aprobado (B8). Van aparte del plan de
+/// cobros, que son siempre los tres hitos fijos.
+model CotizacionAdicional {
+  id         Int      @id @default(autoincrement())
+  proyectoId Int      @map("proyecto_id")
+  motivo     String   @db.Text
+  /// El sistema no maneja montos: solo si la cotización se aprobó y se cobró.
+  aprobada   Boolean  @default(false)
+  cobrada    Boolean  @default(false)
+  usuarioId  Int?     @map("usuario_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  proyecto Proyecto @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+  usuario  User?    @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+
+  @@index([proyectoId])
+  @@index([usuarioId])
+  @@map("cotizaciones_adicionales")
 }
 
 model UsuarioProyecto {

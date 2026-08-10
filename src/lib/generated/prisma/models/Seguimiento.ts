@@ -36,16 +36,19 @@ export type SeguimientoSumAggregateOutputType = {
 export type SeguimientoMinAggregateOutputType = {
   id: number | null
   name: string | null
+  codigo: string | null
 }
 
 export type SeguimientoMaxAggregateOutputType = {
   id: number | null
   name: string | null
+  codigo: string | null
 }
 
 export type SeguimientoCountAggregateOutputType = {
   id: number
   name: number
+  codigo: number
   _all: number
 }
 
@@ -61,16 +64,19 @@ export type SeguimientoSumAggregateInputType = {
 export type SeguimientoMinAggregateInputType = {
   id?: true
   name?: true
+  codigo?: true
 }
 
 export type SeguimientoMaxAggregateInputType = {
   id?: true
   name?: true
+  codigo?: true
 }
 
 export type SeguimientoCountAggregateInputType = {
   id?: true
   name?: true
+  codigo?: true
   _all?: true
 }
 
@@ -163,6 +169,7 @@ export type SeguimientoGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type SeguimientoGroupByOutputType = {
   id: number
   name: string
+  codigo: string | null
   _count: SeguimientoCountAggregateOutputType | null
   _avg: SeguimientoAvgAggregateOutputType | null
   _sum: SeguimientoSumAggregateOutputType | null
@@ -191,27 +198,31 @@ export type SeguimientoWhereInput = {
   NOT?: Prisma.SeguimientoWhereInput | Prisma.SeguimientoWhereInput[]
   id?: Prisma.IntFilter<"Seguimiento"> | number
   name?: Prisma.StringFilter<"Seguimiento"> | string
+  codigo?: Prisma.StringNullableFilter<"Seguimiento"> | string | null
   proyectos?: Prisma.ProyectoListRelationFilter
 }
 
 export type SeguimientoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  codigo?: Prisma.SortOrderInput | Prisma.SortOrder
   proyectos?: Prisma.ProyectoOrderByRelationAggregateInput
 }
 
 export type SeguimientoWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  codigo?: string
   AND?: Prisma.SeguimientoWhereInput | Prisma.SeguimientoWhereInput[]
   OR?: Prisma.SeguimientoWhereInput[]
   NOT?: Prisma.SeguimientoWhereInput | Prisma.SeguimientoWhereInput[]
   name?: Prisma.StringFilter<"Seguimiento"> | string
   proyectos?: Prisma.ProyectoListRelationFilter
-}, "id">
+}, "id" | "codigo">
 
 export type SeguimientoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  codigo?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.SeguimientoCountOrderByAggregateInput
   _avg?: Prisma.SeguimientoAvgOrderByAggregateInput
   _max?: Prisma.SeguimientoMaxOrderByAggregateInput
@@ -225,47 +236,56 @@ export type SeguimientoScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SeguimientoScalarWhereWithAggregatesInput | Prisma.SeguimientoScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Seguimiento"> | number
   name?: Prisma.StringWithAggregatesFilter<"Seguimiento"> | string
+  codigo?: Prisma.StringNullableWithAggregatesFilter<"Seguimiento"> | string | null
 }
 
 export type SeguimientoCreateInput = {
   name: string
+  codigo?: string | null
   proyectos?: Prisma.ProyectoCreateNestedManyWithoutSeguimientoInput
 }
 
 export type SeguimientoUncheckedCreateInput = {
   id?: number
   name: string
+  codigo?: string | null
   proyectos?: Prisma.ProyectoUncheckedCreateNestedManyWithoutSeguimientoInput
 }
 
 export type SeguimientoUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.ProyectoUpdateManyWithoutSeguimientoNestedInput
 }
 
 export type SeguimientoUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.ProyectoUncheckedUpdateManyWithoutSeguimientoNestedInput
 }
 
 export type SeguimientoCreateManyInput = {
   id?: number
   name: string
+  codigo?: string | null
 }
 
 export type SeguimientoUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SeguimientoUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SeguimientoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  codigo?: Prisma.SortOrder
 }
 
 export type SeguimientoAvgOrderByAggregateInput = {
@@ -275,11 +295,13 @@ export type SeguimientoAvgOrderByAggregateInput = {
 export type SeguimientoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  codigo?: Prisma.SortOrder
 }
 
 export type SeguimientoMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  codigo?: Prisma.SortOrder
 }
 
 export type SeguimientoSumOrderByAggregateInput = {
@@ -289,6 +311,10 @@ export type SeguimientoSumOrderByAggregateInput = {
 export type SeguimientoScalarRelationFilter = {
   is?: Prisma.SeguimientoWhereInput
   isNot?: Prisma.SeguimientoWhereInput
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type SeguimientoCreateNestedOneWithoutProyectosInput = {
@@ -307,11 +333,13 @@ export type SeguimientoUpdateOneRequiredWithoutProyectosNestedInput = {
 
 export type SeguimientoCreateWithoutProyectosInput = {
   name: string
+  codigo?: string | null
 }
 
 export type SeguimientoUncheckedCreateWithoutProyectosInput = {
   id?: number
   name: string
+  codigo?: string | null
 }
 
 export type SeguimientoCreateOrConnectWithoutProyectosInput = {
@@ -332,11 +360,13 @@ export type SeguimientoUpdateToOneWithWhereWithoutProyectosInput = {
 
 export type SeguimientoUpdateWithoutProyectosInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SeguimientoUncheckedUpdateWithoutProyectosInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -373,6 +403,7 @@ export type SeguimientoCountOutputTypeCountProyectosArgs<ExtArgs extends runtime
 export type SeguimientoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  codigo?: boolean
   proyectos?: boolean | Prisma.Seguimiento$proyectosArgs<ExtArgs>
   _count?: boolean | Prisma.SeguimientoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["seguimiento"]>
@@ -380,19 +411,22 @@ export type SeguimientoSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 export type SeguimientoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  codigo?: boolean
 }, ExtArgs["result"]["seguimiento"]>
 
 export type SeguimientoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  codigo?: boolean
 }, ExtArgs["result"]["seguimiento"]>
 
 export type SeguimientoSelectScalar = {
   id?: boolean
   name?: boolean
+  codigo?: boolean
 }
 
-export type SeguimientoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["seguimiento"]>
+export type SeguimientoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "codigo", ExtArgs["result"]["seguimiento"]>
 export type SeguimientoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyectos?: boolean | Prisma.Seguimiento$proyectosArgs<ExtArgs>
   _count?: boolean | Prisma.SeguimientoCountOutputTypeDefaultArgs<ExtArgs>
@@ -408,6 +442,12 @@ export type $SeguimientoPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
+    /**
+     * Código estable del seguimiento, para automatizaciones que no pueden
+     * depender de `name` (editable) ni del id (tiene huecos por borrados).
+     * La columna ya existía en la base; todavía no hay código que la use.
+     */
+    codigo: string | null
   }, ExtArgs["result"]["seguimiento"]>
   composites: {}
 }
@@ -834,6 +874,7 @@ export interface Prisma__SeguimientoClient<T, Null = never, ExtArgs extends runt
 export interface SeguimientoFieldRefs {
   readonly id: Prisma.FieldRef<"Seguimiento", 'Int'>
   readonly name: Prisma.FieldRef<"Seguimiento", 'String'>
+  readonly codigo: Prisma.FieldRef<"Seguimiento", 'String'>
 }
     
 

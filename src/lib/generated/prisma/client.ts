@@ -59,6 +59,36 @@ export type Seguimiento = Prisma.SeguimientoModel
  */
 export type Proyecto = Prisma.ProyectoModel
 /**
+ * Model Cobro
+ * Un registro por hito de cobro. Los porcentajes los carga administración a
+ * mano; el sistema no maneja montos en dinero, solo el % y si está cobrado.
+ */
+export type Cobro = Prisma.CobroModel
+/**
+ * Model HistorialEtapa
+ * Trazabilidad: una fila por cambio de etapa o de grupo, con quién lo movió y
+ * cuándo. Es la base de los KPIs (cuánto dura cada etapa, cuántos días estuvo
+ * el proyecto esperando al cliente).
+ */
+export type HistorialEtapa = Prisma.HistorialEtapaModel
+/**
+ * Model RecordatorioProyecto
+ * Los cinco recordatorios del diagrama, ligados al proyecto que los generó.
+ * Distinta de `recordatorios`, que es una lista de notas sueltas sin relación.
+ * 
+ * Un recordatorio abierto es lo que define «el proyecto está esperando al
+ * cliente»: de ahí salen los días sin responder y el contador de archivado.
+ * Solo puede haber uno abierto por tipo y proyecto a la vez.
+ */
+export type RecordatorioProyecto = Prisma.RecordatorioProyectoModel
+/**
+ * Model CotizacionAdicional
+ * Cotizaciones fuera del precio cerrado: rondas de diseño agotadas (A10c) y
+ * observaciones fuera del alcance aprobado (B8). Van aparte del plan de
+ * cobros, que son siempre los tres hitos fijos.
+ */
+export type CotizacionAdicional = Prisma.CotizacionAdicionalModel
+/**
  * Model UsuarioProyecto
  * 
  */

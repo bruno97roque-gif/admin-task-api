@@ -54,6 +54,10 @@ export const ModelName = {
   User: 'User',
   Seguimiento: 'Seguimiento',
   Proyecto: 'Proyecto',
+  Cobro: 'Cobro',
+  HistorialEtapa: 'HistorialEtapa',
+  RecordatorioProyecto: 'RecordatorioProyecto',
+  CotizacionAdicional: 'CotizacionAdicional',
   UsuarioProyecto: 'UsuarioProyecto',
   Recordatorio: 'Recordatorio'
 } as const
@@ -96,7 +100,8 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const SeguimientoScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  codigo: 'codigo'
 } as const
 
 export type SeguimientoScalarFieldEnum = (typeof SeguimientoScalarFieldEnum)[keyof typeof SeguimientoScalarFieldEnum]
@@ -117,10 +122,80 @@ export const ProyectoScalarFieldEnum = {
   fechaEntrega: 'fechaEntrega',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  materialMarcaRecibido: 'materialMarcaRecibido',
+  catalogoRecibido: 'catalogoRecibido',
+  rondasCambiosUsadas: 'rondasCambiosUsadas',
+  hostingContratado: 'hostingContratado',
+  factibilidadRevisadaAt: 'factibilidadRevisadaAt',
+  disenoAprobadoAt: 'disenoAprobadoAt',
+  productosCargados: 'productosCargados',
+  presentadoAt: 'presentadoAt',
+  subidoProduccionAt: 'subidoProduccionAt',
+  capacitacionAt: 'capacitacionAt',
+  fechaUltimoCambioEstado: 'fechaUltimoCambioEstado',
+  archivadoAt: 'archivadoAt',
+  disenadorId: 'disenadorId',
+  desarrolladorId: 'desarrolladorId'
 } as const
 
 export type ProyectoScalarFieldEnum = (typeof ProyectoScalarFieldEnum)[keyof typeof ProyectoScalarFieldEnum]
+
+
+export const CobroScalarFieldEnum = {
+  id: 'id',
+  proyectoId: 'proyectoId',
+  hito: 'hito',
+  porcentaje: 'porcentaje',
+  cobrado: 'cobrado',
+  fechaCobro: 'fechaCobro',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CobroScalarFieldEnum = (typeof CobroScalarFieldEnum)[keyof typeof CobroScalarFieldEnum]
+
+
+export const HistorialEtapaScalarFieldEnum = {
+  id: 'id',
+  proyectoId: 'proyectoId',
+  estadoAnterior: 'estadoAnterior',
+  estadoNuevo: 'estadoNuevo',
+  grupoAnterior: 'grupoAnterior',
+  grupoNuevo: 'grupoNuevo',
+  motivo: 'motivo',
+  usuarioId: 'usuarioId',
+  createdAt: 'createdAt'
+} as const
+
+export type HistorialEtapaScalarFieldEnum = (typeof HistorialEtapaScalarFieldEnum)[keyof typeof HistorialEtapaScalarFieldEnum]
+
+
+export const RecordatorioProyectoScalarFieldEnum = {
+  id: 'id',
+  proyectoId: 'proyectoId',
+  tipo: 'tipo',
+  resueltoAt: 'resueltoAt',
+  usuarioId: 'usuarioId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecordatorioProyectoScalarFieldEnum = (typeof RecordatorioProyectoScalarFieldEnum)[keyof typeof RecordatorioProyectoScalarFieldEnum]
+
+
+export const CotizacionAdicionalScalarFieldEnum = {
+  id: 'id',
+  proyectoId: 'proyectoId',
+  motivo: 'motivo',
+  aprobada: 'aprobada',
+  cobrada: 'cobrada',
+  usuarioId: 'usuarioId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CotizacionAdicionalScalarFieldEnum = (typeof CotizacionAdicionalScalarFieldEnum)[keyof typeof CotizacionAdicionalScalarFieldEnum]
 
 
 export const UsuarioProyectoScalarFieldEnum = {

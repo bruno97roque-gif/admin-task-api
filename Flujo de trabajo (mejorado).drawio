@@ -1,0 +1,597 @@
+<mxfile host="Electron">
+  <diagram name="Flujo de trabajo" id="flujo-websy-v4">
+    <mxGraphModel dx="1088" dy="649" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1760" pageHeight="2620" background="#12161C" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="faseA" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A1F27;strokeColor=#39424E;fontColor=#7D8FA6;dashed=1;dashPattern=8 8;verticalAlign=top;fontSize=18;fontStyle=1;spacingTop=10;arcSize=3;" value="FASE 1 · Registro, Brief, Información y Diseño" vertex="1">
+          <mxGeometry height="1500" width="760" x="40" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="faseB" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A1F27;strokeColor=#39424E;fontColor=#7D8FA6;dashed=1;dashPattern=8 8;verticalAlign=top;fontSize=18;fontStyle=1;spacingTop=10;arcSize=3;" value="FASE 2 · Desarrollo, Cobros y Entrega" vertex="1">
+          <mxGeometry height="1690" width="880" x="830" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="notaTraza" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#2A3550;strokeColor=#5B9BD5;fontColor=#DCE6F5;size=16;align=left;verticalAlign=top;spacing=8;fontSize=11;" value="&lt;b&gt;Trazabilidad de etapas&lt;/b&gt;&lt;br&gt;&lt;br&gt;Cada vez que el proyecto cambia de etapa o se traba se registra &lt;b&gt;fecha, hora y quién lo movió&lt;/b&gt;.&lt;br&gt;&lt;br&gt;Con la sola fecha de terminado se sabe cuántas webs salen al mes y nada más. Con la marca en cada paso se mide cuánto dura cada etapa y cuántos días estuvo el proyecto esperando al cliente.&lt;br&gt;&lt;br&gt;El historial también guarda los &lt;b&gt;cambios de diseñador o desarrollador&lt;/b&gt;." vertex="1">
+          <mxGeometry height="255" width="215" x="65" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="notaCobros" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#3B3316;strokeColor=#D6B656;fontColor=#F2E7C6;size=16;align=left;verticalAlign=top;spacing=8;fontSize=11;" value="&lt;b&gt;Plan de cobros del proyecto&lt;/b&gt;&lt;br&gt;&lt;br&gt;Lo fijo son los &lt;b&gt;tres momentos de cobro&lt;/b&gt;, no los montos:&lt;br&gt;1. &lt;b&gt;Abono inicial&lt;/b&gt; — antes de arrancar el proyecto.&lt;br&gt;2. &lt;b&gt;Aprobación de diseño&lt;/b&gt; — al aprobar el diseño, antes de pasar a desarrollo.&lt;br&gt;3. &lt;b&gt;Entrega&lt;/b&gt; — al terminar el desarrollo, antes de subir a producción.&lt;br&gt;&lt;br&gt;&lt;b&gt;Reglas de negocio:&lt;/b&gt;&lt;br&gt;• Los porcentajes deben sumar &lt;b&gt;exactamente 100&lt;/b&gt;. Si no, quedan proyectos que nunca terminan de estar cobrados.&lt;br&gt;• El abono inicial &lt;b&gt;nunca baja del 30%&lt;/b&gt;. Es el piso: por debajo requiere aprobación de la jefatura del área, no es campo libre.&lt;br&gt;&lt;br&gt;Lo típico es 50 / 30 / 20, pero hay proyectos que arrancan con 40% o 30% y el resto se reparte distinto: por eso el diagrama no lleva porcentajes.&lt;br&gt;&lt;br&gt;Los porcentajes los carga &lt;b&gt;administración a mano&lt;/b&gt; en cada proyecto." vertex="1">
+          <mxGeometry height="370" width="240" x="550" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="A1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1D3A24;strokeColor=#7BC47F;fontColor=#DFF3E1;fontSize=14;fontStyle=1;" value="Inicio&lt;br&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;Nuevo proyecto vendido&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="180" x="330" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="A0" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="Registro del proyecto&lt;br&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;se asigna diseñador y desarrollador (no rotan; se pueden reasignar y queda en el historial)&lt;br&gt;se define el plan de cobros y se registra el abono inicial&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;estadoProyecto: Registro · carga manual&lt;/span&gt;" vertex="1">
+          <mxGeometry height="110" width="250" x="295" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="Brief inicial con el cliente&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;estadoProyecto: Brief · responsable: administración&lt;/span&gt;" vertex="1">
+          <mxGeometry height="64" width="230" x="305" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="A3" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=13;" value="¿Tipo de proyecto?" vertex="1">
+          <mxGeometry height="100" width="220" x="310" y="425" as="geometry" />
+        </mxCell>
+        <mxCell id="A4a" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="Web informativa&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;WordPress / Personalizado&lt;/span&gt;" vertex="1">
+          <mxGeometry height="64" width="170" x="100" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="A4b" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="E-commerce&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;Shopify / WordPress&lt;/span&gt;" vertex="1">
+          <mxGeometry height="64" width="170" x="560" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="A5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="Definir taxonomía&lt;br&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;categorías, productos, variantes&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;estadoProyecto: Taxonomía · responsable: administración&lt;/span&gt;" vertex="1">
+          <mxGeometry height="80" width="200" x="545" y="665" as="geometry" />
+        </mxCell>
+        <mxCell id="A6" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=13;" value="¿El cliente entregó el material de marca?&lt;br&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;logo, fotos de banners y de secciones&lt;/span&gt;" vertex="1">
+          <mxGeometry height="130" width="230" x="305" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="A7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;" value="Recordatorio de material de marca&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #F0B4B4;&quot;&gt;pasa a Grupo B · vuelve a administración&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="180" x="70" y="833" as="geometry" />
+        </mxCell>
+        <mxCell id="XA1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;fontStyle=1;" value="AR" vertex="1">
+          <mxGeometry height="44" width="44" x="138" y="940" as="geometry" />
+        </mxCell>
+        <mxCell id="A8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="Diseño (UI / UX)&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;estadoProyecto: Diseño · responsable: diseñador asignado&lt;/span&gt;" vertex="1">
+          <mxGeometry height="64" width="230" x="305" y="1000" as="geometry" />
+        </mxCell>
+        <mxCell id="F1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=13;" value="Revisión de factibilidad&lt;br&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;el desarrollador asignado revisa el diseño antes de presentarlo al cliente&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="230" x="305" y="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="notaFact" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=10;fontColor=#93A7C0;" value="&lt;b&gt;No bloquea:&lt;/b&gt; no hace falta la confirmación del desarrollador para presentar. La única aprobación que frena el flujo es la del cliente." vertex="1">
+          <mxGeometry height="60" width="190" x="560" y="1105" as="geometry" />
+        </mxCell>
+        <mxCell id="A9" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=13;" value="¿Aprobó el diseño?" vertex="1">
+          <mxGeometry height="110" width="220" x="310" y="1210" as="geometry" />
+        </mxCell>
+        <mxCell id="A9b" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=12;" value="¿Quedan rondas de cambios incluidas?&lt;br&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;incluidas: 1 avance + 2 rondas de cambios + entrega final&lt;/span&gt;" vertex="1">
+          <mxGeometry height="130" width="200" x="70" y="1200" as="geometry" />
+        </mxCell>
+        <mxCell id="A10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;" value="Aplicar los cambios solicitados" vertex="1">
+          <mxGeometry height="64" width="190" x="75" y="1380" as="geometry" />
+        </mxCell>
+        <mxCell id="A10c" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=13;" value="Cotización adicional&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;cambios fuera de las rondas incluidas&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="230" x="305" y="1450" as="geometry" />
+        </mxCell>
+        <mxCell id="notaRondas" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=10;fontColor=#93A7C0;" value="Si el cliente no aprueba el diseño ni paga la cotización, &lt;b&gt;el sistema deja el proyecto como está&lt;/b&gt;: no fuerza ninguna salida y el caso se maneja internamente." vertex="1">
+          <mxGeometry height="70" width="215" x="550" y="1450" as="geometry" />
+        </mxCell>
+        <mxCell id="A11" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#392C4C;strokeColor=#B18BD9;fontColor=#EDDFF9;fontSize=18;" value="&lt;b&gt;A&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="50" x="640" y="1240" as="geometry" />
+        </mxCell>
+        <mxCell id="eA10" edge="1" parent="1" source="A1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA02" edge="1" parent="1" source="A0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA23" edge="1" parent="1" source="A2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA3a" edge="1" parent="1" source="A3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A4a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA3aL" connectable="0" parent="eA3a" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#DCE4EF;labelBackgroundColor=#1A1F27;" value="Informativa" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA3b" edge="1" parent="1" source="A3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A4b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA3bL" connectable="0" parent="eA3b" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#DCE4EF;labelBackgroundColor=#1A1F27;" value="E-commerce" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint y="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA4b5" edge="1" parent="1" source="A4b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA4a6" edge="1" parent="1" source="A4a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="185" y="770" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA56" edge="1" parent="1" source="A5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="645" y="770" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA67" edge="1" parent="1" source="A6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="A7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA67L" connectable="0" parent="eA67" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="No" vertex="1">
+          <mxGeometry relative="1" x="-0.1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA76" edge="1" parent="1" source="A7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="770" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA76L" connectable="0" parent="eA76" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="Reintentar cuando responda" vertex="1">
+          <mxGeometry relative="1" x="-0.15" as="geometry">
+            <mxPoint x="10" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA7X" edge="1" parent="1" source="A7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="XA1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA7XL" connectable="0" parent="eA7X" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="3 meses sin respuesta" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA68" edge="1" parent="1" source="A6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA68L" connectable="0" parent="eA68" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#8FD694;labelBackgroundColor=#1A1F27;" value="Sí" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA8F1" edge="1" parent="1" source="A8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="F1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eF1A9" edge="1" parent="1" source="F1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eF1A9L" connectable="0" parent="eF1A9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#DCE4EF;labelBackgroundColor=#1A1F27;" value="presentación del diseño al cliente" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="110" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA9A9b" edge="1" parent="1" source="A9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="A9b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA9A9bL" connectable="0" parent="eA9A9b" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="No" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA9bA10" edge="1" parent="1" source="A9b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA9bA10L" connectable="0" parent="eA9bA10" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fontColor=#8FD694;labelBackgroundColor=#1A1F27;" value="Sí · quedan rondas" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA10A8" edge="1" parent="1" source="A10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="A8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="55" y="1412" />
+              <mxPoint x="55" y="1032" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA10A8L" connectable="0" parent="eA10A8" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="Volver a presentar" vertex="1">
+          <mxGeometry relative="1" x="0.55" as="geometry">
+            <mxPoint x="62" y="-6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA9bA10c" edge="1" parent="1" source="A9b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="A10c">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="288" y="1265" />
+              <mxPoint x="288" y="1485" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA9bA10cL" connectable="0" parent="eA9bA10c" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="No · rondas agotadas" vertex="1">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <mxPoint x="76" y="-14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA10cA10" edge="1" parent="1" source="A10c" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="A10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="1485" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA10cA10L" connectable="0" parent="eA10cA10" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#AEBACA;labelBackgroundColor=#1A1F27;" value="una vez aprobada y cobrada" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="4" y="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA9A11" edge="1" parent="1" source="A9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="A11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eA9A11L" connectable="0" parent="eA9A11" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fontColor=#8FD694;labelBackgroundColor=#1A1F27;" value=" " vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-4" y="-26" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B0" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#392C4C;strokeColor=#B18BD9;fontColor=#EDDFF9;fontSize=18;" value="&lt;b&gt;A&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="50" x="1360" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="B1" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=13;" value="¿Está cobrado el hito de aprobación de diseño?" vertex="1">
+          <mxGeometry height="120" width="230" x="1270" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="B2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;" value="Recordatorio de pago&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #F0B4B4;&quot;&gt;pasa a Grupo C · vuelve a administración&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="1540" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="XB1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;fontStyle=1;" value="AR" vertex="1">
+          <mxGeometry height="44" width="44" x="1593" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="B3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="Desarrollo&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;estadoProyecto: Desarrollo · responsable: desarrollador asignado&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="230" x="1270" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="C1" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=13;" value="¿El cliente entregó el catálogo de productos?&lt;br&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;plantilla llena y fotos de producto&lt;/span&gt;" vertex="1">
+          <mxGeometry height="130" width="200" x="1035" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="C2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;" value="Recordatorio de catálogo&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #F0B4B4;&quot;&gt;el proyecto sigue en Grupo A: el desarrollo no se detiene&lt;/span&gt;" vertex="1">
+          <mxGeometry height="80" width="155" x="848" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="XC1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;fontStyle=1;" value="AR" vertex="1">
+          <mxGeometry height="44" width="44" x="903" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="C3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="Carga de productos&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;responsable: desarrollador asignado&lt;/span&gt;" vertex="1">
+          <mxGeometry height="64" width="200" x="1035" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="B4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="Presentación de la web al cliente" vertex="1">
+          <mxGeometry height="64" width="230" x="1270" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="B5" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=13;" value="¿El cliente tiene observaciones?" vertex="1">
+          <mxGeometry height="110" width="230" x="1270" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="B6" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=13;" value="¿Están dentro del alcance aprobado?" vertex="1">
+          <mxGeometry height="120" width="200" x="1035" y="895" as="geometry" />
+        </mxCell>
+        <mxCell id="B7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;" value="Aplicar las correcciones" vertex="1">
+          <mxGeometry height="64" width="155" x="848" y="923" as="geometry" />
+        </mxCell>
+        <mxCell id="B8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=13;" value="Cotización adicional&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;nuevo alcance, se cotiza aparte&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="200" x="1035" y="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="B9" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=13;" value="¿Está cobrado el hito de entrega?" vertex="1">
+          <mxGeometry height="120" width="230" x="1270" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="B10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;" value="Recordatorio de pago&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #F0B4B4;&quot;&gt;pasa a Grupo C · vuelve a administración&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="1540" y="1115" as="geometry" />
+        </mxCell>
+        <mxCell id="XB2" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;fontStyle=1;" value="AR" vertex="1">
+          <mxGeometry height="44" width="44" x="1593" y="1210" as="geometry" />
+        </mxCell>
+        <mxCell id="B11" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=13;" value="¿Contrató el hosting?" vertex="1">
+          <mxGeometry height="110" width="230" x="1270" y="1290" as="geometry" />
+        </mxCell>
+        <mxCell id="B12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;" value="Recordatorio de hosting&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #F0B4B4;&quot;&gt;pasa a Grupo C&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="1540" y="1315" as="geometry" />
+        </mxCell>
+        <mxCell id="XB3" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;fontStyle=1;" value="AR" vertex="1">
+          <mxGeometry height="44" width="44" x="1593" y="1410" as="geometry" />
+        </mxCell>
+        <mxCell id="notaHosting" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#2A3550;strokeColor=#5B9BD5;fontColor=#DCE6F5;size=14;align=left;verticalAlign=top;spacing=8;fontSize=11;" value="El hosting va &lt;b&gt;al final&lt;/b&gt; a propósito: después del cobro de entrega y antes de subir a producción, para que el cliente aproveche al máximo el tiempo de su servicio." vertex="1">
+          <mxGeometry height="110" width="185" x="1035" y="1290" as="geometry" />
+        </mxCell>
+        <mxCell id="B13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="Subir la página a producción" vertex="1">
+          <mxGeometry height="64" width="230" x="1270" y="1460" as="geometry" />
+        </mxCell>
+        <mxCell id="B14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=14;" value="Capacitación al cliente" vertex="1">
+          <mxGeometry height="64" width="230" x="1270" y="1560" as="geometry" />
+        </mxCell>
+        <mxCell id="B15" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1D3A24;strokeColor=#7BC47F;fontColor=#DFF3E1;fontSize=13;fontStyle=1;" value="Fin · Proyecto entregado&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #AFE0B3;&quot;&gt;estadoProyecto: Proyecto Finalizado&lt;/span&gt;" vertex="1">
+          <mxGeometry height="56" width="210" x="1280" y="1655" as="geometry" />
+        </mxCell>
+        <mxCell id="eB01" edge="1" parent="1" source="B0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB12" edge="1" parent="1" source="B1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="B2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB12L" connectable="0" parent="eB12" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="No" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB21" edge="1" parent="1" source="B2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1615" y="145" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB2X" edge="1" parent="1" source="B2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="XB1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB2XL" connectable="0" parent="eB2X" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="3 meses sin respuesta" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB13" edge="1" parent="1" source="B1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB13L" connectable="0" parent="eB13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#8FD694;labelBackgroundColor=#1A1F27;" value="Sí" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB3C1" edge="1" parent="1" source="B3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB3C1L" connectable="0" parent="eB3C1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#DCE4EF;labelBackgroundColor=#1A1F27;" value="en paralelo · solo e-commerce&lt;br&gt;no detiene el desarrollo" vertex="1">
+          <mxGeometry relative="1" x="-0.35" as="geometry">
+            <mxPoint x="-10" y="-14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eC12" edge="1" parent="1" source="C1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="C2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eC12L" connectable="0" parent="eC12" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="No" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eC21" edge="1" parent="1" source="C2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="925" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eC2X" edge="1" parent="1" source="C2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="XC1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eC2XL" connectable="0" parent="eC2X" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="3 meses sin respuesta" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eC13" edge="1" parent="1" source="C1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eC13L" connectable="0" parent="eC13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#8FD694;labelBackgroundColor=#1A1F27;" value="Sí" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eC3B4" edge="1" parent="1" source="C3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="B4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1135" y="770" />
+              <mxPoint x="1327" y="770" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB34" edge="1" parent="1" source="B3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB45" edge="1" parent="1" source="B4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB56" edge="1" parent="1" source="B5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="B6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB56L" connectable="0" parent="eB56" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#F5E7BE;labelBackgroundColor=#1A1F27;" value="Sí" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB67" edge="1" parent="1" source="B6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="B7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB67L" connectable="0" parent="eB67" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fontColor=#8FD694;labelBackgroundColor=#1A1F27;" value="Sí · dentro&lt;br&gt;del alcance" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB74" edge="1" parent="1" source="B7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="B4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="925" y="832" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB74L" connectable="0" parent="eB74" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="Volver a presentar" vertex="1">
+          <mxGeometry relative="1" x="-0.35" as="geometry">
+            <mxPoint x="20" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB68" edge="1" parent="1" source="B6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB68L" connectable="0" parent="eB68" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="No · fuera del alcance" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB89" edge="1" parent="1" source="B8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="B9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1252" y="1115" />
+              <mxPoint x="1252" y="1150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB89L" connectable="0" parent="eB89" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#DCE4EF;labelBackgroundColor=#1A1F27;" value="el proyecto continúa" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint x="10" y="-24" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB59" edge="1" parent="1" source="B5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB59L" connectable="0" parent="eB59" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;fontColor=#8FD694;labelBackgroundColor=#1A1F27;" value="No · conforme" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB910" edge="1" parent="1" source="B9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="B10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB910L" connectable="0" parent="eB910" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="No" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB109" edge="1" parent="1" source="B10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1615" y="1070" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB10X" edge="1" parent="1" source="B10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="XB2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB10XL" connectable="0" parent="eB10X" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="3 meses sin respuesta" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB911" edge="1" parent="1" source="B9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB911L" connectable="0" parent="eB911" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#8FD694;labelBackgroundColor=#1A1F27;" value="Sí" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB1112" edge="1" parent="1" source="B11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="B12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB1112L" connectable="0" parent="eB1112" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="No" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB1211" edge="1" parent="1" source="B12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1615" y="1270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB12X" edge="1" parent="1" source="B12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="XB3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB12XL" connectable="0" parent="eB12X" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#F0A0A0;labelBackgroundColor=#1A1F27;" value="3 meses sin respuesta" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB1113" edge="1" parent="1" source="B11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB1113L" connectable="0" parent="eB1113" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontStyle=1;fontColor=#8FD694;labelBackgroundColor=#1A1F27;" value="Sí" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eB1314" edge="1" parent="1" source="B13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB1415" edge="1" parent="1" source="B14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XARCH" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;fontStyle=1;" value="AR" vertex="1">
+          <mxGeometry height="44" width="44" x="163" y="1620" as="geometry" />
+        </mxCell>
+        <mxCell id="ARCH" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;fontStyle=1;" value="Fin · Proyecto archivado&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #F0B4B4;&quot;&gt;estadoProyecto: Archivado&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="250" x="60" y="1700" as="geometry" />
+        </mxCell>
+        <mxCell id="REACT" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=13;" value="Reactivación del proyecto&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: #93A7C0;&quot;&gt;el cliente paga de nuevo y reingresa al flujo&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="240" x="440" y="1695" as="geometry" />
+        </mxCell>
+        <mxCell id="eARCH" edge="1" parent="1" source="XARCH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#E07A7A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ARCH">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eREACT" edge="1" parent="1" source="ARCH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jettySize=auto;orthogonalLoop=1;strokeWidth=2;strokeColor=#AEBACA;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="REACT">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eREACTL" connectable="0" parent="eREACT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#AEBACA;labelBackgroundColor=#12161C;" value="si el cliente vuelve" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="notaArch" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;size=16;align=left;verticalAlign=top;spacing=10;fontSize=11;" value="&lt;b&gt;Archivado y reactivación&lt;/b&gt;&lt;br&gt;&lt;br&gt;• El proyecto se archiva a los &lt;b&gt;3 meses&lt;/b&gt; sin respuesta del cliente, previo recordatorio. El contador &lt;b&gt;vuelve a cero cada vez que el proyecto cambia de estado&lt;/b&gt;.&lt;br&gt;• «Archivado» es un estado terminal &lt;b&gt;distinto de «Finalizado»&lt;/b&gt; para que no se mezclen en la misma métrica.&lt;br&gt;• Lo abonado &lt;b&gt;se pierde&lt;/b&gt;, salvo que el proyecto ya esté en desarrollo (abono inicial y aprobación de diseño ya cobrados): en ese caso se conserva. &lt;b&gt;No existe crédito a favor.&lt;/b&gt;&lt;br&gt;• Entregar o no el diseño ya aprobado a un cliente archivado &lt;b&gt;lo decide la gerencia&lt;/b&gt;, caso por caso.&lt;br&gt;• Para retomar, el cliente vuelve a pagar: &lt;b&gt;25%&lt;/b&gt; si vuelve antes del año; si &lt;b&gt;llega al año o lo pasa, 50% sí o sí&lt;/b&gt; (se rehacen inicio y diseño).&lt;br&gt;• Los cinco recordatorios del flujo (material de marca, catálogo, cobro de aprobación de diseño, cobro de entrega y hosting) desembocan aquí mediante el conector &lt;b&gt;AR&lt;/b&gt;." vertex="1">
+          <mxGeometry height="230" width="740" x="60" y="1810" as="geometry" />
+        </mxCell>
+        <mxCell id="panel" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A1F27;strokeColor=#39424E;arcSize=2;" value="" vertex="1">
+          <mxGeometry height="520" width="1670" x="40" y="2080" as="geometry" />
+        </mxCell>
+        <mxCell id="legTitle" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=1;fontColor=#AEBACA;" value="Simbología" vertex="1">
+          <mxGeometry height="30" width="200" x="65" y="2105" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1D3A24;strokeColor=#7BC47F;fontColor=#DFF3E1;fontSize=12;" value="Inicio / Fin" vertex="1">
+          <mxGeometry height="44" width="110" x="70" y="2150" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=12;" value="Proceso" vertex="1">
+          <mxGeometry height="44" width="110" x="200" y="2150" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=12;" value="Decisión" vertex="1">
+          <mxGeometry height="54" width="120" x="330" y="2145" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=12;" value="Recordatorio / espera" vertex="1">
+          <mxGeometry height="44" width="150" x="470" y="2150" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#392C4C;strokeColor=#B18BD9;fontColor=#EDDFF9;fontSize=14;" value="&lt;b&gt;A&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="44" x="650" y="2150" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5t" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#93A7C0;" value="Conector entre fases" vertex="1">
+          <mxGeometry height="20" width="120" x="702" y="2162" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5b" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=13;fontStyle=1;" value="AR" vertex="1">
+          <mxGeometry height="44" width="44" x="650" y="2210" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5bt" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#93A7C0;" value="Salida a archivado" vertex="1">
+          <mxGeometry height="20" width="120" x="702" y="2222" as="geometry" />
+        </mxCell>
+        <mxCell id="leg6" edge="1" parent="1" style="endArrow=classic;html=1;rounded=1;strokeWidth=2;strokeColor=#E07A7A;dashed=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="70" y="2235" as="sourcePoint" />
+            <mxPoint x="170" y="2235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg6t" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#93A7C0;" value="Ciclo de reintento: el proyecto no avanza de etapa hasta que la condición se cumpla" vertex="1">
+          <mxGeometry height="24" width="450" x="180" y="2223" as="geometry" />
+        </mxCell>
+        <mxCell id="leg8t" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=11;fontColor=#93A7C0;" value="&lt;b style=&quot;color: #AEBACA;&quot;&gt;Responsable de cada momento&lt;/b&gt; (no se elige a mano, se desprende de la etapa):&lt;br&gt;• Registro, brief y taxonomía → &lt;b&gt;administración&lt;/b&gt;&lt;br&gt;• Diseño → &lt;b&gt;diseñador asignado&lt;/b&gt; en el registro del proyecto&lt;br&gt;• Revisión de factibilidad, desarrollo y carga de productos → &lt;b&gt;desarrollador asignado&lt;/b&gt;&lt;br&gt;• Cualquier proyecto en Grupo B o C → vuelve a &lt;b&gt;administración&lt;/b&gt;&lt;br&gt;• Diseñador y desarrollador no rotan, pero &lt;b&gt;se pueden reasignar&lt;/b&gt;: el cambio queda registrado en el historial.&lt;br&gt;&lt;br&gt;&lt;b style=&quot;color: #AEBACA;&quot;&gt;Rondas de diseño incluidas:&lt;/b&gt; 1 presentación de avance + 2 rondas de cambios + entrega final. Agotadas, todo cambio se cotiza aparte.&lt;br&gt;&lt;br&gt;&lt;b style=&quot;color: #AEBACA;&quot;&gt;Carga de datos:&lt;/b&gt; los proyectos y el porcentaje de cada hito los carga &lt;b&gt;administración a mano&lt;/b&gt;. El sistema no maneja montos en dinero: solo el porcentaje y si el hito está cobrado o no." vertex="1">
+          <mxGeometry height="300" width="700" x="70" y="2270" as="geometry" />
+        </mxCell>
+        <mxCell id="grpTitle" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=1;fontColor=#AEBACA;" value="Grupos de seguimiento" vertex="1">
+          <mxGeometry height="30" width="300" x="830" y="2105" as="geometry" />
+        </mxCell>
+        <mxCell id="grpA" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#16324F;strokeColor=#5B9BD5;fontColor=#E8F0FA;fontSize=12;align=left;spacingLeft=10;" value="&lt;b&gt;Grupo A&lt;/b&gt; — la pelota está en Websy: hay trabajo interno pendiente." vertex="1">
+          <mxGeometry height="54" width="340" x="830" y="2150" as="geometry" />
+        </mxCell>
+        <mxCell id="grpB" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#463A14;strokeColor=#D6B656;fontColor=#F5E7BE;fontSize=12;align=left;spacingLeft=10;" value="&lt;b&gt;Grupo B&lt;/b&gt; — la pelota está en el cliente por material o aprobación." vertex="1">
+          <mxGeometry height="54" width="340" x="830" y="2214" as="geometry" />
+        </mxCell>
+        <mxCell id="grpC" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#4A2326;strokeColor=#E07A7A;fontColor=#F8DCDC;fontSize=12;align=left;spacingLeft=10;" value="&lt;b&gt;Grupo C&lt;/b&gt; — la pelota está en el cliente por pago (incluye la contratación del hosting)." vertex="1">
+          <mxGeometry height="60" width="340" x="830" y="2278" as="geometry" />
+        </mxCell>
+        <mxCell id="grpTxt" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=11;fontColor=#93A7C0;" value="&lt;b style=&quot;color: #AEBACA;&quot;&gt;Cómo se asigna el grupo&lt;/b&gt; (automático, según la etapa y el bloqueo):&lt;br&gt;&lt;br&gt;• Falta información del cliente → &lt;b&gt;B&lt;/b&gt;&lt;br&gt;• Falta información &lt;b&gt;y además&lt;/b&gt; el pago → &lt;b&gt;C&lt;/b&gt; (el pago manda)&lt;br&gt;• Lo único que falta es el &lt;b&gt;catálogo de productos&lt;/b&gt; → el proyecto &lt;b&gt;sigue en A&lt;/b&gt;: el desarrollo no se detiene y el catálogo se persigue aparte.&lt;br&gt;&lt;br&gt;El tablero de administración es una lista de proyectos con su grupo." vertex="1">
+          <mxGeometry height="220" width="340" x="830" y="2355" as="geometry" />
+        </mxCell>
+        <mxCell id="notas" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#3B3316;strokeColor=#D6B656;fontColor=#F2E7C6;size=18;align=left;verticalAlign=top;spacing=10;fontSize=11;" value="&lt;b&gt;Cambios de esta versión&lt;/b&gt;&lt;br&gt;1. Nodo inicial de &lt;b&gt;Registro del proyecto&lt;/b&gt;: se crea el registro y se asignan diseñador y desarrollador, que no rotan (reasignables, con historial).&lt;br&gt;2. &lt;b&gt;Los montos salen del diagrama&lt;/b&gt;: quedan los tres hitos de cobro; los porcentajes se definen proyecto por proyecto.&lt;br&gt;3. La compuerta «¿Pagó el anticipo del 30%?» estaba mal rotulada: ese cobro es el de &lt;b&gt;aprobación de diseño&lt;/b&gt;. Como estaba, administración salía a cobrar algo ya cobrado.&lt;br&gt;4. &lt;b&gt;Grupos A, B y C&lt;/b&gt; definidos, con la regla de asignación y el responsable de cada etapa.&lt;br&gt;5. Estado terminal &lt;b&gt;Proyecto archivado&lt;/b&gt; a los 3 meses, con su ramal de &lt;b&gt;reactivación&lt;/b&gt;: los recordatorios ya no son bucles infinitos.&lt;br&gt;6. La compuerta de información se parte en dos: el &lt;b&gt;material de marca&lt;/b&gt; bloquea el diseño; el &lt;b&gt;catálogo&lt;/b&gt; bloquea solo la carga de productos y el proyecto sigue en Grupo A.&lt;br&gt;7. Ramal de &lt;b&gt;observaciones fuera de alcance&lt;/b&gt; → cotización adicional, y el proyecto igual continúa hacia el cobro de entrega.&lt;br&gt;8. &lt;b&gt;Revisión de factibilidad&lt;/b&gt; incorporada al flujo: el desarrollador asignado revisa el diseño antes de presentarlo.&lt;br&gt;9. &lt;b&gt;Tope de rondas de diseño&lt;/b&gt;: 1 avance + 2 rondas de cambios + entrega final. Agotadas, se cotiza aparte.&lt;br&gt;10. Sin swimlanes y hosting al final, a propósito.&lt;br&gt;&lt;br&gt;&lt;b&gt;Reglas confirmadas con el equipo&lt;/b&gt;&lt;br&gt;• &lt;b&gt;Archivado:&lt;/b&gt; 3 meses sin respuesta. El contador vuelve a cero en cada cambio de estado.&lt;br&gt;• &lt;b&gt;Lo abonado:&lt;/b&gt; se pierde, salvo que el proyecto ya esté en desarrollo. Sin crédito a favor.&lt;br&gt;• &lt;b&gt;Reactivación:&lt;/b&gt; 25% antes del año; al año o pasado el año, 50% sí o sí.&lt;br&gt;• &lt;b&gt;Factibilidad:&lt;/b&gt; el desarrollador revisa, pero no bloquea. La única aprobación que frena el flujo es la del cliente.&lt;br&gt;• &lt;b&gt;Grupos:&lt;/b&gt; falta info → B; falta info y pago → C; solo falta catálogo → sigue en A.&lt;br&gt;• &lt;b&gt;Plan de cobros:&lt;/b&gt; los porcentajes los carga administración a mano; el sistema no maneja montos.&lt;br&gt;• &lt;b&gt;Rondas agotadas:&lt;/b&gt; el sistema deja el proyecto como está; el caso se maneja internamente.&lt;br&gt;• &lt;b&gt;Diseño entregado a un archivado:&lt;/b&gt; lo decide la gerencia, caso por caso." vertex="1">
+          <mxGeometry height="520" width="480" x="1200" y="2095" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

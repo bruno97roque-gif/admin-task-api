@@ -9,14 +9,44 @@
 */
 
 export const EstadoProyecto = {
+  Registro: 'Registro',
   Brief: 'Brief',
   Taxonomia: 'Taxonomia',
   Diseno: 'Diseno',
   Desarrollo: 'Desarrollo',
-  ProyectoFinalizado: 'ProyectoFinalizado'
+  ProyectoFinalizado: 'ProyectoFinalizado',
+  Archivado: 'Archivado'
 } as const
 
 export type EstadoProyecto = (typeof EstadoProyecto)[keyof typeof EstadoProyecto]
+
+
+export const HitoCobro = {
+  AbonoInicial: 'AbonoInicial',
+  AprobacionDiseno: 'AprobacionDiseno',
+  Entrega: 'Entrega'
+} as const
+
+export type HitoCobro = (typeof HitoCobro)[keyof typeof HitoCobro]
+
+
+export const TipoProyecto = {
+  Informativa: 'Informativa',
+  Ecommerce: 'Ecommerce'
+} as const
+
+export type TipoProyecto = (typeof TipoProyecto)[keyof typeof TipoProyecto]
+
+
+export const TipoRecordatorio = {
+  MaterialMarca: 'MaterialMarca',
+  Catalogo: 'Catalogo',
+  CobroAprobacionDiseno: 'CobroAprobacionDiseno',
+  CobroEntrega: 'CobroEntrega',
+  Hosting: 'Hosting'
+} as const
+
+export type TipoRecordatorio = (typeof TipoRecordatorio)[keyof typeof TipoRecordatorio]
 
 
 export const Tecnologia = {

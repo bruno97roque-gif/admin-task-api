@@ -229,6 +229,11 @@ export type UserWhereInput = {
   roleId?: Prisma.IntFilter<"User"> | number
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
   proyectos?: Prisma.UsuarioProyectoListRelationFilter
+  proyectosDisenados?: Prisma.ProyectoListRelationFilter
+  proyectosDesarrollados?: Prisma.ProyectoListRelationFilter
+  cambiosDeEtapa?: Prisma.HistorialEtapaListRelationFilter
+  recordatorios?: Prisma.RecordatorioProyectoListRelationFilter
+  cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -240,6 +245,11 @@ export type UserOrderByWithRelationInput = {
   roleId?: Prisma.SortOrder
   rol?: Prisma.RolOrderByWithRelationInput
   proyectos?: Prisma.UsuarioProyectoOrderByRelationAggregateInput
+  proyectosDisenados?: Prisma.ProyectoOrderByRelationAggregateInput
+  proyectosDesarrollados?: Prisma.ProyectoOrderByRelationAggregateInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaOrderByRelationAggregateInput
+  recordatorios?: Prisma.RecordatorioProyectoOrderByRelationAggregateInput
+  cotizaciones?: Prisma.CotizacionAdicionalOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -254,6 +264,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   roleId?: Prisma.IntFilter<"User"> | number
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
   proyectos?: Prisma.UsuarioProyectoListRelationFilter
+  proyectosDisenados?: Prisma.ProyectoListRelationFilter
+  proyectosDesarrollados?: Prisma.ProyectoListRelationFilter
+  cambiosDeEtapa?: Prisma.HistorialEtapaListRelationFilter
+  recordatorios?: Prisma.RecordatorioProyectoListRelationFilter
+  cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
 }, "id" | "user">
 
 export type UserOrderByWithAggregationInput = {
@@ -289,6 +304,11 @@ export type UserCreateInput = {
   active?: boolean
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -299,6 +319,11 @@ export type UserUncheckedCreateInput = {
   active?: boolean
   roleId: number
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UserUpdateInput = {
@@ -308,6 +333,11 @@ export type UserUpdateInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -318,6 +348,11 @@ export type UserUncheckedUpdateInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -392,6 +427,11 @@ export type UserSumOrderByAggregateInput = {
   roleId?: Prisma.SortOrder
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
@@ -443,6 +483,86 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type UserCreateNestedOneWithoutProyectosDisenadosInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProyectosDisenadosInput, Prisma.UserUncheckedCreateWithoutProyectosDisenadosInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProyectosDisenadosInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutProyectosDesarrolladosInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProyectosDesarrolladosInput, Prisma.UserUncheckedCreateWithoutProyectosDesarrolladosInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProyectosDesarrolladosInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutProyectosDisenadosNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProyectosDisenadosInput, Prisma.UserUncheckedCreateWithoutProyectosDisenadosInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProyectosDisenadosInput
+  upsert?: Prisma.UserUpsertWithoutProyectosDisenadosInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProyectosDisenadosInput, Prisma.UserUpdateWithoutProyectosDisenadosInput>, Prisma.UserUncheckedUpdateWithoutProyectosDisenadosInput>
+}
+
+export type UserUpdateOneWithoutProyectosDesarrolladosNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProyectosDesarrolladosInput, Prisma.UserUncheckedCreateWithoutProyectosDesarrolladosInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProyectosDesarrolladosInput
+  upsert?: Prisma.UserUpsertWithoutProyectosDesarrolladosInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProyectosDesarrolladosInput, Prisma.UserUpdateWithoutProyectosDesarrolladosInput>, Prisma.UserUncheckedUpdateWithoutProyectosDesarrolladosInput>
+}
+
+export type UserCreateNestedOneWithoutCambiosDeEtapaInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCambiosDeEtapaInput, Prisma.UserUncheckedCreateWithoutCambiosDeEtapaInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCambiosDeEtapaInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCambiosDeEtapaNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCambiosDeEtapaInput, Prisma.UserUncheckedCreateWithoutCambiosDeEtapaInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCambiosDeEtapaInput
+  upsert?: Prisma.UserUpsertWithoutCambiosDeEtapaInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCambiosDeEtapaInput, Prisma.UserUpdateWithoutCambiosDeEtapaInput>, Prisma.UserUncheckedUpdateWithoutCambiosDeEtapaInput>
+}
+
+export type UserCreateNestedOneWithoutRecordatoriosInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecordatoriosInput, Prisma.UserUncheckedCreateWithoutRecordatoriosInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecordatoriosInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutRecordatoriosNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecordatoriosInput, Prisma.UserUncheckedCreateWithoutRecordatoriosInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecordatoriosInput
+  upsert?: Prisma.UserUpsertWithoutRecordatoriosInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecordatoriosInput, Prisma.UserUpdateWithoutRecordatoriosInput>, Prisma.UserUncheckedUpdateWithoutRecordatoriosInput>
+}
+
+export type UserCreateNestedOneWithoutCotizacionesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCotizacionesInput, Prisma.UserUncheckedCreateWithoutCotizacionesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCotizacionesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCotizacionesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCotizacionesInput, Prisma.UserUncheckedCreateWithoutCotizacionesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCotizacionesInput
+  upsert?: Prisma.UserUpsertWithoutCotizacionesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCotizacionesInput, Prisma.UserUpdateWithoutCotizacionesInput>, Prisma.UserUncheckedUpdateWithoutCotizacionesInput>
+}
+
 export type UserCreateNestedOneWithoutProyectosInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutProyectosInput, Prisma.UserUncheckedCreateWithoutProyectosInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutProyectosInput
@@ -463,6 +583,11 @@ export type UserCreateWithoutRolInput = {
   password: string
   active?: boolean
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
 }
 
 export type UserUncheckedCreateWithoutRolInput = {
@@ -472,6 +597,11 @@ export type UserUncheckedCreateWithoutRolInput = {
   password: string
   active?: boolean
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UserCreateOrConnectWithoutRolInput = {
@@ -512,12 +642,367 @@ export type UserScalarWhereInput = {
   roleId?: Prisma.IntFilter<"User"> | number
 }
 
+export type UserCreateWithoutProyectosDisenadosInput = {
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  rol: Prisma.RolCreateNestedOneWithoutUsersInput
+  proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserUncheckedCreateWithoutProyectosDisenadosInput = {
+  id?: number
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  roleId: number
+  proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserCreateOrConnectWithoutProyectosDisenadosInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProyectosDisenadosInput, Prisma.UserUncheckedCreateWithoutProyectosDisenadosInput>
+}
+
+export type UserCreateWithoutProyectosDesarrolladosInput = {
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  rol: Prisma.RolCreateNestedOneWithoutUsersInput
+  proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserUncheckedCreateWithoutProyectosDesarrolladosInput = {
+  id?: number
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  roleId: number
+  proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserCreateOrConnectWithoutProyectosDesarrolladosInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProyectosDesarrolladosInput, Prisma.UserUncheckedCreateWithoutProyectosDesarrolladosInput>
+}
+
+export type UserUpsertWithoutProyectosDisenadosInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProyectosDisenadosInput, Prisma.UserUncheckedUpdateWithoutProyectosDisenadosInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProyectosDisenadosInput, Prisma.UserUncheckedCreateWithoutProyectosDisenadosInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProyectosDisenadosInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProyectosDisenadosInput, Prisma.UserUncheckedUpdateWithoutProyectosDisenadosInput>
+}
+
+export type UserUpdateWithoutProyectosDisenadosInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
+  proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProyectosDisenadosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserUpsertWithoutProyectosDesarrolladosInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProyectosDesarrolladosInput, Prisma.UserUncheckedUpdateWithoutProyectosDesarrolladosInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProyectosDesarrolladosInput, Prisma.UserUncheckedCreateWithoutProyectosDesarrolladosInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProyectosDesarrolladosInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProyectosDesarrolladosInput, Prisma.UserUncheckedUpdateWithoutProyectosDesarrolladosInput>
+}
+
+export type UserUpdateWithoutProyectosDesarrolladosInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
+  proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProyectosDesarrolladosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserCreateWithoutCambiosDeEtapaInput = {
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  rol: Prisma.RolCreateNestedOneWithoutUsersInput
+  proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserUncheckedCreateWithoutCambiosDeEtapaInput = {
+  id?: number
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  roleId: number
+  proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserCreateOrConnectWithoutCambiosDeEtapaInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCambiosDeEtapaInput, Prisma.UserUncheckedCreateWithoutCambiosDeEtapaInput>
+}
+
+export type UserUpsertWithoutCambiosDeEtapaInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCambiosDeEtapaInput, Prisma.UserUncheckedUpdateWithoutCambiosDeEtapaInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCambiosDeEtapaInput, Prisma.UserUncheckedCreateWithoutCambiosDeEtapaInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCambiosDeEtapaInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCambiosDeEtapaInput, Prisma.UserUncheckedUpdateWithoutCambiosDeEtapaInput>
+}
+
+export type UserUpdateWithoutCambiosDeEtapaInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
+  proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCambiosDeEtapaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserCreateWithoutRecordatoriosInput = {
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  rol: Prisma.RolCreateNestedOneWithoutUsersInput
+  proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserUncheckedCreateWithoutRecordatoriosInput = {
+  id?: number
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  roleId: number
+  proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserCreateOrConnectWithoutRecordatoriosInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecordatoriosInput, Prisma.UserUncheckedCreateWithoutRecordatoriosInput>
+}
+
+export type UserUpsertWithoutRecordatoriosInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRecordatoriosInput, Prisma.UserUncheckedUpdateWithoutRecordatoriosInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecordatoriosInput, Prisma.UserUncheckedCreateWithoutRecordatoriosInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRecordatoriosInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRecordatoriosInput, Prisma.UserUncheckedUpdateWithoutRecordatoriosInput>
+}
+
+export type UserUpdateWithoutRecordatoriosInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
+  proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRecordatoriosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserCreateWithoutCotizacionesInput = {
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  rol: Prisma.RolCreateNestedOneWithoutUsersInput
+  proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserUncheckedCreateWithoutCotizacionesInput = {
+  id?: number
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  roleId: number
+  proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserCreateOrConnectWithoutCotizacionesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCotizacionesInput, Prisma.UserUncheckedCreateWithoutCotizacionesInput>
+}
+
+export type UserUpsertWithoutCotizacionesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCotizacionesInput, Prisma.UserUncheckedUpdateWithoutCotizacionesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCotizacionesInput, Prisma.UserUncheckedCreateWithoutCotizacionesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCotizacionesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCotizacionesInput, Prisma.UserUncheckedUpdateWithoutCotizacionesInput>
+}
+
+export type UserUpdateWithoutCotizacionesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
+  proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCotizacionesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
 export type UserCreateWithoutProyectosInput = {
   name: string
   user: string
   password: string
   active?: boolean
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
 }
 
 export type UserUncheckedCreateWithoutProyectosInput = {
@@ -527,6 +1012,11 @@ export type UserUncheckedCreateWithoutProyectosInput = {
   password: string
   active?: boolean
   roleId: number
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UserCreateOrConnectWithoutProyectosInput = {
@@ -551,6 +1041,11 @@ export type UserUpdateWithoutProyectosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProyectosInput = {
@@ -560,6 +1055,11 @@ export type UserUncheckedUpdateWithoutProyectosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UserCreateManyRolInput = {
@@ -576,6 +1076,11 @@ export type UserUpdateWithoutRolInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolInput = {
@@ -585,6 +1090,11 @@ export type UserUncheckedUpdateWithoutRolInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutRolInput = {
@@ -602,10 +1112,20 @@ export type UserUncheckedUpdateManyWithoutRolInput = {
 
 export type UserCountOutputType = {
   proyectos: number
+  proyectosDisenados: number
+  proyectosDesarrollados: number
+  cambiosDeEtapa: number
+  recordatorios: number
+  cotizaciones: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyectos?: boolean | UserCountOutputTypeCountProyectosArgs
+  proyectosDisenados?: boolean | UserCountOutputTypeCountProyectosDisenadosArgs
+  proyectosDesarrollados?: boolean | UserCountOutputTypeCountProyectosDesarrolladosArgs
+  cambiosDeEtapa?: boolean | UserCountOutputTypeCountCambiosDeEtapaArgs
+  recordatorios?: boolean | UserCountOutputTypeCountRecordatoriosArgs
+  cotizaciones?: boolean | UserCountOutputTypeCountCotizacionesArgs
 }
 
 /**
@@ -625,6 +1145,41 @@ export type UserCountOutputTypeCountProyectosArgs<ExtArgs extends runtime.Types.
   where?: Prisma.UsuarioProyectoWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProyectosDisenadosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProyectoWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProyectosDesarrolladosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProyectoWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCambiosDeEtapaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HistorialEtapaWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRecordatoriosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecordatorioProyectoWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCotizacionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CotizacionAdicionalWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -635,6 +1190,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   roleId?: boolean
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
   proyectos?: boolean | Prisma.User$proyectosArgs<ExtArgs>
+  proyectosDisenados?: boolean | Prisma.User$proyectosDisenadosArgs<ExtArgs>
+  proyectosDesarrollados?: boolean | Prisma.User$proyectosDesarrolladosArgs<ExtArgs>
+  cambiosDeEtapa?: boolean | Prisma.User$cambiosDeEtapaArgs<ExtArgs>
+  recordatorios?: boolean | Prisma.User$recordatoriosArgs<ExtArgs>
+  cotizaciones?: boolean | Prisma.User$cotizacionesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -671,6 +1231,11 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
   proyectos?: boolean | Prisma.User$proyectosArgs<ExtArgs>
+  proyectosDisenados?: boolean | Prisma.User$proyectosDisenadosArgs<ExtArgs>
+  proyectosDesarrollados?: boolean | Prisma.User$proyectosDesarrolladosArgs<ExtArgs>
+  cambiosDeEtapa?: boolean | Prisma.User$cambiosDeEtapaArgs<ExtArgs>
+  recordatorios?: boolean | Prisma.User$recordatoriosArgs<ExtArgs>
+  cotizaciones?: boolean | Prisma.User$cotizacionesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -685,6 +1250,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     rol: Prisma.$RolPayload<ExtArgs>
     proyectos: Prisma.$UsuarioProyectoPayload<ExtArgs>[]
+    proyectosDisenados: Prisma.$ProyectoPayload<ExtArgs>[]
+    proyectosDesarrollados: Prisma.$ProyectoPayload<ExtArgs>[]
+    cambiosDeEtapa: Prisma.$HistorialEtapaPayload<ExtArgs>[]
+    recordatorios: Prisma.$RecordatorioProyectoPayload<ExtArgs>[]
+    cotizaciones: Prisma.$CotizacionAdicionalPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1089,6 +1659,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   rol<T extends Prisma.RolDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RolDefaultArgs<ExtArgs>>): Prisma.Prisma__RolClient<runtime.Types.Result.GetResult<Prisma.$RolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   proyectos<T extends Prisma.User$proyectosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$proyectosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsuarioProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  proyectosDisenados<T extends Prisma.User$proyectosDisenadosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$proyectosDisenadosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  proyectosDesarrollados<T extends Prisma.User$proyectosDesarrolladosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$proyectosDesarrolladosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cambiosDeEtapa<T extends Prisma.User$cambiosDeEtapaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cambiosDeEtapaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HistorialEtapaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recordatorios<T extends Prisma.User$recordatoriosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recordatoriosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecordatorioProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cotizaciones<T extends Prisma.User$cotizacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cotizacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CotizacionAdicionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1546,6 +2121,126 @@ export type User$proyectosArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.UsuarioProyectoScalarFieldEnum | Prisma.UsuarioProyectoScalarFieldEnum[]
+}
+
+/**
+ * User.proyectosDisenados
+ */
+export type User$proyectosDisenadosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Proyecto
+   */
+  select?: Prisma.ProyectoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Proyecto
+   */
+  omit?: Prisma.ProyectoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProyectoInclude<ExtArgs> | null
+  where?: Prisma.ProyectoWhereInput
+  orderBy?: Prisma.ProyectoOrderByWithRelationInput | Prisma.ProyectoOrderByWithRelationInput[]
+  cursor?: Prisma.ProyectoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProyectoScalarFieldEnum | Prisma.ProyectoScalarFieldEnum[]
+}
+
+/**
+ * User.proyectosDesarrollados
+ */
+export type User$proyectosDesarrolladosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Proyecto
+   */
+  select?: Prisma.ProyectoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Proyecto
+   */
+  omit?: Prisma.ProyectoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProyectoInclude<ExtArgs> | null
+  where?: Prisma.ProyectoWhereInput
+  orderBy?: Prisma.ProyectoOrderByWithRelationInput | Prisma.ProyectoOrderByWithRelationInput[]
+  cursor?: Prisma.ProyectoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProyectoScalarFieldEnum | Prisma.ProyectoScalarFieldEnum[]
+}
+
+/**
+ * User.cambiosDeEtapa
+ */
+export type User$cambiosDeEtapaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HistorialEtapa
+   */
+  select?: Prisma.HistorialEtapaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HistorialEtapa
+   */
+  omit?: Prisma.HistorialEtapaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HistorialEtapaInclude<ExtArgs> | null
+  where?: Prisma.HistorialEtapaWhereInput
+  orderBy?: Prisma.HistorialEtapaOrderByWithRelationInput | Prisma.HistorialEtapaOrderByWithRelationInput[]
+  cursor?: Prisma.HistorialEtapaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HistorialEtapaScalarFieldEnum | Prisma.HistorialEtapaScalarFieldEnum[]
+}
+
+/**
+ * User.recordatorios
+ */
+export type User$recordatoriosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecordatorioProyecto
+   */
+  select?: Prisma.RecordatorioProyectoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecordatorioProyecto
+   */
+  omit?: Prisma.RecordatorioProyectoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecordatorioProyectoInclude<ExtArgs> | null
+  where?: Prisma.RecordatorioProyectoWhereInput
+  orderBy?: Prisma.RecordatorioProyectoOrderByWithRelationInput | Prisma.RecordatorioProyectoOrderByWithRelationInput[]
+  cursor?: Prisma.RecordatorioProyectoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecordatorioProyectoScalarFieldEnum | Prisma.RecordatorioProyectoScalarFieldEnum[]
+}
+
+/**
+ * User.cotizaciones
+ */
+export type User$cotizacionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CotizacionAdicional
+   */
+  select?: Prisma.CotizacionAdicionalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CotizacionAdicional
+   */
+  omit?: Prisma.CotizacionAdicionalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CotizacionAdicionalInclude<ExtArgs> | null
+  where?: Prisma.CotizacionAdicionalWhereInput
+  orderBy?: Prisma.CotizacionAdicionalOrderByWithRelationInput | Prisma.CotizacionAdicionalOrderByWithRelationInput[]
+  cursor?: Prisma.CotizacionAdicionalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CotizacionAdicionalScalarFieldEnum | Prisma.CotizacionAdicionalScalarFieldEnum[]
 }
 
 /**
