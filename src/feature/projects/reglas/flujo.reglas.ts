@@ -112,7 +112,10 @@ export function hitoQueHabilita(estado: EstadoProyecto): HitoCobro | null {
     // El proyecto entra al flujo con su abono inicial cobrado.
     case EstadoProyecto.Brief:
       return HitoCobro.AbonoInicial;
-    // Se cobra al aprobar el diseño, antes de pasar a desarrollo.
+    // Se cobra al aprobar el diseño, antes de pasar a desarrollo. La compuerta
+    // queda en `Desarrollo` y no en las etapas de diseño a propósito: el
+    // recorrido de diseño (avance, rondas de cambios, cierre) va incluido en el
+    // abono inicial y no se corta a mitad de camino por el cobro siguiente.
     case EstadoProyecto.Desarrollo:
       return HitoCobro.AprobacionDiseno;
     // Se cobra al terminar el desarrollo, antes de subir a producción.
@@ -189,9 +192,31 @@ export const ORDEN_ETAPAS: EstadoProyecto[] = [
   EstadoProyecto.Brief,
   EstadoProyecto.Taxonomia,
   EstadoProyecto.Diseno,
+  EstadoProyecto.AvanceDiseno,
+  EstadoProyecto.DisenoFinalizado,
   EstadoProyecto.Desarrollo,
   EstadoProyecto.ProyectoFinalizado,
 ];
+
+/**
+ * El tramo de diseño, que el diagrama recorre en tres pasos: `Diseno` es el
+ * trabajo en curso, `AvanceDiseno` el avance que se le presenta al cliente
+ * (el que está incluido en el precio, antes de las 2 rondas de cambios) y
+ * `DisenoFinalizado` el diseño cerrado.
+ *
+ * Las tres comparten responsable (el diseñador) y la misma compuerta de
+ * entrada (el material de marca), así que conviene tratarlas como un bloque en
+ * vez de repetir los tres valores en cada `switch`.
+ */
+export const ETAPAS_DISENO: EstadoProyecto[] = [
+  EstadoProyecto.Diseno,
+  EstadoProyecto.AvanceDiseno,
+  EstadoProyecto.DisenoFinalizado,
+];
+
+export function esEtapaDeDiseno(estado: EstadoProyecto): boolean {
+  return ETAPAS_DISENO.includes(estado);
+}
 
 /**
  * Valida el movimiento entre etapas. Devuelve el motivo del rechazo o `null`.
@@ -308,8 +333,10 @@ export function compuertasFaltantes(entrada: EntradaCompuertas): string[] {
     }
   }
 
+  // Rige para las tres etapas de diseño, no solo la primera: sin el material
+  // no se entra al tramo, ni siquiera retrocediendo desde `Desarrollo`.
   if (
-    entrada.estadoDestino === EstadoProyecto.Diseno &&
+    esEtapaDeDiseno(entrada.estadoDestino) &&
     !entrada.materialMarcaRecibido
   ) {
     motivos.push(
@@ -360,6 +387,12 @@ export function hostingEsExigible(estado: EstadoProyecto): boolean {
  * Qué recordatorio corresponde abrir según lo que esté trabando al proyecto,
  * o `null` si no hay nada pendiente del cliente. El orden respeta la prioridad
  * del diagrama: primero el pago, después el material, después el catálogo.
+ *
+ * El recordatorio de cobro sale de la etapa **siguiente**, así que con el
+ * tramo de diseño partido en tres el de `AprobacionDiseno` se abre recién en
+ * `DisenoFinalizado`, que es cuando el cobro pasa a ser lo único que falta.
+ * Durante `Diseno` y `AvanceDiseno` todavía hay trabajo del diseñador en curso:
+ * perseguir ese pago ahí sería adelantado.
  */
 export function recordatorioQueCorresponde(entrada: {
   estadoProyecto: EstadoProyecto;
@@ -433,14 +466,13 @@ export function responsableDe(
     return 'administracion';
   }
 
-  switch (estado) {
-    case EstadoProyecto.Diseno:
-      return 'disenador';
-    case EstadoProyecto.Desarrollo:
-      return 'desarrollador';
-    default:
-      return 'administracion';
+  if (esEtapaDeDiseno(estado)) {
+    return 'disenador';
   }
+
+  return estado === EstadoProyecto.Desarrollo
+    ? 'desarrollador'
+    : 'administracion';
 }
 
 // ---------------------------------------------------------------------------

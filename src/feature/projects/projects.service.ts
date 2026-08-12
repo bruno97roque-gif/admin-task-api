@@ -26,7 +26,9 @@ import {
   DIAS_PARA_ARCHIVAR,
   diasTranscurridos,
   esEstadoTerminal,
+  esEtapaDeDiseno,
   estadoAlReactivar,
+  ETAPAS_DISENO,
   hitoQueHabilita,
   hostingEsExigible,
   porcentajeDeReactivacion,
@@ -279,12 +281,17 @@ export class ProjectsService {
     return proyectos.map((proyecto) => this.aplanar(proyecto));
   }
 
+  /**
+   * Tablero del diseñador: el tramo de diseño entero, no solo su primera etapa
+   * (`ETAPAS_DISENO`). Un proyecto en `Avance de Diseño` o `Diseño Finalizado`
+   * sigue siendo suyo hasta que pasa a desarrollo.
+   */
   async findByDiseno(idDisenador?: number): Promise<ProyectoCompleto[]> {
     const proyectos = await this.prisma.proyecto.findMany({
       where: {
         deletedAt: null,
         grupo: 'A',
-        estadoProyecto: EstadoProyecto.Diseno,
+        estadoProyecto: { in: ETAPAS_DISENO },
         ...(idDisenador !== undefined && { disenadorId: idDisenador }),
       },
       orderBy: { id: 'asc' },
@@ -653,7 +660,11 @@ export class ProjectsService {
     );
   }
 
-  /** El cliente aprobó el diseño (nodo A9). */
+  /**
+   * El cliente aprobó el diseño (nodo A9). Se acepta desde cualquiera de las
+   * tres etapas de diseño: la aprobación puede llegar sobre el avance o sobre
+   * el diseño ya cerrado, y en las dos cierra el mismo nodo del diagrama.
+   */
   async aprobarDiseno(
     id: number,
     motivo?: string,
@@ -661,7 +672,7 @@ export class ProjectsService {
   ): Promise<ProyectoCompleto> {
     const actual = await this.findOne(id);
 
-    if (actual.estadoProyecto !== EstadoProyecto.Diseno) {
+    if (!esEtapaDeDiseno(actual.estadoProyecto)) {
       throw new ConflictException(
         `El proyecto ${id} no está en diseño: está en ${actual.estadoProyecto}`,
       );

@@ -13,11 +13,17 @@ datasource db {
   provider = "postgresql"
 }
 
+/// El diseño se recorre en tres etapas: `Diseno` es el trabajo en curso,
+/// `AvanceDiseno` el avance que se le presenta al cliente y `DisenoFinalizado`
+/// el diseño cerrado, que es cuando se persigue el cobro de aprobación.
+/// El orden del enum es el del pipeline; `ORDEN_ETAPAS` lo repite en código.
 enum EstadoProyecto {
   Registro
   Brief
   Taxonomia
   Diseno             @map("Diseño")
+  AvanceDiseno       @map("Avance de Diseño")
+  DisenoFinalizado   @map("Diseño Finalizado")
   Desarrollo
   ProyectoFinalizado @map("Proyecto Finalizado")
   Archivado

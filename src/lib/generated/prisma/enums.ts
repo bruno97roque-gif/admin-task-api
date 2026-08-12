@@ -13,6 +13,8 @@ export const EstadoProyecto = {
   Brief: 'Brief',
   Taxonomia: 'Taxonomia',
   Diseno: 'Diseno',
+  AvanceDiseno: 'AvanceDiseno',
+  DisenoFinalizado: 'DisenoFinalizado',
   Desarrollo: 'Desarrollo',
   ProyectoFinalizado: 'ProyectoFinalizado',
   Archivado: 'Archivado'

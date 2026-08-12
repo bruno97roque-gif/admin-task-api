@@ -12,8 +12,10 @@ import {
   debeArchivarse,
   derivarGrupo,
   esEstadoTerminal,
+  esEtapaDeDiseno,
   estadoAlReactivar,
   estaEnFlujoNuevo,
+  ETAPAS_DISENO,
   hitoQueHabilita,
   hostingEsExigible,
   porcentajeDeReactivacion,
@@ -211,6 +213,64 @@ describe('transicionInvalida', () => {
       transicionInvalida(EstadoProyecto.Diseno, EstadoProyecto.Diseno, null),
     ).toBeNull();
   });
+
+  it('el tramo de diseño se recorre de a un paso', () => {
+    expect(
+      transicionInvalida(
+        EstadoProyecto.Diseno,
+        EstadoProyecto.AvanceDiseno,
+        null,
+      ),
+    ).toBeNull();
+
+    expect(
+      transicionInvalida(
+        EstadoProyecto.AvanceDiseno,
+        EstadoProyecto.DisenoFinalizado,
+        null,
+      ),
+    ).toBeNull();
+
+    expect(
+      transicionInvalida(
+        EstadoProyecto.DisenoFinalizado,
+        EstadoProyecto.Desarrollo,
+        null,
+      ),
+    ).toBeNull();
+  });
+
+  it('no se saltea el avance ni el cierre del diseño', () => {
+    expect(
+      transicionInvalida(
+        EstadoProyecto.Diseno,
+        EstadoProyecto.Desarrollo,
+        null,
+      ),
+    ).toMatch(/hay que pasar por AvanceDiseno/);
+  });
+
+  it('se puede volver atrás dentro del diseño (otra ronda de cambios)', () => {
+    expect(
+      transicionInvalida(
+        EstadoProyecto.DisenoFinalizado,
+        EstadoProyecto.Diseno,
+        null,
+      ),
+    ).toBeNull();
+  });
+
+  it('una web informativa sigue saltando de brief a diseño', () => {
+    // El salto legítimo es el de taxonomía, y las etapas nuevas van después:
+    // agregarlas no tiene que haber corrido ese atajo de lugar.
+    expect(
+      transicionInvalida(
+        EstadoProyecto.Brief,
+        EstadoProyecto.Diseno,
+        TipoProyecto.Informativa,
+      ),
+    ).toBeNull();
+  });
 });
 
 describe('compuertasFaltantes', () => {
@@ -241,6 +301,39 @@ describe('compuertasFaltantes', () => {
     ).toEqual([
       'falta el material de marca (logo, fotos de banners y secciones)',
     ]);
+  });
+
+  it('el material de marca frena las tres etapas de diseño, no solo la primera', () => {
+    for (const estadoDestino of ETAPAS_DISENO) {
+      expect(
+        compuertasFaltantes({
+          ...base,
+          estadoDestino,
+          materialMarcaRecibido: false,
+        }),
+      ).toEqual([
+        'falta el material de marca (logo, fotos de banners y secciones)',
+      ]);
+    }
+  });
+
+  it('el avance y el cierre del diseño no tienen compuerta de cobro', () => {
+    // El tramo de diseño va incluido en el abono inicial: el cobro de
+    // aprobación recién se exige para entrar a `Desarrollo`.
+    expect(hitoQueHabilita(EstadoProyecto.AvanceDiseno)).toBeNull();
+    expect(hitoQueHabilita(EstadoProyecto.DisenoFinalizado)).toBeNull();
+
+    expect(
+      compuertasFaltantes({
+        ...base,
+        estadoDestino: EstadoProyecto.DisenoFinalizado,
+        cobros: cobrosDe(
+          [HitoCobro.AbonoInicial, true],
+          [HitoCobro.AprobacionDiseno, false],
+          [HitoCobro.Entrega, false],
+        ),
+      }),
+    ).toEqual([]);
   });
 
   it('frena el paso a desarrollo si no se cobró la aprobación de diseño', () => {
@@ -315,16 +408,45 @@ describe('recordatorioQueCorresponde', () => {
     expect(recordatorioQueCorresponde(base)).toBeNull();
   });
 
+  const sinCobrarAprobacion = cobrosDe(
+    [HitoCobro.AbonoInicial, true],
+    [HitoCobro.AprobacionDiseno, false],
+    [HitoCobro.Entrega, false],
+  );
+
   it('el cobro tiene prioridad sobre el material', () => {
     expect(
       recordatorioQueCorresponde({
         ...base,
+        estadoProyecto: EstadoProyecto.DisenoFinalizado,
         materialMarcaRecibido: false,
-        cobros: cobrosDe(
-          [HitoCobro.AbonoInicial, true],
-          [HitoCobro.AprobacionDiseno, false],
-          [HitoCobro.Entrega, false],
-        ),
+        cobros: sinCobrarAprobacion,
+      }),
+    ).toBe(TipoRecordatorio.CobroAprobacionDiseno);
+  });
+
+  it('el cobro de aprobación se persigue recién con el diseño finalizado', () => {
+    // Durante el diseño en curso el pago todavía no es lo que traba: el
+    // recordatorio que sale es el del material, que sí frena al diseñador.
+    for (const estadoProyecto of [
+      EstadoProyecto.Diseno,
+      EstadoProyecto.AvanceDiseno,
+    ]) {
+      expect(
+        recordatorioQueCorresponde({
+          ...base,
+          estadoProyecto,
+          materialMarcaRecibido: false,
+          cobros: sinCobrarAprobacion,
+        }),
+      ).toBe(TipoRecordatorio.MaterialMarca);
+    }
+
+    expect(
+      recordatorioQueCorresponde({
+        ...base,
+        estadoProyecto: EstadoProyecto.DisenoFinalizado,
+        cobros: sinCobrarAprobacion,
       }),
     ).toBe(TipoRecordatorio.CobroAprobacionDiseno);
   });
@@ -416,8 +538,20 @@ describe('responsableDe', () => {
     expect(responsableDe(EstadoProyecto.Brief, Grupo.A)).toBe('administracion');
   });
 
+  it('las tres etapas de diseño son del diseñador', () => {
+    for (const estado of ETAPAS_DISENO) {
+      expect(esEtapaDeDiseno(estado)).toBe(true);
+      expect(responsableDe(estado, Grupo.A)).toBe('disenador');
+    }
+
+    expect(esEtapaDeDiseno(EstadoProyecto.Desarrollo)).toBe(false);
+  });
+
   it('en B o C vuelve a administración sin importar la etapa', () => {
     expect(responsableDe(EstadoProyecto.Diseno, Grupo.B)).toBe(
+      'administracion',
+    );
+    expect(responsableDe(EstadoProyecto.AvanceDiseno, Grupo.B)).toBe(
       'administracion',
     );
     expect(responsableDe(EstadoProyecto.Desarrollo, Grupo.C)).toBe(
@@ -429,6 +563,15 @@ describe('responsableDe', () => {
 describe('siguienteEtapa y hostingEsExigible', () => {
   it('sigue el orden del diagrama', () => {
     expect(siguienteEtapa(EstadoProyecto.Registro)).toBe(EstadoProyecto.Brief);
+    expect(siguienteEtapa(EstadoProyecto.Diseno)).toBe(
+      EstadoProyecto.AvanceDiseno,
+    );
+    expect(siguienteEtapa(EstadoProyecto.AvanceDiseno)).toBe(
+      EstadoProyecto.DisenoFinalizado,
+    );
+    expect(siguienteEtapa(EstadoProyecto.DisenoFinalizado)).toBe(
+      EstadoProyecto.Desarrollo,
+    );
     expect(siguienteEtapa(EstadoProyecto.Desarrollo)).toBe(
       EstadoProyecto.ProyectoFinalizado,
     );
@@ -438,5 +581,6 @@ describe('siguienteEtapa y hostingEsExigible', () => {
   it('el hosting solo se exige en desarrollo', () => {
     expect(hostingEsExigible(EstadoProyecto.Desarrollo)).toBe(true);
     expect(hostingEsExigible(EstadoProyecto.Diseno)).toBe(false);
+    expect(hostingEsExigible(EstadoProyecto.DisenoFinalizado)).toBe(false);
   });
 });
