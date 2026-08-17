@@ -11,7 +11,7 @@ The domain vocabulary is Spanish (`proyecto`, `seguimiento`, `usuario`, `grupo`)
 `README.md` is the untouched NestJS starter boilerplate — it contains nothing about this project. The written sources of truth are, in this order:
 
 - **`Flujo de trabajo (mejorado).drawio`** (raíz) — el diagrama de flujo acordado con el equipo. Los comentarios del código citan sus nodos (`A6`, `B13`, `C3`…).
-- **`PLAN-FLUJO.md`** (raíz) — comparación nodo por nodo entre el diagrama y lo implementado, con el estado de ejecución y las decisiones que quedaron pendientes del equipo (§5). Es lo primero que hay que leer antes de tocar el flujo.
+- **`PLAN-FLUJO.md`** (raíz) — comparación nodo por nodo entre el diagrama y lo implementado, con el estado de ejecución y las decisiones que quedaron pendientes del equipo (§5). Es lo primero que hay que leer antes de tocar el flujo. **Su banner de «Estado de ejecución» está congelado al 2026-08-09**: los números que cita (43 tests, 23 rutas, migración sin aplicar) ya no valen — el conteo vigente está en «Verification» y en el aviso de abajo. El valor de `PLAN-FLUJO.md` es la comparación nodo por nodo y §5, no su encabezado.
 - **`tablero-proyectos-websy_5.xlsx`** (raíz) — la planilla que esta API reemplaza; sus hojas `Instrucciones` y `Reglas` tienen la regla de los 15 días y «GRUPO se calcula solo». Para leerla hay que descomprimirla y parsear `xl/sharedStrings.xml` + `xl/worksheets/sheet2.xml`.
 - `docs/auth-contract.md` (el contrato cliente del login/refresh) fue borrado en el commit `f7e6726`, así que para auth el código es lo único que queda — resumido más abajo.
 
@@ -77,6 +77,8 @@ Las acciones del flujo son rutas propias, no un `PATCH` genérico — cada una v
 | `GET /projects/:id/historial` | — | las filas de `historial_etapas`, ascendentes, con el usuario |
 | `GET /projects/:id/recordatorios` | — | los cinco recordatorios, abiertos y resueltos |
 
+Las otras siete rutas de `ProjectsController` son el CRUD y la membresía, y **no** pasan por las reglas del flujo salvo donde se indica: `POST /projects` (alta; valida compuertas si la etapa pedida no es `Registro`), `GET /projects`, `GET /projects/:id`, `PATCH /projects/:id` (`UpdateProjectDto`; es el único camino que valida `transicionInvalida()`), `DELETE /projects/:id` (soft-delete), `POST /projects/:id/usuarios` (aditivo) y `DELETE /projects/:id/usuarios/:usuarioId` (saca un usuario del join, sin tocar `disenadorId`/`desarrolladorId`).
+
 Tres helpers privados concentran la mecánica; cualquier acción nueva del flujo debería usar uno de ellos en vez de escribir su propia transacción:
 
 - `marcarHito(id, campo, motivo, actorId)` — sella un `DateTime?` del recorrido (`factibilidadRevisadaAt`, `disenoAprobadoAt`, `presentadoAt`, `subidoProduccionAt`, `capacitacionAt`), deja la fila de historial y llama a `recalcularGrupo`.
@@ -113,7 +115,7 @@ pnpm exec prisma studio
 
 El `jest` de `package.json` necesita `moduleNameMapper: {"^(\\.{1,2}/.*)\\.js$": "$1"}` — el cliente generado por Prisma 7 importa con extensión `.js` al estilo nodenext y sin ese mapeo todo el suite falla con `Cannot find module './internal/class.js'`.
 
-Además de los tests, la verificación disponible es `pnpm exec tsc --noEmit`, `pnpm lint`, y levantar la app: Nest loguea una línea `[RouterExplorer] Mapped {...} route` por endpoint al arrancar, lo que confirma registración y orden de rutas (hoy son 23 en `/projects`). Pasá `PORT=<puerto libre>` si ya hay un dev server en el 3000.
+Además de los tests, la verificación disponible es `pnpm exec tsc --noEmit`, `pnpm lint`, y levantar la app: Nest loguea una línea `[RouterExplorer] Mapped {...} route` por endpoint al arrancar, lo que confirma registración y orden de rutas (hoy son **29** en `/projects` y 52 en toda la app; verificado al 2026-08-17). Pasá `PORT=<puerto libre>` si ya hay un dev server en el 3000.
 
 Booting also exercises the config wiring: `JWT_SECRET` and `JWT_REFRESH_SECRET` are read with `getOrThrow`, so a missing one fails at startup (secret) or on first refresh (refresh secret).
 
