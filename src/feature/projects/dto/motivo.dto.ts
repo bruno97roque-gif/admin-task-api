@@ -1,3 +1,4 @@
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, MaxLength } from 'class-validator';
 
 /**
@@ -5,6 +6,12 @@ import { IsOptional, IsString, MaxLength } from 'class-validator';
  * historial: archivar, reactivar y registrar una ronda de cambios.
  */
 export class MotivoDto {
+  @ApiPropertyOptional({
+    description:
+      'Nota que queda en la fila del historial, junto con quién hizo el cambio y cuándo.',
+    example: 'El cliente confirmó por WhatsApp',
+    maxLength: 500,
+  })
   @IsOptional()
   @IsString()
   @MaxLength(500)

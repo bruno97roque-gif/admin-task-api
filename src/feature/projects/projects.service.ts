@@ -9,6 +9,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { DefinirPlanCobrosDto } from './dto/plan-cobros.dto';
 import { MarcarCobroDto } from './dto/marcar-cobro.dto';
 import { ObservacionesDto } from './dto/observaciones.dto';
+import { AsignarResponsablesDto } from './dto/asignar-responsables.dto';
 import { PrismaService } from '../../lib/prisma/prisma.service';
 import {
   EstadoProyecto,
@@ -1035,6 +1036,80 @@ export class ProjectsService {
       seRehaceInicioYDiseno: estadoNuevo !== estadoPrevio,
       proyecto: this.aplanar(proyecto),
     };
+  }
+
+  /**
+   * Reasigna diseñador y/o desarrollador dejando `usuarios_proyectos` en
+   * sincronía: el responsable saliente se desengancha del equipo y el entrante
+   * se engancha, todo en la misma transacción. Al resto del equipo no lo toca.
+   */
+  async asignarResponsables(
+    id: number,
+    dto: AsignarResponsablesDto,
+    actorId?: number,
+  ): Promise<ProyectoCompleto> {
+    const actual = await this.findOne(id);
+    await this.validarAsignados(dto.disenadorId, dto.desarrolladorId);
+
+    const disenadorNuevo =
+      dto.disenadorId !== undefined ? dto.disenadorId : actual.disenadorId;
+    const desarrolladorNuevo =
+      dto.desarrolladorId !== undefined
+        ? dto.desarrolladorId
+        : actual.desarrolladorId;
+
+    // Sin early return aunque los responsables no cambien: la ruta también
+    // sirve para reparar un join que quedó desfasado de las columnas.
+
+    // Los que quedan como responsables no se sacan del equipo aunque estuvieran
+    // ocupando el otro puesto (el mismo usuario puede ser los dos).
+    const quedan = [disenadorNuevo, desarrolladorNuevo].filter(
+      (usuarioId): usuarioId is number => typeof usuarioId === 'number',
+    );
+
+    const salen = [actual.disenadorId, actual.desarrolladorId].filter(
+      (usuarioId): usuarioId is number =>
+        typeof usuarioId === 'number' && !quedan.includes(usuarioId),
+    );
+
+    await this.prisma.$transaction(async (tx) => {
+      await tx.proyecto.update({
+        where: { id },
+        data: {
+          disenadorId: disenadorNuevo,
+          desarrolladorId: desarrolladorNuevo,
+        },
+      });
+
+      if (salen.length > 0) {
+        await tx.usuarioProyecto.deleteMany({
+          where: { proyectoId: id, usuarioId: { in: salen } },
+        });
+      }
+
+      if (quedan.length > 0) {
+        await tx.usuarioProyecto.createMany({
+          data: quedan.map((usuarioId) => ({ proyectoId: id, usuarioId })),
+          skipDuplicates: true,
+        });
+      }
+
+      await tx.historialEtapa.create({
+        data: {
+          proyectoId: id,
+          estadoAnterior: actual.estadoProyecto,
+          estadoNuevo: actual.estadoProyecto,
+          grupoAnterior: actual.grupo,
+          grupoNuevo: actual.grupo,
+          motivo:
+            dto.motivo ??
+            `Responsables: diseñador ${actual.disenadorId ?? '—'} → ${disenadorNuevo ?? '—'}, desarrollador ${actual.desarrolladorId ?? '—'} → ${desarrolladorNuevo ?? '—'}`,
+          usuarioId: actorId ?? null,
+        },
+      });
+    });
+
+    return this.findOne(id);
   }
 
   async asignarUsuarios(

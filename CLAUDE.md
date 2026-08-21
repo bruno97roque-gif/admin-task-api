@@ -77,7 +77,9 @@ Las acciones del flujo son rutas propias, no un `PATCH` genérico — cada una v
 | `GET /projects/:id/historial` | — | las filas de `historial_etapas`, ascendentes, con el usuario |
 | `GET /projects/:id/recordatorios` | — | los cinco recordatorios, abiertos y resueltos |
 
-Las otras siete rutas de `ProjectsController` son el CRUD y la membresía, y **no** pasan por las reglas del flujo salvo donde se indica: `POST /projects` (alta; valida compuertas si la etapa pedida no es `Registro`), `GET /projects`, `GET /projects/:id`, `PATCH /projects/:id` (`UpdateProjectDto`; es el único camino que valida `transicionInvalida()`), `DELETE /projects/:id` (soft-delete), `POST /projects/:id/usuarios` (aditivo) y `DELETE /projects/:id/usuarios/:usuarioId` (saca un usuario del join, sin tocar `disenadorId`/`desarrolladorId`).
+Las otras siete rutas de `ProjectsController` son el CRUD y la membresía, y **no** pasan por las reglas del flujo salvo donde se indica: `POST /projects` (alta; valida compuertas si la etapa pedida no es `Registro`), `GET /projects`, `GET /projects/:id`, `PATCH /projects/:id` (`UpdateProjectDto`; es el único camino que valida `transicionInvalida()`), `DELETE /projects/:id` (soft-delete), `POST /projects/:id/usuarios` (aditivo), `DELETE /projects/:id/usuarios/:usuarioId` (saca un usuario del join, sin tocar `disenadorId`/`desarrolladorId`) y `PATCH /projects/:id/responsables` (`AsignarResponsablesDto`).
+
+**`PATCH /projects/:id/responsables` es el único camino que mantiene las dos tablas en sincronía.** Cambia `disenadorId`/`desarrolladorId` y en la misma transacción desengancha del join al responsable saliente y engancha al entrante; al resto del equipo no lo toca. Es deliberadamente **sin early return**: mandar los ids que el proyecto ya tiene no es un no-op, sirve para reparar un join que quedó desfasado de las columnas (es el caso de los proyectos donde se cambió `disenadorId` por el `PATCH` genérico, que no toca `usuarios_proyectos`). Lo que **no** puede hacer es adivinar a quién sacar cuando el desfase ya existe: si el join arrastra a un responsable viejo que ya no figura en ninguna columna, eso sale con `DELETE /projects/:id/usuarios/:usuarioId`. Un usuario que ocupa los dos puestos no se saca al reasignar solo uno.
 
 Tres helpers privados concentran la mecánica; cualquier acción nueva del flujo debería usar uno de ellos en vez de escribir su propia transacción:
 
@@ -115,7 +117,9 @@ pnpm exec prisma studio
 
 El `jest` de `package.json` necesita `moduleNameMapper: {"^(\\.{1,2}/.*)\\.js$": "$1"}` — el cliente generado por Prisma 7 importa con extensión `.js` al estilo nodenext y sin ese mapeo todo el suite falla con `Cannot find module './internal/class.js'`.
 
-Además de los tests, la verificación disponible es `pnpm exec tsc --noEmit`, `pnpm lint`, y levantar la app: Nest loguea una línea `[RouterExplorer] Mapped {...} route` por endpoint al arrancar, lo que confirma registración y orden de rutas (hoy son **29** en `/projects` y 52 en toda la app; verificado al 2026-08-17). Pasá `PORT=<puerto libre>` si ya hay un dev server en el 3000.
+Además de los tests, la verificación disponible es `pnpm exec tsc --noEmit`, `pnpm lint`, y levantar la app: Nest loguea una línea `[RouterExplorer] Mapped {...} route` por endpoint al arrancar, lo que confirma registración y orden de rutas (hoy son **30** en `/projects` y 53 en toda la app; verificado al 2026-08-21). Pasá `PORT=<puerto libre>` si ya hay un dev server en el 3000.
+
+Las rutas de Swagger (`/docs`, `/docs-json`) **no** salen en ese conteo: se montan sobre Express, por fuera del router de Nest. `curl localhost:3000/docs-json` es la cuarta herramienta de verificación y la más barata para revisar la documentación: `paths` tiene que dar 53 operaciones, cada una con exactamente un `tag`, y `components.schemas` muestra qué campos quedaron expuestos en cada DTO.
 
 Booting also exercises the config wiring: `JWT_SECRET` and `JWT_REFRESH_SECRET` are read with `getOrThrow`, so a missing one fails at startup (secret) or on first refresh (refresh secret).
 
@@ -132,6 +136,7 @@ Booting also exercises the config wiring: `JWT_SECRET` and `JWT_REFRESH_SECRET` 
 | `JWT_REFRESH_EXPIRES_IN` | no | `5d` — set in **two** places (`auth.service.ts` for the token, `auth.controller.ts` for the cookie `maxAge`); change both or the cookie outlives the token |
 | `CORS_ORIGIN` | no | comma-separated list; unset reflects the request origin |
 | `PORT` | no | `3000` |
+| `SWAGGER_ENABLED` | no | solo `false` apaga la documentación; cualquier otro valor (o ausente) la deja publicada en `/docs` |
 | `NODE_ENV` | no | `production` switches the refresh cookie to `SameSite=None; Secure` |
 
 ## Architecture
@@ -145,7 +150,7 @@ Booting also exercises the config wiring: `JWT_SECRET` and `JWT_REFRESH_SECRET` 
 
 Controllers are thin: they parse `:id` with `ParseIntPipe` and delegate. All business rules, existence checks, and error throwing live in services.
 
-When scaffolding with `nest g resource`, the generator leaves an empty `CreateXDto {}` and stub service methods that return strings. The empty DTO is a trap: with the global `forbidNonWhitelisted` pipe (below) it makes every request body a 400 until the fields are filled in. The generated controller also emits lines over Prettier's print width, which are lint **errors** here — run `pnpm exec eslint src/feature/<name> --fix` after generating. New routes are protected by default (see Auth), so decide deliberately whether the resource needs `@Public()`.
+When scaffolding with `nest g resource`, the generator leaves an empty `CreateXDto {}` and stub service methods that return strings. The empty DTO is a trap: with the global `forbidNonWhitelisted` pipe (below) it makes every request body a 400 until the fields are filled in. The generated controller also emits lines over Prettier's print width, which are lint **errors** here — run `pnpm exec eslint src/feature/<name> --fix` after generating. New routes are protected by default (see Auth), so decide deliberately whether the resource needs `@Public()`. El generador tampoco pone nada de Swagger: sin `@ApiTags` la sección sale con el nombre de la clase en inglés, y sin `@ApiBearerAuth(AUTH_BEARER)` el candado sale abierto (ver «Documentación»).
 
 ### Routing (Express 5)
 
@@ -173,6 +178,17 @@ Fully wired — access token in the `Authorization` header, refresh token in an 
   - `UserController` no tiene `@Roles()` y `UpdateUserDto` es `PartialType(CreateUserDto)`: **cualquier usuario autenticado puede hacer `PATCH /user/:id` sobre cualquier id** y cambiar `password`, `roleId` o `active` — incluidos los de otro. Tampoco existe un "cambiar mi contraseña" que pida la actual. Si tocás ese módulo, tenelo presente.
 - **Client-side contract**, since the doc that described it is gone: `POST /auth/login` and `POST /auth/refresh` both return `200` with `{ accessToken, user: { id, name, user, roleId, roleName } }`; `POST /auth/logout` returns **`204` with no body** and must not be `.json()`-parsed. All three are `@Public()` and all three need `credentials: 'include'` for the cookie. Failures are `401` (`Credenciales inválidas`, `Refresh token inválido o expirado`, `El usuario está desactivado`). A client should single-flight the refresh call and retry the original request once.
 
+### Documentación (Swagger)
+
+`@nestjs/swagger` 11, en español. `src/swagger.ts` concentra toda la configuración y la exporta en tres constantes que los controllers importan: `TAGS` (los nombres de las secciones), `AUTH_BEARER` y `AUTH_COOKIE_REFRESH` (los esquemas de seguridad). No tipees esas cadenas a mano en un controller: si no coinciden con las registradas, el candado sale abierto y el botón «Authorize» no manda el header.
+
+- **Dónde**: UI en `/docs`, JSON en `/docs-json`. `main.ts` llama a `configurarSwagger(app)` antes de `listen`, salvo que `SWAGGER_ENABLED=false`.
+- **`/docs` es público.** `SwaggerModule.setup` registra sus rutas directo en el adaptador de Express, así que **no pasan por los guards globales**: la documentación se ve sin token aunque el resto de la API no. Es a propósito (es una API interna), pero si alguna vez molesta, la variable de entorno es la salida.
+- **`autoTagControllers: false`** en `createDocument` es obligatorio. Sin eso, un controller sin `@ApiTags` de clase hereda un tag con el nombre de la clase (`Projects`), y las 30 rutas de proyectos aparecen **dos veces**: en esa sección y en la suya en español. Los tags de método se **suman** a los de clase, nunca los reemplazan; por eso `ProjectsController` no tiene `@ApiTags` de clase y sí uno por método, que es lo que le permite repartirse en tres secciones (`Proyectos`, `… · Flujo de trabajo`, `… · Cobros`) sin duplicar ninguna.
+- **`@ApiBearerAuth(AUTH_BEARER)` va a nivel de clase** en los cinco controllers protegidos — ese sí conviene heredarlo, no duplica nada. `AuthController` no lo lleva: sus tres rutas son `@Public()`, y `refresh` declara `@ApiCookieAuth(AUTH_COOKIE_REFRESH)` porque lo que consume es la cookie.
+- **Los `*-respuesta.dto.ts` son solo documentación**: describen lo que devuelve el servicio pero no se instancian nunca (las respuestas salen de Prisma pasadas por `aplanar()`). No hay nada que las mantenga sincronizadas — si cambiás el `proyectoInclude` del servicio, el schema de Prisma o `aplanar()`, hay que tocar `proyecto-respuesta.dto.ts` a mano o la doc miente.
+- Los enums se documentan con `enumName` para que salgan como schema reutilizable, y muestran el identificador **del lado de Prisma** (`Diseno`), que es el que acepta la API — no el valor mapeado de la base (`Diseño`).
+
 ### Prisma
 
 - Prisma 7 with the **`prisma-client` generator** (not `prisma-client-js`), output committed at `src/lib/generated/prisma` with `moduleFormat = "cjs"`. Import types and enums from `'../../lib/generated/prisma/client'`, never from `@prisma/client`. The `.gitignore` entry `/generated/prisma` is root-anchored and does not cover this path, so the generated client is checked in — regenerate and commit it after schema changes.
@@ -196,7 +212,7 @@ Follow these when adding a resource — they are consistent across `rol`, `segui
 ### Validation
 
 - `main.ts` installs a global `ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })`, so any unknown property in a request body is a 400. Every DTO field therefore needs a `class-validator` decorator or it will be stripped/rejected.
-- Update DTOs are `PartialType(CreateXDto)` from `@nestjs/mapped-types` — except `UpdateProjectDto`, which wraps `OmitType(...)` para sacar `planCobros`, `aprobadoPorJefatura` y `abonoInicialCobrado`: el plan solo se toca por su propia ruta.
+- Update DTOs are `PartialType(CreateXDto)` — except `UpdateProjectDto`, which wraps `OmitType(...)` para sacar `planCobros`, `aprobadoPorJefatura` y `abonoInicialCobrado`: el plan solo se toca por su propia ruta. **Los cinco salen de `@nestjs/swagger`, no de `@nestjs/mapped-types`**: heredan las reglas de class-validator igual que aquellos, y además arrastran los `@ApiProperty` del DTO de alta. Con los de `mapped-types` el cuerpo de cada `PATCH` salía vacío en la documentación. `@nestjs/mapped-types` sigue en `dependencies` pero ya no lo importa nadie.
 - Nested DTOs (`ItemPlanCobrosDto` inside `planCobros`/`cobros`) need **both** `@ValidateNested({ each: true })` and `@Type(() => ...)` from `class-transformer`. That works even though the pipe has `transform: false`: the pipe still instantiates the class internally to validate, it just doesn't hand the transformed instance back to the handler.
 - Enum fields validate against the generated Prisma enums (`@IsEnum(EstadoProyecto)`), and id arrays use `@IsArray() @ArrayUnique() @IsInt({ each: true })`.
 - **The pipe has no `transform: true`**, so a DTO field arrives as whatever JSON type the client sent — conversion is the service's job. Two consequences, both already handled in `CreateProjectDto`: las fechas (`fechaEntrega`, `fechaCobro`) se tipan `string | null` con `@IsISO8601()` y `ProjectsService.aFecha()` las convierte a `Date`; `diasSinResponder` carries a `@Transform` that stringifies an incoming number, because the column is `String` and clients send `3` as often as `"3"`. Copy that pattern rather than turning the global pipe's `transform` on — that would change every existing endpoint at once.
@@ -208,7 +224,7 @@ Follow these when adding a resource — they are consistent across `rol`, `segui
 
 - `FROM node:22` (not `-slim`): `argon2` is a native module and needs gcc/make/python3 when no prebuilt binary matches.
 - pnpm is installed with `npm install -g pnpm@11.16.0`, **not corepack** — Railway's build-image corepack predates pnpm 10/11 and fails with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
-- `pnpm-workspace.yaml` is copied before install because its `allowBuilds` entries are what authorize `argon2` and `prisma` to run their build scripts.
+- `pnpm-workspace.yaml` is copied before install because its `allowBuilds` entries are what authorize `argon2` and `prisma` to run their build scripts. Ojo al agregar dependencias: cuando pnpm detecta un paquete nuevo con script de instalación, escribe la clave con el placeholder literal `set this to true or false`, y con eso `pnpm install --frozen-lockfile` **sale con código 1** y el deploy se cae. Hay que reemplazarlo por `true`/`false` a mano (`@scarf/scarf` está en `false`: es telemetría).
 - `pnpm install --frozen-lockfile --prod=false` — the build needs devDependencies (`@nestjs/cli`, `typescript`) even when the environment sets `NODE_ENV=production`.
 - `EXPOSE 3000` is required: with a Dockerfile build, Railway infers the routed port from it and returns 502 without it.
 
