@@ -16,16 +16,21 @@ datasource db {
 /// El diseño se recorre en tres etapas: `Diseno` es el trabajo en curso,
 /// `AvanceDiseno` el avance que se le presenta al cliente y `DisenoFinalizado`
 /// el diseño cerrado, que es cuando se persigue el cobro de aprobación.
+/// El desarrollo tiene el mismo cierre: `Desarrollo` es el trabajo en curso y
+/// `DesarrolloFinalizado` es cuando ya se subió a producción, se hizo la
+/// capacitación y se contrató el hosting — ahí es cuando se persigue el cobro
+/// de entrega, y recién con eso cobrado pasa a `ProyectoFinalizado`.
 /// El orden del enum es el del pipeline; `ORDEN_ETAPAS` lo repite en código.
 enum EstadoProyecto {
   Registro
   Brief
   Taxonomia
-  Diseno             @map("Diseño")
-  AvanceDiseno       @map("Avance de Diseño")
-  DisenoFinalizado   @map("Diseño Finalizado")
+  Diseno                @map("Diseño")
+  AvanceDiseno          @map("Avance de Diseño")
+  DisenoFinalizado      @map("Diseño Finalizado")
   Desarrollo
-  ProyectoFinalizado @map("Proyecto Finalizado")
+  DesarrolloFinalizado  @map("Desarrollo Finalizado")
+  ProyectoFinalizado    @map("Proyecto Finalizado")
   Archivado
 }
 
@@ -40,9 +45,14 @@ enum HitoCobro {
 /// Decide dos bifurcaciones del flujo: la web informativa saltea la taxonomía,
 /// y el catálogo y la carga de productos son solo de e-commerce.
 /// Los `@map` respetan los valores que ya había en la columna de texto.
+/// `Sistema` (apps/sistemas a medida) se comporta igual que `Informativa` en
+/// las dos bifurcaciones — no requiere taxonomía ni carga de catálogo — hasta
+/// que el equipo defina una regla propia. Se asigna a mano, igual que los
+/// otros dos.
 enum TipoProyecto {
   Informativa
   Ecommerce   @map("E-commerce")
+  Sistema
 }
 
 /// Los cinco recordatorios del diagrama. Todos desembocan en archivado a los

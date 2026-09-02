@@ -1115,13 +1115,28 @@ export class ProjectsService {
   async asignarUsuarios(
     id: number,
     usuariosIds: number[],
+    actorId?: number,
   ): Promise<ProyectoCompleto> {
-    await this.findOne(id);
+    const actual = await this.findOne(id);
     await this.validarUsuarios(usuariosIds);
 
-    await this.prisma.usuarioProyecto.createMany({
-      data: usuariosIds.map((usuarioId) => ({ proyectoId: id, usuarioId })),
-      skipDuplicates: true,
+    await this.prisma.$transaction(async (tx) => {
+      await tx.usuarioProyecto.createMany({
+        data: usuariosIds.map((usuarioId) => ({ proyectoId: id, usuarioId })),
+        skipDuplicates: true,
+      });
+
+      await tx.historialEtapa.create({
+        data: {
+          proyectoId: id,
+          estadoAnterior: actual.estadoProyecto,
+          estadoNuevo: actual.estadoProyecto,
+          grupoAnterior: actual.grupo,
+          grupoNuevo: actual.grupo,
+          motivo: `Agregó al equipo a los usuarios: ${usuariosIds.join(', ')}`,
+          usuarioId: actorId ?? null,
+        },
+      });
     });
 
     return this.findOne(id);
@@ -1130,11 +1145,30 @@ export class ProjectsService {
   async quitarUsuario(
     id: number,
     usuarioId: number,
+    actorId?: number,
   ): Promise<ProyectoCompleto> {
-    await this.findOne(id);
+    const actual = await this.findOne(id);
 
-    const { count } = await this.prisma.usuarioProyecto.deleteMany({
-      where: { proyectoId: id, usuarioId },
+    const { count } = await this.prisma.$transaction(async (tx) => {
+      const resultado = await tx.usuarioProyecto.deleteMany({
+        where: { proyectoId: id, usuarioId },
+      });
+
+      if (resultado.count > 0) {
+        await tx.historialEtapa.create({
+          data: {
+            proyectoId: id,
+            estadoAnterior: actual.estadoProyecto,
+            estadoNuevo: actual.estadoProyecto,
+            grupoAnterior: actual.grupo,
+            grupoNuevo: actual.grupo,
+            motivo: `Quitó del equipo al usuario ${usuarioId}`,
+            usuarioId: actorId ?? null,
+          },
+        });
+      }
+
+      return resultado;
     });
 
     if (count === 0) {
@@ -1146,13 +1180,29 @@ export class ProjectsService {
     return this.findOne(id);
   }
 
-  async remove(id: number): Promise<ProyectoCompleto> {
-    await this.findOne(id);
+  async remove(id: number, actorId?: number): Promise<ProyectoCompleto> {
+    const actual = await this.findOne(id);
 
-    const proyecto = await this.prisma.proyecto.update({
-      where: { id },
-      data: { deletedAt: new Date() },
-      include: proyectoInclude,
+    const proyecto = await this.prisma.$transaction(async (tx) => {
+      const eliminado = await tx.proyecto.update({
+        where: { id },
+        data: { deletedAt: new Date() },
+        include: proyectoInclude,
+      });
+
+      await tx.historialEtapa.create({
+        data: {
+          proyectoId: id,
+          estadoAnterior: actual.estadoProyecto,
+          estadoNuevo: actual.estadoProyecto,
+          grupoAnterior: actual.grupo,
+          grupoNuevo: actual.grupo,
+          motivo: 'Eliminó el proyecto (borrado lógico)',
+          usuarioId: actorId ?? null,
+        },
+      });
+
+      return eliminado;
     });
 
     return this.aplanar(proyecto);

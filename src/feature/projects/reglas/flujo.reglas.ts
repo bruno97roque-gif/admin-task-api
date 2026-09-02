@@ -118,7 +118,9 @@ export function hitoQueHabilita(estado: EstadoProyecto): HitoCobro | null {
     // abono inicial y no se corta a mitad de camino por el cobro siguiente.
     case EstadoProyecto.Desarrollo:
       return HitoCobro.AprobacionDiseno;
-    // Se cobra al terminar el desarrollo, antes de subir a producción.
+    // Se cobra al terminar `DesarrolloFinalizado` (con la web ya en
+    // producción, capacitación hecha y hosting contratado): es el último paso
+    // antes de dar el proyecto por cerrado.
     case EstadoProyecto.ProyectoFinalizado:
       return HitoCobro.Entrega;
     default:
@@ -195,6 +197,7 @@ export const ORDEN_ETAPAS: EstadoProyecto[] = [
   EstadoProyecto.AvanceDiseno,
   EstadoProyecto.DisenoFinalizado,
   EstadoProyecto.Desarrollo,
+  EstadoProyecto.DesarrolloFinalizado,
   EstadoProyecto.ProyectoFinalizado,
 ];
 
@@ -307,7 +310,9 @@ export interface EntradaCompuertas {
 /**
  * Todo lo que impide *entrar* a una etapa, en un solo lugar: el cobro del hito
  * que la habilita, el material de marca antes del diseño y —antes de dar el
- * proyecto por entregado— el hosting, la subida a producción y la capacitación.
+ * desarrollo por terminado (`DesarrolloFinalizado`)— el hosting, la subida a
+ * producción y la capacitación. Lo único que falta después de eso para llegar
+ * a `ProyectoFinalizado` es el cobro del hito `Entrega`.
  *
  * Devuelve la lista de motivos; vacía significa que puede avanzar.
  *
@@ -344,7 +349,7 @@ export function compuertasFaltantes(entrada: EntradaCompuertas): string[] {
     );
   }
 
-  if (entrada.estadoDestino === EstadoProyecto.ProyectoFinalizado) {
+  if (entrada.estadoDestino === EstadoProyecto.DesarrolloFinalizado) {
     if (!entrada.hostingContratado) {
       motivos.push('el cliente todavía no contrató el hosting');
     }
@@ -373,10 +378,16 @@ export function estaEnFlujoNuevo(cobros: { hito: HitoCobro }[]): boolean {
 
 /**
  * El hosting recién se persigue en el tramo final: antes de eso que no esté
- * contratado no ensucia el grupo.
+ * contratado no ensucia el grupo. Sigue siendo exigible en
+ * `DesarrolloFinalizado` porque un proyecto del flujo viejo (sin plan de
+ * cobros, que no pasa por `compuertasFaltantes`) puede llegar ahí sin
+ * hosting contratado.
  */
 export function hostingEsExigible(estado: EstadoProyecto): boolean {
-  return estado === EstadoProyecto.Desarrollo;
+  return (
+    estado === EstadoProyecto.Desarrollo ||
+    estado === EstadoProyecto.DesarrolloFinalizado
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -392,7 +403,9 @@ export function hostingEsExigible(estado: EstadoProyecto): boolean {
  * tramo de diseño partido en tres el de `AprobacionDiseno` se abre recién en
  * `DisenoFinalizado`, que es cuando el cobro pasa a ser lo único que falta.
  * Durante `Diseno` y `AvanceDiseno` todavía hay trabajo del diseñador en curso:
- * perseguir ese pago ahí sería adelantado.
+ * perseguir ese pago ahí sería adelantado. Lo mismo pasa con `Entrega`: se
+ * abre recién en `DesarrolloFinalizado`, cuando ya no queda trabajo técnico
+ * pendiente y lo único que falta es ese cobro.
  */
 export function recordatorioQueCorresponde(entrada: {
   estadoProyecto: EstadoProyecto;
@@ -509,6 +522,7 @@ export function debeArchivarse(
 export function conservaLoAbonado(estadoAlArchivar: EstadoProyecto): boolean {
   return (
     estadoAlArchivar === EstadoProyecto.Desarrollo ||
+    estadoAlArchivar === EstadoProyecto.DesarrolloFinalizado ||
     estadoAlArchivar === EstadoProyecto.ProyectoFinalizado
   );
 }

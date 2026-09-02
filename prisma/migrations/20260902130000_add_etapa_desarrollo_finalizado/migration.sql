@@ -1,0 +1,16 @@
+-- Agrega la etapa 'Desarrollo Finalizado' al enum `EstadoProyecto`.
+--
+-- Es **puramente aditiva**: no se elimina ni renombra ningún valor existente,
+-- no se toca ninguna fila. Los proyectos que hoy están en 'Desarrollo' o
+-- 'Proyecto Finalizado' siguen exactamente igual; la etapa nueva queda
+-- disponible para que el flujo la use de acá en adelante.
+--
+-- Se posiciona con `BEFORE 'Proyecto Finalizado'` (un valor que ya existía)
+-- para que el orden físico del enum en la base coincida con el del pipeline
+-- (`ORDEN_ETAPAS` en `flujo.reglas.ts`), igual que se hizo con 'Avance de
+-- Diseño' y 'Diseño Finalizado' en la migración
+-- `20260812120000_add_etapas_avance_y_diseno_finalizado`.
+--
+-- `IF NOT EXISTS` hace la migración reejecutable sin error si alguien ya
+-- había agregado el valor a mano.
+ALTER TYPE "EstadoProyecto" ADD VALUE IF NOT EXISTS 'Desarrollo Finalizado' BEFORE 'Proyecto Finalizado';

@@ -620,10 +620,12 @@ export class ProjectsController {
   asignarUsuarios(
     @Param('id', ParseIntPipe) id: number,
     @Body() asignarUsuariosDto: AsignarUsuariosDto,
+    @UsuarioActual('sub') actorId: number,
   ) {
     return this.projectsService.asignarUsuarios(
       id,
       asignarUsuariosDto.usuariosIds,
+      actorId,
     );
   }
 
@@ -644,8 +646,9 @@ export class ProjectsController {
   quitarUsuario(
     @Param('id', ParseIntPipe) id: number,
     @Param('usuarioId', ParseIntPipe) usuarioId: number,
+    @UsuarioActual('sub') actorId: number,
   ) {
-    return this.projectsService.quitarUsuario(id, usuarioId);
+    return this.projectsService.quitarUsuario(id, usuarioId, actorId);
   }
 
   @Delete(':id')
@@ -658,7 +661,10 @@ export class ProjectsController {
   @ApiParam(PARAM_ID)
   @ApiOkResponse({ type: ProyectoRespuestaDto })
   @ApiNotFoundResponse(NO_ENCONTRADO)
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.projectsService.remove(id);
+  remove(
+    @Param('id', ParseIntPipe) id: number,
+    @UsuarioActual('sub') actorId: number,
+  ) {
+    return this.projectsService.remove(id, actorId);
   }
 }

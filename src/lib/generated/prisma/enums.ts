@@ -16,6 +16,7 @@ export const EstadoProyecto = {
   AvanceDiseno: 'AvanceDiseno',
   DisenoFinalizado: 'DisenoFinalizado',
   Desarrollo: 'Desarrollo',
+  DesarrolloFinalizado: 'DesarrolloFinalizado',
   ProyectoFinalizado: 'ProyectoFinalizado',
   Archivado: 'Archivado'
 } as const
@@ -34,7 +35,8 @@ export type HitoCobro = (typeof HitoCobro)[keyof typeof HitoCobro]
 
 export const TipoProyecto = {
   Informativa: 'Informativa',
-  Ecommerce: 'Ecommerce'
+  Ecommerce: 'Ecommerce',
+  Sistema: 'Sistema'
 } as const
 
 export type TipoProyecto = (typeof TipoProyecto)[keyof typeof TipoProyecto]

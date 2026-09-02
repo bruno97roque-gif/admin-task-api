@@ -260,6 +260,32 @@ describe('transicionInvalida', () => {
     ).toBeNull();
   });
 
+  it('el cierre del desarrollo tiene su propio paso, igual que el diseño', () => {
+    expect(
+      transicionInvalida(
+        EstadoProyecto.Desarrollo,
+        EstadoProyecto.DesarrolloFinalizado,
+        null,
+      ),
+    ).toBeNull();
+
+    expect(
+      transicionInvalida(
+        EstadoProyecto.DesarrolloFinalizado,
+        EstadoProyecto.ProyectoFinalizado,
+        null,
+      ),
+    ).toBeNull();
+
+    expect(
+      transicionInvalida(
+        EstadoProyecto.Desarrollo,
+        EstadoProyecto.ProyectoFinalizado,
+        null,
+      ),
+    ).toMatch(/hay que pasar por DesarrolloFinalizado/);
+  });
+
   it('una web informativa sigue saltando de brief a diseño', () => {
     // El salto legítimo es el de taxonomía, y las etapas nuevas van después:
     // agregarlas no tiene que haber corrido ese atajo de lugar.
@@ -352,20 +378,29 @@ describe('compuertasFaltantes', () => {
     ]);
   });
 
-  it('para dar por entregado exige cobro, hosting, producción y capacitación', () => {
+  it('para dar el desarrollo por terminado exige hosting, producción y capacitación', () => {
     const motivos = compuertasFaltantes({
       ...base,
-      estadoDestino: EstadoProyecto.ProyectoFinalizado,
+      estadoDestino: EstadoProyecto.DesarrolloFinalizado,
       hostingContratado: false,
       subidoProduccionAt: null,
       capacitacionAt: null,
-      cobros: planCompleto(false),
     });
 
-    expect(motivos).toHaveLength(4);
+    expect(motivos).toHaveLength(3);
     expect(motivos.join(' ')).toMatch(/hosting/);
     expect(motivos.join(' ')).toMatch(/producción/);
     expect(motivos.join(' ')).toMatch(/capacitación/);
+  });
+
+  it('para cerrar el proyecto, con el desarrollo ya terminado, solo exige el cobro de entrega', () => {
+    const motivos = compuertasFaltantes({
+      ...base,
+      estadoDestino: EstadoProyecto.ProyectoFinalizado,
+      cobros: planCompleto(false),
+    });
+
+    expect(motivos).toEqual(['el hito Entrega todavía no está cobrado']);
   });
 
   it('no pone trabas cuando está todo cumplido', () => {
@@ -520,12 +555,14 @@ describe('archivado y reactivación', () => {
   it('lo abonado se conserva solo desde desarrollo', () => {
     expect(conservaLoAbonado(EstadoProyecto.Diseno)).toBe(false);
     expect(conservaLoAbonado(EstadoProyecto.Desarrollo)).toBe(true);
+    expect(conservaLoAbonado(EstadoProyecto.DesarrolloFinalizado)).toBe(true);
   });
 
   it('Archivado y ProyectoFinalizado son ambos terminales', () => {
     expect(esEstadoTerminal(EstadoProyecto.Archivado)).toBe(true);
     expect(esEstadoTerminal(EstadoProyecto.ProyectoFinalizado)).toBe(true);
     expect(esEstadoTerminal(EstadoProyecto.Desarrollo)).toBe(false);
+    expect(esEstadoTerminal(EstadoProyecto.DesarrolloFinalizado)).toBe(false);
   });
 });
 
@@ -536,6 +573,9 @@ describe('responsableDe', () => {
       'desarrollador',
     );
     expect(responsableDe(EstadoProyecto.Brief, Grupo.A)).toBe('administracion');
+    expect(responsableDe(EstadoProyecto.DesarrolloFinalizado, Grupo.A)).toBe(
+      'administracion',
+    );
   });
 
   it('las tres etapas de diseño son del diseñador', () => {
@@ -573,14 +613,19 @@ describe('siguienteEtapa y hostingEsExigible', () => {
       EstadoProyecto.Desarrollo,
     );
     expect(siguienteEtapa(EstadoProyecto.Desarrollo)).toBe(
+      EstadoProyecto.DesarrolloFinalizado,
+    );
+    expect(siguienteEtapa(EstadoProyecto.DesarrolloFinalizado)).toBe(
       EstadoProyecto.ProyectoFinalizado,
     );
     expect(siguienteEtapa(EstadoProyecto.ProyectoFinalizado)).toBeNull();
   });
 
-  it('el hosting solo se exige en desarrollo', () => {
+  it('el hosting se exige en desarrollo y en su cierre', () => {
     expect(hostingEsExigible(EstadoProyecto.Desarrollo)).toBe(true);
+    expect(hostingEsExigible(EstadoProyecto.DesarrolloFinalizado)).toBe(true);
     expect(hostingEsExigible(EstadoProyecto.Diseno)).toBe(false);
     expect(hostingEsExigible(EstadoProyecto.DisenoFinalizado)).toBe(false);
+    expect(hostingEsExigible(EstadoProyecto.ProyectoFinalizado)).toBe(false);
   });
 });

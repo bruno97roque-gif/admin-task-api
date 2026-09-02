@@ -211,7 +211,7 @@ Orden pensado para que cada etapa deje algo usable y no se pise con la anterior.
 ### Etapa 1 — Cerrar el recorrido de la Fase 2 🔴
 *Objetivo: que un proyecto pueda ir de Desarrollo a Entregado pasando por donde dice el diagrama.*
 
-- [ ] **Decisión previa (ver §5):** ¿los pasos `B4`–`B14` son estados nuevos o flags dentro de `Desarrollo`?
+- [x] **Decisión previa (ver §5):** ¿los pasos `B4`–`B14` son estados nuevos o flags dentro de `Desarrollo`? — resuelto: siguen siendo flags/timestamps (`presentadoAt`, `subidoProduccionAt`, `capacitacionAt`, observaciones), pero se agregó un estado nuevo `DesarrolloFinalizado` como checkpoint agregado — «ya no queda trabajo técnico, falta el cobro de entrega» — porque el equipo lo pidió explícitamente después de ver que `Desarrollo → ProyectoFinalizado` de un salto no distinguía "en curso" de "entregado, cobrando". Ver §5.1.
 - [x] Migración: `hosting_contratado Boolean @default(false)` en `proyectos`.
 - [x] `derivarGrupo()`: agregar hosting pendiente → **Grupo C** (junto con el pago).
 - [x] Compuerta de hosting: no se puede pasar a producción / `ProyectoFinalizado` sin hosting contratado.
@@ -265,8 +265,20 @@ No las puedo resolver leyendo el diagrama; cambian bastante el diseño:
 
 1. **¿`B4`–`B14` son estados o checklist?** El diagrama **no** les asigna `estadoProyecto`
    (solo `B15` lo tiene) → sugiere que son sub-pasos dentro de `Desarrollo`, o sea flags.
-   *Recomendación:* flags/timestamps, no estados nuevos: agregar valores al enum
+   *Recomendación original:* flags/timestamps, no estados nuevos: agregar valores al enum
    `EstadoProyecto` ensucia las métricas por etapa y obliga a migrar los proyectos vivos.
+
+   **Resuelto (2026-09-02):** se mantiene la recomendación para `B4`–`B14` en sí — siguen
+   siendo flags/timestamps, no un estado por paso. Pero se agregó **un solo** estado nuevo,
+   `DesarrolloFinalizado`, entre `Desarrollo` y `ProyectoFinalizado` (migración
+   `20260902130000_add_etapa_desarrollo_finalizado`, puramente aditiva, mismo patrón que
+   `AvanceDiseno`/`DisenoFinalizado`). Motivo: el equipo necesitaba distinguir "developing"
+   de "ya entregado, falta cobrar" tanto en el tablero como en los reportes, y un flag no
+   alcanzaba para eso. Las compuertas de hosting/producción/capacitación (antes en la
+   entrada a `ProyectoFinalizado`) ahora gatean la entrada a `DesarrolloFinalizado`; lo
+   único que gatea `DesarrolloFinalizado → ProyectoFinalizado` es el cobro del hito
+   `Entrega`. Ver `hitoQueHabilita`, `compuertasFaltantes` y `ORDEN_ETAPAS` en
+   `flujo.reglas.ts`.
 2. **¿Quién marca el hosting como contratado?** ¿Administración, o sale de un dato externo?
 3. **¿La cotización adicional se cobra por el mismo plan de cobros o va aparte?** Hoy el
    plan es exactamente 3 hitos fijos (`ArrayMinSize(3)`/`ArrayMaxSize(3)`); una cotización
