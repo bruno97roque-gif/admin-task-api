@@ -35,7 +35,9 @@ import { MotivoDto } from './dto/motivo.dto';
 import { ObservacionesDto } from './dto/observaciones.dto';
 import { BloqueoClienteDto } from './dto/bloqueo-cliente.dto';
 import {
+  AnaliticaRespuestaDto,
   HistorialEtapaDto,
+  ProyectoArchivadoDto,
   ProyectoRespuestaDto,
   RecordatorioProyectoDto,
   ResumenReactivacionDto,
@@ -167,7 +169,7 @@ export class ProjectsController {
     description:
       'Van aparte para que no ensucien la métrica: `Archivado` es distinto de `Proyecto Finalizado`.',
   })
-  @ApiOkResponse({ type: ProyectoRespuestaDto, isArray: true })
+  @ApiOkResponse({ type: ProyectoArchivadoDto, isArray: true })
   findArchivados() {
     return this.projectsService.findArchivados();
   }
@@ -183,6 +185,18 @@ export class ProjectsController {
   @ApiOkResponse({ type: ProyectoRespuestaDto, isArray: true })
   findPorArchivar() {
     return this.projectsService.findPorArchivar();
+  }
+
+  @Get('analitica')
+  @ApiTags(TAGS.analitica)
+  @ApiOperation({
+    summary: 'Analítica de diseño y desarrollo',
+    description:
+      'Proyectos que llegaron a Diseño Finalizado / Desarrollo Finalizado por mes, quién los cerró, y cuánto tardan en promedio. Calculado al vuelo desde `historial_etapas`: no hay tabla propia, y la duración solo se puede medir para lo que pasó desde que existe ese registro.',
+  })
+  @ApiOkResponse({ type: AnaliticaRespuestaDto })
+  getAnalitica() {
+    return this.projectsService.getAnalitica();
   }
 
   @Get(':id')

@@ -138,6 +138,7 @@ Booting also exercises the config wiring: `JWT_SECRET` and `JWT_REFRESH_SECRET` 
 | `PORT` | no | `3000` |
 | `SWAGGER_ENABLED` | no | solo `false` apaga la documentación; cualquier otro valor (o ausente) la deja publicada en `/docs` |
 | `NODE_ENV` | no | `production` switches the refresh cookie to `SameSite=None; Secure` |
+| `DISCORD_WEBHOOK_URL` | no | unset = feature apagado (`NotificacionesService.enviarDiscord` es no-op). Manda notificaciones para 3 eventos: proyecto archivado, proyecto llega a una etapa Finalizado, cobro marcado como cobrado |
 
 ## Architecture
 

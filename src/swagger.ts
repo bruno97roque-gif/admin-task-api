@@ -22,6 +22,7 @@ export const TAGS = {
   proyectos: 'Proyectos',
   flujo: 'Proyectos · Flujo de trabajo',
   cobros: 'Proyectos · Cobros',
+  analitica: 'Proyectos · Analítica',
   usuarios: 'Usuarios',
   roles: 'Roles',
   seguimientos: 'Seguimientos',
