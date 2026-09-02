@@ -11,6 +11,7 @@ import { MarcarCobroDto } from './dto/marcar-cobro.dto';
 import { ObservacionesDto } from './dto/observaciones.dto';
 import { AsignarResponsablesDto } from './dto/asignar-responsables.dto';
 import { PrismaService } from '../../lib/prisma/prisma.service';
+import { NotificacionesService } from '../notificaciones/notificaciones.service';
 import {
   EstadoProyecto,
   Grupo,
@@ -102,6 +103,47 @@ export interface ResumenReactivacion {
   proyecto: ProyectoCompleto;
 }
 
+/** Una fila del ranking de diseñadores o desarrolladores para un mes dado. */
+export interface AnaliticaPersonaMes {
+  usuarioId: number;
+  nombre: string;
+  mes: string;
+  cantidad: number;
+}
+
+/** Cuánto tardó un proyecto puntual en cerrar una etapa. */
+export interface AnaliticaProyectoDuracion {
+  proyectoId: number;
+  nombre: string;
+  dias: number;
+}
+
+/** Analítica de diseño y desarrollo: totales por mes, por persona, y duración. */
+export interface Analitica {
+  porMes: {
+    mes: string;
+    disenosFinalizados: number;
+    desarrollosFinalizados: number;
+  }[];
+  disenadoresPorMes: AnaliticaPersonaMes[];
+  desarrolladoresPorMes: AnaliticaPersonaMes[];
+  duracionPromedio: {
+    etapa: 'Diseno' | 'Desarrollo';
+    promedioDias: number;
+    cantidadProyectos: number;
+    proyectos: AnaliticaProyectoDuracion[];
+  }[];
+}
+
+/**
+ * Un proyecto archivado, con la etapa en la que estaba justo antes de
+ * archivarse (para poder ubicarlo de nuevo en su columna real en una vista
+ * por etapas, en vez de perderlo en un genérico "Archivado").
+ */
+export interface ProyectoArchivado extends ProyectoCompleto {
+  etapaAlArchivar: EstadoProyecto | null;
+}
+
 /** Estado que hace falta para decidir grupo, compuertas y recordatorios. */
 interface EstadoDelProyecto {
   estadoProyecto: EstadoProyecto;
@@ -116,7 +158,10 @@ interface EstadoDelProyecto {
 
 @Injectable()
 export class ProjectsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificaciones: NotificacionesService,
+  ) {}
 
   async create(
     createProjectDto: CreateProjectDto,
@@ -302,15 +347,41 @@ export class ProjectsService {
     return proyectos.map((proyecto) => this.aplanar(proyecto));
   }
 
-  /** Proyectos ya archivados, aparte para que no se mezclen en la métrica. */
-  async findArchivados(): Promise<ProyectoCompleto[]> {
+  /**
+   * Proyectos ya archivados, aparte para que no se mezclen en la métrica.
+   * Cada uno trae `etapaAlArchivar`: la etapa en la que estaba justo antes
+   * de archivarse (leída del historial), para poder ubicarlo de nuevo en su
+   * columna real en una vista por etapas.
+   */
+  async findArchivados(): Promise<ProyectoArchivado[]> {
     const proyectos = await this.prisma.proyecto.findMany({
       where: { deletedAt: null, estadoProyecto: EstadoProyecto.Archivado },
       orderBy: { archivadoAt: 'desc' },
       include: proyectoInclude,
     });
 
-    return proyectos.map((proyecto) => this.aplanar(proyecto));
+    const historialArchivado = await this.prisma.historialEtapa.findMany({
+      where: {
+        proyectoId: { in: proyectos.map((p) => p.id) },
+        estadoNuevo: EstadoProyecto.Archivado,
+      },
+      orderBy: { createdAt: 'desc' },
+      select: { proyectoId: true, estadoAnterior: true },
+    });
+
+    // `orderBy desc` + "no pisar si ya existe" da la fila más reciente por
+    // proyecto: la última vez que se archivó, no la primera.
+    const etapaAlArchivarPorProyecto = new Map<number, EstadoProyecto | null>();
+    for (const fila of historialArchivado) {
+      if (!etapaAlArchivarPorProyecto.has(fila.proyectoId)) {
+        etapaAlArchivarPorProyecto.set(fila.proyectoId, fila.estadoAnterior);
+      }
+    }
+
+    return proyectos.map((proyecto) => ({
+      ...this.aplanar(proyecto),
+      etapaAlArchivar: etapaAlArchivarPorProyecto.get(proyecto.id) ?? null,
+    }));
   }
 
   /**
@@ -353,6 +424,181 @@ export class ProjectsService {
     });
 
     return proyectos.map((proyecto) => this.aplanar(proyecto));
+  }
+
+  /**
+   * Analítica de diseño y desarrollo: cuántos proyectos cerraron cada etapa
+   * por mes (y quién los cerró), y cuánto tardan en promedio. Se calcula al
+   * vuelo desde `historial_etapas`, no hay tabla propia.
+   *
+   * Solo mide lo que `historial_etapas` alcanzó a registrar: un proyecto que
+   * ya había cerrado `Diseno`/`Desarrollo` antes de que existiera esa fila
+   * (o antes de que existiera el estado `DesarrolloFinalizado`) no tiene la
+   * marca de *entrada* a la etapa y queda afuera del promedio de duración,
+   * aunque si tiene la marca de *cierre* sí cuenta para el total del mes.
+   */
+  async getAnalitica(): Promise<Analitica> {
+    const ESTADOS_RELEVANTES: EstadoProyecto[] = [
+      EstadoProyecto.Diseno,
+      EstadoProyecto.DisenoFinalizado,
+      EstadoProyecto.Desarrollo,
+      EstadoProyecto.DesarrolloFinalizado,
+    ];
+
+    const [proyectos, historial] = await Promise.all([
+      this.prisma.proyecto.findMany({
+        where: { deletedAt: null },
+        select: {
+          id: true,
+          name: true,
+          disenadorId: true,
+          desarrolladorId: true,
+          disenador: { select: { name: true } },
+          desarrollador: { select: { name: true } },
+        },
+      }),
+      this.prisma.historialEtapa.findMany({
+        where: { estadoNuevo: { in: ESTADOS_RELEVANTES } },
+        orderBy: { createdAt: 'asc' },
+        select: { proyectoId: true, estadoNuevo: true, createdAt: true },
+      }),
+    ]);
+
+    // La primera fila de cada (proyecto, estado) es la primera vez que entró,
+    // sin importar si después retrocedió y volvió a entrar: `orderBy asc` +
+    // "no pisar si ya existe" alcanza para eso.
+    const primeraEntrada = new Map<string, Date>();
+    for (const fila of historial) {
+      const clave = `${fila.proyectoId}:${fila.estadoNuevo}`;
+      if (!primeraEntrada.has(clave)) {
+        primeraEntrada.set(clave, fila.createdAt);
+      }
+    }
+
+    const mesDe = (fecha: Date) => fecha.toISOString().slice(0, 7);
+    const diasEntre = (desde: Date, hasta: Date) =>
+      Math.round((hasta.getTime() - desde.getTime()) / (24 * 60 * 60 * 1000));
+
+    const porMes = new Map<
+      string,
+      { disenosFinalizados: number; desarrollosFinalizados: number }
+    >();
+    const disenadoresPorMes = new Map<string, AnaliticaPersonaMes>();
+    const desarrolladoresPorMes = new Map<string, AnaliticaPersonaMes>();
+    const disenoProyectos: AnaliticaProyectoDuracion[] = [];
+    const desarrolloProyectos: AnaliticaProyectoDuracion[] = [];
+
+    const sumarMes = (
+      mes: string,
+      campo: 'disenosFinalizados' | 'desarrollosFinalizados',
+    ) => {
+      const actual = porMes.get(mes) ?? {
+        disenosFinalizados: 0,
+        desarrollosFinalizados: 0,
+      };
+      actual[campo] += 1;
+      porMes.set(mes, actual);
+    };
+
+    const sumarPersona = (
+      mapa: Map<string, AnaliticaPersonaMes>,
+      usuarioId: number | null,
+      nombre: string | undefined,
+      mes: string,
+    ) => {
+      if (usuarioId == null || !nombre) return;
+      const clave = `${usuarioId}:${mes}`;
+      const actual = mapa.get(clave) ?? { usuarioId, nombre, mes, cantidad: 0 };
+      actual.cantidad += 1;
+      mapa.set(clave, actual);
+    };
+
+    for (const proyecto of proyectos) {
+      const primerDiseno = primeraEntrada.get(
+        `${proyecto.id}:${EstadoProyecto.Diseno}`,
+      );
+      const disenoFinalizado = primeraEntrada.get(
+        `${proyecto.id}:${EstadoProyecto.DisenoFinalizado}`,
+      );
+      const primerDesarrollo = primeraEntrada.get(
+        `${proyecto.id}:${EstadoProyecto.Desarrollo}`,
+      );
+      const desarrolloFinalizado = primeraEntrada.get(
+        `${proyecto.id}:${EstadoProyecto.DesarrolloFinalizado}`,
+      );
+
+      if (disenoFinalizado) {
+        const mes = mesDe(disenoFinalizado);
+        sumarMes(mes, 'disenosFinalizados');
+        sumarPersona(
+          disenadoresPorMes,
+          proyecto.disenadorId,
+          proyecto.disenador?.name,
+          mes,
+        );
+
+        if (primerDiseno) {
+          disenoProyectos.push({
+            proyectoId: proyecto.id,
+            nombre: proyecto.name,
+            dias: diasEntre(primerDiseno, disenoFinalizado),
+          });
+        }
+      }
+
+      if (desarrolloFinalizado) {
+        const mes = mesDe(desarrolloFinalizado);
+        sumarMes(mes, 'desarrollosFinalizados');
+        sumarPersona(
+          desarrolladoresPorMes,
+          proyecto.desarrolladorId,
+          proyecto.desarrollador?.name,
+          mes,
+        );
+
+        if (primerDesarrollo) {
+          desarrolloProyectos.push({
+            proyectoId: proyecto.id,
+            nombre: proyecto.name,
+            dias: diasEntre(primerDesarrollo, desarrolloFinalizado),
+          });
+        }
+      }
+    }
+
+    const promedio = (items: AnaliticaProyectoDuracion[]) =>
+      items.length === 0
+        ? 0
+        : Math.round(
+            (items.reduce((suma, item) => suma + item.dias, 0) / items.length) *
+              10,
+          ) / 10;
+
+    return {
+      porMes: [...porMes.entries()]
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([mes, valores]) => ({ mes, ...valores })),
+      disenadoresPorMes: [...disenadoresPorMes.values()].sort((a, b) =>
+        a.mes.localeCompare(b.mes),
+      ),
+      desarrolladoresPorMes: [...desarrolladoresPorMes.values()].sort((a, b) =>
+        a.mes.localeCompare(b.mes),
+      ),
+      duracionPromedio: [
+        {
+          etapa: 'Diseno',
+          promedioDias: promedio(disenoProyectos),
+          cantidadProyectos: disenoProyectos.length,
+          proyectos: disenoProyectos,
+        },
+        {
+          etapa: 'Desarrollo',
+          promedioDias: promedio(desarrolloProyectos),
+          cantidadProyectos: desarrolloProyectos.length,
+          proyectos: desarrolloProyectos,
+        },
+      ],
+    };
   }
 
   async findOne(id: number): Promise<ProyectoCompleto> {
@@ -483,6 +729,25 @@ export class ProjectsService {
       });
     });
 
+    const ETAPAS_FINALIZADO_NOTIFICABLES: EstadoProyecto[] = [
+      EstadoProyecto.DisenoFinalizado,
+      EstadoProyecto.DesarrolloFinalizado,
+      EstadoProyecto.ProyectoFinalizado,
+    ];
+    if (
+      cambiaDeEstado &&
+      ETAPAS_FINALIZADO_NOTIFICABLES.includes(estadoNuevo)
+    ) {
+      const etiqueta: Record<string, string> = {
+        [EstadoProyecto.DisenoFinalizado]: 'Diseño Finalizado',
+        [EstadoProyecto.DesarrolloFinalizado]: 'Desarrollo Finalizado',
+        [EstadoProyecto.ProyectoFinalizado]: 'Proyecto Finalizado',
+      };
+      await this.notificaciones.enviarDiscord(
+        `✅ **${proyecto.name}** llegó a *${etiqueta[estadoNuevo]}*.`,
+      );
+    }
+
     return this.aplanar(proyecto);
   }
 
@@ -574,6 +839,12 @@ export class ProjectsService {
         },
       });
     });
+
+    if (dto.cobrado) {
+      await this.notificaciones.enviarDiscord(
+        `💰 **${actual.name}**: se cobró el hito *${hito}*.`,
+      );
+    }
 
     return this.recalcularGrupo(id, actorId);
   }
@@ -945,6 +1216,10 @@ export class ProjectsService {
 
       return archivado;
     });
+
+    await this.notificaciones.enviarDiscord(
+      `📦 **${proyecto.name}** se archivó (90 días sin respuesta).`,
+    );
 
     return this.aplanar(proyecto);
   }

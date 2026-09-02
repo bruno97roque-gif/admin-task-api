@@ -345,6 +345,17 @@ export class ProyectoRespuestaDto {
   diasEsperandoAlCliente: number | null;
 }
 
+export class ProyectoArchivadoDto extends ProyectoRespuestaDto {
+  @ApiProperty({
+    description:
+      'Etapa en la que estaba justo antes de archivarse (leída del historial). `null` si no hay fila de historial para reconstruirla.',
+    enum: EstadoProyecto,
+    enumName: 'EstadoProyecto',
+    nullable: true,
+  })
+  etapaAlArchivar: EstadoProyecto | null;
+}
+
 export class HistorialEtapaDto {
   @ApiProperty({ example: 41 })
   id: number;
@@ -431,4 +442,102 @@ export class ResumenReactivacionDto {
 
   @ApiProperty({ type: ProyectoRespuestaDto })
   proyecto: ProyectoRespuestaDto;
+}
+
+// ---------------------------------------------------------------------------
+// Analítica
+// ---------------------------------------------------------------------------
+
+export class AnaliticaMesDto {
+  @ApiProperty({
+    description: 'Año y mes, formato `YYYY-MM`.',
+    example: '2026-09',
+  })
+  mes: string;
+
+  @ApiProperty({
+    description:
+      'Proyectos que llegaron a `DisenoFinalizado` por primera vez en este mes.',
+    example: 3,
+  })
+  disenosFinalizados: number;
+
+  @ApiProperty({
+    description:
+      'Proyectos que llegaron a `DesarrolloFinalizado` por primera vez en este mes.',
+    example: 2,
+  })
+  desarrollosFinalizados: number;
+}
+
+export class AnaliticaPersonaMesDto {
+  @ApiProperty({ example: 11 })
+  usuarioId: number;
+
+  @ApiProperty({ example: 'Aaron Jauregui' })
+  nombre: string;
+
+  @ApiProperty({
+    description: 'Año y mes, formato `YYYY-MM`.',
+    example: '2026-09',
+  })
+  mes: string;
+
+  @ApiProperty({ example: 2 })
+  cantidad: number;
+}
+
+export class AnaliticaProyectoDuracionDto {
+  @ApiProperty({ example: 62 })
+  proyectoId: number;
+
+  @ApiProperty({ example: '062 - I&N Caprimoda' })
+  nombre: string;
+
+  @ApiProperty({
+    description:
+      'Días corridos desde la primera entrada a la etapa hasta que la cerró.',
+    example: 14,
+  })
+  dias: number;
+}
+
+export class AnaliticaDuracionDto {
+  @ApiProperty({ enum: ['Diseno', 'Desarrollo'], example: 'Diseno' })
+  etapa: 'Diseno' | 'Desarrollo';
+
+  @ApiProperty({
+    description:
+      'Promedio de días entre la primera entrada a la etapa y la primera vez que llegó a su cierre. Solo cuenta proyectos con ambas marcas de tiempo registradas.',
+    example: 12.4,
+  })
+  promedioDias: number;
+
+  @ApiProperty({
+    description: 'Cuántos proyectos entraron en el promedio.',
+    example: 8,
+  })
+  cantidadProyectos: number;
+
+  @ApiProperty({ type: AnaliticaProyectoDuracionDto, isArray: true })
+  proyectos: AnaliticaProyectoDuracionDto[];
+}
+
+export class AnaliticaRespuestaDto {
+  @ApiProperty({
+    description:
+      'Solo mide lo que pasó desde que existe el estado `DesarrolloFinalizado`/`historial_etapas`: los proyectos que ya habían cerrado esas etapas antes no quedan registrados.',
+    type: AnaliticaMesDto,
+    isArray: true,
+  })
+  porMes: AnaliticaMesDto[];
+
+  @ApiProperty({ type: AnaliticaPersonaMesDto, isArray: true })
+  disenadoresPorMes: AnaliticaPersonaMesDto[];
+
+  @ApiProperty({ type: AnaliticaPersonaMesDto, isArray: true })
+  desarrolladoresPorMes: AnaliticaPersonaMesDto[];
+
+  @ApiProperty({ type: AnaliticaDuracionDto, isArray: true })
+  duracionPromedio: AnaliticaDuracionDto[];
 }
