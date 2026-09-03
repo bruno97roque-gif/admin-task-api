@@ -748,6 +748,24 @@ export class ProjectsService {
       );
     }
 
+    if (data.estadoPago !== undefined) {
+      const porcentajeAnterior = this.parsearPorcentajePago(actual.estadoPago);
+      const porcentajeNuevo = this.parsearPorcentajePago(data.estadoPago);
+
+      // El 50% inicial (abono) es el punto de partida de la mayoría de los
+      // proyectos: no es noticia. Recién avisa cuando sube por encima de eso.
+      if (
+        porcentajeAnterior !== null &&
+        porcentajeNuevo !== null &&
+        porcentajeNuevo > porcentajeAnterior &&
+        porcentajeNuevo > 50
+      ) {
+        await this.notificaciones.enviarDiscord(
+          `💰 **${proyecto.name}**: se pagó el ${porcentajeNuevo}% del proyecto.`,
+        );
+      }
+    }
+
     return this.aplanar(proyecto);
   }
 
@@ -1713,6 +1731,18 @@ export class ProjectsService {
   /** El ValidationPipe no transforma, así que la fecha llega como string ISO. */
   private aFecha(valor?: string | null): Date | null {
     return valor ? new Date(valor) : null;
+  }
+
+  /**
+   * `estadoPago` es texto libre ("50%", "Pagado", "80"...); se intenta leer
+   * el primer número como porcentaje. Si no hay ninguno, no se puede comparar.
+   */
+  private parsearPorcentajePago(
+    valor: string | null | undefined,
+  ): number | null {
+    const match = valor?.match(/\d+/);
+    if (!match) return null;
+    return Number(match[0]);
   }
 
   private aplanar(proyecto: ProyectoConRelaciones): ProyectoCompleto {
