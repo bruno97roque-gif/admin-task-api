@@ -27,6 +27,9 @@ export const TAGS = {
   roles: 'Roles',
   seguimientos: 'Seguimientos',
   recordatorios: 'Recordatorios sueltos',
+  notificaciones: 'Notificaciones',
+  reuniones: 'Reuniones',
+  notas: 'Notas a administración',
 } as const;
 
 const DESCRIPCION = `
@@ -128,6 +131,18 @@ export function configurarSwagger(app: INestApplication): void {
     .addTag(
       TAGS.recordatorios,
       'Notas sueltas, sin relación con proyectos. Distintas de los recordatorios del flujo.',
+    )
+    .addTag(
+      TAGS.notificaciones,
+      'Bandeja de avisos internos del usuario logueado: asignaciones, etapas finalizadas, reuniones y notas.',
+    )
+    .addTag(
+      TAGS.reuniones,
+      'Reuniones con link de Meet. Administración agenda; el equipo consulta las suyas.',
+    )
+    .addTag(
+      TAGS.notas,
+      'Notas del equipo sobre un proyecto, para administración. Solo administración las lee.',
     )
     .build();
 

@@ -59,7 +59,11 @@ export const ModelName = {
   RecordatorioProyecto: 'RecordatorioProyecto',
   CotizacionAdicional: 'CotizacionAdicional',
   UsuarioProyecto: 'UsuarioProyecto',
-  Recordatorio: 'Recordatorio'
+  Recordatorio: 'Recordatorio',
+  Notificacion: 'Notificacion',
+  Reunion: 'Reunion',
+  ReunionUsuario: 'ReunionUsuario',
+  NotaAdmin: 'NotaAdmin'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -214,6 +218,55 @@ export const RecordatorioScalarFieldEnum = {
 } as const
 
 export type RecordatorioScalarFieldEnum = (typeof RecordatorioScalarFieldEnum)[keyof typeof RecordatorioScalarFieldEnum]
+
+
+export const NotificacionScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  tipo: 'tipo',
+  titulo: 'titulo',
+  mensaje: 'mensaje',
+  proyectoId: 'proyectoId',
+  leidaAt: 'leidaAt',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificacionScalarFieldEnum = (typeof NotificacionScalarFieldEnum)[keyof typeof NotificacionScalarFieldEnum]
+
+
+export const ReunionScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  fecha: 'fecha',
+  linkMeet: 'linkMeet',
+  proyectoId: 'proyectoId',
+  creadorId: 'creadorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReunionScalarFieldEnum = (typeof ReunionScalarFieldEnum)[keyof typeof ReunionScalarFieldEnum]
+
+
+export const ReunionUsuarioScalarFieldEnum = {
+  reunionId: 'reunionId',
+  usuarioId: 'usuarioId'
+} as const
+
+export type ReunionUsuarioScalarFieldEnum = (typeof ReunionUsuarioScalarFieldEnum)[keyof typeof ReunionUsuarioScalarFieldEnum]
+
+
+export const NotaAdminScalarFieldEnum = {
+  id: 'id',
+  proyectoId: 'proyectoId',
+  autorId: 'autorId',
+  contenido: 'contenido',
+  leidaAt: 'leidaAt',
+  createdAt: 'createdAt'
+} as const
+
+export type NotaAdminScalarFieldEnum = (typeof NotaAdminScalarFieldEnum)[keyof typeof NotaAdminScalarFieldEnum]
 
 
 export const SortOrder = {

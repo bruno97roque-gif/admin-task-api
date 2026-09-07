@@ -69,3 +69,13 @@ export const Grupo = {
 } as const
 
 export type Grupo = (typeof Grupo)[keyof typeof Grupo]
+
+
+export const TipoNotificacion = {
+  ProyectoAsignado: 'ProyectoAsignado',
+  EtapaFinalizada: 'EtapaFinalizada',
+  ReunionProgramada: 'ReunionProgramada',
+  NotaRecibida: 'NotaRecibida'
+} as const
+
+export type TipoNotificacion = (typeof TipoNotificacion)[keyof typeof TipoNotificacion]

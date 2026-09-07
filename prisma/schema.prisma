@@ -77,6 +77,15 @@ enum Grupo {
   C
 }
 
+/// Qué disparó cada aviso interno. Es lo que el front usa para elegir ícono
+/// y a dónde llevar al usuario al hacer clic.
+enum TipoNotificacion {
+  ProyectoAsignado
+  EtapaFinalizada
+  ReunionProgramada
+  NotaRecibida
+}
+
 model Rol {
   id    Int    @id @default(autoincrement())
   name  String
@@ -101,6 +110,10 @@ model User {
   cambiosDeEtapa         HistorialEtapa[]
   recordatorios          RecordatorioProyecto[]
   cotizaciones           CotizacionAdicional[]
+  notificaciones         Notificacion[]
+  reunionesCreadas       Reunion[]              @relation("ReunionesCreadas")
+  reuniones              ReunionUsuario[]
+  notasEnviadas          NotaAdmin[]
 
   @@index([roleId])
   @@map("users")
@@ -180,10 +193,13 @@ model Proyecto {
   usuarios      UsuarioProyecto[]
   disenador     User?                  @relation("ProyectosDisenados", fields: [disenadorId], references: [id])
   desarrollador User?                  @relation("ProyectosDesarrollados", fields: [desarrolladorId], references: [id])
-  cobros        Cobro[]
-  historial     HistorialEtapa[]
-  recordatorios RecordatorioProyecto[]
-  cotizaciones  CotizacionAdicional[]
+  cobros         Cobro[]
+  historial      HistorialEtapa[]
+  recordatorios  RecordatorioProyecto[]
+  cotizaciones   CotizacionAdicional[]
+  notificaciones Notificacion[]
+  reuniones      Reunion[]
+  notas          NotaAdmin[]
 
   @@index([seguimientoId])
   @@index([disenadorId])
@@ -299,4 +315,85 @@ model Recordatorio {
   estado      Boolean @default(true)
 
   @@map("recordatorios")
+}
+
+/// Aviso interno para un usuario puntual: «se te asignó un proyecto», «este
+/// diseño finalizó, hay que cobrar», «te invitaron a una reunión», «llegó una
+/// nota». Es lo que alimenta la campanita del front. Distinto del webhook de
+/// Discord, que es un canal de salida sin destinatario ni estado.
+///
+/// El front consulta las suyas cada tanto (polling); no hay push. `leidaAt`
+/// nulo = todavía no la vio.
+model Notificacion {
+  id         Int              @id @default(autoincrement())
+  usuarioId  Int              @map("usuario_id")
+  tipo       TipoNotificacion
+  titulo     String
+  mensaje    String           @db.Text
+  proyectoId Int?             @map("proyecto_id")
+  leidaAt    DateTime?        @map("leida_at")
+  createdAt  DateTime         @default(now()) @map("created_at")
+
+  usuario  User      @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  proyecto Proyecto? @relation(fields: [proyectoId], references: [id], onDelete: SetNull)
+
+  @@index([usuarioId, leidaAt])
+  @@index([proyectoId])
+  @@map("notificaciones")
+}
+
+/// Reunión que administración agenda con parte del equipo. El link de Meet es
+/// obligatorio: la reunión existe para que el diseñador o desarrollador lo
+/// tenga a mano en su vista. Puede o no estar ligada a un proyecto.
+model Reunion {
+  id          Int      @id @default(autoincrement())
+  titulo      String
+  descripcion String?  @db.Text
+  fecha       DateTime
+  linkMeet    String   @map("link_meet")
+  proyectoId  Int?     @map("proyecto_id")
+  creadorId   Int?     @map("creador_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  proyecto      Proyecto?        @relation(fields: [proyectoId], references: [id], onDelete: SetNull)
+  creador       User?            @relation("ReunionesCreadas", fields: [creadorId], references: [id], onDelete: SetNull)
+  participantes ReunionUsuario[]
+
+  @@index([fecha])
+  @@index([proyectoId])
+  @@map("reuniones")
+}
+
+model ReunionUsuario {
+  reunionId Int @map("reunion_id")
+  usuarioId Int @map("usuario_id")
+
+  reunion Reunion @relation(fields: [reunionId], references: [id], onDelete: Cascade)
+  usuario User    @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@id([reunionId, usuarioId])
+  @@index([usuarioId])
+  @@map("reuniones_usuarios")
+}
+
+/// Nota que un diseñador o desarrollador le deja a administración sobre un
+/// proyecto. Solo administración la lee; el autor ve las que mandó. Es
+/// distinta de `Recordatorio` (notas sueltas de administración para sí misma)
+/// y de `RecordatorioProyecto` (los cinco bloqueos del flujo).
+model NotaAdmin {
+  id         Int       @id @default(autoincrement())
+  proyectoId Int       @map("proyecto_id")
+  autorId    Int?      @map("autor_id")
+  contenido  String    @db.Text
+  leidaAt    DateTime? @map("leida_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  proyecto Proyecto @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+  autor    User?    @relation(fields: [autorId], references: [id], onDelete: SetNull)
+
+  @@index([proyectoId])
+  @@index([autorId])
+  @@index([leidaAt])
+  @@map("notas_admin")
 }

@@ -76,3 +76,34 @@ export type UsuarioProyecto = Prisma.UsuarioProyectoModel
  * 
  */
 export type Recordatorio = Prisma.RecordatorioModel
+/**
+ * Model Notificacion
+ * Aviso interno para un usuario puntual: «se te asignó un proyecto», «este
+ * diseño finalizó, hay que cobrar», «te invitaron a una reunión», «llegó una
+ * nota». Es lo que alimenta la campanita del front. Distinto del webhook de
+ * Discord, que es un canal de salida sin destinatario ni estado.
+ * 
+ * El front consulta las suyas cada tanto (polling); no hay push. `leidaAt`
+ * nulo = todavía no la vio.
+ */
+export type Notificacion = Prisma.NotificacionModel
+/**
+ * Model Reunion
+ * Reunión que administración agenda con parte del equipo. El link de Meet es
+ * obligatorio: la reunión existe para que el diseñador o desarrollador lo
+ * tenga a mano en su vista. Puede o no estar ligada a un proyecto.
+ */
+export type Reunion = Prisma.ReunionModel
+/**
+ * Model ReunionUsuario
+ * 
+ */
+export type ReunionUsuario = Prisma.ReunionUsuarioModel
+/**
+ * Model NotaAdmin
+ * Nota que un diseñador o desarrollador le deja a administración sobre un
+ * proyecto. Solo administración la lee; el autor ve las que mandó. Es
+ * distinta de `Recordatorio` (notas sueltas de administración para sí misma)
+ * y de `RecordatorioProyecto` (los cinco bloqueos del flujo).
+ */
+export type NotaAdmin = Prisma.NotaAdminModel

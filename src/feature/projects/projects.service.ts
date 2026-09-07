@@ -17,6 +17,7 @@ import {
   Grupo,
   HitoCobro,
   Prisma,
+  TipoNotificacion,
   TipoProyecto,
   TipoRecordatorio,
 } from '../../lib/generated/prisma/client';
@@ -275,6 +276,9 @@ export class ProjectsService {
         include: proyectoInclude,
       });
     });
+
+    // Un alta ya adelantada a Diseño o Desarrollo también es una asignación.
+    await this.notificarAsignaciones(null, proyecto);
 
     return this.aplanar(proyecto);
   }
@@ -728,6 +732,13 @@ export class ProjectsService {
         include: proyectoInclude,
       });
     });
+
+    // Avisos internos (campanita): al responsable que recién entra en juego y
+    // a administración cuando hay que salir a cobrar.
+    await this.notificarAsignaciones(actual, proyecto);
+    if (cambiaDeEstado) {
+      await this.notificarEtapaFinalizada(proyecto);
+    }
 
     const ETAPAS_FINALIZADO_NOTIFICABLES: EstadoProyecto[] = [
       EstadoProyecto.DisenoFinalizado,
@@ -1402,7 +1413,13 @@ export class ProjectsService {
       });
     });
 
-    return this.findOne(id);
+    const proyecto = await this.findOne(id);
+
+    // Si el proyecto ya está en Diseño o Desarrollo, el responsable nuevo
+    // tiene trabajo desde hoy: se le avisa como si recién se lo asignaran.
+    await this.notificarAsignaciones(actual, proyecto);
+
+    return proyecto;
   }
 
   async asignarUsuarios(
@@ -1737,6 +1754,151 @@ export class ProjectsService {
    * `estadoPago` es texto libre ("50%", "Pagado", "80"...); se intenta leer
    * el primer número como porcentaje. Si no hay ninguno, no se puede comparar.
    */
+  // ---------------------------------------------------------------------------
+  // Avisos internos (campanita del front)
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Avisa al diseñador cuando el proyecto entra a Diseño y al desarrollador
+   * cuando entra a Desarrollo, y también al responsable nuevo si lo cambian
+   * con el proyecto ya en esa etapa. Moverse entre las etapas de diseño
+   * (Diseño → Avance de Diseño) no vuelve a avisar: es el mismo trabajo.
+   *
+   * `anterior` en `null` es un alta: cuenta como «recién entra».
+   */
+  private async notificarAsignaciones(
+    anterior: {
+      estadoProyecto: EstadoProyecto;
+      disenadorId: number | null;
+      desarrolladorId: number | null;
+    } | null,
+    proyecto: {
+      id: number;
+      name: string;
+      estadoProyecto: EstadoProyecto;
+      disenadorId: number | null;
+      desarrolladorId: number | null;
+    },
+  ): Promise<void> {
+    const ETAPAS_TRABAJO_DISENO: EstadoProyecto[] = [
+      EstadoProyecto.Diseno,
+      EstadoProyecto.AvanceDiseno,
+    ];
+    const ETAPAS_TRABAJO_DESARROLLO: EstadoProyecto[] = [
+      EstadoProyecto.Desarrollo,
+    ];
+
+    const avisos: {
+      etapas: EstadoProyecto[];
+      responsableAhora: number | null;
+      responsableAntes: number | null;
+      rol: string;
+      etiqueta: string;
+    }[] = [
+      {
+        etapas: ETAPAS_TRABAJO_DISENO,
+        responsableAhora: proyecto.disenadorId,
+        responsableAntes: anterior?.disenadorId ?? null,
+        rol: 'diseñador',
+        etiqueta: 'Diseño',
+      },
+      {
+        etapas: ETAPAS_TRABAJO_DESARROLLO,
+        responsableAhora: proyecto.desarrolladorId,
+        responsableAntes: anterior?.desarrolladorId ?? null,
+        rol: 'desarrollador',
+        etiqueta: 'Desarrollo',
+      },
+    ];
+
+    for (const aviso of avisos) {
+      if (aviso.responsableAhora === null) continue;
+      if (!aviso.etapas.includes(proyecto.estadoProyecto)) continue;
+
+      const recienEntra =
+        anterior === null || !aviso.etapas.includes(anterior.estadoProyecto);
+      const cambioResponsable =
+        aviso.responsableAntes !== aviso.responsableAhora;
+
+      if (!recienEntra && !cambioResponsable) continue;
+
+      await this.notificaciones.notificar([aviso.responsableAhora], {
+        tipo: TipoNotificacion.ProyectoAsignado,
+        titulo: 'Se te asignó un nuevo proyecto',
+        mensaje: `«${proyecto.name}» está en ${aviso.etiqueta} y sos el ${aviso.rol} asignado. Por favor verificá.`,
+        proyectoId: proyecto.id,
+      });
+    }
+  }
+
+  /**
+   * Cuando el diseño o el desarrollo se cierran hay que salir a cobrar: se le
+   * avisa a administración con el hito que corresponde y cuánto falta del
+   * monto. Con plan de cobros el pendiente sale de los hitos no cobrados; sin
+   * plan (proyectos migrados) sale del `estadoPago` que se carga a mano.
+   */
+  private async notificarEtapaFinalizada(proyecto: {
+    id: number;
+    name: string;
+    estadoProyecto: EstadoProyecto;
+    estadoPago: string;
+    cobros: { hito: HitoCobro; porcentaje: number; cobrado: boolean }[];
+  }): Promise<void> {
+    const cierres: Partial<
+      Record<
+        EstadoProyecto,
+        { hito: HitoCobro; nombreHito: string; que: string }
+      >
+    > = {
+      [EstadoProyecto.DisenoFinalizado]: {
+        hito: HitoCobro.AprobacionDiseno,
+        nombreHito: 'Aprobación de diseño',
+        que: 'Este diseño finalizó',
+      },
+      [EstadoProyecto.DesarrolloFinalizado]: {
+        hito: HitoCobro.Entrega,
+        nombreHito: 'Entrega',
+        que: 'Este desarrollo finalizó',
+      },
+    };
+
+    const cierre = cierres[proyecto.estadoProyecto];
+    if (!cierre) return;
+
+    const cobroDelHito = proyecto.cobros.find((c) => c.hito === cierre.hito);
+
+    let pendiente: number | null;
+    if (proyecto.cobros.length > 0) {
+      pendiente = proyecto.cobros
+        .filter((c) => !c.cobrado)
+        .reduce((total, c) => total + c.porcentaje, 0);
+    } else {
+      const pagado = this.parsearPorcentajePago(proyecto.estadoPago);
+      pendiente = pagado === null ? null : Math.max(0, 100 - pagado);
+    }
+
+    const queCobrar =
+      cobroDelHito && !cobroDelHito.cobrado
+        ? ` el hito ${cierre.nombreHito} (${cobroDelHito.porcentaje}%)`
+        : '';
+
+    let cuantoFalta: string;
+    if (pendiente === null) {
+      cuantoFalta = 'Revisá el estado de pago del proyecto.';
+    } else if (pendiente === 0) {
+      cuantoFalta = 'Ya está cobrado el 100% del monto.';
+    } else {
+      cuantoFalta = `Aún falta el ${pendiente}% del monto.`;
+    }
+
+    await this.notificaciones.notificarAdministracion({
+      tipo: TipoNotificacion.EtapaFinalizada,
+      titulo: `${cierre.que}: ${proyecto.name}`,
+      mensaje: `${cierre.que}. Por favor cobrar${queCobrar}. ${cuantoFalta}`,
+      proyectoId: proyecto.id,
+    });
+  }
+
   private parsearPorcentajePago(
     valor: string | null | undefined,
   ): number | null {

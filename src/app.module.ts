@@ -8,6 +8,9 @@ import { AuthModule } from './feature/auth/auth.module';
 import { SeguimientoModule } from './feature/seguimiento/seguimiento.module';
 import { ProjectsModule } from './feature/projects/projects.module';
 import { RecordatorioModule } from './feature/recordatorio/recordatorio.module';
+import { NotificacionesModule } from './feature/notificaciones/notificaciones.module';
+import { ReunionesModule } from './feature/reuniones/reuniones.module';
+import { NotasModule } from './feature/notas/notas.module';
 import { JwtAuthGuard } from './feature/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './feature/auth/guards/roles.guard';
 
@@ -21,6 +24,9 @@ import { RolesGuard } from './feature/auth/guards/roles.guard';
     SeguimientoModule,
     ProjectsModule,
     RecordatorioModule,
+    NotificacionesModule,
+    ReunionesModule,
+    NotasModule,
   ],
   // El orden importa: JwtAuthGuard deja el payload en request.usuario y
   // RolesGuard lo lee. Invertidos, RolesGuard no encontraría el rol.
