@@ -112,11 +112,20 @@ export class NotificacionesService {
    * Avisa a todos los usuarios activos con rol de administración (`Admin` u
    * `Owner`). Es «Julio» en el flujo: quien cobra, agenda y lee las notas.
    */
-  async notificarAdministracion(aviso: NuevaNotificacion): Promise<void> {
+  /**
+   * `excepto` saca de la lista a quien ya se enteró por otra vía — el admin
+   * que además está convocado a la reunión, por ejemplo. Sin eso recibiría el
+   * mismo hecho dos veces con dos textos distintos.
+   */
+  async notificarAdministracion(
+    aviso: NuevaNotificacion,
+    excepto: number[] = [],
+  ): Promise<void> {
     const admins = await this.prisma.user.findMany({
       where: {
         active: true,
         rol: { name: { in: [...ROLES_ADMINISTRACION] } },
+        ...(excepto.length > 0 && { id: { notIn: excepto } }),
       },
       select: { id: true },
     });

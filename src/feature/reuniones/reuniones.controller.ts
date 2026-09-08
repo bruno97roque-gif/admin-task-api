@@ -31,8 +31,12 @@ import { UsuarioActual } from '../auth/decorators/usuario-actual.decorator';
 import { AUTH_BEARER, TAGS } from '../../swagger';
 
 /**
- * Administración agenda; diseñadores y desarrolladores consultan las suyas.
- * La escritura y el listado completo llevan `@Roles`; `mias` es para todos.
+ * Cualquiera del equipo agenda sus reuniones; administración además ve y
+ * ordena las de todos.
+ *
+ * Solo `GET /` (el historial completo) lleva `@Roles`. Editar y borrar están
+ * abiertos en el router y acotados en el servicio: administración toca
+ * cualquiera, el resto solo las que agendó.
  */
 @ApiTags(TAGS.reuniones)
 @ApiBearerAuth(AUTH_BEARER)
@@ -40,19 +44,17 @@ import { AUTH_BEARER, TAGS } from '../../swagger';
 export class ReunionesController {
   constructor(private readonly reuniones: ReunionesService) {}
 
-  @Roles(...ROLES_ADMINISTRACION)
   @Post()
   @ApiOperation({
     summary: 'Agendar una reunión',
     description:
-      'Solo administración. El link de Google Meet es obligatorio. Cada convocado recibe una notificación interna con fecha y link.',
+      'Cualquier usuario logueado. El link de Google Meet es obligatorio. Cada convocado recibe una notificación interna con fecha y link, y si quien agenda no es administración, también se le avisa a ella.',
   })
   @ApiCreatedResponse({ type: ReunionRespuestaDto })
   @ApiBadRequestResponse({
     description:
       'Cuerpo inválido, link que no es de Meet, proyecto inexistente o participante inexistente/desactivado.',
   })
-  @ApiForbiddenResponse({ description: 'Solo administración.' })
   create(
     @Body() dto: CreateReunionDto,
     @UsuarioActual('sub') creadorId: number,
@@ -63,8 +65,9 @@ export class ReunionesController {
   @Roles(...ROLES_ADMINISTRACION)
   @Get()
   @ApiOperation({
-    summary: 'Listar todas las reuniones',
-    description: 'Solo administración. Ordenadas por fecha ascendente.',
+    summary: 'Historial de reuniones',
+    description:
+      'Todas las reuniones del equipo, las pasadas incluidas, ordenadas por fecha ascendente. Solo administración: es la vista para saber quién agendó qué.',
   })
   @ApiOkResponse({ type: ReunionRespuestaDto, isArray: true })
   @ApiForbiddenResponse({ description: 'Solo administración.' })
@@ -77,7 +80,7 @@ export class ReunionesController {
   @ApiOperation({
     summary: 'Mis reuniones',
     description:
-      'Las que convocan al usuario logueado, ordenadas por fecha ascendente. El front separa próximas de pasadas.',
+      'Las que convocan al usuario logueado **o que él agendó**, ordenadas por fecha ascendente. El front separa próximas de pasadas.',
   })
   @ApiOkResponse({ type: ReunionRespuestaDto, isArray: true })
   findMias(@UsuarioActual('sub') usuarioId: number) {
@@ -93,29 +96,44 @@ export class ReunionesController {
     return this.reuniones.findOne(id);
   }
 
-  @Roles(...ROLES_ADMINISTRACION)
   @Patch(':id')
   @ApiOperation({
     summary: 'Modificar una reunión',
     description:
-      'Solo administración. Si cambia la fecha o el link se avisa a todos los convocados; si solo se suman participantes, se avisa a los nuevos.',
+      'Administración modifica cualquiera; el resto, solo las que agendó. Si cambia la fecha o el link se avisa a todos los convocados; si solo se suman participantes, se avisa a los nuevos.',
   })
   @ApiParam({ name: 'id', description: 'Id de la reunión.', example: 1 })
   @ApiOkResponse({ type: ReunionRespuestaDto })
   @ApiNotFoundResponse({ description: 'No existe esa reunión.' })
-  @ApiForbiddenResponse({ description: 'Solo administración.' })
-  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateReunionDto) {
-    return this.reuniones.update(id, dto);
+  @ApiForbiddenResponse({
+    description:
+      'La reunión la agendó otra persona y quien pide no es administración.',
+  })
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateReunionDto,
+    @UsuarioActual('sub') actorId: number,
+  ) {
+    return this.reuniones.update(id, dto, actorId);
   }
 
-  @Roles(...ROLES_ADMINISTRACION)
   @Delete(':id')
-  @ApiOperation({ summary: 'Eliminar una reunión' })
+  @ApiOperation({
+    summary: 'Eliminar una reunión',
+    description:
+      'Administración borra cualquiera; el resto, solo las que agendó.',
+  })
   @ApiParam({ name: 'id', description: 'Id de la reunión.', example: 1 })
   @ApiOkResponse({ type: ReunionRespuestaDto })
   @ApiNotFoundResponse({ description: 'No existe esa reunión.' })
-  @ApiForbiddenResponse({ description: 'Solo administración.' })
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.reuniones.remove(id);
+  @ApiForbiddenResponse({
+    description:
+      'La reunión la agendó otra persona y quien pide no es administración.',
+  })
+  remove(
+    @Param('id', ParseIntPipe) id: number,
+    @UsuarioActual('sub') actorId: number,
+  ) {
+    return this.reuniones.remove(id, actorId);
   }
 }

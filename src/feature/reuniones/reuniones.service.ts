@@ -1,11 +1,13 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../../lib/prisma/prisma.service';
+import { ROLES_ADMINISTRACION } from '../auth/decorators/roles.decorator';
 import { NotificacionesService } from '../notificaciones/notificaciones.service';
 import { Prisma, TipoNotificacion } from '../../lib/generated/prisma/client';
 import { CreateReunionDto } from './dto/create-reunion.dto';
@@ -91,6 +93,22 @@ export class ReunionesService {
       proyectoId: reunion.proyectoId,
     });
 
+    // Si agenda alguien del equipo, administración se entera: es la que lleva
+    // el orden de la agenda. Cuando agenda ella misma no se autoavisa, y a los
+    // admins ya convocados no se les repite el mismo hecho.
+    if (creadorId !== undefined && !(await this.esAdministracion(creadorId))) {
+      const quien = reunion.creador?.name ?? 'Alguien del equipo';
+      await this.notificaciones.notificarAdministracion(
+        {
+          tipo: TipoNotificacion.ReunionProgramada,
+          titulo: `${quien} agendó una reunión`,
+          mensaje: this.describir(reunion),
+          proyectoId: reunion.proyectoId,
+        },
+        dto.participantesIds,
+      );
+    }
+
     return this.aplanar(reunion);
   }
 
@@ -104,10 +122,18 @@ export class ReunionesService {
     return reuniones.map((reunion) => this.aplanar(reunion));
   }
 
-  /** Solo las que convocan al usuario. Para diseñadores y desarrolladores. */
+  /**
+   * Las que convocan al usuario **o que él mismo agendó**. Sin lo segundo, el
+   * que agenda una reunión donde no participa no la vería en ninguna parte.
+   */
   async findMias(usuarioId: number): Promise<ReunionCompleta[]> {
     const reuniones = await this.prisma.reunion.findMany({
-      where: { participantes: { some: { usuarioId } } },
+      where: {
+        OR: [
+          { participantes: { some: { usuarioId } } },
+          { creadorId: usuarioId },
+        ],
+      },
       include: reunionInclude,
       orderBy: { fecha: 'asc' },
     });
@@ -128,8 +154,13 @@ export class ReunionesService {
     return this.aplanar(reunion);
   }
 
-  async update(id: number, dto: UpdateReunionDto): Promise<ReunionCompleta> {
+  async update(
+    id: number,
+    dto: UpdateReunionDto,
+    actorId?: number,
+  ): Promise<ReunionCompleta> {
     const actual = await this.findOne(id);
+    await this.verificarPuedeEditar(actual, actorId);
 
     if (dto.proyectoId !== undefined) {
       await this.validarProyecto(dto.proyectoId);
@@ -193,8 +224,9 @@ export class ReunionesService {
     return this.aplanar(reunion);
   }
 
-  async remove(id: number): Promise<ReunionCompleta> {
+  async remove(id: number, actorId?: number): Promise<ReunionCompleta> {
     const reunion = await this.findOne(id);
+    await this.verificarPuedeEditar(reunion, actorId);
     await this.prisma.reunion.delete({ where: { id } });
     return reunion;
   }
@@ -301,6 +333,43 @@ export class ReunionesService {
         `Los usuarios con id ${faltan.join(', ')} no existen o están desactivados`,
       );
     }
+  }
+
+  /** ¿El usuario es `Admin` u `Owner`? Se resuelve por rol, no por persona. */
+  private async esAdministracion(usuarioId: number): Promise<boolean> {
+    const usuario = await this.prisma.user.findUnique({
+      where: { id: usuarioId },
+      select: { rol: { select: { name: true } } },
+    });
+
+    return (ROLES_ADMINISTRACION as readonly string[]).includes(
+      usuario?.rol.name ?? '',
+    );
+  }
+
+  /**
+   * Administración toca cualquier reunión; el resto, solo las que agendó.
+   *
+   * Una reunión sin creador (las que quedaron de antes, o cuyo creador se
+   * borró) solo la maneja administración: no hay dueño a quien reconocerle
+   * el permiso.
+   */
+  private async verificarPuedeEditar(
+    reunion: ReunionCompleta,
+    actorId: number | undefined,
+  ): Promise<void> {
+    if (actorId === undefined) {
+      throw new ForbiddenException(
+        'No se pudo identificar quién pide el cambio',
+      );
+    }
+
+    if (reunion.creadorId === actorId) return;
+    if (await this.esAdministracion(actorId)) return;
+
+    throw new ForbiddenException(
+      'Esta reunión la agendó otra persona: solo quien la creó o administración pueden tocarla',
+    );
   }
 
   private notFound(id: number): NotFoundException {
