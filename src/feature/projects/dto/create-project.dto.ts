@@ -233,13 +233,17 @@ export class CreateProjectDto {
   @IsBoolean()
   abonoInicialCobrado?: boolean;
 
-  @ApiProperty({
-    description: 'Notas internas del proyecto.',
+  // Al dar de alta casi nunca hay nada que anotar todavía: se deja vacío y se
+  // completa después. La columna es `String` sin default, así que el servicio
+  // manda cadena vacía cuando no viene.
+  @ApiPropertyOptional({
+    description: 'Notas internas del proyecto. Opcional en el alta.',
     example: 'El cliente prefiere que lo llamemos después de las 15h.',
+    default: '',
   })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  comentario: string;
+  comentario?: string;
 
   // El cliente lo manda a veces como number (ej. 3) y la columna es String:
   // se normaliza antes de validar para no rechazarlo con un 400.

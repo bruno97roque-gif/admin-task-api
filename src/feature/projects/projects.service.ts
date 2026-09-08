@@ -122,8 +122,35 @@ export interface AnaliticaProyectoDuracion {
   dias: number;
 }
 
+/** Un proyecto en el movimiento mensual, con la fecha exacta del movimiento. */
+export interface AnaliticaProyectoMovimiento {
+  proyectoId: number;
+  nombre: string;
+  fecha: Date;
+  /** Con qué salió: cerrado bien o archivado sin terminar. */
+  motivo?: 'ProyectoFinalizado' | 'Archivado';
+}
+
+/** Cuántos proyectos entraron y salieron cada mes, y cuáles fueron. */
+export interface AnaliticaFlujoMes {
+  mes: string;
+  entraron: number;
+  salieron: number;
+  /** Diferencia del mes: positivo si entraron más de los que salieron. */
+  neto: number;
+  entrantes: AnaliticaProyectoMovimiento[];
+  salientes: AnaliticaProyectoMovimiento[];
+}
+
 /** Analítica de diseño y desarrollo: totales por mes, por persona, y duración. */
 export interface Analitica {
+  /**
+   * Altas y cierres mes a mes. Entrar es darse de alta (`createdAt`); salir es
+   * llegar a `ProyectoFinalizado` o a `Archivado`, lo que pase primero. Un
+   * proyecto reactivado que vuelve a cerrarse cuenta una sola vez, en su
+   * primera salida.
+   */
+  flujoMensual: AnaliticaFlujoMes[];
   porMes: {
     mes: string;
     disenosFinalizados: number;
@@ -233,6 +260,8 @@ export class ProjectsService {
       const creado = await tx.proyecto.create({
         data: {
           ...data,
+          // La columna no tiene default y el comentario es opcional en el alta.
+          comentario: data.comentario ?? '',
           estadoProyecto: estado,
           grupo: grupoFinal,
           fechaEntrega: this.aFecha(fechaEntrega),
@@ -452,12 +481,20 @@ export class ProjectsService {
       EstadoProyecto.DesarrolloFinalizado,
     ];
 
-    const [proyectos, historial] = await Promise.all([
+    // Salir del tablero es cerrarse bien o archivarse; se miran aparte de las
+    // etapas de trabajo porque alimentan el flujo mensual, no los promedios.
+    const ESTADOS_SALIDA: EstadoProyecto[] = [
+      EstadoProyecto.ProyectoFinalizado,
+      EstadoProyecto.Archivado,
+    ];
+
+    const [proyectos, historial, salidas] = await Promise.all([
       this.prisma.proyecto.findMany({
         where: { deletedAt: null },
         select: {
           id: true,
           name: true,
+          createdAt: true,
           disenadorId: true,
           desarrolladorId: true,
           disenador: { select: { name: true } },
@@ -466,6 +503,11 @@ export class ProjectsService {
       }),
       this.prisma.historialEtapa.findMany({
         where: { estadoNuevo: { in: ESTADOS_RELEVANTES } },
+        orderBy: { createdAt: 'asc' },
+        select: { proyectoId: true, estadoNuevo: true, createdAt: true },
+      }),
+      this.prisma.historialEtapa.findMany({
+        where: { estadoNuevo: { in: ESTADOS_SALIDA } },
         orderBy: { createdAt: 'asc' },
         select: { proyectoId: true, estadoNuevo: true, createdAt: true },
       }),
@@ -573,6 +615,57 @@ export class ProjectsService {
       }
     }
 
+    // Flujo mensual: alta contra primera salida. Se arma sobre el mismo mapa
+    // para que un mes sin movimiento de un lado igual aparezca con el otro.
+    const flujo = new Map<string, AnaliticaFlujoMes>();
+    const mesDeFlujo = (mes: string) => {
+      const actual = flujo.get(mes) ?? {
+        mes,
+        entraron: 0,
+        salieron: 0,
+        neto: 0,
+        entrantes: [],
+        salientes: [],
+      };
+      flujo.set(mes, actual);
+      return actual;
+    };
+
+    for (const proyecto of proyectos) {
+      const mes = mesDeFlujo(mesDe(proyecto.createdAt));
+      mes.entraron += 1;
+      mes.entrantes.push({
+        proyectoId: proyecto.id,
+        nombre: proyecto.name,
+        fecha: proyecto.createdAt,
+      });
+    }
+
+    const nombrePorId = new Map(proyectos.map((p) => [p.id, p.name]));
+    const yaSalio = new Set<number>();
+
+    for (const fila of salidas) {
+      // Solo la primera salida: un proyecto reactivado y vuelto a cerrar no
+      // cuenta dos veces.
+      if (yaSalio.has(fila.proyectoId)) continue;
+      const nombre = nombrePorId.get(fila.proyectoId);
+      // Sin nombre es un proyecto borrado: no entra en el conteo.
+      if (!nombre) continue;
+
+      yaSalio.add(fila.proyectoId);
+      const mes = mesDeFlujo(mesDe(fila.createdAt));
+      mes.salieron += 1;
+      mes.salientes.push({
+        proyectoId: fila.proyectoId,
+        nombre,
+        fecha: fila.createdAt,
+        motivo:
+          fila.estadoNuevo === EstadoProyecto.Archivado
+            ? 'Archivado'
+            : 'ProyectoFinalizado',
+      });
+    }
+
     const promedio = (items: AnaliticaProyectoDuracion[]) =>
       items.length === 0
         ? 0
@@ -582,6 +675,9 @@ export class ProjectsService {
           ) / 10;
 
     return {
+      flujoMensual: [...flujo.values()]
+        .map((mes) => ({ ...mes, neto: mes.entraron - mes.salieron }))
+        .sort((a, b) => a.mes.localeCompare(b.mes)),
       porMes: [...porMes.entries()]
         .sort(([a], [b]) => a.localeCompare(b))
         .map(([mes, valores]) => ({ mes, ...valores })),
