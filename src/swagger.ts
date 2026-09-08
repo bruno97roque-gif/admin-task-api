@@ -26,7 +26,6 @@ export const TAGS = {
   usuarios: 'Usuarios',
   roles: 'Roles',
   seguimientos: 'Seguimientos',
-  recordatorios: 'Recordatorios sueltos',
   notificaciones: 'Notificaciones',
   reuniones: 'Reuniones',
   notas: 'Notas a administración',
@@ -127,10 +126,6 @@ export function configurarSwagger(app: INestApplication): void {
     .addTag(
       TAGS.seguimientos,
       'Catálogo de acciones de hoy («Llamar», «Congelar Hoy», …).',
-    )
-    .addTag(
-      TAGS.recordatorios,
-      'Notas sueltas, sin relación con proyectos. Distintas de los recordatorios del flujo.',
     )
     .addTag(
       TAGS.notificaciones,
