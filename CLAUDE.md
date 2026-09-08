@@ -16,6 +16,8 @@ The domain vocabulary is Spanish (`proyecto`, `seguimiento`, `usuario`, `grupo`)
 - `docs/auth-contract.md` (el contrato cliente del login/refresh) fue borrado en el commit `f7e6726`, así que para auth el código es lo único que queda — resumido más abajo.
 
 > **La base es de producción.** `DATABASE_URL` apunta a Railway. Las 7 migraciones están aplicadas (`pnpm exec prisma migrate status` al 2026-08-12). El aviso de `PLAN-FLUJO.md` §7 sobre `_flujo_fase1_fase2_completo` quedó viejo: ya se ejecutó. Verificá el estado antes de tocar nada y escribí las migraciones para que no reescriban filas — la de `_add_etapas_avance_y_diseno_finalizado` es el ejemplo a seguir (solo `ALTER TYPE … ADD VALUE`).
+>
+> **Regla fija del equipo: las migraciones solo agregan.** Tablas, columnas, índices, valores de enum y relaciones nuevas, sí. Modificar, renombrar o borrar columnas, tablas o valores existentes, y `UPDATE`/`DELETE` sobre filas, **nunca**. Si un cambio parece necesitar eso, se agrega una columna nueva y se deja la vieja, y se levanta la decisión al equipo antes de escribir la migración.
 
 ### Domain model in one paragraph
 
