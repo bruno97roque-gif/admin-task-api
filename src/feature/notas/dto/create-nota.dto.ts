@@ -1,5 +1,13 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import {
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
+import { CategoriaNota } from '../../../lib/generated/prisma/client';
 
 export class CreateNotaDto {
   @ApiProperty({
@@ -20,4 +28,15 @@ export class CreateNotaDto {
   @IsNotEmpty()
   @MaxLength(2000)
   contenido: string;
+
+  @ApiPropertyOptional({
+    description:
+      'De qué trata el ticket. Ordena la bandeja de administración: los bloqueos van primero. Omitirlo lo deja en `Otro`.',
+    enum: CategoriaNota,
+    enumName: 'CategoriaNota',
+    example: CategoriaNota.Consulta,
+  })
+  @IsOptional()
+  @IsEnum(CategoriaNota)
+  categoria?: CategoriaNota;
 }

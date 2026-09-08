@@ -129,3 +129,10 @@ export type ReunionUsuario = Prisma.ReunionUsuarioModel
  * y de `RecordatorioProyecto` (los cinco bloqueos del flujo).
  */
 export type NotaAdmin = Prisma.NotaAdminModel
+/**
+ * Model RespuestaNota
+ * Cada mensaje del hilo de un ticket, de cualquiera de los dos lados: el
+ * autor que aclara y administración que responde. El texto original de la
+ * nota no vive acá, sigue en `NotaAdmin.contenido`.
+ */
+export type RespuestaNota = Prisma.RespuestaNotaModel

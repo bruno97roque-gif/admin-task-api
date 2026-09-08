@@ -69,6 +69,17 @@ export class CreateProjectDto {
 
   @ApiPropertyOptional({
     description:
+      'Compromiso de entrega del **diseño**. Va aparte de `fechaEntrega`, que es la del proyecto entero: antes las dos se pisaban porque compartían campo.',
+    example: '2026-10-15',
+    nullable: true,
+    type: String,
+  })
+  @IsOptional()
+  @IsISO8601()
+  fechaEntregaDiseno?: string | null;
+
+  @ApiPropertyOptional({
+    description:
       'Carpeta de Drive con todo el material del proyecto. Es un solo enlace: adentro va la estructura que use el equipo.',
     example: 'https://drive.google.com/drive/folders/abc123',
     maxLength: 500,

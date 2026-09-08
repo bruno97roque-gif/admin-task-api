@@ -54,6 +54,7 @@ export type ProyectoMinAggregateOutputType = {
   comentario: string | null
   diasSinResponder: string | null
   fechaEntrega: Date | null
+  fechaEntregaDiseno: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -87,6 +88,7 @@ export type ProyectoMaxAggregateOutputType = {
   comentario: string | null
   diasSinResponder: string | null
   fechaEntrega: Date | null
+  fechaEntregaDiseno: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -120,6 +122,7 @@ export type ProyectoCountAggregateOutputType = {
   comentario: number
   diasSinResponder: number
   fechaEntrega: number
+  fechaEntregaDiseno: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -171,6 +174,7 @@ export type ProyectoMinAggregateInputType = {
   comentario?: true
   diasSinResponder?: true
   fechaEntrega?: true
+  fechaEntregaDiseno?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -204,6 +208,7 @@ export type ProyectoMaxAggregateInputType = {
   comentario?: true
   diasSinResponder?: true
   fechaEntrega?: true
+  fechaEntregaDiseno?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -237,6 +242,7 @@ export type ProyectoCountAggregateInputType = {
   comentario?: true
   diasSinResponder?: true
   fechaEntrega?: true
+  fechaEntregaDiseno?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -357,6 +363,7 @@ export type ProyectoGroupByOutputType = {
   comentario: string
   diasSinResponder: string | null
   fechaEntrega: Date | null
+  fechaEntregaDiseno: Date | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -413,6 +420,7 @@ export type ProyectoWhereInput = {
   comentario?: Prisma.StringFilter<"Proyecto"> | string
   diasSinResponder?: Prisma.StringNullableFilter<"Proyecto"> | string | null
   fechaEntrega?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  fechaEntregaDiseno?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
@@ -457,6 +465,7 @@ export type ProyectoOrderByWithRelationInput = {
   comentario?: Prisma.SortOrder
   diasSinResponder?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaEntrega?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaEntregaDiseno?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -504,6 +513,7 @@ export type ProyectoWhereUniqueInput = Prisma.AtLeast<{
   comentario?: Prisma.StringFilter<"Proyecto"> | string
   diasSinResponder?: Prisma.StringNullableFilter<"Proyecto"> | string | null
   fechaEntrega?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  fechaEntregaDiseno?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
@@ -548,6 +558,7 @@ export type ProyectoOrderByWithAggregationInput = {
   comentario?: Prisma.SortOrder
   diasSinResponder?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaEntrega?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaEntregaDiseno?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -589,6 +600,7 @@ export type ProyectoScalarWhereWithAggregatesInput = {
   comentario?: Prisma.StringWithAggregatesFilter<"Proyecto"> | string
   diasSinResponder?: Prisma.StringNullableWithAggregatesFilter<"Proyecto"> | string | null
   fechaEntrega?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
+  fechaEntregaDiseno?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Proyecto"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Proyecto"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
@@ -620,6 +632,7 @@ export type ProyectoCreateInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -662,6 +675,7 @@ export type ProyectoUncheckedCreateInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -701,6 +715,7 @@ export type ProyectoUpdateInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -743,6 +758,7 @@ export type ProyectoUncheckedUpdateInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -784,6 +800,7 @@ export type ProyectoCreateManyInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -815,6 +832,7 @@ export type ProyectoUpdateManyMutationInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -846,6 +864,7 @@ export type ProyectoUncheckedUpdateManyInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -889,6 +908,7 @@ export type ProyectoCountOrderByAggregateInput = {
   comentario?: Prisma.SortOrder
   diasSinResponder?: Prisma.SortOrder
   fechaEntrega?: Prisma.SortOrder
+  fechaEntregaDiseno?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -930,6 +950,7 @@ export type ProyectoMaxOrderByAggregateInput = {
   comentario?: Prisma.SortOrder
   diasSinResponder?: Prisma.SortOrder
   fechaEntrega?: Prisma.SortOrder
+  fechaEntregaDiseno?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -963,6 +984,7 @@ export type ProyectoMinOrderByAggregateInput = {
   comentario?: Prisma.SortOrder
   diasSinResponder?: Prisma.SortOrder
   fechaEntrega?: Prisma.SortOrder
+  fechaEntregaDiseno?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1286,6 +1308,7 @@ export type ProyectoCreateWithoutDisenadorInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1327,6 +1350,7 @@ export type ProyectoUncheckedCreateWithoutDisenadorInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1375,6 +1399,7 @@ export type ProyectoCreateWithoutDesarrolladorInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1416,6 +1441,7 @@ export type ProyectoUncheckedCreateWithoutDesarrolladorInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1485,6 +1511,7 @@ export type ProyectoScalarWhereInput = {
   comentario?: Prisma.StringFilter<"Proyecto"> | string
   diasSinResponder?: Prisma.StringNullableFilter<"Proyecto"> | string | null
   fechaEntrega?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  fechaEntregaDiseno?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Proyecto"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
@@ -1532,6 +1559,7 @@ export type ProyectoCreateWithoutSeguimientoInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1572,6 +1600,7 @@ export type ProyectoUncheckedCreateWithoutSeguimientoInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1637,6 +1666,7 @@ export type ProyectoCreateWithoutCobrosInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1678,6 +1708,7 @@ export type ProyectoUncheckedCreateWithoutCobrosInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1732,6 +1763,7 @@ export type ProyectoUpdateWithoutCobrosInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1773,6 +1805,7 @@ export type ProyectoUncheckedUpdateWithoutCobrosInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1811,6 +1844,7 @@ export type ProyectoCreateWithoutHistorialInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1852,6 +1886,7 @@ export type ProyectoUncheckedCreateWithoutHistorialInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1906,6 +1941,7 @@ export type ProyectoUpdateWithoutHistorialInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1947,6 +1983,7 @@ export type ProyectoUncheckedUpdateWithoutHistorialInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1985,6 +2022,7 @@ export type ProyectoCreateWithoutRecordatoriosInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2026,6 +2064,7 @@ export type ProyectoUncheckedCreateWithoutRecordatoriosInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2080,6 +2119,7 @@ export type ProyectoUpdateWithoutRecordatoriosInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2121,6 +2161,7 @@ export type ProyectoUncheckedUpdateWithoutRecordatoriosInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2159,6 +2200,7 @@ export type ProyectoCreateWithoutCotizacionesInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2200,6 +2242,7 @@ export type ProyectoUncheckedCreateWithoutCotizacionesInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2254,6 +2297,7 @@ export type ProyectoUpdateWithoutCotizacionesInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2295,6 +2339,7 @@ export type ProyectoUncheckedUpdateWithoutCotizacionesInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2333,6 +2378,7 @@ export type ProyectoCreateWithoutUsuariosInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2374,6 +2420,7 @@ export type ProyectoUncheckedCreateWithoutUsuariosInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2428,6 +2475,7 @@ export type ProyectoUpdateWithoutUsuariosInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2469,6 +2517,7 @@ export type ProyectoUncheckedUpdateWithoutUsuariosInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2507,6 +2556,7 @@ export type ProyectoCreateWithoutNotificacionesInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2548,6 +2598,7 @@ export type ProyectoUncheckedCreateWithoutNotificacionesInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2602,6 +2653,7 @@ export type ProyectoUpdateWithoutNotificacionesInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2643,6 +2695,7 @@ export type ProyectoUncheckedUpdateWithoutNotificacionesInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2681,6 +2734,7 @@ export type ProyectoCreateWithoutReunionesInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2722,6 +2776,7 @@ export type ProyectoUncheckedCreateWithoutReunionesInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2776,6 +2831,7 @@ export type ProyectoUpdateWithoutReunionesInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2817,6 +2873,7 @@ export type ProyectoUncheckedUpdateWithoutReunionesInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2855,6 +2912,7 @@ export type ProyectoCreateWithoutNotasInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2896,6 +2954,7 @@ export type ProyectoUncheckedCreateWithoutNotasInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2950,6 +3009,7 @@ export type ProyectoUpdateWithoutNotasInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2991,6 +3051,7 @@ export type ProyectoUncheckedUpdateWithoutNotasInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3031,6 +3092,7 @@ export type ProyectoCreateManyDisenadorInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3063,6 +3125,7 @@ export type ProyectoCreateManyDesarrolladorInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3093,6 +3156,7 @@ export type ProyectoUpdateWithoutDisenadorInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3134,6 +3198,7 @@ export type ProyectoUncheckedUpdateWithoutDisenadorInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3174,6 +3239,7 @@ export type ProyectoUncheckedUpdateManyWithoutDisenadorInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3204,6 +3270,7 @@ export type ProyectoUpdateWithoutDesarrolladorInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3245,6 +3312,7 @@ export type ProyectoUncheckedUpdateWithoutDesarrolladorInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3285,6 +3353,7 @@ export type ProyectoUncheckedUpdateManyWithoutDesarrolladorInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3316,6 +3385,7 @@ export type ProyectoCreateManySeguimientoInput = {
   comentario: string
   diasSinResponder?: string | null
   fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3347,6 +3417,7 @@ export type ProyectoUpdateWithoutSeguimientoInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3387,6 +3458,7 @@ export type ProyectoUncheckedUpdateWithoutSeguimientoInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3427,6 +3499,7 @@ export type ProyectoUncheckedUpdateManyWithoutSeguimientoInput = {
   comentario?: Prisma.StringFieldUpdateOperationsInput | string
   diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3554,6 +3627,7 @@ export type ProyectoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   comentario?: boolean
   diasSinResponder?: boolean
   fechaEntrega?: boolean
+  fechaEntregaDiseno?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -3599,6 +3673,7 @@ export type ProyectoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   comentario?: boolean
   diasSinResponder?: boolean
   fechaEntrega?: boolean
+  fechaEntregaDiseno?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -3635,6 +3710,7 @@ export type ProyectoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   comentario?: boolean
   diasSinResponder?: boolean
   fechaEntrega?: boolean
+  fechaEntregaDiseno?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -3671,6 +3747,7 @@ export type ProyectoSelectScalar = {
   comentario?: boolean
   diasSinResponder?: boolean
   fechaEntrega?: boolean
+  fechaEntregaDiseno?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -3691,7 +3768,7 @@ export type ProyectoSelectScalar = {
   desarrolladorId?: boolean
 }
 
-export type ProyectoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "estadoPago" | "estadoProyecto" | "descripcion" | "tecnologia" | "tipoProyecto" | "grupo" | "seguimientoId" | "comentario" | "diasSinResponder" | "fechaEntrega" | "createdAt" | "updatedAt" | "deletedAt" | "materialMarcaRecibido" | "catalogoRecibido" | "rondasCambiosUsadas" | "hostingContratado" | "factibilidadRevisadaAt" | "disenoAprobadoAt" | "productosCargados" | "presentadoAt" | "subidoProduccionAt" | "capacitacionAt" | "fechaUltimoCambioEstado" | "archivadoAt" | "enlaceMateriales" | "disenadorId" | "desarrolladorId", ExtArgs["result"]["proyecto"]>
+export type ProyectoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "estadoPago" | "estadoProyecto" | "descripcion" | "tecnologia" | "tipoProyecto" | "grupo" | "seguimientoId" | "comentario" | "diasSinResponder" | "fechaEntrega" | "fechaEntregaDiseno" | "createdAt" | "updatedAt" | "deletedAt" | "materialMarcaRecibido" | "catalogoRecibido" | "rondasCambiosUsadas" | "hostingContratado" | "factibilidadRevisadaAt" | "disenoAprobadoAt" | "productosCargados" | "presentadoAt" | "subidoProduccionAt" | "capacitacionAt" | "fechaUltimoCambioEstado" | "archivadoAt" | "enlaceMateriales" | "disenadorId" | "desarrolladorId", ExtArgs["result"]["proyecto"]>
 export type ProyectoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
   usuarios?: boolean | Prisma.Proyecto$usuariosArgs<ExtArgs>
@@ -3744,7 +3821,17 @@ export type $ProyectoPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     seguimientoId: number
     comentario: string
     diasSinResponder: string | null
+    /**
+     * Compromiso de entrega **final**, el del proyecto entero. Es la columna
+     * que ya existía: los valores cargados hasta ahora siguen significando lo
+     * mismo. La del diseño va aparte porque antes las dos se pisaban.
+     */
     fechaEntrega: Date | null
+    /**
+     * Compromiso de entrega del **diseño**. La ve y la carga el diseñador en su
+     * tablero; el desarrollador trabaja con `fechaEntrega`.
+     */
+    fechaEntregaDiseno: Date | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -4246,6 +4333,7 @@ export interface ProyectoFieldRefs {
   readonly comentario: Prisma.FieldRef<"Proyecto", 'String'>
   readonly diasSinResponder: Prisma.FieldRef<"Proyecto", 'String'>
   readonly fechaEntrega: Prisma.FieldRef<"Proyecto", 'DateTime'>
+  readonly fechaEntregaDiseno: Prisma.FieldRef<"Proyecto", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Proyecto", 'DateTime'>

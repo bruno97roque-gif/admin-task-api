@@ -63,7 +63,8 @@ export const ModelName = {
   Notificacion: 'Notificacion',
   Reunion: 'Reunion',
   ReunionUsuario: 'ReunionUsuario',
-  NotaAdmin: 'NotaAdmin'
+  NotaAdmin: 'NotaAdmin',
+  RespuestaNota: 'RespuestaNota'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -125,6 +126,7 @@ export const ProyectoScalarFieldEnum = {
   comentario: 'comentario',
   diasSinResponder: 'diasSinResponder',
   fechaEntrega: 'fechaEntrega',
+  fechaEntregaDiseno: 'fechaEntregaDiseno',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
@@ -265,10 +267,24 @@ export const NotaAdminScalarFieldEnum = {
   autorId: 'autorId',
   contenido: 'contenido',
   leidaAt: 'leidaAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  estado: 'estado',
+  categoria: 'categoria',
+  ultimaRespuestaAt: 'ultimaRespuestaAt'
 } as const
 
 export type NotaAdminScalarFieldEnum = (typeof NotaAdminScalarFieldEnum)[keyof typeof NotaAdminScalarFieldEnum]
+
+
+export const RespuestaNotaScalarFieldEnum = {
+  id: 'id',
+  notaId: 'notaId',
+  autorId: 'autorId',
+  contenido: 'contenido',
+  createdAt: 'createdAt'
+} as const
+
+export type RespuestaNotaScalarFieldEnum = (typeof RespuestaNotaScalarFieldEnum)[keyof typeof RespuestaNotaScalarFieldEnum]
 
 
 export const SortOrder = {

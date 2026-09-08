@@ -409,7 +409,8 @@ export const ModelName = {
   Notificacion: 'Notificacion',
   Reunion: 'Reunion',
   ReunionUsuario: 'ReunionUsuario',
-  NotaAdmin: 'NotaAdmin'
+  NotaAdmin: 'NotaAdmin',
+  RespuestaNota: 'RespuestaNota'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -425,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "rol" | "user" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin"
+    modelProps: "rol" | "user" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1465,6 +1466,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RespuestaNota: {
+      payload: Prisma.$RespuestaNotaPayload<ExtArgs>
+      fields: Prisma.RespuestaNotaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RespuestaNotaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RespuestaNotaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload>
+        }
+        findFirst: {
+          args: Prisma.RespuestaNotaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RespuestaNotaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload>
+        }
+        findMany: {
+          args: Prisma.RespuestaNotaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload>[]
+        }
+        create: {
+          args: Prisma.RespuestaNotaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload>
+        }
+        createMany: {
+          args: Prisma.RespuestaNotaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RespuestaNotaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload>[]
+        }
+        delete: {
+          args: Prisma.RespuestaNotaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload>
+        }
+        update: {
+          args: Prisma.RespuestaNotaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload>
+        }
+        deleteMany: {
+          args: Prisma.RespuestaNotaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RespuestaNotaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RespuestaNotaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload>[]
+        }
+        upsert: {
+          args: Prisma.RespuestaNotaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaNotaPayload>
+        }
+        aggregate: {
+          args: Prisma.RespuestaNotaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRespuestaNota>
+        }
+        groupBy: {
+          args: Prisma.RespuestaNotaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RespuestaNotaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RespuestaNotaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RespuestaNotaCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1547,6 +1622,7 @@ export const ProyectoScalarFieldEnum = {
   comentario: 'comentario',
   diasSinResponder: 'diasSinResponder',
   fechaEntrega: 'fechaEntrega',
+  fechaEntregaDiseno: 'fechaEntregaDiseno',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
@@ -1687,10 +1763,24 @@ export const NotaAdminScalarFieldEnum = {
   autorId: 'autorId',
   contenido: 'contenido',
   leidaAt: 'leidaAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  estado: 'estado',
+  categoria: 'categoria',
+  ultimaRespuestaAt: 'ultimaRespuestaAt'
 } as const
 
 export type NotaAdminScalarFieldEnum = (typeof NotaAdminScalarFieldEnum)[keyof typeof NotaAdminScalarFieldEnum]
+
+
+export const RespuestaNotaScalarFieldEnum = {
+  id: 'id',
+  notaId: 'notaId',
+  autorId: 'autorId',
+  contenido: 'contenido',
+  createdAt: 'createdAt'
+} as const
+
+export type RespuestaNotaScalarFieldEnum = (typeof RespuestaNotaScalarFieldEnum)[keyof typeof RespuestaNotaScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1867,6 +1957,34 @@ export type EnumTipoNotificacionFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'TipoNotificacion[]'
  */
 export type ListEnumTipoNotificacionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoNotificacion[]'>
+    
+
+
+/**
+ * Reference to a field of type 'EstadoNota'
+ */
+export type EnumEstadoNotaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoNota'>
+    
+
+
+/**
+ * Reference to a field of type 'EstadoNota[]'
+ */
+export type ListEnumEstadoNotaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoNota[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CategoriaNota'
+ */
+export type EnumCategoriaNotaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoriaNota'>
+    
+
+
+/**
+ * Reference to a field of type 'CategoriaNota[]'
+ */
+export type ListEnumCategoriaNotaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoriaNota[]'>
     
 
 
@@ -2048,6 +2166,7 @@ export type GlobalOmitConfig = {
   reunion?: Prisma.ReunionOmit
   reunionUsuario?: Prisma.ReunionUsuarioOmit
   notaAdmin?: Prisma.NotaAdminOmit
+  respuestaNota?: Prisma.RespuestaNotaOmit
 }
 
 /* Types for Logging */

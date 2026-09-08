@@ -210,6 +210,13 @@ export class ProyectoRespuestaDto {
   @ApiProperty({ nullable: true, type: String, format: 'date-time' })
   fechaEntrega: Date | null;
 
+  @ApiProperty({
+    description:
+      'Compromiso de entrega del diseño, aparte de la entrega final del proyecto.',
+    nullable: true,
+  })
+  fechaEntregaDiseno: Date | null;
+
   @ApiProperty({ format: 'date-time' })
   createdAt: Date;
 

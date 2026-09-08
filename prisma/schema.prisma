@@ -84,6 +84,25 @@ enum TipoNotificacion {
   EtapaFinalizada
   ReunionProgramada
   NotaRecibida
+  NotaRespondida
+}
+
+/// En qué va un ticket del equipo. `Pendiente` es el estado de entrada;
+/// administración lo mueve a mano.
+enum EstadoNota {
+  Pendiente
+  EnCurso
+  Resuelta
+}
+
+/// De qué trata el ticket. Sirve para ordenar la bandeja: los bloqueos van
+/// primero. Las notas anteriores al sistema de tickets quedan en `Otro`.
+enum CategoriaNota {
+  Consulta
+  Bloqueo
+  Material
+  Cambio
+  Otro
 }
 
 model Rol {
@@ -120,6 +139,7 @@ model User {
   reunionesCreadas       Reunion[]              @relation("ReunionesCreadas")
   reuniones              ReunionUsuario[]
   notasEnviadas          NotaAdmin[]
+  respuestasNota         RespuestaNota[]
 
   @@index([roleId])
   @@map("users")
@@ -151,7 +171,15 @@ model Proyecto {
   seguimientoId    Int            @map("seguimiento_id")
   comentario       String         @db.Text
   diasSinResponder String?        @map("dias_sin_responder")
-  fechaEntrega     DateTime?      @map("fecha_entrega")
+
+  /// Compromiso de entrega **final**, el del proyecto entero. Es la columna
+  /// que ya existía: los valores cargados hasta ahora siguen significando lo
+  /// mismo. La del diseño va aparte porque antes las dos se pisaban.
+  fechaEntrega DateTime? @map("fecha_entrega")
+
+  /// Compromiso de entrega del **diseño**. La ve y la carga el diseñador en su
+  /// tablero; el desarrollador trabaja con `fechaEntrega`.
+  fechaEntregaDiseno DateTime? @map("fecha_entrega_diseno")
   createdAt        DateTime       @default(now()) @map("created_at")
   updatedAt        DateTime       @updatedAt @map("updated_at")
   deletedAt        DateTime?      @map("deleted_at")
@@ -400,11 +428,40 @@ model NotaAdmin {
   leidaAt    DateTime? @map("leida_at")
   createdAt  DateTime  @default(now()) @map("created_at")
 
-  proyecto Proyecto @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
-  autor    User?    @relation(fields: [autorId], references: [id], onDelete: SetNull)
+  /// En qué va el ticket. `leidaAt` se conserva y se sella la primera vez que
+  /// administración lo saca de `Pendiente`: sigue siendo «ya lo vieron».
+  estado    EstadoNota    @default(Pendiente)
+  categoria CategoriaNota @default(Otro)
+
+  /// Última vez que alguien escribió en el hilo. Ordena la bandeja por
+  /// actividad sin tener que mirar las respuestas.
+  ultimaRespuestaAt DateTime? @map("ultima_respuesta_at")
+
+  proyecto   Proyecto        @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+  autor      User?           @relation(fields: [autorId], references: [id], onDelete: SetNull)
+  respuestas RespuestaNota[]
 
   @@index([proyectoId])
   @@index([autorId])
   @@index([leidaAt])
+  @@index([estado])
   @@map("notas_admin")
+}
+
+/// Cada mensaje del hilo de un ticket, de cualquiera de los dos lados: el
+/// autor que aclara y administración que responde. El texto original de la
+/// nota no vive acá, sigue en `NotaAdmin.contenido`.
+model RespuestaNota {
+  id        Int      @id @default(autoincrement())
+  notaId    Int      @map("nota_id")
+  autorId   Int?     @map("autor_id")
+  contenido String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  nota  NotaAdmin @relation(fields: [notaId], references: [id], onDelete: Cascade)
+  autor User?     @relation(fields: [autorId], references: [id], onDelete: SetNull)
+
+  @@index([notaId])
+  @@index([autorId])
+  @@map("respuestas_nota")
 }

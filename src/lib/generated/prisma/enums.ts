@@ -75,7 +75,28 @@ export const TipoNotificacion = {
   ProyectoAsignado: 'ProyectoAsignado',
   EtapaFinalizada: 'EtapaFinalizada',
   ReunionProgramada: 'ReunionProgramada',
-  NotaRecibida: 'NotaRecibida'
+  NotaRecibida: 'NotaRecibida',
+  NotaRespondida: 'NotaRespondida'
 } as const
 
 export type TipoNotificacion = (typeof TipoNotificacion)[keyof typeof TipoNotificacion]
+
+
+export const EstadoNota = {
+  Pendiente: 'Pendiente',
+  EnCurso: 'EnCurso',
+  Resuelta: 'Resuelta'
+} as const
+
+export type EstadoNota = (typeof EstadoNota)[keyof typeof EstadoNota]
+
+
+export const CategoriaNota = {
+  Consulta: 'Consulta',
+  Bloqueo: 'Bloqueo',
+  Material: 'Material',
+  Cambio: 'Cambio',
+  Otro: 'Otro'
+} as const
+
+export type CategoriaNota = (typeof CategoriaNota)[keyof typeof CategoriaNota]

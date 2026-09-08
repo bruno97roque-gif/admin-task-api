@@ -22,6 +22,8 @@ import {
 } from '@nestjs/swagger';
 import { NotasService } from './notas.service';
 import { CreateNotaDto } from './dto/create-nota.dto';
+import { CreateRespuestaDto } from './dto/create-respuesta.dto';
+import { CambiarEstadoNotaDto } from './dto/cambiar-estado-nota.dto';
 import { NotaRespuestaDto } from './dto/nota-respuesta.dto';
 import {
   Roles,
@@ -70,6 +72,43 @@ export class NotasController {
     return this.notas.findAll();
   }
 
+  @Roles(...ROLES_ADMINISTRACION)
+  @Patch(':id/estado')
+  @ApiOperation({
+    summary: 'Cambiar el estado de un ticket',
+    description:
+      'Solo administración. Sacarlo de `Pendiente` cuenta como leído. El autor recibe una notificación con el cambio.',
+  })
+  @ApiParam({ name: 'id', description: 'Id del ticket.', example: 1 })
+  @ApiOkResponse({ type: NotaRespuestaDto })
+  @ApiNotFoundResponse({ description: 'No existe ese ticket.' })
+  @ApiForbiddenResponse({ description: 'Solo administración.' })
+  cambiarEstado(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: CambiarEstadoNotaDto,
+  ) {
+    return this.notas.cambiarEstado(id, dto);
+  }
+
+  @Post(':id/respuestas')
+  @ApiOperation({
+    summary: 'Responder un ticket',
+    description:
+      'Su autor o administración. Si responde administración, el ticket pasa a `EnCurso` y se avisa al autor; si responde el autor, se avisa a administración.',
+  })
+  @ApiParam({ name: 'id', description: 'Id del ticket.', example: 1 })
+  @ApiCreatedResponse({ type: NotaRespuestaDto })
+  @ApiNotFoundResponse({ description: 'No existe ese ticket.' })
+  @ApiForbiddenResponse({ description: 'El ticket no es tuyo.' })
+  @ApiConflictResponse({ description: 'El ticket está resuelto.' })
+  responder(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: CreateRespuestaDto,
+    @UsuarioActual('sub') usuarioId: number,
+  ) {
+    return this.notas.responder(id, dto, usuarioId);
+  }
+
   // Segmento fijo antes de :id, como en /projects.
   @Get('mias')
   @ApiOperation({
@@ -79,6 +118,22 @@ export class NotasController {
   @ApiOkResponse({ type: NotaRespuestaDto, isArray: true })
   findMias(@UsuarioActual('sub') autorId: number) {
     return this.notas.findMias(autorId);
+  }
+
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Ver un ticket con su hilo',
+    description: 'Su autor o administración.',
+  })
+  @ApiParam({ name: 'id', description: 'Id del ticket.', example: 1 })
+  @ApiOkResponse({ type: NotaRespuestaDto })
+  @ApiNotFoundResponse({ description: 'No existe ese ticket.' })
+  @ApiForbiddenResponse({ description: 'El ticket no es tuyo.' })
+  findOne(
+    @Param('id', ParseIntPipe) id: number,
+    @UsuarioActual('sub') usuarioId: number,
+  ) {
+    return this.notas.findOne(id, usuarioId);
   }
 
   @Roles(...ROLES_ADMINISTRACION)

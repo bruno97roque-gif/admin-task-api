@@ -47,6 +47,9 @@ export type NotaAdminMinAggregateOutputType = {
   contenido: string | null
   leidaAt: Date | null
   createdAt: Date | null
+  estado: $Enums.EstadoNota | null
+  categoria: $Enums.CategoriaNota | null
+  ultimaRespuestaAt: Date | null
 }
 
 export type NotaAdminMaxAggregateOutputType = {
@@ -56,6 +59,9 @@ export type NotaAdminMaxAggregateOutputType = {
   contenido: string | null
   leidaAt: Date | null
   createdAt: Date | null
+  estado: $Enums.EstadoNota | null
+  categoria: $Enums.CategoriaNota | null
+  ultimaRespuestaAt: Date | null
 }
 
 export type NotaAdminCountAggregateOutputType = {
@@ -65,6 +71,9 @@ export type NotaAdminCountAggregateOutputType = {
   contenido: number
   leidaAt: number
   createdAt: number
+  estado: number
+  categoria: number
+  ultimaRespuestaAt: number
   _all: number
 }
 
@@ -88,6 +97,9 @@ export type NotaAdminMinAggregateInputType = {
   contenido?: true
   leidaAt?: true
   createdAt?: true
+  estado?: true
+  categoria?: true
+  ultimaRespuestaAt?: true
 }
 
 export type NotaAdminMaxAggregateInputType = {
@@ -97,6 +109,9 @@ export type NotaAdminMaxAggregateInputType = {
   contenido?: true
   leidaAt?: true
   createdAt?: true
+  estado?: true
+  categoria?: true
+  ultimaRespuestaAt?: true
 }
 
 export type NotaAdminCountAggregateInputType = {
@@ -106,6 +121,9 @@ export type NotaAdminCountAggregateInputType = {
   contenido?: true
   leidaAt?: true
   createdAt?: true
+  estado?: true
+  categoria?: true
+  ultimaRespuestaAt?: true
   _all?: true
 }
 
@@ -202,6 +220,9 @@ export type NotaAdminGroupByOutputType = {
   contenido: string
   leidaAt: Date | null
   createdAt: Date
+  estado: $Enums.EstadoNota
+  categoria: $Enums.CategoriaNota
+  ultimaRespuestaAt: Date | null
   _count: NotaAdminCountAggregateOutputType | null
   _avg: NotaAdminAvgAggregateOutputType | null
   _sum: NotaAdminSumAggregateOutputType | null
@@ -234,8 +255,12 @@ export type NotaAdminWhereInput = {
   contenido?: Prisma.StringFilter<"NotaAdmin"> | string
   leidaAt?: Prisma.DateTimeNullableFilter<"NotaAdmin"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"NotaAdmin"> | Date | string
+  estado?: Prisma.EnumEstadoNotaFilter<"NotaAdmin"> | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFilter<"NotaAdmin"> | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.DateTimeNullableFilter<"NotaAdmin"> | Date | string | null
   proyecto?: Prisma.XOR<Prisma.ProyectoScalarRelationFilter, Prisma.ProyectoWhereInput>
   autor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  respuestas?: Prisma.RespuestaNotaListRelationFilter
 }
 
 export type NotaAdminOrderByWithRelationInput = {
@@ -245,8 +270,12 @@ export type NotaAdminOrderByWithRelationInput = {
   contenido?: Prisma.SortOrder
   leidaAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  estado?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
+  ultimaRespuestaAt?: Prisma.SortOrderInput | Prisma.SortOrder
   proyecto?: Prisma.ProyectoOrderByWithRelationInput
   autor?: Prisma.UserOrderByWithRelationInput
+  respuestas?: Prisma.RespuestaNotaOrderByRelationAggregateInput
 }
 
 export type NotaAdminWhereUniqueInput = Prisma.AtLeast<{
@@ -259,8 +288,12 @@ export type NotaAdminWhereUniqueInput = Prisma.AtLeast<{
   contenido?: Prisma.StringFilter<"NotaAdmin"> | string
   leidaAt?: Prisma.DateTimeNullableFilter<"NotaAdmin"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"NotaAdmin"> | Date | string
+  estado?: Prisma.EnumEstadoNotaFilter<"NotaAdmin"> | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFilter<"NotaAdmin"> | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.DateTimeNullableFilter<"NotaAdmin"> | Date | string | null
   proyecto?: Prisma.XOR<Prisma.ProyectoScalarRelationFilter, Prisma.ProyectoWhereInput>
   autor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  respuestas?: Prisma.RespuestaNotaListRelationFilter
 }, "id">
 
 export type NotaAdminOrderByWithAggregationInput = {
@@ -270,6 +303,9 @@ export type NotaAdminOrderByWithAggregationInput = {
   contenido?: Prisma.SortOrder
   leidaAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  estado?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
+  ultimaRespuestaAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.NotaAdminCountOrderByAggregateInput
   _avg?: Prisma.NotaAdminAvgOrderByAggregateInput
   _max?: Prisma.NotaAdminMaxOrderByAggregateInput
@@ -287,14 +323,21 @@ export type NotaAdminScalarWhereWithAggregatesInput = {
   contenido?: Prisma.StringWithAggregatesFilter<"NotaAdmin"> | string
   leidaAt?: Prisma.DateTimeNullableWithAggregatesFilter<"NotaAdmin"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"NotaAdmin"> | Date | string
+  estado?: Prisma.EnumEstadoNotaWithAggregatesFilter<"NotaAdmin"> | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaWithAggregatesFilter<"NotaAdmin"> | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.DateTimeNullableWithAggregatesFilter<"NotaAdmin"> | Date | string | null
 }
 
 export type NotaAdminCreateInput = {
   contenido: string
   leidaAt?: Date | string | null
   createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
   proyecto: Prisma.ProyectoCreateNestedOneWithoutNotasInput
   autor?: Prisma.UserCreateNestedOneWithoutNotasEnviadasInput
+  respuestas?: Prisma.RespuestaNotaCreateNestedManyWithoutNotaInput
 }
 
 export type NotaAdminUncheckedCreateInput = {
@@ -304,14 +347,22 @@ export type NotaAdminUncheckedCreateInput = {
   contenido: string
   leidaAt?: Date | string | null
   createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
+  respuestas?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutNotaInput
 }
 
 export type NotaAdminUpdateInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proyecto?: Prisma.ProyectoUpdateOneRequiredWithoutNotasNestedInput
   autor?: Prisma.UserUpdateOneWithoutNotasEnviadasNestedInput
+  respuestas?: Prisma.RespuestaNotaUpdateManyWithoutNotaNestedInput
 }
 
 export type NotaAdminUncheckedUpdateInput = {
@@ -321,6 +372,10 @@ export type NotaAdminUncheckedUpdateInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  respuestas?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutNotaNestedInput
 }
 
 export type NotaAdminCreateManyInput = {
@@ -330,12 +385,18 @@ export type NotaAdminCreateManyInput = {
   contenido: string
   leidaAt?: Date | string | null
   createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
 }
 
 export type NotaAdminUpdateManyMutationInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type NotaAdminUncheckedUpdateManyInput = {
@@ -345,6 +406,9 @@ export type NotaAdminUncheckedUpdateManyInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type NotaAdminListRelationFilter = {
@@ -364,6 +428,9 @@ export type NotaAdminCountOrderByAggregateInput = {
   contenido?: Prisma.SortOrder
   leidaAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  estado?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
+  ultimaRespuestaAt?: Prisma.SortOrder
 }
 
 export type NotaAdminAvgOrderByAggregateInput = {
@@ -379,6 +446,9 @@ export type NotaAdminMaxOrderByAggregateInput = {
   contenido?: Prisma.SortOrder
   leidaAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  estado?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
+  ultimaRespuestaAt?: Prisma.SortOrder
 }
 
 export type NotaAdminMinOrderByAggregateInput = {
@@ -388,12 +458,20 @@ export type NotaAdminMinOrderByAggregateInput = {
   contenido?: Prisma.SortOrder
   leidaAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  estado?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
+  ultimaRespuestaAt?: Prisma.SortOrder
 }
 
 export type NotaAdminSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   proyectoId?: Prisma.SortOrder
   autorId?: Prisma.SortOrder
+}
+
+export type NotaAdminScalarRelationFilter = {
+  is?: Prisma.NotaAdminWhereInput
+  isNot?: Prisma.NotaAdminWhereInput
 }
 
 export type NotaAdminCreateNestedManyWithoutAutorInput = {
@@ -480,11 +558,37 @@ export type NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput = {
   deleteMany?: Prisma.NotaAdminScalarWhereInput | Prisma.NotaAdminScalarWhereInput[]
 }
 
+export type EnumEstadoNotaFieldUpdateOperationsInput = {
+  set?: $Enums.EstadoNota
+}
+
+export type EnumCategoriaNotaFieldUpdateOperationsInput = {
+  set?: $Enums.CategoriaNota
+}
+
+export type NotaAdminCreateNestedOneWithoutRespuestasInput = {
+  create?: Prisma.XOR<Prisma.NotaAdminCreateWithoutRespuestasInput, Prisma.NotaAdminUncheckedCreateWithoutRespuestasInput>
+  connectOrCreate?: Prisma.NotaAdminCreateOrConnectWithoutRespuestasInput
+  connect?: Prisma.NotaAdminWhereUniqueInput
+}
+
+export type NotaAdminUpdateOneRequiredWithoutRespuestasNestedInput = {
+  create?: Prisma.XOR<Prisma.NotaAdminCreateWithoutRespuestasInput, Prisma.NotaAdminUncheckedCreateWithoutRespuestasInput>
+  connectOrCreate?: Prisma.NotaAdminCreateOrConnectWithoutRespuestasInput
+  upsert?: Prisma.NotaAdminUpsertWithoutRespuestasInput
+  connect?: Prisma.NotaAdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.NotaAdminUpdateToOneWithWhereWithoutRespuestasInput, Prisma.NotaAdminUpdateWithoutRespuestasInput>, Prisma.NotaAdminUncheckedUpdateWithoutRespuestasInput>
+}
+
 export type NotaAdminCreateWithoutAutorInput = {
   contenido: string
   leidaAt?: Date | string | null
   createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
   proyecto: Prisma.ProyectoCreateNestedOneWithoutNotasInput
+  respuestas?: Prisma.RespuestaNotaCreateNestedManyWithoutNotaInput
 }
 
 export type NotaAdminUncheckedCreateWithoutAutorInput = {
@@ -493,6 +597,10 @@ export type NotaAdminUncheckedCreateWithoutAutorInput = {
   contenido: string
   leidaAt?: Date | string | null
   createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
+  respuestas?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutNotaInput
 }
 
 export type NotaAdminCreateOrConnectWithoutAutorInput = {
@@ -531,13 +639,20 @@ export type NotaAdminScalarWhereInput = {
   contenido?: Prisma.StringFilter<"NotaAdmin"> | string
   leidaAt?: Prisma.DateTimeNullableFilter<"NotaAdmin"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"NotaAdmin"> | Date | string
+  estado?: Prisma.EnumEstadoNotaFilter<"NotaAdmin"> | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFilter<"NotaAdmin"> | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.DateTimeNullableFilter<"NotaAdmin"> | Date | string | null
 }
 
 export type NotaAdminCreateWithoutProyectoInput = {
   contenido: string
   leidaAt?: Date | string | null
   createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
   autor?: Prisma.UserCreateNestedOneWithoutNotasEnviadasInput
+  respuestas?: Prisma.RespuestaNotaCreateNestedManyWithoutNotaInput
 }
 
 export type NotaAdminUncheckedCreateWithoutProyectoInput = {
@@ -546,6 +661,10 @@ export type NotaAdminUncheckedCreateWithoutProyectoInput = {
   contenido: string
   leidaAt?: Date | string | null
   createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
+  respuestas?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutNotaInput
 }
 
 export type NotaAdminCreateOrConnectWithoutProyectoInput = {
@@ -574,19 +693,88 @@ export type NotaAdminUpdateManyWithWhereWithoutProyectoInput = {
   data: Prisma.XOR<Prisma.NotaAdminUpdateManyMutationInput, Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoInput>
 }
 
+export type NotaAdminCreateWithoutRespuestasInput = {
+  contenido: string
+  leidaAt?: Date | string | null
+  createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
+  proyecto: Prisma.ProyectoCreateNestedOneWithoutNotasInput
+  autor?: Prisma.UserCreateNestedOneWithoutNotasEnviadasInput
+}
+
+export type NotaAdminUncheckedCreateWithoutRespuestasInput = {
+  id?: number
+  proyectoId: number
+  autorId?: number | null
+  contenido: string
+  leidaAt?: Date | string | null
+  createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
+}
+
+export type NotaAdminCreateOrConnectWithoutRespuestasInput = {
+  where: Prisma.NotaAdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.NotaAdminCreateWithoutRespuestasInput, Prisma.NotaAdminUncheckedCreateWithoutRespuestasInput>
+}
+
+export type NotaAdminUpsertWithoutRespuestasInput = {
+  update: Prisma.XOR<Prisma.NotaAdminUpdateWithoutRespuestasInput, Prisma.NotaAdminUncheckedUpdateWithoutRespuestasInput>
+  create: Prisma.XOR<Prisma.NotaAdminCreateWithoutRespuestasInput, Prisma.NotaAdminUncheckedCreateWithoutRespuestasInput>
+  where?: Prisma.NotaAdminWhereInput
+}
+
+export type NotaAdminUpdateToOneWithWhereWithoutRespuestasInput = {
+  where?: Prisma.NotaAdminWhereInput
+  data: Prisma.XOR<Prisma.NotaAdminUpdateWithoutRespuestasInput, Prisma.NotaAdminUncheckedUpdateWithoutRespuestasInput>
+}
+
+export type NotaAdminUpdateWithoutRespuestasInput = {
+  contenido?: Prisma.StringFieldUpdateOperationsInput | string
+  leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proyecto?: Prisma.ProyectoUpdateOneRequiredWithoutNotasNestedInput
+  autor?: Prisma.UserUpdateOneWithoutNotasEnviadasNestedInput
+}
+
+export type NotaAdminUncheckedUpdateWithoutRespuestasInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  proyectoId?: Prisma.IntFieldUpdateOperationsInput | number
+  autorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contenido?: Prisma.StringFieldUpdateOperationsInput | string
+  leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
 export type NotaAdminCreateManyAutorInput = {
   id?: number
   proyectoId: number
   contenido: string
   leidaAt?: Date | string | null
   createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
 }
 
 export type NotaAdminUpdateWithoutAutorInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proyecto?: Prisma.ProyectoUpdateOneRequiredWithoutNotasNestedInput
+  respuestas?: Prisma.RespuestaNotaUpdateManyWithoutNotaNestedInput
 }
 
 export type NotaAdminUncheckedUpdateWithoutAutorInput = {
@@ -595,6 +783,10 @@ export type NotaAdminUncheckedUpdateWithoutAutorInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  respuestas?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutNotaNestedInput
 }
 
 export type NotaAdminUncheckedUpdateManyWithoutAutorInput = {
@@ -603,6 +795,9 @@ export type NotaAdminUncheckedUpdateManyWithoutAutorInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type NotaAdminCreateManyProyectoInput = {
@@ -611,13 +806,20 @@ export type NotaAdminCreateManyProyectoInput = {
   contenido: string
   leidaAt?: Date | string | null
   createdAt?: Date | string
+  estado?: $Enums.EstadoNota
+  categoria?: $Enums.CategoriaNota
+  ultimaRespuestaAt?: Date | string | null
 }
 
 export type NotaAdminUpdateWithoutProyectoInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autor?: Prisma.UserUpdateOneWithoutNotasEnviadasNestedInput
+  respuestas?: Prisma.RespuestaNotaUpdateManyWithoutNotaNestedInput
 }
 
 export type NotaAdminUncheckedUpdateWithoutProyectoInput = {
@@ -626,6 +828,10 @@ export type NotaAdminUncheckedUpdateWithoutProyectoInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  respuestas?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutNotaNestedInput
 }
 
 export type NotaAdminUncheckedUpdateManyWithoutProyectoInput = {
@@ -634,8 +840,40 @@ export type NotaAdminUncheckedUpdateManyWithoutProyectoInput = {
   contenido?: Prisma.StringFieldUpdateOperationsInput | string
   leidaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  estado?: Prisma.EnumEstadoNotaFieldUpdateOperationsInput | $Enums.EstadoNota
+  categoria?: Prisma.EnumCategoriaNotaFieldUpdateOperationsInput | $Enums.CategoriaNota
+  ultimaRespuestaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
+
+/**
+ * Count Type NotaAdminCountOutputType
+ */
+
+export type NotaAdminCountOutputType = {
+  respuestas: number
+}
+
+export type NotaAdminCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  respuestas?: boolean | NotaAdminCountOutputTypeCountRespuestasArgs
+}
+
+/**
+ * NotaAdminCountOutputType without action
+ */
+export type NotaAdminCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NotaAdminCountOutputType
+   */
+  select?: Prisma.NotaAdminCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * NotaAdminCountOutputType without action
+ */
+export type NotaAdminCountOutputTypeCountRespuestasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RespuestaNotaWhereInput
+}
 
 
 export type NotaAdminSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -645,8 +883,13 @@ export type NotaAdminSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   contenido?: boolean
   leidaAt?: boolean
   createdAt?: boolean
+  estado?: boolean
+  categoria?: boolean
+  ultimaRespuestaAt?: boolean
   proyecto?: boolean | Prisma.ProyectoDefaultArgs<ExtArgs>
   autor?: boolean | Prisma.NotaAdmin$autorArgs<ExtArgs>
+  respuestas?: boolean | Prisma.NotaAdmin$respuestasArgs<ExtArgs>
+  _count?: boolean | Prisma.NotaAdminCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notaAdmin"]>
 
 export type NotaAdminSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -656,6 +899,9 @@ export type NotaAdminSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   contenido?: boolean
   leidaAt?: boolean
   createdAt?: boolean
+  estado?: boolean
+  categoria?: boolean
+  ultimaRespuestaAt?: boolean
   proyecto?: boolean | Prisma.ProyectoDefaultArgs<ExtArgs>
   autor?: boolean | Prisma.NotaAdmin$autorArgs<ExtArgs>
 }, ExtArgs["result"]["notaAdmin"]>
@@ -667,6 +913,9 @@ export type NotaAdminSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   contenido?: boolean
   leidaAt?: boolean
   createdAt?: boolean
+  estado?: boolean
+  categoria?: boolean
+  ultimaRespuestaAt?: boolean
   proyecto?: boolean | Prisma.ProyectoDefaultArgs<ExtArgs>
   autor?: boolean | Prisma.NotaAdmin$autorArgs<ExtArgs>
 }, ExtArgs["result"]["notaAdmin"]>
@@ -678,12 +927,17 @@ export type NotaAdminSelectScalar = {
   contenido?: boolean
   leidaAt?: boolean
   createdAt?: boolean
+  estado?: boolean
+  categoria?: boolean
+  ultimaRespuestaAt?: boolean
 }
 
-export type NotaAdminOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "proyectoId" | "autorId" | "contenido" | "leidaAt" | "createdAt", ExtArgs["result"]["notaAdmin"]>
+export type NotaAdminOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "proyectoId" | "autorId" | "contenido" | "leidaAt" | "createdAt" | "estado" | "categoria" | "ultimaRespuestaAt", ExtArgs["result"]["notaAdmin"]>
 export type NotaAdminInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyecto?: boolean | Prisma.ProyectoDefaultArgs<ExtArgs>
   autor?: boolean | Prisma.NotaAdmin$autorArgs<ExtArgs>
+  respuestas?: boolean | Prisma.NotaAdmin$respuestasArgs<ExtArgs>
+  _count?: boolean | Prisma.NotaAdminCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type NotaAdminIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyecto?: boolean | Prisma.ProyectoDefaultArgs<ExtArgs>
@@ -699,6 +953,7 @@ export type $NotaAdminPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     proyecto: Prisma.$ProyectoPayload<ExtArgs>
     autor: Prisma.$UserPayload<ExtArgs> | null
+    respuestas: Prisma.$RespuestaNotaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -707,6 +962,17 @@ export type $NotaAdminPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     contenido: string
     leidaAt: Date | null
     createdAt: Date
+    /**
+     * En qué va el ticket. `leidaAt` se conserva y se sella la primera vez que
+     * administración lo saca de `Pendiente`: sigue siendo «ya lo vieron».
+     */
+    estado: $Enums.EstadoNota
+    categoria: $Enums.CategoriaNota
+    /**
+     * Última vez que alguien escribió en el hilo. Ordena la bandeja por
+     * actividad sin tener que mirar las respuestas.
+     */
+    ultimaRespuestaAt: Date | null
   }, ExtArgs["result"]["notaAdmin"]>
   composites: {}
 }
@@ -1103,6 +1369,7 @@ export interface Prisma__NotaAdminClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   proyecto<T extends Prisma.ProyectoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoDefaultArgs<ExtArgs>>): Prisma.Prisma__ProyectoClient<runtime.Types.Result.GetResult<Prisma.$ProyectoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   autor<T extends Prisma.NotaAdmin$autorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.NotaAdmin$autorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  respuestas<T extends Prisma.NotaAdmin$respuestasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.NotaAdmin$respuestasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RespuestaNotaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1138,6 +1405,9 @@ export interface NotaAdminFieldRefs {
   readonly contenido: Prisma.FieldRef<"NotaAdmin", 'String'>
   readonly leidaAt: Prisma.FieldRef<"NotaAdmin", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"NotaAdmin", 'DateTime'>
+  readonly estado: Prisma.FieldRef<"NotaAdmin", 'EstadoNota'>
+  readonly categoria: Prisma.FieldRef<"NotaAdmin", 'CategoriaNota'>
+  readonly ultimaRespuestaAt: Prisma.FieldRef<"NotaAdmin", 'DateTime'>
 }
     
 
@@ -1555,6 +1825,30 @@ export type NotaAdmin$autorArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * NotaAdmin.respuestas
+ */
+export type NotaAdmin$respuestasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RespuestaNota
+   */
+  select?: Prisma.RespuestaNotaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RespuestaNota
+   */
+  omit?: Prisma.RespuestaNotaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RespuestaNotaInclude<ExtArgs> | null
+  where?: Prisma.RespuestaNotaWhereInput
+  orderBy?: Prisma.RespuestaNotaOrderByWithRelationInput | Prisma.RespuestaNotaOrderByWithRelationInput[]
+  cursor?: Prisma.RespuestaNotaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RespuestaNotaScalarFieldEnum | Prisma.RespuestaNotaScalarFieldEnum[]
 }
 
 /**

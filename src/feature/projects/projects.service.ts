@@ -201,6 +201,7 @@ export class ProjectsService {
     const {
       usuariosIds,
       fechaEntrega,
+      fechaEntregaDiseno,
       planCobros,
       grupo,
       estadoProyecto,
@@ -265,6 +266,7 @@ export class ProjectsService {
           estadoProyecto: estado,
           grupo: grupoFinal,
           fechaEntrega: this.aFecha(fechaEntrega),
+          fechaEntregaDiseno: this.aFecha(fechaEntregaDiseno),
           fechaUltimoCambioEstado: ahora,
           usuarios: {
             create: (usuariosIds ?? []).map((usuarioId) => ({ usuarioId })),
@@ -746,7 +748,8 @@ export class ProjectsService {
   ): Promise<ProyectoCompleto> {
     const actual = await this.findOne(id);
 
-    const { usuariosIds, fechaEntrega, ...data } = updateProjectDto;
+    const { usuariosIds, fechaEntrega, fechaEntregaDiseno, ...data } =
+      updateProjectDto;
 
     if (data.seguimientoId !== undefined) {
       await this.validarSeguimiento(data.seguimientoId);
@@ -805,6 +808,9 @@ export class ProjectsService {
           }),
           ...(fechaEntrega !== undefined && {
             fechaEntrega: this.aFecha(fechaEntrega),
+          }),
+          ...(fechaEntregaDiseno !== undefined && {
+            fechaEntregaDiseno: this.aFecha(fechaEntregaDiseno),
           }),
           ...(usuariosIds !== undefined && {
             usuarios: {

@@ -354,6 +354,40 @@ export type EnumTipoNotificacionWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumTipoNotificacionFilter<$PrismaModel>
 }
 
+export type EnumEstadoNotaFilter<$PrismaModel = never> = {
+  equals?: $Enums.EstadoNota | Prisma.EnumEstadoNotaFieldRefInput<$PrismaModel>
+  in?: $Enums.EstadoNota[] | Prisma.ListEnumEstadoNotaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EstadoNota[] | Prisma.ListEnumEstadoNotaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEstadoNotaFilter<$PrismaModel> | $Enums.EstadoNota
+}
+
+export type EnumCategoriaNotaFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaNota | Prisma.EnumCategoriaNotaFieldRefInput<$PrismaModel>
+  in?: $Enums.CategoriaNota[] | Prisma.ListEnumCategoriaNotaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategoriaNota[] | Prisma.ListEnumCategoriaNotaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategoriaNotaFilter<$PrismaModel> | $Enums.CategoriaNota
+}
+
+export type EnumEstadoNotaWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EstadoNota | Prisma.EnumEstadoNotaFieldRefInput<$PrismaModel>
+  in?: $Enums.EstadoNota[] | Prisma.ListEnumEstadoNotaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EstadoNota[] | Prisma.ListEnumEstadoNotaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEstadoNotaWithAggregatesFilter<$PrismaModel> | $Enums.EstadoNota
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEstadoNotaFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEstadoNotaFilter<$PrismaModel>
+}
+
+export type EnumCategoriaNotaWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaNota | Prisma.EnumCategoriaNotaFieldRefInput<$PrismaModel>
+  in?: $Enums.CategoriaNota[] | Prisma.ListEnumCategoriaNotaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategoriaNota[] | Prisma.ListEnumCategoriaNotaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategoriaNotaWithAggregatesFilter<$PrismaModel> | $Enums.CategoriaNota
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCategoriaNotaFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCategoriaNotaFilter<$PrismaModel>
+}
+
 export type NestedIntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -706,6 +740,40 @@ export type NestedEnumTipoNotificacionWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTipoNotificacionFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTipoNotificacionFilter<$PrismaModel>
+}
+
+export type NestedEnumEstadoNotaFilter<$PrismaModel = never> = {
+  equals?: $Enums.EstadoNota | Prisma.EnumEstadoNotaFieldRefInput<$PrismaModel>
+  in?: $Enums.EstadoNota[] | Prisma.ListEnumEstadoNotaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EstadoNota[] | Prisma.ListEnumEstadoNotaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEstadoNotaFilter<$PrismaModel> | $Enums.EstadoNota
+}
+
+export type NestedEnumCategoriaNotaFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaNota | Prisma.EnumCategoriaNotaFieldRefInput<$PrismaModel>
+  in?: $Enums.CategoriaNota[] | Prisma.ListEnumCategoriaNotaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategoriaNota[] | Prisma.ListEnumCategoriaNotaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategoriaNotaFilter<$PrismaModel> | $Enums.CategoriaNota
+}
+
+export type NestedEnumEstadoNotaWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EstadoNota | Prisma.EnumEstadoNotaFieldRefInput<$PrismaModel>
+  in?: $Enums.EstadoNota[] | Prisma.ListEnumEstadoNotaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EstadoNota[] | Prisma.ListEnumEstadoNotaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEstadoNotaWithAggregatesFilter<$PrismaModel> | $Enums.EstadoNota
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEstadoNotaFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEstadoNotaFilter<$PrismaModel>
+}
+
+export type NestedEnumCategoriaNotaWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaNota | Prisma.EnumCategoriaNotaFieldRefInput<$PrismaModel>
+  in?: $Enums.CategoriaNota[] | Prisma.ListEnumCategoriaNotaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategoriaNota[] | Prisma.ListEnumCategoriaNotaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategoriaNotaWithAggregatesFilter<$PrismaModel> | $Enums.CategoriaNota
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCategoriaNotaFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCategoriaNotaFilter<$PrismaModel>
 }
 
 
