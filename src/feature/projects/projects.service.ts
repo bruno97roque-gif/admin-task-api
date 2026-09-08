@@ -131,13 +131,16 @@ export interface AnaliticaProyectoMovimiento {
   motivo?: 'ProyectoFinalizado' | 'Archivado';
 }
 
-/** Cuántos proyectos entraron y salieron cada mes, y cuáles fueron. */
+/**
+ * Movimiento del mes. Terminar un proyecto y archivarlo son cosas opuestas y
+ * por eso van separadas: cerrar bien es un logro, archivar es haber perdido
+ * al cliente. No se restan entre sí ni contra las altas.
+ */
 export interface AnaliticaFlujoMes {
   mes: string;
   entraron: number;
-  salieron: number;
-  /** Diferencia del mes: positivo si entraron más de los que salieron. */
-  neto: number;
+  finalizados: number;
+  archivados: number;
   entrantes: AnaliticaProyectoMovimiento[];
   salientes: AnaliticaProyectoMovimiento[];
 }
@@ -624,8 +627,8 @@ export class ProjectsService {
       const actual = flujo.get(mes) ?? {
         mes,
         entraron: 0,
-        salieron: 0,
-        neto: 0,
+        finalizados: 0,
+        archivados: 0,
         entrantes: [],
         salientes: [],
       };
@@ -656,15 +659,19 @@ export class ProjectsService {
 
       yaSalio.add(fila.proyectoId);
       const mes = mesDeFlujo(mesDe(fila.createdAt));
-      mes.salieron += 1;
+      const archivado = fila.estadoNuevo === EstadoProyecto.Archivado;
+
+      if (archivado) {
+        mes.archivados += 1;
+      } else {
+        mes.finalizados += 1;
+      }
+
       mes.salientes.push({
         proyectoId: fila.proyectoId,
         nombre,
         fecha: fila.createdAt,
-        motivo:
-          fila.estadoNuevo === EstadoProyecto.Archivado
-            ? 'Archivado'
-            : 'ProyectoFinalizado',
+        motivo: archivado ? 'Archivado' : 'ProyectoFinalizado',
       });
     }
 
@@ -677,9 +684,9 @@ export class ProjectsService {
           ) / 10;
 
     return {
-      flujoMensual: [...flujo.values()]
-        .map((mes) => ({ ...mes, neto: mes.entraron - mes.salieron }))
-        .sort((a, b) => a.mes.localeCompare(b.mes)),
+      flujoMensual: [...flujo.values()].sort((a, b) =>
+        a.mes.localeCompare(b.mes),
+      ),
       porMes: [...porMes.entries()]
         .sort(([a], [b]) => a.localeCompare(b))
         .map(([mes, valores]) => ({ mes, ...valores })),
