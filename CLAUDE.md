@@ -87,6 +87,17 @@ Tres helpers privados concentran la mecánica; cualquier acción nueva del flujo
 - `actualizarBloqueo(id, data, motivo, actorId)` — lo mismo para los booleanos del cliente.
 - `recalcularGrupo(id, actorId)` — relee el proyecto, deriva el grupo, sincroniza recordatorios y **se corta temprano si el estado es terminal** (`esEstadoTerminal`) o si el grupo no cambió, para no llenar el historial de filas iguales.
 
+### Notificaciones internas, reuniones y notas (rama `feat/notificaciones-reuniones-notas`)
+
+Tres módulos nuevos, migración **aditiva** `20260907120000_notificaciones_reuniones_notas` (tablas `notificaciones`, `reuniones`, `reuniones_usuarios`, `notas_admin` y enum `TipoNotificacion`). No toca nada existente. **Al 2026-09-07 no está aplicada en la base de Railway**: el equipo decide cuándo.
+
+- **`NotificacionesService` tiene dos canales que no se pisan**: `enviarDiscord()` (webhook, sin destinatario, el que ya existía) y las internas (`notificar(usuariosIds, aviso)` y `notificarAdministracion(aviso)`, filas por destinatario con `leidaAt`). «Administración» = usuarios activos con rol en `ROLES_ADMINISTRACION` (`Admin`, `Owner`); no hay un usuario fijo. Ninguno de los dos tumba la operación que lo disparó: los errores se loguean como warning.
+- **Quién recibe qué** (todo en `ProjectsService`, métodos privados `notificarAsignaciones` y `notificarEtapaFinalizada`, llamados desde `create`, `update` y `asignarResponsables`): el diseñador cuando el proyecto entra a `Diseno`/`AvanceDiseno` desde fuera de ese bloque, o si lo reasignan con el proyecto ya ahí; el desarrollador ídem con `Desarrollo`; administración cuando llega a `DisenoFinalizado` (hito `AprobacionDiseno`) o `DesarrolloFinalizado` (hito `Entrega`), con el % que falta — de los cobros no cobrados si hay plan, o de `estadoPago` si no. Moverse `Diseno → AvanceDiseno` no vuelve a avisar.
+- **`GET /notificaciones`** devuelve `{ noLeidas, notificaciones }` (últimas 50) del usuario del token; `PATCH /:id/leer` y `POST /leer-todas` también acotados al `sub`. El front hace polling cada 30 s; no hay push ni websockets a propósito.
+- **`/reuniones`**: `POST`, `GET`, `PATCH /:id`, `DELETE /:id` son `@Roles(ROLES_ADMINISTRACION)`; `GET /mias` y `GET /:id` para cualquier logueado. `linkMeet` se valida contra `https://meet.google.com/`. Crear notifica a los convocados; editar notifica a los nuevos, o a todos si cambió fecha o link.
+- **`/notas`**: `POST` (el autor tiene que estar asignado al proyecto: `disenadorId`, `desarrolladorId` o el join, si no **409**) y `GET /mias` para cualquier logueado; `GET`, `PATCH /:id/leer`, `DELETE /:id` solo administración. Crear una nota notifica a administración con un resumen de 120 caracteres.
+- Los tres controllers siguen el patrón «segmento fijo antes de `:id`» (`leer-todas`, `mias`). Conteo de rutas al arrancar: **68** (14 nuevas).
+
 ## Commands
 
 ```bash
