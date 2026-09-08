@@ -24,6 +24,8 @@ export interface LoginResponse {
     user: string;
     roleId: number;
     roleName: string;
+    /** Correo corporativo. El front arma con él el acceso al webmail. */
+    email: string | null;
   };
 }
 
@@ -43,6 +45,7 @@ const usuarioSelect = {
   password: true,
   active: true,
   roleId: true,
+  email: true,
   rol: { select: { name: true } },
 } as const;
 
@@ -121,6 +124,7 @@ export class AuthService {
     name: string;
     user: string;
     roleId: number;
+    email: string | null;
     rol: { name: string };
   }): Promise<SesionCreada> {
     const payload: JwtPayload = {
@@ -147,6 +151,7 @@ export class AuthService {
           user: user.user,
           roleId: user.roleId,
           roleName: user.rol.name,
+          email: user.email,
         },
       },
       refreshToken,

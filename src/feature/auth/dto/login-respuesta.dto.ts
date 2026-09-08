@@ -23,6 +23,14 @@ export class UsuarioSesionDto {
     example: 'Admin',
   })
   roleName: string;
+
+  @ApiProperty({
+    description:
+      'Correo corporativo. El front arma con él el acceso directo al webmail.',
+    example: 'ing_jauregui@websydev.site',
+    nullable: true,
+  })
+  email: string | null;
 }
 
 export class LoginRespuestaDto {
