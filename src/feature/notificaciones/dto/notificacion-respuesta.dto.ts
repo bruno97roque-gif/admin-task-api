@@ -28,7 +28,7 @@ export class NotificacionRespuestaDto {
 
   @ApiProperty({
     example:
-      'Tienda Don Pepe pasó a Diseño y sos el diseñador asignado. Por favor verificá.',
+      'Tienda Don Pepe pasó a Diseño y eres el diseñador asignado. Por favor verifica.',
   })
   mensaje: string;
 

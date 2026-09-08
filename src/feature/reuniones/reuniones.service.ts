@@ -28,10 +28,10 @@ export type ReunionCompleta = Omit<ReunionConRelaciones, 'participantes'> & {
   participantes: ReunionConRelaciones['participantes'][number]['usuario'][];
 };
 
-const FORMATO_FECHA = new Intl.DateTimeFormat('es-AR', {
+const FORMATO_FECHA = new Intl.DateTimeFormat('es-PE', {
   dateStyle: 'full',
   timeStyle: 'short',
-  timeZone: 'America/Argentina/Buenos_Aires',
+  timeZone: 'America/Lima',
 });
 
 /**

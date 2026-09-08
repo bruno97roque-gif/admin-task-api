@@ -1825,7 +1825,7 @@ export class ProjectsService {
       await this.notificaciones.notificar([aviso.responsableAhora], {
         tipo: TipoNotificacion.ProyectoAsignado,
         titulo: 'Se te asignó un nuevo proyecto',
-        mensaje: `«${proyecto.name}» está en ${aviso.etiqueta} y sos el ${aviso.rol} asignado. Por favor verificá.`,
+        mensaje: `«${proyecto.name}» está en ${aviso.etiqueta} y eres el ${aviso.rol} asignado. Por favor verifica.`,
         proyectoId: proyecto.id,
       });
     }
@@ -1884,7 +1884,7 @@ export class ProjectsService {
 
     let cuantoFalta: string;
     if (pendiente === null) {
-      cuantoFalta = 'Revisá el estado de pago del proyecto.';
+      cuantoFalta = 'Revisa el estado de pago del proyecto.';
     } else if (pendiente === 0) {
       cuantoFalta = 'Ya está cobrado el 100% del monto.';
     } else {
