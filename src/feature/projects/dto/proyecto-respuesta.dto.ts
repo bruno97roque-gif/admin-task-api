@@ -163,6 +163,13 @@ export class ProyectoRespuestaDto {
   descripcion: string;
 
   @ApiProperty({
+    description: 'Carpeta de Drive con el material del proyecto.',
+    example: 'https://drive.google.com/drive/folders/abc123',
+    nullable: true,
+  })
+  enlaceMateriales: string | null;
+
+  @ApiProperty({
     enum: Tecnologia,
     enumName: 'Tecnologia',
     nullable: true,

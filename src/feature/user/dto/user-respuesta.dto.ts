@@ -11,6 +11,13 @@ export class UserRespuestaDto {
   @ApiProperty({ description: 'Nombre de usuario.', example: 'aaron' })
   user: string;
 
+  @ApiProperty({
+    description: 'Correo corporativo, para las invitaciones de calendario.',
+    example: 'aaron@websy.pe',
+    nullable: true,
+  })
+  email: string | null;
+
   @ApiProperty({ description: '¿Puede iniciar sesión?', example: true })
   active: boolean;
 

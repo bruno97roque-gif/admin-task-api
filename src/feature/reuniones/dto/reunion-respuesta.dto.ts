@@ -12,6 +12,13 @@ class UsuarioResumenDto {
 
   @ApiProperty({ example: 3 })
   roleId: number;
+
+  @ApiProperty({
+    description: 'Correo corporativo, para armar la invitación de calendario.',
+    example: 'ana@websy.pe',
+    nullable: true,
+  })
+  email: string | null;
 }
 
 class ProyectoResumenDto {

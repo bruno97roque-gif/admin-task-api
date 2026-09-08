@@ -10,7 +10,7 @@ import { CreateReunionDto } from './dto/create-reunion.dto';
 import { UpdateReunionDto } from './dto/update-reunion.dto';
 
 const usuarioResumen = {
-  select: { id: true, name: true, user: true, roleId: true },
+  select: { id: true, name: true, user: true, roleId: true, email: true },
 } satisfies Prisma.UserDefaultArgs;
 
 const reunionInclude = {

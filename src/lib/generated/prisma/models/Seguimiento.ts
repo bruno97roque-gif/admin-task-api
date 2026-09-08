@@ -313,10 +313,6 @@ export type SeguimientoScalarRelationFilter = {
   isNot?: Prisma.SeguimientoWhereInput
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type SeguimientoCreateNestedOneWithoutProyectosInput = {
   create?: Prisma.XOR<Prisma.SeguimientoCreateWithoutProyectosInput, Prisma.SeguimientoUncheckedCreateWithoutProyectosInput>
   connectOrCreate?: Prisma.SeguimientoCreateOrConnectWithoutProyectosInput

@@ -13,6 +13,7 @@ import {
   IsOptional,
   IsPositive,
   IsString,
+  IsUrl,
   MaxLength,
   ValidateNested,
 } from 'class-validator';
@@ -65,6 +66,18 @@ export class CreateProjectDto {
   @IsString()
   @IsNotEmpty()
   descripcion: string;
+
+  @ApiPropertyOptional({
+    description:
+      'Carpeta de Drive con todo el material del proyecto. Es un solo enlace: adentro va la estructura que use el equipo.',
+    example: 'https://drive.google.com/drive/folders/abc123',
+    maxLength: 500,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsUrl({ require_protocol: true })
+  @MaxLength(500)
+  enlaceMateriales?: string | null;
 
   @ApiPropertyOptional({
     description: 'Con qué se construye.',

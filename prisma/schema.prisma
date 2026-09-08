@@ -102,6 +102,12 @@ model User {
   active   Boolean @default(true)
   roleId   Int     @map("role_id")
 
+  /// Correo corporativo, para invitar a la persona al evento de Google
+  /// Calendar cuando se agenda una reunión. Opcional: los usuarios que ya
+  /// existían no lo tienen, y sin él simplemente no se lo invita.
+  email String?
+
+
   rol       Rol               @relation(fields: [roleId], references: [id])
   proyectos UsuarioProyecto[]
 
@@ -183,6 +189,11 @@ model Proyecto {
   /// meses para archivar, que se reinicia en cada cambio de estado.
   fechaUltimoCambioEstado DateTime? @map("fecha_ultimo_cambio_estado")
   archivadoAt             DateTime? @map("archivado_at")
+
+  /// Carpeta de Drive con todo el material del proyecto (brief, logos, fotos,
+  /// catálogo…). Es un solo enlace: adentro va la estructura que use el
+  /// equipo. Se carga en el alta para que esté listo desde el día uno.
+  enlaceMateriales String? @map("enlace_materiales")
 
   /// Asignados en el registro del proyecto. No rotan, pero se pueden reasignar
   /// y el cambio queda en el historial.

@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsBoolean,
+  IsEmail,
   IsInt,
   IsNotEmpty,
   IsOptional,
@@ -43,6 +44,18 @@ export class CreateUserDto {
   @MinLength(8)
   @MaxLength(128)
   password: string;
+
+  @ApiPropertyOptional({
+    description:
+      'Correo corporativo. Se usa para invitar a la persona al evento de Google Calendar cuando se agenda una reunión. Sin él, simplemente no se la invita.',
+    example: 'aaron@websy.pe',
+    maxLength: 150,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsEmail()
+  @MaxLength(150)
+  email?: string | null;
 
   @ApiPropertyOptional({
     description:

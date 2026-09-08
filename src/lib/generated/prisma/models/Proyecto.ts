@@ -69,6 +69,7 @@ export type ProyectoMinAggregateOutputType = {
   capacitacionAt: Date | null
   fechaUltimoCambioEstado: Date | null
   archivadoAt: Date | null
+  enlaceMateriales: string | null
   disenadorId: number | null
   desarrolladorId: number | null
 }
@@ -101,6 +102,7 @@ export type ProyectoMaxAggregateOutputType = {
   capacitacionAt: Date | null
   fechaUltimoCambioEstado: Date | null
   archivadoAt: Date | null
+  enlaceMateriales: string | null
   disenadorId: number | null
   desarrolladorId: number | null
 }
@@ -133,6 +135,7 @@ export type ProyectoCountAggregateOutputType = {
   capacitacionAt: number
   fechaUltimoCambioEstado: number
   archivadoAt: number
+  enlaceMateriales: number
   disenadorId: number
   desarrolladorId: number
   _all: number
@@ -183,6 +186,7 @@ export type ProyectoMinAggregateInputType = {
   capacitacionAt?: true
   fechaUltimoCambioEstado?: true
   archivadoAt?: true
+  enlaceMateriales?: true
   disenadorId?: true
   desarrolladorId?: true
 }
@@ -215,6 +219,7 @@ export type ProyectoMaxAggregateInputType = {
   capacitacionAt?: true
   fechaUltimoCambioEstado?: true
   archivadoAt?: true
+  enlaceMateriales?: true
   disenadorId?: true
   desarrolladorId?: true
 }
@@ -247,6 +252,7 @@ export type ProyectoCountAggregateInputType = {
   capacitacionAt?: true
   fechaUltimoCambioEstado?: true
   archivadoAt?: true
+  enlaceMateriales?: true
   disenadorId?: true
   desarrolladorId?: true
   _all?: true
@@ -366,6 +372,7 @@ export type ProyectoGroupByOutputType = {
   capacitacionAt: Date | null
   fechaUltimoCambioEstado: Date | null
   archivadoAt: Date | null
+  enlaceMateriales: string | null
   disenadorId: number | null
   desarrolladorId: number | null
   _count: ProyectoCountAggregateOutputType | null
@@ -421,6 +428,7 @@ export type ProyectoWhereInput = {
   capacitacionAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   fechaUltimoCambioEstado?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   archivadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  enlaceMateriales?: Prisma.StringNullableFilter<"Proyecto"> | string | null
   disenadorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   desarrolladorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   seguimiento?: Prisma.XOR<Prisma.SeguimientoScalarRelationFilter, Prisma.SeguimientoWhereInput>
@@ -464,6 +472,7 @@ export type ProyectoOrderByWithRelationInput = {
   capacitacionAt?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaUltimoCambioEstado?: Prisma.SortOrderInput | Prisma.SortOrder
   archivadoAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  enlaceMateriales?: Prisma.SortOrderInput | Prisma.SortOrder
   disenadorId?: Prisma.SortOrderInput | Prisma.SortOrder
   desarrolladorId?: Prisma.SortOrderInput | Prisma.SortOrder
   seguimiento?: Prisma.SeguimientoOrderByWithRelationInput
@@ -510,6 +519,7 @@ export type ProyectoWhereUniqueInput = Prisma.AtLeast<{
   capacitacionAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   fechaUltimoCambioEstado?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   archivadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  enlaceMateriales?: Prisma.StringNullableFilter<"Proyecto"> | string | null
   disenadorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   desarrolladorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   seguimiento?: Prisma.XOR<Prisma.SeguimientoScalarRelationFilter, Prisma.SeguimientoWhereInput>
@@ -553,6 +563,7 @@ export type ProyectoOrderByWithAggregationInput = {
   capacitacionAt?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaUltimoCambioEstado?: Prisma.SortOrderInput | Prisma.SortOrder
   archivadoAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  enlaceMateriales?: Prisma.SortOrderInput | Prisma.SortOrder
   disenadorId?: Prisma.SortOrderInput | Prisma.SortOrder
   desarrolladorId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ProyectoCountOrderByAggregateInput
@@ -593,6 +604,7 @@ export type ProyectoScalarWhereWithAggregatesInput = {
   capacitacionAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
   fechaUltimoCambioEstado?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
   archivadoAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
+  enlaceMateriales?: Prisma.StringNullableWithAggregatesFilter<"Proyecto"> | string | null
   disenadorId?: Prisma.IntNullableWithAggregatesFilter<"Proyecto"> | number | null
   desarrolladorId?: Prisma.IntNullableWithAggregatesFilter<"Proyecto"> | number | null
 }
@@ -623,6 +635,7 @@ export type ProyectoCreateInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
@@ -664,6 +677,7 @@ export type ProyectoUncheckedCreateInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
@@ -702,6 +716,7 @@ export type ProyectoUpdateInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
@@ -743,6 +758,7 @@ export type ProyectoUncheckedUpdateInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
@@ -783,6 +799,7 @@ export type ProyectoCreateManyInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
 }
@@ -813,6 +830,7 @@ export type ProyectoUpdateManyMutationInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ProyectoUncheckedUpdateManyInput = {
@@ -843,6 +861,7 @@ export type ProyectoUncheckedUpdateManyInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -885,6 +904,7 @@ export type ProyectoCountOrderByAggregateInput = {
   capacitacionAt?: Prisma.SortOrder
   fechaUltimoCambioEstado?: Prisma.SortOrder
   archivadoAt?: Prisma.SortOrder
+  enlaceMateriales?: Prisma.SortOrder
   disenadorId?: Prisma.SortOrder
   desarrolladorId?: Prisma.SortOrder
 }
@@ -925,6 +945,7 @@ export type ProyectoMaxOrderByAggregateInput = {
   capacitacionAt?: Prisma.SortOrder
   fechaUltimoCambioEstado?: Prisma.SortOrder
   archivadoAt?: Prisma.SortOrder
+  enlaceMateriales?: Prisma.SortOrder
   disenadorId?: Prisma.SortOrder
   desarrolladorId?: Prisma.SortOrder
 }
@@ -957,6 +978,7 @@ export type ProyectoMinOrderByAggregateInput = {
   capacitacionAt?: Prisma.SortOrder
   fechaUltimoCambioEstado?: Prisma.SortOrder
   archivadoAt?: Prisma.SortOrder
+  enlaceMateriales?: Prisma.SortOrder
   disenadorId?: Prisma.SortOrder
   desarrolladorId?: Prisma.SortOrder
 }
@@ -1279,6 +1301,7 @@ export type ProyectoCreateWithoutDisenadorInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
@@ -1319,6 +1342,7 @@ export type ProyectoUncheckedCreateWithoutDisenadorInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
@@ -1366,6 +1390,7 @@ export type ProyectoCreateWithoutDesarrolladorInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
@@ -1406,6 +1431,7 @@ export type ProyectoUncheckedCreateWithoutDesarrolladorInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
@@ -1474,6 +1500,7 @@ export type ProyectoScalarWhereInput = {
   capacitacionAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   fechaUltimoCambioEstado?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   archivadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
+  enlaceMateriales?: Prisma.StringNullableFilter<"Proyecto"> | string | null
   disenadorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   desarrolladorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
 }
@@ -1520,6 +1547,7 @@ export type ProyectoCreateWithoutSeguimientoInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
@@ -1559,6 +1587,7 @@ export type ProyectoUncheckedCreateWithoutSeguimientoInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
@@ -1623,6 +1652,7 @@ export type ProyectoCreateWithoutCobrosInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
@@ -1663,6 +1693,7 @@ export type ProyectoUncheckedCreateWithoutCobrosInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
@@ -1716,6 +1747,7 @@ export type ProyectoUpdateWithoutCobrosInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
@@ -1756,6 +1788,7 @@ export type ProyectoUncheckedUpdateWithoutCobrosInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
@@ -1793,6 +1826,7 @@ export type ProyectoCreateWithoutHistorialInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
@@ -1833,6 +1867,7 @@ export type ProyectoUncheckedCreateWithoutHistorialInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
@@ -1886,6 +1921,7 @@ export type ProyectoUpdateWithoutHistorialInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
@@ -1926,6 +1962,7 @@ export type ProyectoUncheckedUpdateWithoutHistorialInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
@@ -1963,6 +2000,7 @@ export type ProyectoCreateWithoutRecordatoriosInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
@@ -2003,6 +2041,7 @@ export type ProyectoUncheckedCreateWithoutRecordatoriosInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
@@ -2056,6 +2095,7 @@ export type ProyectoUpdateWithoutRecordatoriosInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
@@ -2096,6 +2136,7 @@ export type ProyectoUncheckedUpdateWithoutRecordatoriosInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2133,6 +2174,7 @@ export type ProyectoCreateWithoutCotizacionesInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
@@ -2173,6 +2215,7 @@ export type ProyectoUncheckedCreateWithoutCotizacionesInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
@@ -2226,6 +2269,7 @@ export type ProyectoUpdateWithoutCotizacionesInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
@@ -2266,6 +2310,7 @@ export type ProyectoUncheckedUpdateWithoutCotizacionesInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2303,6 +2348,7 @@ export type ProyectoCreateWithoutUsuariosInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
@@ -2343,6 +2389,7 @@ export type ProyectoUncheckedCreateWithoutUsuariosInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
@@ -2396,6 +2443,7 @@ export type ProyectoUpdateWithoutUsuariosInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
@@ -2436,6 +2484,7 @@ export type ProyectoUncheckedUpdateWithoutUsuariosInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2473,6 +2522,7 @@ export type ProyectoCreateWithoutNotificacionesInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
@@ -2513,6 +2563,7 @@ export type ProyectoUncheckedCreateWithoutNotificacionesInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
@@ -2566,6 +2617,7 @@ export type ProyectoUpdateWithoutNotificacionesInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
@@ -2606,6 +2658,7 @@ export type ProyectoUncheckedUpdateWithoutNotificacionesInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2643,6 +2696,7 @@ export type ProyectoCreateWithoutReunionesInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
@@ -2683,6 +2737,7 @@ export type ProyectoUncheckedCreateWithoutReunionesInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
@@ -2736,6 +2791,7 @@ export type ProyectoUpdateWithoutReunionesInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
@@ -2776,6 +2832,7 @@ export type ProyectoUncheckedUpdateWithoutReunionesInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2813,6 +2870,7 @@ export type ProyectoCreateWithoutNotasInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
@@ -2853,6 +2911,7 @@ export type ProyectoUncheckedCreateWithoutNotasInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
@@ -2906,6 +2965,7 @@ export type ProyectoUpdateWithoutNotasInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
@@ -2946,6 +3006,7 @@ export type ProyectoUncheckedUpdateWithoutNotasInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2985,6 +3046,7 @@ export type ProyectoCreateManyDisenadorInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   desarrolladorId?: number | null
 }
 
@@ -3016,6 +3078,7 @@ export type ProyectoCreateManyDesarrolladorInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
 }
 
@@ -3045,6 +3108,7 @@ export type ProyectoUpdateWithoutDisenadorInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
@@ -3085,6 +3149,7 @@ export type ProyectoUncheckedUpdateWithoutDisenadorInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3124,6 +3189,7 @@ export type ProyectoUncheckedUpdateManyWithoutDisenadorInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -3153,6 +3219,7 @@ export type ProyectoUpdateWithoutDesarrolladorInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
@@ -3193,6 +3260,7 @@ export type ProyectoUncheckedUpdateWithoutDesarrolladorInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3232,6 +3300,7 @@ export type ProyectoUncheckedUpdateManyWithoutDesarrolladorInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -3262,6 +3331,7 @@ export type ProyectoCreateManySeguimientoInput = {
   capacitacionAt?: Date | string | null
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
 }
@@ -3292,6 +3362,7 @@ export type ProyectoUpdateWithoutSeguimientoInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
@@ -3331,6 +3402,7 @@ export type ProyectoUncheckedUpdateWithoutSeguimientoInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3370,6 +3442,7 @@ export type ProyectoUncheckedUpdateManyWithoutSeguimientoInput = {
   capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -3496,6 +3569,7 @@ export type ProyectoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   capacitacionAt?: boolean
   fechaUltimoCambioEstado?: boolean
   archivadoAt?: boolean
+  enlaceMateriales?: boolean
   disenadorId?: boolean
   desarrolladorId?: boolean
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
@@ -3540,6 +3614,7 @@ export type ProyectoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   capacitacionAt?: boolean
   fechaUltimoCambioEstado?: boolean
   archivadoAt?: boolean
+  enlaceMateriales?: boolean
   disenadorId?: boolean
   desarrolladorId?: boolean
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
@@ -3575,6 +3650,7 @@ export type ProyectoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   capacitacionAt?: boolean
   fechaUltimoCambioEstado?: boolean
   archivadoAt?: boolean
+  enlaceMateriales?: boolean
   disenadorId?: boolean
   desarrolladorId?: boolean
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
@@ -3610,11 +3686,12 @@ export type ProyectoSelectScalar = {
   capacitacionAt?: boolean
   fechaUltimoCambioEstado?: boolean
   archivadoAt?: boolean
+  enlaceMateriales?: boolean
   disenadorId?: boolean
   desarrolladorId?: boolean
 }
 
-export type ProyectoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "estadoPago" | "estadoProyecto" | "descripcion" | "tecnologia" | "tipoProyecto" | "grupo" | "seguimientoId" | "comentario" | "diasSinResponder" | "fechaEntrega" | "createdAt" | "updatedAt" | "deletedAt" | "materialMarcaRecibido" | "catalogoRecibido" | "rondasCambiosUsadas" | "hostingContratado" | "factibilidadRevisadaAt" | "disenoAprobadoAt" | "productosCargados" | "presentadoAt" | "subidoProduccionAt" | "capacitacionAt" | "fechaUltimoCambioEstado" | "archivadoAt" | "disenadorId" | "desarrolladorId", ExtArgs["result"]["proyecto"]>
+export type ProyectoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "estadoPago" | "estadoProyecto" | "descripcion" | "tecnologia" | "tipoProyecto" | "grupo" | "seguimientoId" | "comentario" | "diasSinResponder" | "fechaEntrega" | "createdAt" | "updatedAt" | "deletedAt" | "materialMarcaRecibido" | "catalogoRecibido" | "rondasCambiosUsadas" | "hostingContratado" | "factibilidadRevisadaAt" | "disenoAprobadoAt" | "productosCargados" | "presentadoAt" | "subidoProduccionAt" | "capacitacionAt" | "fechaUltimoCambioEstado" | "archivadoAt" | "enlaceMateriales" | "disenadorId" | "desarrolladorId", ExtArgs["result"]["proyecto"]>
 export type ProyectoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
   usuarios?: boolean | Prisma.Proyecto$usuariosArgs<ExtArgs>
@@ -3711,6 +3788,12 @@ export type $ProyectoPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
      */
     fechaUltimoCambioEstado: Date | null
     archivadoAt: Date | null
+    /**
+     * Carpeta de Drive con todo el material del proyecto (brief, logos, fotos,
+     * catálogo…). Es un solo enlace: adentro va la estructura que use el
+     * equipo. Se carga en el alta para que esté listo desde el día uno.
+     */
+    enlaceMateriales: string | null
     /**
      * Asignados en el registro del proyecto. No rotan, pero se pueden reasignar
      * y el cambio queda en el historial.
@@ -4178,6 +4261,7 @@ export interface ProyectoFieldRefs {
   readonly capacitacionAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
   readonly fechaUltimoCambioEstado: Prisma.FieldRef<"Proyecto", 'DateTime'>
   readonly archivadoAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
+  readonly enlaceMateriales: Prisma.FieldRef<"Proyecto", 'String'>
   readonly disenadorId: Prisma.FieldRef<"Proyecto", 'Int'>
   readonly desarrolladorId: Prisma.FieldRef<"Proyecto", 'Int'>
 }

@@ -42,6 +42,7 @@ export type UserMinAggregateOutputType = {
   password: string | null
   active: boolean | null
   roleId: number | null
+  email: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -51,6 +52,7 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   active: boolean | null
   roleId: number | null
+  email: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -60,6 +62,7 @@ export type UserCountAggregateOutputType = {
   password: number
   active: number
   roleId: number
+  email: number
   _all: number
 }
 
@@ -81,6 +84,7 @@ export type UserMinAggregateInputType = {
   password?: true
   active?: true
   roleId?: true
+  email?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -90,6 +94,7 @@ export type UserMaxAggregateInputType = {
   password?: true
   active?: true
   roleId?: true
+  email?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -99,6 +104,7 @@ export type UserCountAggregateInputType = {
   password?: true
   active?: true
   roleId?: true
+  email?: true
   _all?: true
 }
 
@@ -195,6 +201,7 @@ export type UserGroupByOutputType = {
   password: string
   active: boolean
   roleId: number
+  email: string | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -227,6 +234,7 @@ export type UserWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   active?: Prisma.BoolFilter<"User"> | boolean
   roleId?: Prisma.IntFilter<"User"> | number
+  email?: Prisma.StringNullableFilter<"User"> | string | null
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
   proyectos?: Prisma.UsuarioProyectoListRelationFilter
   proyectosDisenados?: Prisma.ProyectoListRelationFilter
@@ -247,6 +255,7 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrder
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
   rol?: Prisma.RolOrderByWithRelationInput
   proyectos?: Prisma.UsuarioProyectoOrderByRelationAggregateInput
   proyectosDisenados?: Prisma.ProyectoOrderByRelationAggregateInput
@@ -270,6 +279,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringFilter<"User"> | string
   active?: Prisma.BoolFilter<"User"> | boolean
   roleId?: Prisma.IntFilter<"User"> | number
+  email?: Prisma.StringNullableFilter<"User"> | string | null
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
   proyectos?: Prisma.UsuarioProyectoListRelationFilter
   proyectosDisenados?: Prisma.ProyectoListRelationFilter
@@ -290,6 +300,7 @@ export type UserOrderByWithAggregationInput = {
   password?: Prisma.SortOrder
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -307,6 +318,7 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   active?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   roleId?: Prisma.IntWithAggregatesFilter<"User"> | number
+  email?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -314,6 +326,7 @@ export type UserCreateInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -334,6 +347,7 @@ export type UserUncheckedCreateInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -351,6 +365,7 @@ export type UserUpdateInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -371,6 +386,7 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -390,6 +406,7 @@ export type UserCreateManyInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -397,6 +414,7 @@ export type UserUpdateManyMutationInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -406,6 +424,7 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserListRelationFilter = {
@@ -425,6 +444,7 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
+  email?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -439,6 +459,7 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
+  email?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -448,6 +469,7 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
+  email?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -509,6 +531,10 @@ export type UserUncheckedUpdateManyWithoutRolNestedInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type UserCreateNestedOneWithoutProyectosDisenadosInput = {
@@ -670,6 +696,7 @@ export type UserCreateWithoutRolInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
@@ -688,6 +715,7 @@ export type UserUncheckedCreateWithoutRolInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -736,6 +764,7 @@ export type UserScalarWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   active?: Prisma.BoolFilter<"User"> | boolean
   roleId?: Prisma.IntFilter<"User"> | number
+  email?: Prisma.StringNullableFilter<"User"> | string | null
 }
 
 export type UserCreateWithoutProyectosDisenadosInput = {
@@ -743,6 +772,7 @@ export type UserCreateWithoutProyectosDisenadosInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
@@ -762,6 +792,7 @@ export type UserUncheckedCreateWithoutProyectosDisenadosInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
@@ -783,6 +814,7 @@ export type UserCreateWithoutProyectosDesarrolladosInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -802,6 +834,7 @@ export type UserUncheckedCreateWithoutProyectosDesarrolladosInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
@@ -834,6 +867,7 @@ export type UserUpdateWithoutProyectosDisenadosInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
@@ -853,6 +887,7 @@ export type UserUncheckedUpdateWithoutProyectosDisenadosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -880,6 +915,7 @@ export type UserUpdateWithoutProyectosDesarrolladosInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -899,6 +935,7 @@ export type UserUncheckedUpdateWithoutProyectosDesarrolladosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -915,6 +952,7 @@ export type UserCreateWithoutCambiosDeEtapaInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -934,6 +972,7 @@ export type UserUncheckedCreateWithoutCambiosDeEtapaInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -966,6 +1005,7 @@ export type UserUpdateWithoutCambiosDeEtapaInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -985,6 +1025,7 @@ export type UserUncheckedUpdateWithoutCambiosDeEtapaInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1001,6 +1042,7 @@ export type UserCreateWithoutRecordatoriosInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1020,6 +1062,7 @@ export type UserUncheckedCreateWithoutRecordatoriosInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1052,6 +1095,7 @@ export type UserUpdateWithoutRecordatoriosInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1071,6 +1115,7 @@ export type UserUncheckedUpdateWithoutRecordatoriosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1087,6 +1132,7 @@ export type UserCreateWithoutCotizacionesInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1106,6 +1152,7 @@ export type UserUncheckedCreateWithoutCotizacionesInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1138,6 +1185,7 @@ export type UserUpdateWithoutCotizacionesInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1157,6 +1205,7 @@ export type UserUncheckedUpdateWithoutCotizacionesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1173,6 +1222,7 @@ export type UserCreateWithoutProyectosInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
@@ -1192,6 +1242,7 @@ export type UserUncheckedCreateWithoutProyectosInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1224,6 +1275,7 @@ export type UserUpdateWithoutProyectosInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
@@ -1243,6 +1295,7 @@ export type UserUncheckedUpdateWithoutProyectosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1259,6 +1312,7 @@ export type UserCreateWithoutNotificacionesInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1278,6 +1332,7 @@ export type UserUncheckedCreateWithoutNotificacionesInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1310,6 +1365,7 @@ export type UserUpdateWithoutNotificacionesInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1329,6 +1385,7 @@ export type UserUncheckedUpdateWithoutNotificacionesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1345,6 +1402,7 @@ export type UserCreateWithoutReunionesCreadasInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1364,6 +1422,7 @@ export type UserUncheckedCreateWithoutReunionesCreadasInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1396,6 +1455,7 @@ export type UserUpdateWithoutReunionesCreadasInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1415,6 +1475,7 @@ export type UserUncheckedUpdateWithoutReunionesCreadasInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1431,6 +1492,7 @@ export type UserCreateWithoutReunionesInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1450,6 +1512,7 @@ export type UserUncheckedCreateWithoutReunionesInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1482,6 +1545,7 @@ export type UserUpdateWithoutReunionesInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1501,6 +1565,7 @@ export type UserUncheckedUpdateWithoutReunionesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1517,6 +1582,7 @@ export type UserCreateWithoutNotasEnviadasInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1536,6 +1602,7 @@ export type UserUncheckedCreateWithoutNotasEnviadasInput = {
   password: string
   active?: boolean
   roleId: number
+  email?: string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1568,6 +1635,7 @@ export type UserUpdateWithoutNotasEnviadasInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1587,6 +1655,7 @@ export type UserUncheckedUpdateWithoutNotasEnviadasInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1604,6 +1673,7 @@ export type UserCreateManyRolInput = {
   user: string
   password: string
   active?: boolean
+  email?: string | null
 }
 
 export type UserUpdateWithoutRolInput = {
@@ -1611,6 +1681,7 @@ export type UserUpdateWithoutRolInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
@@ -1629,6 +1700,7 @@ export type UserUncheckedUpdateWithoutRolInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1647,6 +1719,7 @@ export type UserUncheckedUpdateManyWithoutRolInput = {
   user?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1768,6 +1841,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   active?: boolean
   roleId?: boolean
+  email?: boolean
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
   proyectos?: boolean | Prisma.User$proyectosArgs<ExtArgs>
   proyectosDisenados?: boolean | Prisma.User$proyectosDisenadosArgs<ExtArgs>
@@ -1789,6 +1863,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   active?: boolean
   roleId?: boolean
+  email?: boolean
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1799,6 +1874,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   active?: boolean
   roleId?: boolean
+  email?: boolean
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1809,9 +1885,10 @@ export type UserSelectScalar = {
   password?: boolean
   active?: boolean
   roleId?: boolean
+  email?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "user" | "password" | "active" | "roleId", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "user" | "password" | "active" | "roleId" | "email", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
   proyectos?: boolean | Prisma.User$proyectosArgs<ExtArgs>
@@ -1855,6 +1932,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string
     active: boolean
     roleId: number
+    /**
+     * Correo corporativo, para invitar a la persona al evento de Google
+     * Calendar cuando se agenda una reunión. Opcional: los usuarios que ya
+     * existían no lo tienen, y sin él simplemente no se lo invita.
+     */
+    email: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -2295,6 +2378,7 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly active: Prisma.FieldRef<"User", 'Boolean'>
   readonly roleId: Prisma.FieldRef<"User", 'Int'>
+  readonly email: Prisma.FieldRef<"User", 'String'>
 }
     
 
