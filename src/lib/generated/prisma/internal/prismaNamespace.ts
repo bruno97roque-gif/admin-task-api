@@ -1740,6 +1740,7 @@ export const ReunionScalarFieldEnum = {
   descripcion: 'descripcion',
   fecha: 'fecha',
   linkMeet: 'linkMeet',
+  avisoPrevioAt: 'avisoPrevioAt',
   proyectoId: 'proyectoId',
   creadorId: 'creadorId',
   createdAt: 'createdAt',

@@ -1,13 +1,21 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../../lib/prisma/prisma.service';
 import { NotificacionesService } from '../notificaciones/notificaciones.service';
 import { Prisma, TipoNotificacion } from '../../lib/generated/prisma/client';
 import { CreateReunionDto } from './dto/create-reunion.dto';
 import { UpdateReunionDto } from './dto/update-reunion.dto';
+import {
+  correspondeAvisar,
+  limiteDeAviso,
+  minutosQueFaltan,
+  naceDentroDeLaVentana,
+} from './reglas/aviso-previo.reglas';
 
 const usuarioResumen = {
   select: { id: true, name: true, user: true, roleId: true, email: true },
@@ -40,6 +48,8 @@ const FORMATO_FECHA = new Intl.DateTimeFormat('es-PE', {
  */
 @Injectable()
 export class ReunionesService {
+  private readonly logger = new Logger(ReunionesService.name);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly notificaciones: NotificacionesService,
@@ -52,12 +62,19 @@ export class ReunionesService {
     await this.validarProyecto(dto.proyectoId);
     await this.validarParticipantes(dto.participantesIds);
 
+    const fecha = new Date(dto.fecha);
+    const ahora = new Date();
+
     const reunion = await this.prisma.reunion.create({
       data: {
         titulo: dto.titulo,
         descripcion: dto.descripcion ?? null,
-        fecha: new Date(dto.fecha),
+        fecha,
         linkMeet: dto.linkMeet,
+        // Si se agenda para dentro de un rato corto, este mismo aviso hace de
+        // recordatorio: se marca como avisada para que la tarea programada no
+        // la vuelva a anunciar un minuto después.
+        avisoPrevioAt: naceDentroDeLaVentana(fecha, ahora) ? ahora : null,
         proyectoId: dto.proyectoId ?? null,
         creadorId: creadorId ?? null,
         participantes: {
@@ -122,12 +139,28 @@ export class ReunionesService {
     }
 
     const { participantesIds, fecha, ...data } = dto;
+    const ahora = new Date();
+
+    // Si se movió la fecha, el aviso previo arranca de cero: el que se haya
+    // mandado para el horario viejo ya no sirve. Salvo que la fecha nueva
+    // caiga dentro de la ventana, donde el aviso de reprogramación alcanza.
+    const nuevaFecha = fecha !== undefined ? new Date(fecha) : undefined;
+    const reinicioDeAviso =
+      nuevaFecha !== undefined &&
+      nuevaFecha.getTime() !== actual.fecha.getTime()
+        ? {
+            avisoPrevioAt: naceDentroDeLaVentana(nuevaFecha, ahora)
+              ? ahora
+              : null,
+          }
+        : {};
 
     const reunion = await this.prisma.reunion.update({
       where: { id },
       data: {
         ...data,
-        ...(fecha !== undefined && { fecha: new Date(fecha) }),
+        ...(nuevaFecha !== undefined && { fecha: nuevaFecha }),
+        ...reinicioDeAviso,
         ...(participantesIds !== undefined && {
           participantes: {
             deleteMany: {},
@@ -164,6 +197,59 @@ export class ReunionesService {
     const reunion = await this.findOne(id);
     await this.prisma.reunion.delete({ where: { id } });
     return reunion;
+  }
+
+  /**
+   * Avisa a los convocados que la reunión está por empezar.
+   *
+   * Corre cada minuto y mira la ventana de los próximos cinco. La marca
+   * `avisoPrevioAt` es la que evita repetir: se escribe con un `updateMany`
+   * que exige que siga en `null`, así que si dos pasadas se cruzan (o hay más
+   * de una instancia del API), solo una gana y el resto no manda nada.
+   */
+  @Cron(CronExpression.EVERY_MINUTE)
+  async avisarReunionesProximas(): Promise<void> {
+    const ahora = new Date();
+
+    const proximas = await this.prisma.reunion.findMany({
+      where: {
+        avisoPrevioAt: null,
+        fecha: { gte: ahora, lte: limiteDeAviso(ahora) },
+      },
+      include: reunionInclude,
+    });
+
+    for (const reunion of proximas) {
+      if (!correspondeAvisar(reunion, ahora)) continue;
+
+      // Gana la primera pasada que consiga marcarla; las demás ven 0 y salen.
+      const marcada = await this.prisma.reunion.updateMany({
+        where: { id: reunion.id, avisoPrevioAt: null },
+        data: { avisoPrevioAt: ahora },
+      });
+      if (marcada.count === 0) continue;
+
+      const minutos = minutosQueFaltan(reunion.fecha, ahora);
+
+      try {
+        await this.notificaciones.notificar(
+          reunion.participantes.map((fila) => fila.usuario.id),
+          {
+            tipo: TipoNotificacion.ReunionProxima,
+            titulo: `Tu reunión empieza en ${minutos} minuto${minutos === 1 ? '' : 's'}`,
+            mensaje: this.describir(reunion),
+            proyectoId: reunion.proyectoId,
+          },
+        );
+      } catch (error) {
+        // La reunión queda marcada igual: es preferible perder un aviso a
+        // mandarlo en bucle cada minuto hasta que arranque.
+        this.logger.error(
+          `No se pudo avisar de la reunión ${reunion.id}`,
+          error instanceof Error ? error.stack : String(error),
+        );
+      }
+    }
   }
 
   // ---------------------------------------------------------------------------

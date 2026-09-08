@@ -75,6 +75,7 @@ export const TipoNotificacion = {
   ProyectoAsignado: 'ProyectoAsignado',
   EtapaFinalizada: 'EtapaFinalizada',
   ReunionProgramada: 'ReunionProgramada',
+  ReunionProxima: 'ReunionProxima',
   NotaRecibida: 'NotaRecibida',
   NotaRespondida: 'NotaRespondida'
 } as const

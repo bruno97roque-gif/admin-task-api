@@ -83,6 +83,7 @@ enum TipoNotificacion {
   ProyectoAsignado
   EtapaFinalizada
   ReunionProgramada
+  ReunionProxima
   NotaRecibida
   NotaRespondida
 }
@@ -390,6 +391,9 @@ model Reunion {
   descripcion String?  @db.Text
   fecha       DateTime
   linkMeet    String   @map("link_meet")
+  /// Cuándo se mandó el aviso de «empieza en unos minutos». Queda marcado
+  /// para que la tarea programada no lo repita en cada pasada.
+  avisoPrevioAt DateTime? @map("aviso_previo_at")
   proyectoId  Int?     @map("proyecto_id")
   creadorId   Int?     @map("creador_id")
   createdAt   DateTime @default(now()) @map("created_at")

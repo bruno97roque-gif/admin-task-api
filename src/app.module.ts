@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { APP_GUARD } from '@nestjs/core';
 import { LibModule } from './lib/lib.module';
 import { RolModule } from './feature/rol/rol.module';
@@ -16,6 +17,8 @@ import { RolesGuard } from './feature/auth/guards/roles.guard';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    // Habilita los @Cron: hoy, el aviso previo de las reuniones.
+    ScheduleModule.forRoot(),
     LibModule,
     RolModule,
     UserModule,
