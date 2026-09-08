@@ -15,6 +15,7 @@ import {
   esEtapaDeDiseno,
   estadoAlReactivar,
   estaEnFlujoNuevo,
+  etapaSoloDeAdministracion,
   ETAPAS_DISENO,
   hitoQueHabilita,
   hostingEsExigible,
@@ -412,6 +413,27 @@ describe('estaEnFlujoNuevo', () => {
   it('distingue los proyectos migrados por el plan de cobros', () => {
     expect(estaEnFlujoNuevo([])).toBe(false);
     expect(estaEnFlujoNuevo(planValido)).toBe(true);
+  });
+});
+
+describe('etapaSoloDeAdministracion', () => {
+  it('reserva Desarrollo para administración', () => {
+    expect(etapaSoloDeAdministracion(EstadoProyecto.Desarrollo)).toBe(true);
+  });
+
+  it('deja el resto del recorrido abierto al equipo', () => {
+    const abiertas = [
+      EstadoProyecto.Registro,
+      EstadoProyecto.Brief,
+      EstadoProyecto.Taxonomia,
+      ...ETAPAS_DISENO,
+      EstadoProyecto.DesarrolloFinalizado,
+      EstadoProyecto.ProyectoFinalizado,
+    ];
+
+    for (const etapa of abiertas) {
+      expect(etapaSoloDeAdministracion(etapa)).toBe(false);
+    }
   });
 });
 

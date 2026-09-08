@@ -231,6 +231,19 @@ export function esEtapaDeDiseno(estado: EstadoProyecto): boolean {
  *
  * `Archivado` solo se sale por `reactivar()`, nunca por un `PATCH`.
  */
+/**
+ * Etapas que solo administración puede abrir. Hoy es una sola: `Desarrollo`.
+ *
+ * Cerrar el diseño es del diseñador, pero arrancar el desarrollo es una
+ * decisión de administración, que antes tiene que cobrar el hito de
+ * aprobación. La compuerta del cobro (`hitoQueHabilita`) ya lo frenaba en los
+ * proyectos con plan cargado; esto lo frena también en los migrados, que no
+ * tienen plan y por eso no pasan por las compuertas.
+ */
+export function etapaSoloDeAdministracion(estado: EstadoProyecto): boolean {
+  return estado === EstadoProyecto.Desarrollo;
+}
+
 export function transicionInvalida(
   desde: EstadoProyecto,
   hacia: EstadoProyecto,

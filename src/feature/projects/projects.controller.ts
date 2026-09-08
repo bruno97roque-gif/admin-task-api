@@ -243,13 +243,16 @@ export class ProjectsController {
   @ApiOperation({
     summary: 'Modificar un proyecto',
     description:
-      'El único camino que valida la máquina de estados: se avanza de a una etapa, se puede retroceder, no se puede saltear. `Archivado` no se entra ni se sale por acá. Omitir una clave la deja como está; mandarla en `null` la limpia. Mandar `usuariosIds` **reemplaza** la lista entera.',
+      'El único camino que valida la máquina de estados: se avanza de a una etapa, se puede retroceder, no se puede saltear. `Archivado` no se entra ni se sale por acá. **Pasar a `Desarrollo` es solo de administración**: arrancar el desarrollo es su decisión, y antes tiene que cobrar el hito de aprobación. Omitir una clave la deja como está; mandarla en `null` la limpia. Mandar `usuariosIds` **reemplaza** la lista entera.',
   })
   @ApiParam(PARAM_ID)
   @ApiOkResponse({ type: ProyectoRespuestaDto })
   @ApiBadRequestResponse({
     description:
       'El cuerpo está mal, o el seguimiento / los usuarios no existen.',
+  })
+  @ApiForbiddenResponse({
+    description: 'Solo administración puede pasar un proyecto a `Desarrollo`.',
   })
   @ApiNotFoundResponse(NO_ENCONTRADO)
   @ApiConflictResponse({

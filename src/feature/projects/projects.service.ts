@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -12,6 +13,7 @@ import { ObservacionesDto } from './dto/observaciones.dto';
 import { AsignarResponsablesDto } from './dto/asignar-responsables.dto';
 import { PrismaService } from '../../lib/prisma/prisma.service';
 import { NotificacionesService } from '../notificaciones/notificaciones.service';
+import { ROLES_ADMINISTRACION } from '../auth/decorators/roles.decorator';
 import {
   EstadoProyecto,
   Grupo,
@@ -31,6 +33,7 @@ import {
   esEstadoTerminal,
   esEtapaDeDiseno,
   estadoAlReactivar,
+  etapaSoloDeAdministracion,
   ETAPAS_DISENO,
   hitoQueHabilita,
   hostingEsExigible,
@@ -680,6 +683,10 @@ export class ProjectsService {
 
       if (invalida) {
         throw new ConflictException(invalida);
+      }
+
+      if (etapaSoloDeAdministracion(estadoNuevo)) {
+        await this.verificarQueEsAdministracion(estadoNuevo, actorId);
       }
 
       this.verificarCompuertas(situacion);
@@ -1754,6 +1761,39 @@ export class ProjectsService {
    * `estadoPago` es texto libre ("50%", "Pagado", "80"...); se intenta leer
    * el primer número como porcentaje. Si no hay ninguno, no se puede comparar.
    */
+  /**
+   * Corta el paso a las etapas reservadas a administración
+   * (`etapaSoloDeAdministracion`). El rol sale de la base y no del token: el
+   * payload solo trae `roleId`, y los ids difieren entre entornos.
+   *
+   * Sin actor (ruta pública, hoy ninguna) no se bloquea nada: quien puede
+   * llamar sin token ya pasó por los guards globales.
+   */
+  private async verificarQueEsAdministracion(
+    estadoDestino: EstadoProyecto,
+    actorId?: number,
+  ): Promise<void> {
+    if (actorId === undefined) return;
+
+    const actor = await this.prisma.user.findUnique({
+      where: { id: actorId },
+      select: { rol: { select: { name: true } } },
+    });
+
+    const nombre = actor?.rol.name;
+
+    if (
+      nombre !== undefined &&
+      (ROLES_ADMINISTRACION as readonly string[]).includes(nombre)
+    ) {
+      return;
+    }
+
+    throw new ForbiddenException(
+      `Solo administración puede pasar un proyecto a ${estadoDestino}: antes hay que cobrar el hito de aprobación de diseño`,
+    );
+  }
+
   // ---------------------------------------------------------------------------
   // Avisos internos (campanita del front)
   // ---------------------------------------------------------------------------
