@@ -171,7 +171,8 @@ export class ReunionesService {
   private describir(reunion: ReunionConRelaciones): string {
     const cuando = FORMATO_FECHA.format(reunion.fecha);
     const proyecto = reunion.proyecto ? ` (${reunion.proyecto.name})` : '';
-    return `${reunion.titulo}${proyecto}: ${cuando}. Link: ${reunion.linkMeet}`;
+    // Sin punto después de la hora: el formato ya termina en «p. m.».
+    return `${reunion.titulo}${proyecto}: ${cuando} · Link: ${reunion.linkMeet}`;
   }
 
   private aplanar(reunion: ReunionConRelaciones): ReunionCompleta {
