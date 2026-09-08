@@ -18,6 +18,7 @@ import {
   minutosQueFaltan,
   naceDentroDeLaVentana,
 } from './reglas/aviso-previo.reglas';
+import { puedeAgendarSobre, rolQueAgenda } from './reglas/quien-agenda.reglas';
 
 const usuarioResumen = {
   select: { id: true, name: true, user: true, roleId: true, email: true },
@@ -61,7 +62,7 @@ export class ReunionesService {
     dto: CreateReunionDto,
     creadorId?: number,
   ): Promise<ReunionCompleta> {
-    await this.validarProyecto(dto.proyectoId);
+    await this.validarProyecto(dto.proyectoId, creadorId);
     await this.validarParticipantes(dto.participantesIds);
 
     const fecha = new Date(dto.fecha);
@@ -163,7 +164,7 @@ export class ReunionesService {
     await this.verificarPuedeEditar(actual, actorId);
 
     if (dto.proyectoId !== undefined) {
-      await this.validarProyecto(dto.proyectoId);
+      await this.validarProyecto(dto.proyectoId, actorId);
     }
     if (dto.participantesIds !== undefined) {
       await this.validarParticipantes(dto.participantesIds);
@@ -302,19 +303,62 @@ export class ReunionesService {
     };
   }
 
+  /**
+   * El proyecto tiene que existir y, si quien agenda no es administración,
+   * tiene que ser suyo: nadie convoca reuniones sobre proyectos ajenos.
+   *
+   * Una reunión sin proyecto (la «Reunión de equipo») no se acota: no toca el
+   * trabajo de nadie en particular.
+   */
   private async validarProyecto(
     proyectoId: number | null | undefined,
+    actorId?: number,
   ): Promise<void> {
     if (proyectoId === undefined || proyectoId === null) return;
 
     const proyecto = await this.prisma.proyecto.findFirst({
       where: { id: proyectoId, deletedAt: null },
-      select: { id: true },
+      select: {
+        id: true,
+        name: true,
+        estadoProyecto: true,
+        disenadorId: true,
+        desarrolladorId: true,
+        usuarios: { select: { usuarioId: true } },
+      },
     });
 
     if (!proyecto) {
       throw new BadRequestException(
         `El proyecto con id ${proyectoId} no existe`,
+      );
+    }
+
+    if (actorId === undefined) return;
+
+    const rol = rolQueAgenda(await this.rolDe(actorId), ROLES_ADMINISTRACION);
+
+    const permitido = puedeAgendarSobre(
+      rol,
+      {
+        estadoProyecto: proyecto.estadoProyecto,
+        disenadorId: proyecto.disenadorId,
+        desarrolladorId: proyecto.desarrolladorId,
+        equipoIds: proyecto.usuarios.map((fila) => fila.usuarioId),
+      },
+      actorId,
+    );
+
+    if (!permitido) {
+      // Al diseñador se le puede negar por dos motivos distintos y conviene
+      // distinguirlos: «no es tuyo» se arregla pidiéndoselo a administración,
+      // «ya salió de diseño» es que el proyecto avanzó y dejó de ser suyo.
+      const esSuyo = proyecto.disenadorId === actorId;
+
+      throw new ForbiddenException(
+        rol === 'disenador' && esSuyo
+          ? `«${proyecto.name}» ya salió de la etapa de diseño: esa reunión la agenda administración o el desarrollador`
+          : `No estás asignado a «${proyecto.name}»: pídele a administración que agende esa reunión`,
       );
     }
   }
@@ -335,15 +379,21 @@ export class ReunionesService {
     }
   }
 
-  /** ¿El usuario es `Admin` u `Owner`? Se resuelve por rol, no por persona. */
-  private async esAdministracion(usuarioId: number): Promise<boolean> {
+  /** El nombre del rol del usuario, o `null` si no se encuentra. */
+  private async rolDe(usuarioId: number): Promise<string | null> {
     const usuario = await this.prisma.user.findUnique({
       where: { id: usuarioId },
       select: { rol: { select: { name: true } } },
     });
 
-    return (ROLES_ADMINISTRACION as readonly string[]).includes(
-      usuario?.rol.name ?? '',
+    return usuario?.rol.name ?? null;
+  }
+
+  /** ¿El usuario es `Admin` u `Owner`? Se resuelve por rol, no por persona. */
+  private async esAdministracion(usuarioId: number): Promise<boolean> {
+    return (
+      rolQueAgenda(await this.rolDe(usuarioId), ROLES_ADMINISTRACION) ===
+      'administracion'
     );
   }
 
