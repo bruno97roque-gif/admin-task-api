@@ -28,7 +28,7 @@ export const TAGS = {
   seguimientos: 'Seguimientos',
   notificaciones: 'Notificaciones',
   reuniones: 'Reuniones',
-  notas: 'Notas a administración',
+  notas: 'Tickets de soporte',
 } as const;
 
 const DESCRIPCION = `
@@ -137,7 +137,7 @@ export function configurarSwagger(app: INestApplication): void {
     )
     .addTag(
       TAGS.notas,
-      'Notas del equipo sobre un proyecto, para administración. Solo administración las lee.',
+      'Tickets que el equipo abre sobre un proyecto. Categoría, estado e hilo de respuestas; solo administración ve la bandeja completa.',
     )
     .build();
 

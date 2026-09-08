@@ -26,6 +26,25 @@ class ProyectoResumenDto {
   name: string;
 }
 
+/** Una página de la bandeja. Solo documentación. */
+export class PaginaNotasRespuestaDto {
+  @ApiProperty({ type: () => NotaRespuestaDto, isArray: true })
+  items: NotaRespuestaDto[];
+
+  @ApiProperty({
+    description:
+      'Total de tickets que cumplen el filtro, no solo los de esta página.',
+    example: 42,
+  })
+  total: number;
+
+  @ApiProperty({ example: 1 })
+  pagina: number;
+
+  @ApiProperty({ example: 10 })
+  porPagina: number;
+}
+
 /** Un mensaje del hilo. Solo documentación. */
 export class RespuestaNotaDto {
   @ApiProperty({ example: 1 })

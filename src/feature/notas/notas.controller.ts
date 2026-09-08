@@ -4,9 +4,11 @@ import {
   Delete,
   Get,
   Param,
+  ParseEnumPipe,
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -18,13 +20,18 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { NotasService } from './notas.service';
 import { CreateNotaDto } from './dto/create-nota.dto';
 import { CreateRespuestaDto } from './dto/create-respuesta.dto';
 import { CambiarEstadoNotaDto } from './dto/cambiar-estado-nota.dto';
-import { NotaRespuestaDto } from './dto/nota-respuesta.dto';
+import {
+  NotaRespuestaDto,
+  PaginaNotasRespuestaDto,
+} from './dto/nota-respuesta.dto';
+import { EstadoNota } from '../../lib/generated/prisma/client';
 import {
   Roles,
   ROLES_ADMINISTRACION,
@@ -32,9 +39,42 @@ import {
 import { UsuarioActual } from '../auth/decorators/usuario-actual.decorator';
 import { AUTH_BEARER, TAGS } from '../../swagger';
 
+const QUERY_PAGINA = {
+  name: 'pagina',
+  required: false,
+  type: Number,
+  description: 'Página, empezando en 1.',
+  example: 1,
+} as const;
+
+const QUERY_POR_PAGINA = {
+  name: 'porPagina',
+  required: false,
+  type: Number,
+  description: 'Cuántos por página. Por defecto 10, máximo 50.',
+  example: 10,
+} as const;
+
+const QUERY_ABIERTOS = {
+  name: 'abiertos',
+  required: false,
+  type: Boolean,
+  description: 'Con `true` esconde los resueltos.',
+  example: true,
+} as const;
+
+const QUERY_ESTADO = {
+  name: 'estado',
+  required: false,
+  enum: EstadoNota,
+  enumName: 'EstadoNota',
+  description: 'Filtra por un estado puntual.',
+} as const;
+
 /**
- * El equipo escribe, administración lee. `POST` y `mias` son para cualquier
- * usuario logueado; el panel completo, marcar leída y borrar llevan `@Roles`.
+ * El equipo abre tickets, administración los atiende. Abrir uno, responder el
+ * propio y `mias` son para cualquier usuario logueado; la bandeja completa,
+ * el cambio de estado y borrar llevan `@Roles`.
  */
 @ApiTags(TAGS.notas)
 @ApiBearerAuth(AUTH_BEARER)
@@ -62,14 +102,30 @@ export class NotasController {
   @Roles(...ROLES_ADMINISTRACION)
   @Get()
   @ApiOperation({
-    summary: 'Panel de mensajes',
+    summary: 'Bandeja de tickets',
     description:
-      'Solo administración. No leídas primero, después más nuevas primero.',
+      'Solo administración. Paginada en la base: primero lo que sigue abierto y, dentro de eso, lo que se movió más recientemente. `abiertos=true` esconde los resueltos; `estado` filtra por uno puntual.',
   })
-  @ApiOkResponse({ type: NotaRespuestaDto, isArray: true })
+  @ApiQuery(QUERY_PAGINA)
+  @ApiQuery(QUERY_POR_PAGINA)
+  @ApiQuery(QUERY_ABIERTOS)
+  @ApiQuery(QUERY_ESTADO)
+  @ApiOkResponse({ type: PaginaNotasRespuestaDto })
   @ApiForbiddenResponse({ description: 'Solo administración.' })
-  findAll() {
-    return this.notas.findAll();
+  findAll(
+    @Query('pagina', new ParseIntPipe({ optional: true })) pagina?: number,
+    @Query('porPagina', new ParseIntPipe({ optional: true }))
+    porPagina?: number,
+    @Query('abiertos') abiertos?: string,
+    @Query('estado', new ParseEnumPipe(EstadoNota, { optional: true }))
+    estado?: EstadoNota,
+  ) {
+    return this.notas.findAll({
+      pagina,
+      porPagina,
+      abiertos: abiertos === 'true',
+      estado,
+    });
   }
 
   @Roles(...ROLES_ADMINISTRACION)
@@ -112,12 +168,30 @@ export class NotasController {
   // Segmento fijo antes de :id, como en /projects.
   @Get('mias')
   @ApiOperation({
-    summary: 'Mis notas enviadas',
-    description: 'Las que mandó el usuario logueado, más nuevas primero.',
+    summary: 'Mis tickets',
+    description:
+      'Los que abrió el usuario logueado, más nuevos primero. Paginados igual que la bandeja.',
   })
-  @ApiOkResponse({ type: NotaRespuestaDto, isArray: true })
-  findMias(@UsuarioActual('sub') autorId: number) {
-    return this.notas.findMias(autorId);
+  @ApiQuery(QUERY_PAGINA)
+  @ApiQuery(QUERY_POR_PAGINA)
+  @ApiQuery(QUERY_ABIERTOS)
+  @ApiQuery(QUERY_ESTADO)
+  @ApiOkResponse({ type: PaginaNotasRespuestaDto })
+  findMias(
+    @UsuarioActual('sub') autorId: number,
+    @Query('pagina', new ParseIntPipe({ optional: true })) pagina?: number,
+    @Query('porPagina', new ParseIntPipe({ optional: true }))
+    porPagina?: number,
+    @Query('abiertos') abiertos?: string,
+    @Query('estado', new ParseEnumPipe(EstadoNota, { optional: true }))
+    estado?: EstadoNota,
+  ) {
+    return this.notas.findMias(autorId, {
+      pagina,
+      porPagina,
+      abiertos: abiertos === 'true',
+      estado,
+    });
   }
 
   @Get(':id')

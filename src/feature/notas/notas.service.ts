@@ -37,6 +37,28 @@ export type NotaCompleta = Prisma.NotaAdminGetPayload<{
 /** Cuántos caracteres del texto entran en el aviso interno. */
 const LARGO_RESUMEN = 120;
 
+const POR_PAGINA_DEFECTO = 10;
+
+/** Techo por página: cada ticket viene con su hilo completo. */
+const POR_PAGINA_MAXIMO = 50;
+
+/** Filtros y paginación de la bandeja. */
+export interface OpcionesBandeja {
+  pagina?: number;
+  porPagina?: number;
+  /** Solo lo que no está resuelto. Es la vista por defecto del panel. */
+  abiertos?: boolean;
+  estado?: EstadoNota;
+}
+
+/** Una página de la bandeja, con el total para armar el paginador. */
+export interface PaginaDeNotas {
+  items: NotaCompleta[];
+  total: number;
+  pagina: number;
+  porPagina: number;
+}
+
 /**
  * Tickets del equipo para administración, siempre sobre un proyecto.
  *
@@ -105,24 +127,56 @@ export class NotasService {
    * Todas. Primero lo que sigue abierto y, dentro de eso, lo que se movió más
    * recientemente: un ticket con respuestas nuevas sube.
    */
-  findAll(): Promise<NotaCompleta[]> {
-    return this.prisma.notaAdmin.findMany({
-      include: notaInclude,
-      orderBy: [
-        { estado: 'asc' },
-        { ultimaRespuestaAt: { sort: 'desc', nulls: 'last' } },
-        { createdAt: 'desc' },
-      ],
-    });
+  findAll(opciones: OpcionesBandeja = {}): Promise<PaginaDeNotas> {
+    return this.paginar(opciones, [
+      { estado: 'asc' },
+      { ultimaRespuestaAt: { sort: 'desc', nulls: 'last' } },
+      { createdAt: 'desc' },
+    ]);
   }
 
   /** Los que abrió el usuario logueado, más nuevos primero. */
-  findMias(autorId: number): Promise<NotaCompleta[]> {
-    return this.prisma.notaAdmin.findMany({
-      where: { autorId },
-      include: notaInclude,
-      orderBy: { createdAt: 'desc' },
-    });
+  findMias(
+    autorId: number,
+    opciones: OpcionesBandeja = {},
+  ): Promise<PaginaDeNotas> {
+    return this.paginar({ ...opciones, autorId }, [{ createdAt: 'desc' }]);
+  }
+
+  /**
+   * Se pagina en la base y no en el cliente: la bandeja crece sin techo y cada
+   * ticket arrastra su hilo completo. El total viene aparte para poder armar
+   * el paginador sin traer todo.
+   */
+  private async paginar(
+    opciones: OpcionesBandeja & { autorId?: number },
+    orderBy: Prisma.NotaAdminOrderByWithRelationInput[],
+  ): Promise<PaginaDeNotas> {
+    const porPagina = Math.min(
+      Math.max(opciones.porPagina ?? POR_PAGINA_DEFECTO, 1),
+      POR_PAGINA_MAXIMO,
+    );
+    const pagina = Math.max(opciones.pagina ?? 1, 1);
+
+    const where: Prisma.NotaAdminWhereInput = {
+      ...(opciones.autorId !== undefined && { autorId: opciones.autorId }),
+      // «abiertos» es todo lo que no está resuelto: es la vista por defecto.
+      ...(opciones.abiertos && { estado: { not: EstadoNota.Resuelta } }),
+      ...(opciones.estado !== undefined && { estado: opciones.estado }),
+    };
+
+    const [total, items] = await this.prisma.$transaction([
+      this.prisma.notaAdmin.count({ where }),
+      this.prisma.notaAdmin.findMany({
+        where,
+        include: notaInclude,
+        orderBy,
+        skip: (pagina - 1) * porPagina,
+        take: porPagina,
+      }),
+    ]);
+
+    return { items, total, pagina, porPagina };
   }
 
   /** Un ticket con su hilo. Solo su autor o administración. */
