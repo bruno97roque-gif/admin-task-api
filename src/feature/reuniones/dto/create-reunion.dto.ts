@@ -11,6 +11,7 @@ import {
   IsUrl,
   Matches,
   MaxLength,
+  ValidateIf,
 } from 'class-validator';
 
 export class CreateReunionDto {
@@ -39,16 +40,21 @@ export class CreateReunionDto {
   @IsISO8601()
   fecha: string;
 
-  @ApiProperty({
-    description: 'Link de Google Meet. Obligatorio.',
+  @ApiPropertyOptional({
+    description:
+      'Link de Google Meet. Se puede dejar vacío: quien agenda sin cuenta de Workspace no tiene cómo generarlo, así que la reunión queda pendiente de que administración cree el evento en Calendar (donde Meet se genera solo) y vuelva a cargar el link acá.',
     example: 'https://meet.google.com/abc-defg-hij',
+    default: '',
   })
+  @IsOptional()
+  // La cadena vacía es el «todavía no hay link»: se acepta y saltea el resto.
+  @ValidateIf((_, value) => value !== '' && value !== null)
   @IsUrl({ require_protocol: true })
   @Matches(/^https:\/\/meet\.google\.com\//, {
     message:
       'linkMeet debe ser un enlace de Google Meet (https://meet.google.com/...)',
   })
-  linkMeet: string;
+  linkMeet?: string | null;
 
   @ApiPropertyOptional({
     description: 'Proyecto al que pertenece la reunión, si corresponde.',

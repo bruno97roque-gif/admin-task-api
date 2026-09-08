@@ -73,7 +73,9 @@ export class ReunionesService {
         titulo: dto.titulo,
         descripcion: dto.descripcion ?? null,
         fecha,
-        linkMeet: dto.linkMeet,
+        // Vacío = todavía no hay link; lo carga administración cuando crea
+        // el evento en Calendar, que es donde Meet se genera solo.
+        linkMeet: dto.linkMeet ?? '',
         // Si se agenda para dentro de un rato corto, este mismo aviso hace de
         // recordatorio: se marca como avisada para que la tarea programada no
         // la vuelva a anunciar un minuto después.
@@ -99,10 +101,13 @@ export class ReunionesService {
     // admins ya convocados no se les repite el mismo hecho.
     if (creadorId !== undefined && !(await this.esAdministracion(creadorId))) {
       const quien = reunion.creador?.name ?? 'Alguien del equipo';
+      // Sin link es porque no tiene Workspace: administración tiene que
+      // crear el evento en Calendar y mandar las invitaciones.
+      const falta = reunion.linkMeet ? '' : ' — falta enviarla al Calendar';
       await this.notificaciones.notificarAdministracion(
         {
           tipo: TipoNotificacion.ReunionProgramada,
-          titulo: `${quien} agendó una reunión`,
+          titulo: `${quien} agendó una reunión${falta}`,
           mensaje: this.describir(reunion),
           proyectoId: reunion.proyectoId,
         },
@@ -170,7 +175,10 @@ export class ReunionesService {
       await this.validarParticipantes(dto.participantesIds);
     }
 
-    const { participantesIds, fecha, ...data } = dto;
+    // `linkMeet` sale aparte porque el DTO lo acepta nulo («todavía no hay»)
+    // y la columna no admite null: se guarda como cadena vacía.
+    const { participantesIds, fecha, linkMeet, ...data } = dto;
+    const nuevoLink = linkMeet === undefined ? undefined : (linkMeet ?? '');
     const ahora = new Date();
 
     // Si se movió la fecha, el aviso previo arranca de cero: el que se haya
@@ -192,6 +200,7 @@ export class ReunionesService {
       data: {
         ...data,
         ...(nuevaFecha !== undefined && { fecha: nuevaFecha }),
+        ...(nuevoLink !== undefined && { linkMeet: nuevoLink }),
         ...reinicioDeAviso,
         ...(participantesIds !== undefined && {
           participantes: {
@@ -211,7 +220,7 @@ export class ReunionesService {
     const seReprogramo =
       (fecha !== undefined &&
         new Date(fecha).getTime() !== actual.fecha.getTime()) ||
-      (dto.linkMeet !== undefined && dto.linkMeet !== actual.linkMeet);
+      (nuevoLink !== undefined && nuevoLink !== actual.linkMeet);
 
     const destinatarios = seReprogramo ? actuales : nuevos;
 
@@ -290,8 +299,13 @@ export class ReunionesService {
   private describir(reunion: ReunionConRelaciones): string {
     const cuando = FORMATO_FECHA.format(reunion.fecha);
     const proyecto = reunion.proyecto ? ` (${reunion.proyecto.name})` : '';
+    // Sin link todavía: la agendó alguien sin Workspace y administración
+    // todavía no creó el evento en Calendar.
+    const link = reunion.linkMeet
+      ? ` · Link: ${reunion.linkMeet}`
+      : ' · Falta el link de Meet';
     // Sin punto después de la hora: el formato ya termina en «p. m.».
-    return `${reunion.titulo}${proyecto}: ${cuando} · Link: ${reunion.linkMeet}`;
+    return `${reunion.titulo}${proyecto}: ${cuando}${link}`;
   }
 
   private aplanar(reunion: ReunionConRelaciones): ReunionCompleta {
