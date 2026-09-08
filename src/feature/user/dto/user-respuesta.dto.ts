@@ -13,7 +13,7 @@ export class UserRespuestaDto {
 
   @ApiProperty({
     description: 'Correo corporativo, para las invitaciones de calendario.',
-    example: 'aaron@websy.pe',
+    example: 'aaron@websydev.site',
     nullable: true,
   })
   email: string | null;

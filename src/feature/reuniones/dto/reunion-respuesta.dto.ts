@@ -15,7 +15,7 @@ class UsuarioResumenDto {
 
   @ApiProperty({
     description: 'Correo corporativo, para armar la invitación de calendario.',
-    example: 'ana@websy.pe',
+    example: 'ana@websydev.site',
     nullable: true,
   })
   email: string | null;

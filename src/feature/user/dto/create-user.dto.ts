@@ -47,8 +47,8 @@ export class CreateUserDto {
 
   @ApiPropertyOptional({
     description:
-      'Correo corporativo. Se usa para invitar a la persona al evento de Google Calendar cuando se agenda una reunión. Sin él, simplemente no se la invita.',
-    example: 'aaron@websy.pe',
+      'Correo corporativo. Se usa para invitar a la persona al evento de Google Calendar cuando se agenda una reunión; sin él, simplemente no se la invita. Websy tiene dos dominios y el rol decide cuál corresponde: administración (`Admin`, `Owner`) usa `@websy.com.pe`, que es el de Google Workspace, y el resto del equipo `@websydev.site`, que es el del hosting de DonWeb y el que abre el botón de webmail.',
+    example: 'aaron@websydev.site',
     maxLength: 150,
     nullable: true,
   })
