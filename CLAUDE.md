@@ -15,7 +15,7 @@ The domain vocabulary is Spanish (`proyecto`, `seguimiento`, `usuario`, `grupo`)
 - **`tablero-proyectos-websy_5.xlsx`** (raíz) — la planilla que esta API reemplaza; sus hojas `Instrucciones` y `Reglas` tienen la regla de los 15 días y «GRUPO se calcula solo». Para leerla hay que descomprimirla y parsear `xl/sharedStrings.xml` + `xl/worksheets/sheet2.xml`.
 - `docs/auth-contract.md` (el contrato cliente del login/refresh) fue borrado en el commit `f7e6726`, así que para auth el código es lo único que queda — resumido más abajo.
 
-> **La base es de producción.** `DATABASE_URL` apunta a Railway. Las 7 migraciones están aplicadas (`pnpm exec prisma migrate status` al 2026-08-12). El aviso de `PLAN-FLUJO.md` §7 sobre `_flujo_fase1_fase2_completo` quedó viejo: ya se ejecutó. Verificá el estado antes de tocar nada y escribí las migraciones para que no reescriban filas — la de `_add_etapas_avance_y_diseno_finalizado` es el ejemplo a seguir (solo `ALTER TYPE … ADD VALUE`).
+> **La base es de producción.** `DATABASE_URL` apunta a Railway. Las **13 migraciones están aplicadas** (`pnpm exec prisma migrate status` al 2026-09-09, «Database schema is up to date»). El aviso de `PLAN-FLUJO.md` §7 sobre `_flujo_fase1_fase2_completo` quedó viejo: ya se ejecutó. Verificá el estado antes de tocar nada y escribí las migraciones para que no reescriban filas — la de `_add_etapas_avance_y_diseno_finalizado` es el ejemplo a seguir (solo `ALTER TYPE … ADD VALUE`).
 >
 > **Regla fija del equipo: las migraciones solo agregan.** Tablas, columnas, índices, valores de enum y relaciones nuevas, sí. Modificar, renombrar o borrar columnas, tablas o valores existentes, y `UPDATE`/`DELETE` sobre filas, **nunca**. Si un cambio parece necesitar eso, se agrega una columna nueva y se deja la vieja, y se levanta la decisión al equipo antes de escribir la migración.
 
@@ -89,9 +89,9 @@ Tres helpers privados concentran la mecánica; cualquier acción nueva del flujo
 - `actualizarBloqueo(id, data, motivo, actorId)` — lo mismo para los booleanos del cliente.
 - `recalcularGrupo(id, actorId)` — relee el proyecto, deriva el grupo, sincroniza recordatorios y **se corta temprano si el estado es terminal** (`esEstadoTerminal`) o si el grupo no cambió, para no llenar el historial de filas iguales.
 
-### Notificaciones internas, reuniones y notas (rama `feat/notificaciones-reuniones-notas`)
+### Notificaciones internas, reuniones y notas
 
-Tres módulos nuevos, migración **aditiva** `20260907120000_notificaciones_reuniones_notas` (tablas `notificaciones`, `reuniones`, `reuniones_usuarios`, `notas_admin` y enum `TipoNotificacion`). No toca nada existente. **Al 2026-09-07 no está aplicada en la base de Railway**: el equipo decide cuándo.
+Tres módulos nuevos, migración **aditiva** `20260907120000_notificaciones_reuniones_notas` (tablas `notificaciones`, `reuniones`, `reuniones_usuarios`, `notas_admin` y enum `TipoNotificacion`). No toca nada existente. **Mergeado a `main` y aplicado en Railway el 2026-09-09**, junto con las migraciones de correo/materiales, tickets y aviso previo de reunión.
 
 - **`NotificacionesService` tiene dos canales que no se pisan**: `enviarDiscord()` (webhook, sin destinatario, el que ya existía) y las internas (`notificar(usuariosIds, aviso)` y `notificarAdministracion(aviso)`, filas por destinatario con `leidaAt`). «Administración» = usuarios activos con rol en `ROLES_ADMINISTRACION` (`Admin`, `Owner`); no hay un usuario fijo. Ninguno de los dos tumba la operación que lo disparó: los errores se loguean como warning.
 - **Quién recibe qué** (todo en `ProjectsService`, métodos privados `notificarAsignaciones` y `notificarEtapaFinalizada`, llamados desde `create`, `update` y `asignarResponsables`): el diseñador cuando el proyecto entra a `Diseno`/`AvanceDiseno` desde fuera de ese bloque, o si lo reasignan con el proyecto ya ahí; el desarrollador ídem con `Desarrollo`; administración cuando llega a `DisenoFinalizado` (hito `AprobacionDiseno`) o `DesarrolloFinalizado` (hito `Entrega`), con el % que falta — de los cobros no cobrados si hay plan, o de `estadoPago` si no. Moverse `Diseno → AvanceDiseno` no vuelve a avisar.
@@ -244,6 +244,8 @@ Follow these when adding a resource — they are consistent across `rol`, `segui
 - `EXPOSE 3000` is required: with a Dockerfile build, Railway infers the routed port from it and returns 502 without it.
 
 `.nvmrc` pins Node 22 and `package.json` sets `engines.node >= 22.13`.
+
+**El deploy no corre migraciones.** `railway.json` arranca con `node dist/main` a secas, así que una migración nueva hay que aplicarla a mano (`pnpm exec prisma migrate deploy`) **antes** de empujar el código a `main`. Al revés, el API despliega buscando columnas que todavía no existen.
 
 ## TypeScript / lint notes
 
