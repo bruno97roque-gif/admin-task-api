@@ -25,12 +25,12 @@ enum EstadoProyecto {
   Registro
   Brief
   Taxonomia
-  Diseno                @map("Diseño")
-  AvanceDiseno          @map("Avance de Diseño")
-  DisenoFinalizado      @map("Diseño Finalizado")
+  Diseno               @map("Diseño")
+  AvanceDiseno         @map("Avance de Diseño")
+  DisenoFinalizado     @map("Diseño Finalizado")
   Desarrollo
-  DesarrolloFinalizado  @map("Desarrollo Finalizado")
-  ProyectoFinalizado    @map("Proyecto Finalizado")
+  DesarrolloFinalizado @map("Desarrollo Finalizado")
+  ProyectoFinalizado   @map("Proyecto Finalizado")
   Archivado
 }
 
@@ -127,7 +127,6 @@ model User {
   /// existían no lo tienen, y sin él simplemente no se lo invita.
   email String?
 
-
   rol       Rol               @relation(fields: [roleId], references: [id])
   proyectos UsuarioProyecto[]
 
@@ -138,6 +137,7 @@ model User {
   cotizaciones           CotizacionAdicional[]
   notificaciones         Notificacion[]
   reunionesCreadas       Reunion[]              @relation("ReunionesCreadas")
+  integracionGoogle      IntegracionGoogle?
   reuniones              ReunionUsuario[]
   notasEnviadas          NotaAdmin[]
   respuestasNota         RespuestaNota[]
@@ -181,9 +181,9 @@ model Proyecto {
   /// Compromiso de entrega del **diseño**. La ve y la carga el diseñador en su
   /// tablero; el desarrollador trabaja con `fechaEntrega`.
   fechaEntregaDiseno DateTime? @map("fecha_entrega_diseno")
-  createdAt        DateTime       @default(now()) @map("created_at")
-  updatedAt        DateTime       @updatedAt @map("updated_at")
-  deletedAt        DateTime?      @map("deleted_at")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+  deletedAt          DateTime? @map("deleted_at")
 
   /// Bloqueos del cliente, separados a propósito: el material de marca frena el
   /// diseño, mientras que el catálogo solo frena la carga de productos.
@@ -229,10 +229,10 @@ model Proyecto {
   disenadorId     Int? @map("disenador_id")
   desarrolladorId Int? @map("desarrollador_id")
 
-  seguimiento   Seguimiento            @relation(fields: [seguimientoId], references: [id])
-  usuarios      UsuarioProyecto[]
-  disenador     User?                  @relation("ProyectosDisenados", fields: [disenadorId], references: [id])
-  desarrollador User?                  @relation("ProyectosDesarrollados", fields: [desarrolladorId], references: [id])
+  seguimiento    Seguimiento            @relation(fields: [seguimientoId], references: [id])
+  usuarios       UsuarioProyecto[]
+  disenador      User?                  @relation("ProyectosDisenados", fields: [disenadorId], references: [id])
+  desarrollador  User?                  @relation("ProyectosDesarrollados", fields: [desarrolladorId], references: [id])
   cobros         Cobro[]
   historial      HistorialEtapa[]
   recordatorios  RecordatorioProyecto[]
@@ -386,18 +386,26 @@ model Notificacion {
 /// obligatorio: la reunión existe para que el diseñador o desarrollador lo
 /// tenga a mano en su vista. Puede o no estar ligada a un proyecto.
 model Reunion {
-  id          Int      @id @default(autoincrement())
-  titulo      String
-  descripcion String?  @db.Text
-  fecha       DateTime
-  linkMeet    String   @map("link_meet")
+  id            Int       @id @default(autoincrement())
+  titulo        String
+  descripcion   String?   @db.Text
+  fecha         DateTime
+  linkMeet      String    @map("link_meet")
   /// Cuándo se mandó el aviso de «empieza en unos minutos». Queda marcado
   /// para que la tarea programada no lo repita en cada pasada.
   avisoPrevioAt DateTime? @map("aviso_previo_at")
-  proyectoId  Int?     @map("proyecto_id")
-  creadorId   Int?     @map("creador_id")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  /// Id del evento en Google Calendar. Mientras sea null la reunión no se
+  /// mandó todavía; con valor, editar acá edita ese mismo evento en vez de
+  /// crear uno nuevo.
+  googleEventId String?   @map("google_event_id")
+  /// Cuándo administración la envió a Calendar.
+  enviadaAt     DateTime? @map("enviada_at")
+  /// Si el Meet arranca grabando y transcribiendo solo.
+  grabarReunion Boolean   @default(true) @map("grabar_reunion")
+  proyectoId    Int?      @map("proyecto_id")
+  creadorId     Int?      @map("creador_id")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
 
   proyecto      Proyecto?        @relation(fields: [proyectoId], references: [id], onDelete: SetNull)
   creador       User?            @relation("ReunionesCreadas", fields: [creadorId], references: [id], onDelete: SetNull)
@@ -468,4 +476,31 @@ model RespuestaNota {
   @@index([notaId])
   @@index([autorId])
   @@map("respuestas_nota")
+}
+
+/// La cuenta de Google que Websy usa para crear los eventos y los Meet.
+///
+/// Es una sola en la práctica: la de administración, que es la única con
+/// Google Workspace. Todo lo que el sistema cree en Google va a figurar como
+/// creado por esa persona.
+///
+/// El `refreshToken` es una credencial de larga vida: da acceso continuo al
+/// calendario de esa cuenta. Por eso se guarda cifrado (AES-256-GCM con
+/// `GOOGLE_TOKEN_SECRET`) y nunca sale en una respuesta de la API.
+model IntegracionGoogle {
+  id           Int      @id @default(autoincrement())
+  usuarioId    Int      @unique @map("usuario_id")
+  /// Cifrado. No exponerlo jamás.
+  refreshToken String   @map("refresh_token") @db.Text
+  /// Correo de la cuenta de Google conectada, para mostrarlo en pantalla.
+  cuenta       String
+  /// Permisos que concedió, separados por espacio. Sirve para detectar que
+  /// falta reconectar cuando se agrega uno nuevo.
+  scopes       String   @db.Text
+  conectadaAt  DateTime @default(now()) @map("conectada_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  usuario User @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@map("integraciones_google")
 }

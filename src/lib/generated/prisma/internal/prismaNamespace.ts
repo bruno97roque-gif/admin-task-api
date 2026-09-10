@@ -410,7 +410,8 @@ export const ModelName = {
   Reunion: 'Reunion',
   ReunionUsuario: 'ReunionUsuario',
   NotaAdmin: 'NotaAdmin',
-  RespuestaNota: 'RespuestaNota'
+  RespuestaNota: 'RespuestaNota',
+  IntegracionGoogle: 'IntegracionGoogle'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -426,7 +427,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "rol" | "user" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota"
+    modelProps: "rol" | "user" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota" | "integracionGoogle"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1540,6 +1541,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    IntegracionGoogle: {
+      payload: Prisma.$IntegracionGooglePayload<ExtArgs>
+      fields: Prisma.IntegracionGoogleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IntegracionGoogleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IntegracionGoogleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload>
+        }
+        findFirst: {
+          args: Prisma.IntegracionGoogleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IntegracionGoogleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload>
+        }
+        findMany: {
+          args: Prisma.IntegracionGoogleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload>[]
+        }
+        create: {
+          args: Prisma.IntegracionGoogleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload>
+        }
+        createMany: {
+          args: Prisma.IntegracionGoogleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IntegracionGoogleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload>[]
+        }
+        delete: {
+          args: Prisma.IntegracionGoogleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload>
+        }
+        update: {
+          args: Prisma.IntegracionGoogleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload>
+        }
+        deleteMany: {
+          args: Prisma.IntegracionGoogleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IntegracionGoogleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IntegracionGoogleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload>[]
+        }
+        upsert: {
+          args: Prisma.IntegracionGoogleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegracionGooglePayload>
+        }
+        aggregate: {
+          args: Prisma.IntegracionGoogleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIntegracionGoogle>
+        }
+        groupBy: {
+          args: Prisma.IntegracionGoogleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntegracionGoogleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IntegracionGoogleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntegracionGoogleCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1741,6 +1816,9 @@ export const ReunionScalarFieldEnum = {
   fecha: 'fecha',
   linkMeet: 'linkMeet',
   avisoPrevioAt: 'avisoPrevioAt',
+  googleEventId: 'googleEventId',
+  enviadaAt: 'enviadaAt',
+  grabarReunion: 'grabarReunion',
   proyectoId: 'proyectoId',
   creadorId: 'creadorId',
   createdAt: 'createdAt',
@@ -1782,6 +1860,19 @@ export const RespuestaNotaScalarFieldEnum = {
 } as const
 
 export type RespuestaNotaScalarFieldEnum = (typeof RespuestaNotaScalarFieldEnum)[keyof typeof RespuestaNotaScalarFieldEnum]
+
+
+export const IntegracionGoogleScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  refreshToken: 'refreshToken',
+  cuenta: 'cuenta',
+  scopes: 'scopes',
+  conectadaAt: 'conectadaAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntegracionGoogleScalarFieldEnum = (typeof IntegracionGoogleScalarFieldEnum)[keyof typeof IntegracionGoogleScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2168,6 +2259,7 @@ export type GlobalOmitConfig = {
   reunionUsuario?: Prisma.ReunionUsuarioOmit
   notaAdmin?: Prisma.NotaAdminOmit
   respuestaNota?: Prisma.RespuestaNotaOmit
+  integracionGoogle?: Prisma.IntegracionGoogleOmit
 }
 
 /* Types for Logging */

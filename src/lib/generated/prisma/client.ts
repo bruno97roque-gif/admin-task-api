@@ -136,3 +136,16 @@ export type NotaAdmin = Prisma.NotaAdminModel
  * nota no vive acá, sigue en `NotaAdmin.contenido`.
  */
 export type RespuestaNota = Prisma.RespuestaNotaModel
+/**
+ * Model IntegracionGoogle
+ * La cuenta de Google que Websy usa para crear los eventos y los Meet.
+ * 
+ * Es una sola en la práctica: la de administración, que es la única con
+ * Google Workspace. Todo lo que el sistema cree en Google va a figurar como
+ * creado por esa persona.
+ * 
+ * El `refreshToken` es una credencial de larga vida: da acceso continuo al
+ * calendario de esa cuenta. Por eso se guarda cifrado (AES-256-GCM con
+ * `GOOGLE_TOKEN_SECRET`) y nunca sale en una respuesta de la API.
+ */
+export type IntegracionGoogle = Prisma.IntegracionGoogleModel

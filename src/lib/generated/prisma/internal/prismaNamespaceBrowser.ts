@@ -64,7 +64,8 @@ export const ModelName = {
   Reunion: 'Reunion',
   ReunionUsuario: 'ReunionUsuario',
   NotaAdmin: 'NotaAdmin',
-  RespuestaNota: 'RespuestaNota'
+  RespuestaNota: 'RespuestaNota',
+  IntegracionGoogle: 'IntegracionGoogle'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -245,6 +246,9 @@ export const ReunionScalarFieldEnum = {
   fecha: 'fecha',
   linkMeet: 'linkMeet',
   avisoPrevioAt: 'avisoPrevioAt',
+  googleEventId: 'googleEventId',
+  enviadaAt: 'enviadaAt',
+  grabarReunion: 'grabarReunion',
   proyectoId: 'proyectoId',
   creadorId: 'creadorId',
   createdAt: 'createdAt',
@@ -286,6 +290,19 @@ export const RespuestaNotaScalarFieldEnum = {
 } as const
 
 export type RespuestaNotaScalarFieldEnum = (typeof RespuestaNotaScalarFieldEnum)[keyof typeof RespuestaNotaScalarFieldEnum]
+
+
+export const IntegracionGoogleScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  refreshToken: 'refreshToken',
+  cuenta: 'cuenta',
+  scopes: 'scopes',
+  conectadaAt: 'conectadaAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntegracionGoogleScalarFieldEnum = (typeof IntegracionGoogleScalarFieldEnum)[keyof typeof IntegracionGoogleScalarFieldEnum]
 
 
 export const SortOrder = {

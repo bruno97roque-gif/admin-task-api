@@ -46,6 +46,9 @@ export type ReunionMinAggregateOutputType = {
   fecha: Date | null
   linkMeet: string | null
   avisoPrevioAt: Date | null
+  googleEventId: string | null
+  enviadaAt: Date | null
+  grabarReunion: boolean | null
   proyectoId: number | null
   creadorId: number | null
   createdAt: Date | null
@@ -59,6 +62,9 @@ export type ReunionMaxAggregateOutputType = {
   fecha: Date | null
   linkMeet: string | null
   avisoPrevioAt: Date | null
+  googleEventId: string | null
+  enviadaAt: Date | null
+  grabarReunion: boolean | null
   proyectoId: number | null
   creadorId: number | null
   createdAt: Date | null
@@ -72,6 +78,9 @@ export type ReunionCountAggregateOutputType = {
   fecha: number
   linkMeet: number
   avisoPrevioAt: number
+  googleEventId: number
+  enviadaAt: number
+  grabarReunion: number
   proyectoId: number
   creadorId: number
   createdAt: number
@@ -99,6 +108,9 @@ export type ReunionMinAggregateInputType = {
   fecha?: true
   linkMeet?: true
   avisoPrevioAt?: true
+  googleEventId?: true
+  enviadaAt?: true
+  grabarReunion?: true
   proyectoId?: true
   creadorId?: true
   createdAt?: true
@@ -112,6 +124,9 @@ export type ReunionMaxAggregateInputType = {
   fecha?: true
   linkMeet?: true
   avisoPrevioAt?: true
+  googleEventId?: true
+  enviadaAt?: true
+  grabarReunion?: true
   proyectoId?: true
   creadorId?: true
   createdAt?: true
@@ -125,6 +140,9 @@ export type ReunionCountAggregateInputType = {
   fecha?: true
   linkMeet?: true
   avisoPrevioAt?: true
+  googleEventId?: true
+  enviadaAt?: true
+  grabarReunion?: true
   proyectoId?: true
   creadorId?: true
   createdAt?: true
@@ -225,6 +243,9 @@ export type ReunionGroupByOutputType = {
   fecha: Date
   linkMeet: string
   avisoPrevioAt: Date | null
+  googleEventId: string | null
+  enviadaAt: Date | null
+  grabarReunion: boolean
   proyectoId: number | null
   creadorId: number | null
   createdAt: Date
@@ -261,6 +282,9 @@ export type ReunionWhereInput = {
   fecha?: Prisma.DateTimeFilter<"Reunion"> | Date | string
   linkMeet?: Prisma.StringFilter<"Reunion"> | string
   avisoPrevioAt?: Prisma.DateTimeNullableFilter<"Reunion"> | Date | string | null
+  googleEventId?: Prisma.StringNullableFilter<"Reunion"> | string | null
+  enviadaAt?: Prisma.DateTimeNullableFilter<"Reunion"> | Date | string | null
+  grabarReunion?: Prisma.BoolFilter<"Reunion"> | boolean
   proyectoId?: Prisma.IntNullableFilter<"Reunion"> | number | null
   creadorId?: Prisma.IntNullableFilter<"Reunion"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Reunion"> | Date | string
@@ -277,6 +301,9 @@ export type ReunionOrderByWithRelationInput = {
   fecha?: Prisma.SortOrder
   linkMeet?: Prisma.SortOrder
   avisoPrevioAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleEventId?: Prisma.SortOrderInput | Prisma.SortOrder
+  enviadaAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  grabarReunion?: Prisma.SortOrder
   proyectoId?: Prisma.SortOrderInput | Prisma.SortOrder
   creadorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -296,6 +323,9 @@ export type ReunionWhereUniqueInput = Prisma.AtLeast<{
   fecha?: Prisma.DateTimeFilter<"Reunion"> | Date | string
   linkMeet?: Prisma.StringFilter<"Reunion"> | string
   avisoPrevioAt?: Prisma.DateTimeNullableFilter<"Reunion"> | Date | string | null
+  googleEventId?: Prisma.StringNullableFilter<"Reunion"> | string | null
+  enviadaAt?: Prisma.DateTimeNullableFilter<"Reunion"> | Date | string | null
+  grabarReunion?: Prisma.BoolFilter<"Reunion"> | boolean
   proyectoId?: Prisma.IntNullableFilter<"Reunion"> | number | null
   creadorId?: Prisma.IntNullableFilter<"Reunion"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Reunion"> | Date | string
@@ -312,6 +342,9 @@ export type ReunionOrderByWithAggregationInput = {
   fecha?: Prisma.SortOrder
   linkMeet?: Prisma.SortOrder
   avisoPrevioAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleEventId?: Prisma.SortOrderInput | Prisma.SortOrder
+  enviadaAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  grabarReunion?: Prisma.SortOrder
   proyectoId?: Prisma.SortOrderInput | Prisma.SortOrder
   creadorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -333,6 +366,9 @@ export type ReunionScalarWhereWithAggregatesInput = {
   fecha?: Prisma.DateTimeWithAggregatesFilter<"Reunion"> | Date | string
   linkMeet?: Prisma.StringWithAggregatesFilter<"Reunion"> | string
   avisoPrevioAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reunion"> | Date | string | null
+  googleEventId?: Prisma.StringNullableWithAggregatesFilter<"Reunion"> | string | null
+  enviadaAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reunion"> | Date | string | null
+  grabarReunion?: Prisma.BoolWithAggregatesFilter<"Reunion"> | boolean
   proyectoId?: Prisma.IntNullableWithAggregatesFilter<"Reunion"> | number | null
   creadorId?: Prisma.IntNullableWithAggregatesFilter<"Reunion"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Reunion"> | Date | string
@@ -345,6 +381,9 @@ export type ReunionCreateInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   proyecto?: Prisma.ProyectoCreateNestedOneWithoutReunionesInput
@@ -359,6 +398,9 @@ export type ReunionUncheckedCreateInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   proyectoId?: number | null
   creadorId?: number | null
   createdAt?: Date | string
@@ -372,6 +414,9 @@ export type ReunionUpdateInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   proyecto?: Prisma.ProyectoUpdateOneWithoutReunionesNestedInput
@@ -386,6 +431,9 @@ export type ReunionUncheckedUpdateInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proyectoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   creadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -400,6 +448,9 @@ export type ReunionCreateManyInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   proyectoId?: number | null
   creadorId?: number | null
   createdAt?: Date | string
@@ -412,6 +463,9 @@ export type ReunionUpdateManyMutationInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -423,6 +477,9 @@ export type ReunionUncheckedUpdateManyInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proyectoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   creadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -446,6 +503,9 @@ export type ReunionCountOrderByAggregateInput = {
   fecha?: Prisma.SortOrder
   linkMeet?: Prisma.SortOrder
   avisoPrevioAt?: Prisma.SortOrder
+  googleEventId?: Prisma.SortOrder
+  enviadaAt?: Prisma.SortOrder
+  grabarReunion?: Prisma.SortOrder
   proyectoId?: Prisma.SortOrder
   creadorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -465,6 +525,9 @@ export type ReunionMaxOrderByAggregateInput = {
   fecha?: Prisma.SortOrder
   linkMeet?: Prisma.SortOrder
   avisoPrevioAt?: Prisma.SortOrder
+  googleEventId?: Prisma.SortOrder
+  enviadaAt?: Prisma.SortOrder
+  grabarReunion?: Prisma.SortOrder
   proyectoId?: Prisma.SortOrder
   creadorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -478,6 +541,9 @@ export type ReunionMinOrderByAggregateInput = {
   fecha?: Prisma.SortOrder
   linkMeet?: Prisma.SortOrder
   avisoPrevioAt?: Prisma.SortOrder
+  googleEventId?: Prisma.SortOrder
+  enviadaAt?: Prisma.SortOrder
+  grabarReunion?: Prisma.SortOrder
   proyectoId?: Prisma.SortOrder
   creadorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -599,6 +665,9 @@ export type ReunionCreateWithoutCreadorInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   proyecto?: Prisma.ProyectoCreateNestedOneWithoutReunionesInput
@@ -612,6 +681,9 @@ export type ReunionUncheckedCreateWithoutCreadorInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   proyectoId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -654,6 +726,9 @@ export type ReunionScalarWhereInput = {
   fecha?: Prisma.DateTimeFilter<"Reunion"> | Date | string
   linkMeet?: Prisma.StringFilter<"Reunion"> | string
   avisoPrevioAt?: Prisma.DateTimeNullableFilter<"Reunion"> | Date | string | null
+  googleEventId?: Prisma.StringNullableFilter<"Reunion"> | string | null
+  enviadaAt?: Prisma.DateTimeNullableFilter<"Reunion"> | Date | string | null
+  grabarReunion?: Prisma.BoolFilter<"Reunion"> | boolean
   proyectoId?: Prisma.IntNullableFilter<"Reunion"> | number | null
   creadorId?: Prisma.IntNullableFilter<"Reunion"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Reunion"> | Date | string
@@ -666,6 +741,9 @@ export type ReunionCreateWithoutProyectoInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   creador?: Prisma.UserCreateNestedOneWithoutReunionesCreadasInput
@@ -679,6 +757,9 @@ export type ReunionUncheckedCreateWithoutProyectoInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   creadorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -717,6 +798,9 @@ export type ReunionCreateWithoutParticipantesInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   proyecto?: Prisma.ProyectoCreateNestedOneWithoutReunionesInput
@@ -730,6 +814,9 @@ export type ReunionUncheckedCreateWithoutParticipantesInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   proyectoId?: number | null
   creadorId?: number | null
   createdAt?: Date | string
@@ -758,6 +845,9 @@ export type ReunionUpdateWithoutParticipantesInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   proyecto?: Prisma.ProyectoUpdateOneWithoutReunionesNestedInput
@@ -771,6 +861,9 @@ export type ReunionUncheckedUpdateWithoutParticipantesInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proyectoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   creadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -784,6 +877,9 @@ export type ReunionCreateManyCreadorInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   proyectoId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -795,6 +891,9 @@ export type ReunionUpdateWithoutCreadorInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   proyecto?: Prisma.ProyectoUpdateOneWithoutReunionesNestedInput
@@ -808,6 +907,9 @@ export type ReunionUncheckedUpdateWithoutCreadorInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proyectoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -821,6 +923,9 @@ export type ReunionUncheckedUpdateManyWithoutCreadorInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proyectoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -833,6 +938,9 @@ export type ReunionCreateManyProyectoInput = {
   fecha: Date | string
   linkMeet: string
   avisoPrevioAt?: Date | string | null
+  googleEventId?: string | null
+  enviadaAt?: Date | string | null
+  grabarReunion?: boolean
   creadorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -844,6 +952,9 @@ export type ReunionUpdateWithoutProyectoInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creador?: Prisma.UserUpdateOneWithoutReunionesCreadasNestedInput
@@ -857,6 +968,9 @@ export type ReunionUncheckedUpdateWithoutProyectoInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -870,6 +984,9 @@ export type ReunionUncheckedUpdateManyWithoutProyectoInput = {
   fecha?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   linkMeet?: Prisma.StringFieldUpdateOperationsInput | string
   avisoPrevioAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  googleEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enviadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  grabarReunion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -913,6 +1030,9 @@ export type ReunionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   fecha?: boolean
   linkMeet?: boolean
   avisoPrevioAt?: boolean
+  googleEventId?: boolean
+  enviadaAt?: boolean
+  grabarReunion?: boolean
   proyectoId?: boolean
   creadorId?: boolean
   createdAt?: boolean
@@ -930,6 +1050,9 @@ export type ReunionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   fecha?: boolean
   linkMeet?: boolean
   avisoPrevioAt?: boolean
+  googleEventId?: boolean
+  enviadaAt?: boolean
+  grabarReunion?: boolean
   proyectoId?: boolean
   creadorId?: boolean
   createdAt?: boolean
@@ -945,6 +1068,9 @@ export type ReunionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   fecha?: boolean
   linkMeet?: boolean
   avisoPrevioAt?: boolean
+  googleEventId?: boolean
+  enviadaAt?: boolean
+  grabarReunion?: boolean
   proyectoId?: boolean
   creadorId?: boolean
   createdAt?: boolean
@@ -960,13 +1086,16 @@ export type ReunionSelectScalar = {
   fecha?: boolean
   linkMeet?: boolean
   avisoPrevioAt?: boolean
+  googleEventId?: boolean
+  enviadaAt?: boolean
+  grabarReunion?: boolean
   proyectoId?: boolean
   creadorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ReunionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titulo" | "descripcion" | "fecha" | "linkMeet" | "avisoPrevioAt" | "proyectoId" | "creadorId" | "createdAt" | "updatedAt", ExtArgs["result"]["reunion"]>
+export type ReunionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titulo" | "descripcion" | "fecha" | "linkMeet" | "avisoPrevioAt" | "googleEventId" | "enviadaAt" | "grabarReunion" | "proyectoId" | "creadorId" | "createdAt" | "updatedAt", ExtArgs["result"]["reunion"]>
 export type ReunionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyecto?: boolean | Prisma.Reunion$proyectoArgs<ExtArgs>
   creador?: boolean | Prisma.Reunion$creadorArgs<ExtArgs>
@@ -1000,6 +1129,20 @@ export type $ReunionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
      * para que la tarea programada no lo repita en cada pasada.
      */
     avisoPrevioAt: Date | null
+    /**
+     * Id del evento en Google Calendar. Mientras sea null la reunión no se
+     * mandó todavía; con valor, editar acá edita ese mismo evento en vez de
+     * crear uno nuevo.
+     */
+    googleEventId: string | null
+    /**
+     * Cuándo administración la envió a Calendar.
+     */
+    enviadaAt: Date | null
+    /**
+     * Si el Meet arranca grabando y transcribiendo solo.
+     */
+    grabarReunion: boolean
     proyectoId: number | null
     creadorId: number | null
     createdAt: Date
@@ -1436,6 +1579,9 @@ export interface ReunionFieldRefs {
   readonly fecha: Prisma.FieldRef<"Reunion", 'DateTime'>
   readonly linkMeet: Prisma.FieldRef<"Reunion", 'String'>
   readonly avisoPrevioAt: Prisma.FieldRef<"Reunion", 'DateTime'>
+  readonly googleEventId: Prisma.FieldRef<"Reunion", 'String'>
+  readonly enviadaAt: Prisma.FieldRef<"Reunion", 'DateTime'>
+  readonly grabarReunion: Prisma.FieldRef<"Reunion", 'Boolean'>
   readonly proyectoId: Prisma.FieldRef<"Reunion", 'Int'>
   readonly creadorId: Prisma.FieldRef<"Reunion", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Reunion", 'DateTime'>

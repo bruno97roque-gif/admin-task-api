@@ -244,6 +244,7 @@ export type UserWhereInput = {
   cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
   notificaciones?: Prisma.NotificacionListRelationFilter
   reunionesCreadas?: Prisma.ReunionListRelationFilter
+  integracionGoogle?: Prisma.XOR<Prisma.IntegracionGoogleNullableScalarRelationFilter, Prisma.IntegracionGoogleWhereInput> | null
   reuniones?: Prisma.ReunionUsuarioListRelationFilter
   notasEnviadas?: Prisma.NotaAdminListRelationFilter
   respuestasNota?: Prisma.RespuestaNotaListRelationFilter
@@ -266,6 +267,7 @@ export type UserOrderByWithRelationInput = {
   cotizaciones?: Prisma.CotizacionAdicionalOrderByRelationAggregateInput
   notificaciones?: Prisma.NotificacionOrderByRelationAggregateInput
   reunionesCreadas?: Prisma.ReunionOrderByRelationAggregateInput
+  integracionGoogle?: Prisma.IntegracionGoogleOrderByWithRelationInput
   reuniones?: Prisma.ReunionUsuarioOrderByRelationAggregateInput
   notasEnviadas?: Prisma.NotaAdminOrderByRelationAggregateInput
   respuestasNota?: Prisma.RespuestaNotaOrderByRelationAggregateInput
@@ -291,6 +293,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
   notificaciones?: Prisma.NotificacionListRelationFilter
   reunionesCreadas?: Prisma.ReunionListRelationFilter
+  integracionGoogle?: Prisma.XOR<Prisma.IntegracionGoogleNullableScalarRelationFilter, Prisma.IntegracionGoogleWhereInput> | null
   reuniones?: Prisma.ReunionUsuarioListRelationFilter
   notasEnviadas?: Prisma.NotaAdminListRelationFilter
   respuestasNota?: Prisma.RespuestaNotaListRelationFilter
@@ -339,6 +342,7 @@ export type UserCreateInput = {
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
@@ -360,6 +364,7 @@ export type UserUncheckedCreateInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
@@ -380,6 +385,7 @@ export type UserUpdateInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
@@ -401,6 +407,7 @@ export type UserUncheckedUpdateInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
@@ -714,6 +721,20 @@ export type UserUpdateOneWithoutRespuestasNotaNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRespuestasNotaInput, Prisma.UserUpdateWithoutRespuestasNotaInput>, Prisma.UserUncheckedUpdateWithoutRespuestasNotaInput>
 }
 
+export type UserCreateNestedOneWithoutIntegracionGoogleInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutIntegracionGoogleInput, Prisma.UserUncheckedCreateWithoutIntegracionGoogleInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutIntegracionGoogleInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutIntegracionGoogleNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutIntegracionGoogleInput, Prisma.UserUncheckedCreateWithoutIntegracionGoogleInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutIntegracionGoogleInput
+  upsert?: Prisma.UserUpsertWithoutIntegracionGoogleInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutIntegracionGoogleInput, Prisma.UserUpdateWithoutIntegracionGoogleInput>, Prisma.UserUncheckedUpdateWithoutIntegracionGoogleInput>
+}
+
 export type UserCreateWithoutRolInput = {
   name: string
   user: string
@@ -728,6 +749,7 @@ export type UserCreateWithoutRolInput = {
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
@@ -748,6 +770,7 @@ export type UserUncheckedCreateWithoutRolInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
@@ -806,6 +829,7 @@ export type UserCreateWithoutProyectosDisenadosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
@@ -826,6 +850,7 @@ export type UserUncheckedCreateWithoutProyectosDisenadosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
@@ -850,6 +875,7 @@ export type UserCreateWithoutProyectosDesarrolladosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
@@ -870,6 +896,7 @@ export type UserUncheckedCreateWithoutProyectosDesarrolladosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
@@ -905,6 +932,7 @@ export type UserUpdateWithoutProyectosDisenadosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
@@ -925,6 +953,7 @@ export type UserUncheckedUpdateWithoutProyectosDisenadosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
@@ -955,6 +984,7 @@ export type UserUpdateWithoutProyectosDesarrolladosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
@@ -975,6 +1005,7 @@ export type UserUncheckedUpdateWithoutProyectosDesarrolladosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
@@ -994,6 +1025,7 @@ export type UserCreateWithoutCambiosDeEtapaInput = {
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
@@ -1014,6 +1046,7 @@ export type UserUncheckedCreateWithoutCambiosDeEtapaInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
@@ -1049,6 +1082,7 @@ export type UserUpdateWithoutCambiosDeEtapaInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
@@ -1069,6 +1103,7 @@ export type UserUncheckedUpdateWithoutCambiosDeEtapaInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
@@ -1088,6 +1123,7 @@ export type UserCreateWithoutRecordatoriosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
@@ -1108,6 +1144,7 @@ export type UserUncheckedCreateWithoutRecordatoriosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
@@ -1143,6 +1180,7 @@ export type UserUpdateWithoutRecordatoriosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
@@ -1163,6 +1201,7 @@ export type UserUncheckedUpdateWithoutRecordatoriosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
@@ -1182,6 +1221,7 @@ export type UserCreateWithoutCotizacionesInput = {
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
@@ -1202,6 +1242,7 @@ export type UserUncheckedCreateWithoutCotizacionesInput = {
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
@@ -1237,6 +1278,7 @@ export type UserUpdateWithoutCotizacionesInput = {
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
@@ -1257,6 +1299,7 @@ export type UserUncheckedUpdateWithoutCotizacionesInput = {
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
@@ -1276,6 +1319,7 @@ export type UserCreateWithoutProyectosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
@@ -1296,6 +1340,7 @@ export type UserUncheckedCreateWithoutProyectosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
@@ -1331,6 +1376,7 @@ export type UserUpdateWithoutProyectosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
@@ -1351,6 +1397,7 @@ export type UserUncheckedUpdateWithoutProyectosInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
@@ -1370,6 +1417,7 @@ export type UserCreateWithoutNotificacionesInput = {
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
@@ -1390,6 +1438,7 @@ export type UserUncheckedCreateWithoutNotificacionesInput = {
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
@@ -1425,6 +1474,7 @@ export type UserUpdateWithoutNotificacionesInput = {
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
@@ -1445,6 +1495,7 @@ export type UserUncheckedUpdateWithoutNotificacionesInput = {
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
@@ -1464,6 +1515,7 @@ export type UserCreateWithoutReunionesCreadasInput = {
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
@@ -1484,6 +1536,7 @@ export type UserUncheckedCreateWithoutReunionesCreadasInput = {
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
@@ -1519,6 +1572,7 @@ export type UserUpdateWithoutReunionesCreadasInput = {
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
@@ -1539,6 +1593,7 @@ export type UserUncheckedUpdateWithoutReunionesCreadasInput = {
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
@@ -1559,6 +1614,7 @@ export type UserCreateWithoutReunionesInput = {
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
 }
@@ -1579,6 +1635,7 @@ export type UserUncheckedCreateWithoutReunionesInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
 }
@@ -1614,6 +1671,7 @@ export type UserUpdateWithoutReunionesInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
 }
@@ -1634,6 +1692,7 @@ export type UserUncheckedUpdateWithoutReunionesInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
 }
@@ -1653,6 +1712,7 @@ export type UserCreateWithoutNotasEnviadasInput = {
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
 }
@@ -1673,6 +1733,7 @@ export type UserUncheckedCreateWithoutNotasEnviadasInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
 }
@@ -1708,6 +1769,7 @@ export type UserUpdateWithoutNotasEnviadasInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
 }
@@ -1728,6 +1790,7 @@ export type UserUncheckedUpdateWithoutNotasEnviadasInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
 }
@@ -1747,6 +1810,7 @@ export type UserCreateWithoutRespuestasNotaInput = {
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
 }
@@ -1767,6 +1831,7 @@ export type UserUncheckedCreateWithoutRespuestasNotaInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
   reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
   reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
 }
@@ -1802,6 +1867,7 @@ export type UserUpdateWithoutRespuestasNotaInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
 }
@@ -1822,8 +1888,107 @@ export type UserUncheckedUpdateWithoutRespuestasNotaInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
+}
+
+export type UserCreateWithoutIntegracionGoogleInput = {
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  email?: string | null
+  rol: Prisma.RolCreateNestedOneWithoutUsersInput
+  proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
+  notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
+  reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
+  notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
+  respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
+}
+
+export type UserUncheckedCreateWithoutIntegracionGoogleInput = {
+  id?: number
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  roleId: number
+  email?: string | null
+  proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
+  notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
+  reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
+  notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
+  respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
+}
+
+export type UserCreateOrConnectWithoutIntegracionGoogleInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutIntegracionGoogleInput, Prisma.UserUncheckedCreateWithoutIntegracionGoogleInput>
+}
+
+export type UserUpsertWithoutIntegracionGoogleInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutIntegracionGoogleInput, Prisma.UserUncheckedUpdateWithoutIntegracionGoogleInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutIntegracionGoogleInput, Prisma.UserUncheckedCreateWithoutIntegracionGoogleInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutIntegracionGoogleInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutIntegracionGoogleInput, Prisma.UserUncheckedUpdateWithoutIntegracionGoogleInput>
+}
+
+export type UserUpdateWithoutIntegracionGoogleInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
+  proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
+  notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
+  reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
+  notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
+  respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutIntegracionGoogleInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
+  notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
+  reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
+  notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
+  respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
 }
 
 export type UserCreateManyRolInput = {
@@ -1849,6 +2014,7 @@ export type UserUpdateWithoutRolInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
@@ -1869,6 +2035,7 @@ export type UserUncheckedUpdateWithoutRolInput = {
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
   reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
   reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
@@ -2021,6 +2188,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   cotizaciones?: boolean | Prisma.User$cotizacionesArgs<ExtArgs>
   notificaciones?: boolean | Prisma.User$notificacionesArgs<ExtArgs>
   reunionesCreadas?: boolean | Prisma.User$reunionesCreadasArgs<ExtArgs>
+  integracionGoogle?: boolean | Prisma.User$integracionGoogleArgs<ExtArgs>
   reuniones?: boolean | Prisma.User$reunionesArgs<ExtArgs>
   notasEnviadas?: boolean | Prisma.User$notasEnviadasArgs<ExtArgs>
   respuestasNota?: boolean | Prisma.User$respuestasNotaArgs<ExtArgs>
@@ -2070,6 +2238,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   cotizaciones?: boolean | Prisma.User$cotizacionesArgs<ExtArgs>
   notificaciones?: boolean | Prisma.User$notificacionesArgs<ExtArgs>
   reunionesCreadas?: boolean | Prisma.User$reunionesCreadasArgs<ExtArgs>
+  integracionGoogle?: boolean | Prisma.User$integracionGoogleArgs<ExtArgs>
   reuniones?: boolean | Prisma.User$reunionesArgs<ExtArgs>
   notasEnviadas?: boolean | Prisma.User$notasEnviadasArgs<ExtArgs>
   respuestasNota?: boolean | Prisma.User$respuestasNotaArgs<ExtArgs>
@@ -2094,6 +2263,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     cotizaciones: Prisma.$CotizacionAdicionalPayload<ExtArgs>[]
     notificaciones: Prisma.$NotificacionPayload<ExtArgs>[]
     reunionesCreadas: Prisma.$ReunionPayload<ExtArgs>[]
+    integracionGoogle: Prisma.$IntegracionGooglePayload<ExtArgs> | null
     reuniones: Prisma.$ReunionUsuarioPayload<ExtArgs>[]
     notasEnviadas: Prisma.$NotaAdminPayload<ExtArgs>[]
     respuestasNota: Prisma.$RespuestaNotaPayload<ExtArgs>[]
@@ -2514,6 +2684,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   cotizaciones<T extends Prisma.User$cotizacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cotizacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CotizacionAdicionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notificaciones<T extends Prisma.User$notificacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificacionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reunionesCreadas<T extends Prisma.User$reunionesCreadasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reunionesCreadasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReunionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  integracionGoogle<T extends Prisma.User$integracionGoogleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$integracionGoogleArgs<ExtArgs>>): Prisma.Prisma__IntegracionGoogleClient<runtime.Types.Result.GetResult<Prisma.$IntegracionGooglePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   reuniones<T extends Prisma.User$reunionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reunionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReunionUsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notasEnviadas<T extends Prisma.User$notasEnviadasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notasEnviadasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotaAdminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   respuestasNota<T extends Prisma.User$respuestasNotaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$respuestasNotaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RespuestaNotaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3143,6 +3314,25 @@ export type User$reunionesCreadasArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.ReunionScalarFieldEnum | Prisma.ReunionScalarFieldEnum[]
+}
+
+/**
+ * User.integracionGoogle
+ */
+export type User$integracionGoogleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IntegracionGoogle
+   */
+  select?: Prisma.IntegracionGoogleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IntegracionGoogle
+   */
+  omit?: Prisma.IntegracionGoogleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IntegracionGoogleInclude<ExtArgs> | null
+  where?: Prisma.IntegracionGoogleWhereInput
 }
 
 /**
