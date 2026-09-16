@@ -1,6 +1,9 @@
 import {
+  BadGatewayException,
   BadRequestException,
+  ConflictException,
   ForbiddenException,
+  HttpException,
   Injectable,
   Logger,
   NotFoundException,
@@ -9,6 +12,19 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../../lib/prisma/prisma.service';
 import { ROLES_ADMINISTRACION } from '../auth/decorators/roles.decorator';
 import { NotificacionesService } from '../notificaciones/notificaciones.service';
+import { GoogleService } from '../google/google.service';
+import {
+  actualizarEvento,
+  borrarEvento,
+  configurarGrabacion,
+  crearEvento,
+  ErrorDeGoogle,
+} from '../google/google.cliente';
+import {
+  cambiaElEvento,
+  codigoDeMeet,
+  eventoDesdeReunion,
+} from '../google/evento.reglas';
 import { Prisma, TipoNotificacion } from '../../lib/generated/prisma/client';
 import { CreateReunionDto } from './dto/create-reunion.dto';
 import { UpdateReunionDto } from './dto/update-reunion.dto';
@@ -39,6 +55,16 @@ export type ReunionCompleta = Omit<ReunionConRelaciones, 'participantes'> & {
   participantes: ReunionConRelaciones['participantes'][number]['usuario'][];
 };
 
+/**
+ * Cómo quedó el evento de Google después de editar la reunión. `undefined`
+ * cuando la reunión no estaba en Google.
+ */
+export type SincronizacionGoogle = 'actualizada' | 'sin_cambios' | 'error';
+
+/** Qué pasó con la grabación al enviar al Calendar. */
+export type EstadoDeGrabacion =
+  'activada' | 'desactivada' | 'no_disponible' | 'sin_meet';
+
 const FORMATO_FECHA = new Intl.DateTimeFormat('es-PE', {
   dateStyle: 'full',
   timeStyle: 'short',
@@ -56,6 +82,7 @@ export class ReunionesService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly notificaciones: NotificacionesService,
+    private readonly google: GoogleService,
   ) {}
 
   async create(
@@ -80,6 +107,8 @@ export class ReunionesService {
         // recordatorio: se marca como avisada para que la tarea programada no
         // la vuelva a anunciar un minuto después.
         avisoPrevioAt: naceDentroDeLaVentana(fecha, ahora) ? ahora : null,
+        // Encendida salvo que quien agenda la apague: pesa recién al enviar.
+        grabarReunion: dto.grabarReunion ?? true,
         proyectoId: dto.proyectoId ?? null,
         creadorId: creadorId ?? null,
         participantes: {
@@ -164,7 +193,7 @@ export class ReunionesService {
     id: number,
     dto: UpdateReunionDto,
     actorId?: number,
-  ): Promise<ReunionCompleta> {
+  ): Promise<ReunionCompleta & { google?: SincronizacionGoogle }> {
     const actual = await this.findOne(id);
     await this.verificarPuedeEditar(actual, actorId);
 
@@ -231,14 +260,172 @@ export class ReunionesService {
       proyectoId: reunion.proyectoId,
     });
 
-    return this.aplanar(reunion);
+    const actualizada = this.aplanar(reunion);
+    const google = await this.sincronizarEdicion(actual, actualizada);
+
+    return google === undefined ? actualizada : { ...actualizada, google };
   }
 
+  /**
+   * Borrar una reunión que ya está en Google cancela primero el evento, que es
+   * lo que les avisa a los invitados. Si Google no responde, la reunión **no**
+   * se borra: quedaría un evento huérfano con invitaciones vivas y sin nada
+   * en el sistema que lo recuerde.
+   */
   async remove(id: number, actorId?: number): Promise<ReunionCompleta> {
     const reunion = await this.findOne(id);
     await this.verificarPuedeEditar(reunion, actorId);
+
+    if (reunion.googleEventId) {
+      await this.cancelarEnGoogle(reunion.googleEventId);
+    }
+
     await this.prisma.reunion.delete({ where: { id } });
     return reunion;
+  }
+
+  /**
+   * **ENVIAR AL CALENDAR.** Crea el evento con la cuenta conectada de
+   * administración: Google genera el Meet y manda las invitaciones. Después se
+   * deja el Meet grabando y transcribiendo según la casilla de la reunión.
+   *
+   * No se envía dos veces: si otra petición la marcó mientras tanto, el
+   * evento recién creado se borra para no dejar un duplicado.
+   */
+  async enviarAlCalendar(
+    id: number,
+  ): Promise<ReunionCompleta & { grabacion: EstadoDeGrabacion }> {
+    const reunion = await this.findOne(id);
+
+    if (reunion.googleEventId) {
+      throw new ConflictException('Esta reunión ya está en Google Calendar');
+    }
+
+    const { creado, grabacion } = await this.google.conAccessToken(
+      async (token) => {
+        const creado = await crearEvento(token, eventoDesdeReunion(reunion));
+
+        let grabacion: EstadoDeGrabacion = 'sin_meet';
+        if (creado.codigoMeet) {
+          try {
+            await configurarGrabacion(
+              token,
+              creado.codigoMeet,
+              reunion.grabarReunion,
+            );
+            grabacion = reunion.grabarReunion ? 'activada' : 'desactivada';
+          } catch (error) {
+            // El evento y el Meet ya existen: que la grabación no se pueda
+            // configurar no deshace el envío, se avisa en la respuesta.
+            this.logger.warn(
+              `No se pudo configurar la grabación de la reunión ${id}: ${String(error)}`,
+            );
+            grabacion = 'no_disponible';
+          }
+        }
+
+        return { creado, grabacion };
+      },
+    );
+
+    const marcada = await this.prisma.reunion.updateMany({
+      where: { id, googleEventId: null },
+      data: {
+        googleEventId: creado.eventId,
+        enviadaAt: new Date(),
+        ...(creado.linkMeet ? { linkMeet: creado.linkMeet } : {}),
+      },
+    });
+
+    if (marcada.count === 0) {
+      await this.google
+        .conAccessToken((token) => borrarEvento(token, creado.eventId))
+        .catch((error) =>
+          this.logger.error(
+            `Quedó un evento duplicado en Google (${creado.eventId}) para la reunión ${id}`,
+            error instanceof Error ? error.stack : String(error),
+          ),
+        );
+      throw new ConflictException(
+        'Esta reunión ya se estaba enviando a Google Calendar',
+      );
+    }
+
+    const enviada = await this.findOne(id);
+
+    // Si el link es nuevo, los convocados se enteran también por el sistema.
+    if (creado.linkMeet && creado.linkMeet !== reunion.linkMeet) {
+      await this.notificaciones.notificar(
+        enviada.participantes.map((u) => u.id),
+        {
+          tipo: TipoNotificacion.ReunionProgramada,
+          titulo: 'Ya está el link de la reunión',
+          mensaje: this.describir(enviada),
+          proyectoId: enviada.proyectoId,
+        },
+      );
+    }
+
+    return { ...enviada, grabacion };
+  }
+
+  /**
+   * Lleva la edición al evento de Google, si la reunión ya estaba allá. Un
+   * fallo no deshace la edición en el sistema: se informa para que se pueda
+   * corregir en Calendar.
+   */
+  private async sincronizarEdicion(
+    antes: ReunionCompleta,
+    despues: ReunionCompleta,
+  ): Promise<SincronizacionGoogle | undefined> {
+    const eventId = despues.googleEventId;
+    if (!eventId) return undefined;
+
+    const cambiaEvento = cambiaElEvento(antes, despues);
+    const cambiaGrabacion = antes.grabarReunion !== despues.grabarReunion;
+    if (!cambiaEvento && !cambiaGrabacion) return 'sin_cambios';
+
+    try {
+      await this.google.conAccessToken(async (token) => {
+        if (cambiaEvento) {
+          await actualizarEvento(token, eventId, eventoDesdeReunion(despues));
+        }
+        const codigo = codigoDeMeet(despues.linkMeet);
+        if (cambiaGrabacion && codigo) {
+          await configurarGrabacion(token, codigo, despues.grabarReunion);
+        }
+      });
+      return 'actualizada';
+    } catch (error) {
+      this.logger.warn(
+        `No se pudo actualizar en Google la reunión ${despues.id}: ${String(error)}`,
+      );
+      return 'error';
+    }
+  }
+
+  private async cancelarEnGoogle(eventId: string): Promise<void> {
+    try {
+      await this.google.conAccessToken((token) => borrarEvento(token, eventId));
+    } catch (error) {
+      // Ya no existe en Google (lo borraron desde Calendar): no hay nada que cancelar.
+      if (
+        error instanceof ErrorDeGoogle &&
+        (error.estado === 404 || error.estado === 410)
+      ) {
+        return;
+      }
+
+      if (error instanceof HttpException) {
+        throw new ConflictException(
+          'Esta reunión está en Google Calendar y ahora no hay acceso para cancelarla ahí. Reconecta Google desde Reuniones, o cancela el evento en Calendar y vuelve a intentarlo.',
+        );
+      }
+
+      throw new BadGatewayException(
+        'No pudimos cancelar el evento en Google Calendar. Intenta de nuevo en un momento.',
+      );
+    }
   }
 
   /**
@@ -296,7 +483,12 @@ export class ReunionesService {
 
   // ---------------------------------------------------------------------------
 
-  private describir(reunion: ReunionConRelaciones): string {
+  private describir(
+    reunion: Pick<
+      ReunionCompleta,
+      'titulo' | 'fecha' | 'linkMeet' | 'proyecto'
+    >,
+  ): string {
     const cuando = FORMATO_FECHA.format(reunion.fecha);
     const proyecto = reunion.proyecto ? ` (${reunion.proyecto.name})` : '';
     // Sin link todavía: la agendó alguien sin Workspace y administración

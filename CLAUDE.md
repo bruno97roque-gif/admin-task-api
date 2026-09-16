@@ -101,6 +101,19 @@ Tres módulos nuevos, migración **aditiva** `20260907120000_notificaciones_reun
 - **`/notas`**: `POST` (el autor tiene que estar asignado al proyecto: `disenadorId`, `desarrolladorId` o el join, si no **409**) y `GET /mias` para cualquier logueado; `GET`, `PATCH /:id/leer`, `DELETE /:id` solo administración. Crear una nota notifica a administración con un resumen de 120 caracteres.
 - Los tres controllers siguen el patrón «segmento fijo antes de `:id`» (`leer-todas`, `mias`). Conteo de rutas al arrancar: **68** (14 nuevas).
 
+### Integración con Google Calendar / Meet (`feature/google`)
+
+Migración **aditiva** `20260909120000_integracion_google_calendar`: columnas `reuniones.google_event_id`, `enviada_at`, `grabar_reunion` (default `true`) y tabla `integraciones_google`. **Hay que aplicarla en Railway antes de mergear.**
+
+- **Una sola cuenta de Google para todo el sistema**, la de administración (Workspace de `websy.com.pe`). La conecta un Admin/Owner desde Reuniones; se usa la última conectada (`conexionActual()`). Todo lo que se crea en Google figura como creado por esa cuenta.
+- **OAuth a mano con `fetch`** (`google.cliente.ts`), sin `googleapis`: evita otra dependencia y el lío de `allowBuilds`. Scopes: `calendar.events`, `meetings.space.settings`, `userinfo.email`; `access_type=offline&prompt=consent` para que siempre vuelva un refresh token.
+- **El refresh token se guarda cifrado** (AES-256-GCM, `cripto.ts`) con `GOOGLE_TOKEN_SECRET`. Cambiar esa variable deja lo guardado ilegible: `conAccessToken()` responde 409 pidiendo reconectar. El access token no se guarda; se pide uno fresco en cada operación.
+- **El `state` de OAuth se firma con un secreto derivado de `GOOGLE_TOKEN_SECRET`, no con `JWT_SECRET`**: viaja en la URL y, firmado con el de sesiones, el guard global lo aceptaría como token de acceso. `GET /integraciones/google/callback` es `@Public()`, valida firma/vigencia (10 min)/propósito y que quien lo pidió siga siendo administración, y redirige a `${primer CORS_ORIGIN}/reuniones?google=conectado|cancelado|vencido|error`.
+- Rutas: `GET /integraciones/google/estado`, `POST /integraciones/google/conexion` (devuelve `{ url }`), `DELETE /integraciones/google` (revoca en Google y borra; si Google no responde, borra igual) — las tres solo administración — y el callback.
+- **Enviar al Calendar es manual**: `POST /reuniones/:id/enviar-calendar` (solo administración) crea el evento con Meet (`conferenceDataVersion=1`, `sendUpdates=all`, 60 min, hora de Lima), guarda `googleEventId`/`enviadaAt`/`linkMeet` con un `updateMany` que exige `googleEventId: null` (si pierde la carrera borra el evento recién creado y responde 409) y, si `grabarReunion`, enciende grabación y transcripción por la API de Meet (`spaces/{codigo}`). Devuelve la reunión más `grabacion: activada|desactivada|no_disponible|sin_meet`; que la grabación falle no tumba el envío.
+- **Editar una reunión ya enviada actualiza el evento** solo si cambia algo que el evento muestra (`cambiaElEvento`: título, descripción, horario, invitados). La respuesta del `PATCH` suma `google: actualizada|sin_cambios|error`; un error de Google no revierte la edición. **Borrarla borra primero el evento** (404/410 cuentan como ya borrado); si Google falla, no se borra la reunión.
+- Las decisiones puras están en `evento.reglas.ts` con su spec.
+
 ## Commands
 
 ```bash
@@ -153,6 +166,10 @@ Booting also exercises the config wiring: `JWT_SECRET` and `JWT_REFRESH_SECRET` 
 | `SWAGGER_ENABLED` | no | solo `false` apaga la documentación; cualquier otro valor (o ausente) la deja publicada en `/docs` |
 | `NODE_ENV` | no | `production` switches the refresh cookie to `SameSite=None; Secure` |
 | `DISCORD_WEBHOOK_URL` | no | unset = feature apagado (`NotificacionesService.enviarDiscord` es no-op). Manda notificaciones para 3 eventos: proyecto archivado, proyecto llega a una etapa Finalizado, cobro marcado como cobrado |
+| `GOOGLE_CLIENT_ID` | no | con las cuatro `GOOGLE_*` la integración se enciende; con alguna faltando, sus rutas responden 503 |
+| `GOOGLE_CLIENT_SECRET` | no | del cliente OAuth «Aplicación web» de Google Cloud |
+| `GOOGLE_REDIRECT_URI` | no | `https://<api>/integraciones/google/callback`, idéntica a la registrada en Google Cloud |
+| `GOOGLE_TOKEN_SECRET` | no | clave para cifrar el refresh token y firmar el `state`; cambiarla obliga a reconectar |
 
 ## Architecture
 

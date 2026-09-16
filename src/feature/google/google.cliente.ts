@@ -174,6 +174,19 @@ export async function renovarAccessToken(
   return datos.access_token;
 }
 
+/**
+ * Le avisa a Google que el acceso ya no se usa. Revocar el refresh token
+ * invalida también los access tokens que salieron de él. Es buena higiene al
+ * desconectar, no una condición: si falla, el token se borra igual de la base.
+ */
+export async function revocarToken(token: string): Promise<void> {
+  await pedir('https://oauth2.googleapis.com/revoke', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ token }),
+  });
+}
+
 export async function correoDeLaCuenta(accessToken: string): Promise<string> {
   const datos = await pedir<{ email?: string }>(USERINFO, {
     headers: { Authorization: `Bearer ${accessToken}` },

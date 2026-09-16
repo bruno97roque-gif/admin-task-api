@@ -46,8 +46,32 @@ export class ReunionRespuestaDto {
   @ApiProperty({ example: '2026-09-10T15:00:00.000Z' })
   fecha: Date;
 
-  @ApiProperty({ example: 'https://meet.google.com/abc-defg-hij' })
+  @ApiProperty({
+    example: 'https://meet.google.com/abc-defg-hij',
+    description: 'Cadena vacía mientras no haya link.',
+  })
   linkMeet: string;
+
+  @ApiProperty({
+    example: true,
+    description: 'Si el Meet arranca grabando y transcribiendo.',
+  })
+  grabarReunion: boolean;
+
+  @ApiProperty({
+    nullable: true,
+    example: 'abc123def456',
+    description:
+      'Id del evento en Google Calendar. `null` mientras no se haya enviado.',
+  })
+  googleEventId: string | null;
+
+  @ApiProperty({
+    nullable: true,
+    example: '2026-09-09T15:00:00.000Z',
+    description: 'Cuándo administración la envió a Google Calendar.',
+  })
+  enviadaAt: Date | null;
 
   @ApiProperty({ nullable: true, example: 12 })
   proyectoId: number | null;

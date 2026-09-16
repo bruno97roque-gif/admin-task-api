@@ -3,6 +3,7 @@ import {
   ArrayNotEmpty,
   ArrayUnique,
   IsArray,
+  IsBoolean,
   IsInt,
   IsISO8601,
   IsNotEmpty,
@@ -55,6 +56,16 @@ export class CreateReunionDto {
       'linkMeet debe ser un enlace de Google Meet (https://meet.google.com/...)',
   })
   linkMeet?: string | null;
+
+  @ApiPropertyOptional({
+    description:
+      'Si el Meet arranca grabando y transcribiendo cuando administración la envía a Google Calendar. Por defecto, sí.',
+    example: true,
+    default: true,
+  })
+  @IsOptional()
+  @IsBoolean()
+  grabarReunion?: boolean;
 
   @ApiPropertyOptional({
     description: 'Proyecto al que pertenece la reunión, si corresponde.',

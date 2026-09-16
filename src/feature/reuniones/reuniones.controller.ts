@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   ParseIntPipe,
   Patch,
@@ -11,6 +12,7 @@ import {
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
+  ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
@@ -85,6 +87,26 @@ export class ReunionesController {
   @ApiOkResponse({ type: ReunionRespuestaDto, isArray: true })
   findMias(@UsuarioActual('sub') usuarioId: number) {
     return this.reuniones.findMias(usuarioId);
+  }
+
+  @Roles(...ROLES_ADMINISTRACION)
+  @Post(':id/enviar-calendar')
+  @HttpCode(200)
+  @ApiOperation({
+    summary: 'Enviar la reunión a Google Calendar',
+    description:
+      'Solo administración. Crea el evento con la cuenta de Google conectada: Google genera el Meet y manda las invitaciones a los convocados con correo. El link queda guardado en la reunión, y el Meet arranca grabando y transcribiendo si la reunión lo pide. `grabacion` dice cómo quedó eso.',
+  })
+  @ApiParam({ name: 'id', description: 'Id de la reunión.', example: 1 })
+  @ApiOkResponse({ type: ReunionRespuestaDto })
+  @ApiNotFoundResponse({ description: 'No existe esa reunión.' })
+  @ApiConflictResponse({
+    description:
+      'Ya está en Google Calendar, o Google no está conectado (o rechazó el acceso guardado).',
+  })
+  @ApiForbiddenResponse({ description: 'Solo administración.' })
+  enviarAlCalendar(@Param('id', ParseIntPipe) id: number) {
+    return this.reuniones.enviarAlCalendar(id);
   }
 
   @Get(':id')

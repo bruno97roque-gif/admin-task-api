@@ -29,6 +29,7 @@ export const TAGS = {
   notificaciones: 'Notificaciones',
   reuniones: 'Reuniones',
   notas: 'Tickets de soporte',
+  integraciones: 'Integraciones · Google',
 } as const;
 
 const DESCRIPCION = `
