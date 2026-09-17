@@ -45,6 +45,10 @@ import {
   transicionInvalida,
   validarPlanDeCobros,
 } from './reglas/flujo.reglas';
+import {
+  cambioDeEquipo,
+  motivoDeResponsables,
+} from './reglas/responsables.reglas';
 
 const usuarioResumen = {
   select: { id: true, name: true, user: true, roleId: true },
@@ -801,6 +805,25 @@ export class ProjectsService {
     // El grupo se recalcula solo; mandarlo explícito es la salida manual.
     const grupoNuevo = data.grupo ?? this.grupoDe(situacion);
 
+    // Si cambian los responsables, el equipo se acomoda igual que en
+    // `asignarResponsables`: sale el anterior y entra el nuevo. Antes este
+    // camino solo cambiaba la columna y el anterior quedaba colgado en el
+    // equipo (y en su tablero). Una lista explícita de `usuariosIds` manda.
+    const responsablesAntes = {
+      disenadorId: actual.disenadorId,
+      desarrolladorId: actual.desarrolladorId,
+    };
+    const responsablesDespues = {
+      disenadorId:
+        data.disenadorId !== undefined ? data.disenadorId : actual.disenadorId,
+      desarrolladorId:
+        data.desarrolladorId !== undefined
+          ? data.desarrolladorId
+          : actual.desarrolladorId,
+    };
+    const equipo = cambioDeEquipo(responsablesAntes, responsablesDespues);
+    const sincronizarEquipo = equipo.cambia && usuariosIds === undefined;
+
     const ahora = new Date();
 
     const proyecto = await this.prisma.$transaction(async (tx) => {
@@ -827,6 +850,24 @@ export class ProjectsService {
           }),
         },
       });
+
+      if (sincronizarEquipo) {
+        await this.acomodarEquipo(tx, id, equipo);
+        await tx.historialEtapa.create({
+          data: {
+            proyectoId: id,
+            estadoAnterior: actual.estadoProyecto,
+            estadoNuevo: actual.estadoProyecto,
+            grupoAnterior: actual.grupo,
+            grupoNuevo: actual.grupo,
+            motivo: motivoDeResponsables(
+              responsablesAntes,
+              responsablesDespues,
+            ),
+            usuarioId: actorId ?? null,
+          },
+        });
+      }
 
       if (cambiaDeEstado || grupoNuevo !== actual.grupo) {
         await tx.historialEtapa.create({
@@ -1480,17 +1521,15 @@ export class ProjectsService {
 
     // Sin early return aunque los responsables no cambien: la ruta también
     // sirve para reparar un join que quedó desfasado de las columnas.
-
-    // Los que quedan como responsables no se sacan del equipo aunque estuvieran
-    // ocupando el otro puesto (el mismo usuario puede ser los dos).
-    const quedan = [disenadorNuevo, desarrolladorNuevo].filter(
-      (usuarioId): usuarioId is number => typeof usuarioId === 'number',
-    );
-
-    const salen = [actual.disenadorId, actual.desarrolladorId].filter(
-      (usuarioId): usuarioId is number =>
-        typeof usuarioId === 'number' && !quedan.includes(usuarioId),
-    );
+    const antes = {
+      disenadorId: actual.disenadorId,
+      desarrolladorId: actual.desarrolladorId,
+    };
+    const despues = {
+      disenadorId: disenadorNuevo,
+      desarrolladorId: desarrolladorNuevo,
+    };
+    const equipo = cambioDeEquipo(antes, despues);
 
     await this.prisma.$transaction(async (tx) => {
       await tx.proyecto.update({
@@ -1501,18 +1540,7 @@ export class ProjectsService {
         },
       });
 
-      if (salen.length > 0) {
-        await tx.usuarioProyecto.deleteMany({
-          where: { proyectoId: id, usuarioId: { in: salen } },
-        });
-      }
-
-      if (quedan.length > 0) {
-        await tx.usuarioProyecto.createMany({
-          data: quedan.map((usuarioId) => ({ proyectoId: id, usuarioId })),
-          skipDuplicates: true,
-        });
-      }
+      await this.acomodarEquipo(tx, id, equipo);
 
       await tx.historialEtapa.create({
         data: {
@@ -1521,9 +1549,7 @@ export class ProjectsService {
           estadoNuevo: actual.estadoProyecto,
           grupoAnterior: actual.grupo,
           grupoNuevo: actual.grupo,
-          motivo:
-            dto.motivo ??
-            `Responsables: diseñador ${actual.disenadorId ?? '—'} → ${disenadorNuevo ?? '—'}, desarrollador ${actual.desarrolladorId ?? '—'} → ${desarrolladorNuevo ?? '—'}`,
+          motivo: dto.motivo ?? motivoDeResponsables(antes, despues),
           usuarioId: actorId ?? null,
         },
       });
@@ -1536,6 +1562,28 @@ export class ProjectsService {
     await this.notificarAsignaciones(actual, proyecto);
 
     return proyecto;
+  }
+
+  /**
+   * Deja el equipo acorde a los responsables: saca a los que dejaron de serlo
+   * y engancha a los nuevos. Al resto del equipo no lo toca.
+   */
+  private async acomodarEquipo(
+    tx: Prisma.TransactionClient,
+    proyectoId: number,
+    equipo: ReturnType<typeof cambioDeEquipo>,
+  ): Promise<void> {
+    if (equipo.salen.length > 0) {
+      await tx.usuarioProyecto.deleteMany({
+        where: { proyectoId, usuarioId: { in: equipo.salen } },
+      });
+    }
+    if (equipo.quedan.length > 0) {
+      await tx.usuarioProyecto.createMany({
+        data: equipo.quedan.map((usuarioId) => ({ proyectoId, usuarioId })),
+        skipDuplicates: true,
+      });
+    }
   }
 
   async asignarUsuarios(
