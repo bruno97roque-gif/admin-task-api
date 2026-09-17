@@ -11,13 +11,15 @@ export async function guardarContrasena(
   prisma: PrismaService,
   usuarioId: number,
   hash: string,
+  /** `true` si la puso administración: la persona tendrá que cambiarla. */
+  temporal: boolean,
 ): Promise<void> {
   const cuenta = { providerId: 'credential', accountId: String(usuarioId) };
 
   await prisma.$transaction([
     prisma.user.update({
       where: { id: usuarioId },
-      data: { password: hash },
+      data: { password: hash, debeCambiarContrasena: temporal },
     }),
     prisma.account.upsert({
       where: { providerId_accountId: cuenta },

@@ -1,7 +1,9 @@
 import { Global, Module } from '@nestjs/common';
 import { PrismaService } from '../../lib/prisma/prisma.service';
 import { Argon2Service } from '../../lib/argon2/argon2.service';
+import { NotificacionesModule } from '../notificaciones/notificaciones.module';
 import { AuthController } from './auth.controller';
+import { RecuperacionService } from './recuperacion.service';
 import { AUTH, crearAuth } from './better-auth';
 
 /**
@@ -10,8 +12,10 @@ import { AUTH, crearAuth } from './better-auth';
  */
 @Global()
 @Module({
+  imports: [NotificacionesModule],
   controllers: [AuthController],
   providers: [
+    RecuperacionService,
     {
       provide: AUTH,
       inject: [PrismaService, Argon2Service],

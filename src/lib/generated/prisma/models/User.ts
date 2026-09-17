@@ -43,6 +43,7 @@ export type UserMinAggregateOutputType = {
   active: boolean | null
   roleId: number | null
   email: string | null
+  debeCambiarContrasena: boolean | null
   emailVerified: boolean | null
   image: string | null
   createdAt: Date | null
@@ -57,6 +58,7 @@ export type UserMaxAggregateOutputType = {
   active: boolean | null
   roleId: number | null
   email: string | null
+  debeCambiarContrasena: boolean | null
   emailVerified: boolean | null
   image: string | null
   createdAt: Date | null
@@ -71,6 +73,7 @@ export type UserCountAggregateOutputType = {
   active: number
   roleId: number
   email: number
+  debeCambiarContrasena: number
   emailVerified: number
   image: number
   createdAt: number
@@ -97,6 +100,7 @@ export type UserMinAggregateInputType = {
   active?: true
   roleId?: true
   email?: true
+  debeCambiarContrasena?: true
   emailVerified?: true
   image?: true
   createdAt?: true
@@ -111,6 +115,7 @@ export type UserMaxAggregateInputType = {
   active?: true
   roleId?: true
   email?: true
+  debeCambiarContrasena?: true
   emailVerified?: true
   image?: true
   createdAt?: true
@@ -125,6 +130,7 @@ export type UserCountAggregateInputType = {
   active?: true
   roleId?: true
   email?: true
+  debeCambiarContrasena?: true
   emailVerified?: true
   image?: true
   createdAt?: true
@@ -226,6 +232,7 @@ export type UserGroupByOutputType = {
   active: boolean
   roleId: number
   email: string | null
+  debeCambiarContrasena: boolean
   emailVerified: boolean
   image: string | null
   createdAt: Date
@@ -263,6 +270,7 @@ export type UserWhereInput = {
   active?: Prisma.BoolFilter<"User"> | boolean
   roleId?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringNullableFilter<"User"> | string | null
+  debeCambiarContrasena?: Prisma.BoolFilter<"User"> | boolean
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -295,6 +303,7 @@ export type UserOrderByWithRelationInput = {
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
+  debeCambiarContrasena?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -330,6 +339,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   active?: Prisma.BoolFilter<"User"> | boolean
   roleId?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringNullableFilter<"User"> | string | null
+  debeCambiarContrasena?: Prisma.BoolFilter<"User"> | boolean
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -362,6 +372,7 @@ export type UserOrderByWithAggregationInput = {
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
+  debeCambiarContrasena?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -384,6 +395,7 @@ export type UserScalarWhereWithAggregatesInput = {
   active?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   roleId?: Prisma.IntWithAggregatesFilter<"User"> | number
   email?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  debeCambiarContrasena?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -396,6 +408,7 @@ export type UserCreateInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -428,6 +441,7 @@ export type UserUncheckedCreateInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -457,6 +471,7 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -489,6 +504,7 @@ export type UserUncheckedUpdateInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -520,6 +536,7 @@ export type UserCreateManyInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -532,6 +549,7 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -546,6 +564,7 @@ export type UserUncheckedUpdateManyInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -570,6 +589,7 @@ export type UserCountOrderByAggregateInput = {
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  debeCambiarContrasena?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -589,6 +609,7 @@ export type UserMaxOrderByAggregateInput = {
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  debeCambiarContrasena?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -603,6 +624,7 @@ export type UserMinOrderByAggregateInput = {
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  debeCambiarContrasena?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -940,6 +962,7 @@ export type UserCreateWithoutRolInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -970,6 +993,7 @@ export type UserUncheckedCreateWithoutRolInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1030,6 +1054,7 @@ export type UserScalarWhereInput = {
   active?: Prisma.BoolFilter<"User"> | boolean
   roleId?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringNullableFilter<"User"> | string | null
+  debeCambiarContrasena?: Prisma.BoolFilter<"User"> | boolean
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -1042,6 +1067,7 @@ export type UserCreateWithoutProyectosDisenadosInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1073,6 +1099,7 @@ export type UserUncheckedCreateWithoutProyectosDisenadosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1106,6 +1133,7 @@ export type UserCreateWithoutProyectosDesarrolladosInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1137,6 +1165,7 @@ export type UserUncheckedCreateWithoutProyectosDesarrolladosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1181,6 +1210,7 @@ export type UserUpdateWithoutProyectosDisenadosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1212,6 +1242,7 @@ export type UserUncheckedUpdateWithoutProyectosDisenadosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1251,6 +1282,7 @@ export type UserUpdateWithoutProyectosDesarrolladosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1282,6 +1314,7 @@ export type UserUncheckedUpdateWithoutProyectosDesarrolladosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1310,6 +1343,7 @@ export type UserCreateWithoutCambiosDeEtapaInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1341,6 +1375,7 @@ export type UserUncheckedCreateWithoutCambiosDeEtapaInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1385,6 +1420,7 @@ export type UserUpdateWithoutCambiosDeEtapaInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1416,6 +1452,7 @@ export type UserUncheckedUpdateWithoutCambiosDeEtapaInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1444,6 +1481,7 @@ export type UserCreateWithoutRecordatoriosInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1475,6 +1513,7 @@ export type UserUncheckedCreateWithoutRecordatoriosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1519,6 +1558,7 @@ export type UserUpdateWithoutRecordatoriosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1550,6 +1590,7 @@ export type UserUncheckedUpdateWithoutRecordatoriosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1578,6 +1619,7 @@ export type UserCreateWithoutCotizacionesInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1609,6 +1651,7 @@ export type UserUncheckedCreateWithoutCotizacionesInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1653,6 +1696,7 @@ export type UserUpdateWithoutCotizacionesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1684,6 +1728,7 @@ export type UserUncheckedUpdateWithoutCotizacionesInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1712,6 +1757,7 @@ export type UserCreateWithoutProyectosInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1743,6 +1789,7 @@ export type UserUncheckedCreateWithoutProyectosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1787,6 +1834,7 @@ export type UserUpdateWithoutProyectosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1818,6 +1866,7 @@ export type UserUncheckedUpdateWithoutProyectosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1846,6 +1895,7 @@ export type UserCreateWithoutNotificacionesInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1877,6 +1927,7 @@ export type UserUncheckedCreateWithoutNotificacionesInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -1921,6 +1972,7 @@ export type UserUpdateWithoutNotificacionesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1952,6 +2004,7 @@ export type UserUncheckedUpdateWithoutNotificacionesInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1980,6 +2033,7 @@ export type UserCreateWithoutReunionesCreadasInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2011,6 +2065,7 @@ export type UserUncheckedCreateWithoutReunionesCreadasInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2055,6 +2110,7 @@ export type UserUpdateWithoutReunionesCreadasInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2086,6 +2142,7 @@ export type UserUncheckedUpdateWithoutReunionesCreadasInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2114,6 +2171,7 @@ export type UserCreateWithoutReunionesInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2145,6 +2203,7 @@ export type UserUncheckedCreateWithoutReunionesInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2189,6 +2248,7 @@ export type UserUpdateWithoutReunionesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2220,6 +2280,7 @@ export type UserUncheckedUpdateWithoutReunionesInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2248,6 +2309,7 @@ export type UserCreateWithoutNotasEnviadasInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2279,6 +2341,7 @@ export type UserUncheckedCreateWithoutNotasEnviadasInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2323,6 +2386,7 @@ export type UserUpdateWithoutNotasEnviadasInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2354,6 +2418,7 @@ export type UserUncheckedUpdateWithoutNotasEnviadasInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2382,6 +2447,7 @@ export type UserCreateWithoutRespuestasNotaInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2413,6 +2479,7 @@ export type UserUncheckedCreateWithoutRespuestasNotaInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2457,6 +2524,7 @@ export type UserUpdateWithoutRespuestasNotaInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2488,6 +2556,7 @@ export type UserUncheckedUpdateWithoutRespuestasNotaInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2516,6 +2585,7 @@ export type UserCreateWithoutIntegracionGoogleInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2547,6 +2617,7 @@ export type UserUncheckedCreateWithoutIntegracionGoogleInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2591,6 +2662,7 @@ export type UserUpdateWithoutIntegracionGoogleInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2622,6 +2694,7 @@ export type UserUncheckedUpdateWithoutIntegracionGoogleInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2650,6 +2723,7 @@ export type UserCreateWithoutFotoPerfilInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2681,6 +2755,7 @@ export type UserUncheckedCreateWithoutFotoPerfilInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2725,6 +2800,7 @@ export type UserUpdateWithoutFotoPerfilInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2756,6 +2832,7 @@ export type UserUncheckedUpdateWithoutFotoPerfilInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2784,6 +2861,7 @@ export type UserCreateWithoutComunicadosCreadosInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2815,6 +2893,7 @@ export type UserUncheckedCreateWithoutComunicadosCreadosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2859,6 +2938,7 @@ export type UserUpdateWithoutComunicadosCreadosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2890,6 +2970,7 @@ export type UserUncheckedUpdateWithoutComunicadosCreadosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2918,6 +2999,7 @@ export type UserCreateWithoutComunicadosCerradosInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2949,6 +3031,7 @@ export type UserUncheckedCreateWithoutComunicadosCerradosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -2993,6 +3076,7 @@ export type UserUpdateWithoutComunicadosCerradosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3024,6 +3108,7 @@ export type UserUncheckedUpdateWithoutComunicadosCerradosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3052,6 +3137,7 @@ export type UserCreateWithoutSesionesInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -3083,6 +3169,7 @@ export type UserUncheckedCreateWithoutSesionesInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -3127,6 +3214,7 @@ export type UserUpdateWithoutSesionesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3158,6 +3246,7 @@ export type UserUncheckedUpdateWithoutSesionesInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3186,6 +3275,7 @@ export type UserCreateWithoutCuentasAccesoInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -3217,6 +3307,7 @@ export type UserUncheckedCreateWithoutCuentasAccesoInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -3261,6 +3352,7 @@ export type UserUpdateWithoutCuentasAccesoInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3292,6 +3384,7 @@ export type UserUncheckedUpdateWithoutCuentasAccesoInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3321,6 +3414,7 @@ export type UserCreateManyRolInput = {
   password: string
   active?: boolean
   email?: string | null
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
@@ -3333,6 +3427,7 @@ export type UserUpdateWithoutRolInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3363,6 +3458,7 @@ export type UserUncheckedUpdateWithoutRolInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3393,6 +3489,7 @@ export type UserUncheckedUpdateManyWithoutRolInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3564,6 +3661,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   active?: boolean
   roleId?: boolean
   email?: boolean
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
@@ -3597,6 +3695,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   active?: boolean
   roleId?: boolean
   email?: boolean
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
@@ -3612,6 +3711,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   active?: boolean
   roleId?: boolean
   email?: boolean
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
@@ -3627,13 +3727,14 @@ export type UserSelectScalar = {
   active?: boolean
   roleId?: boolean
   email?: boolean
+  debeCambiarContrasena?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "user" | "password" | "active" | "roleId" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "user" | "password" | "active" | "roleId" | "email" | "debeCambiarContrasena" | "emailVerified" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sesiones?: boolean | Prisma.User$sesionesArgs<ExtArgs>
   cuentasAcceso?: boolean | Prisma.User$cuentasAccesoArgs<ExtArgs>
@@ -3697,6 +3798,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
      * existían no lo tienen, y sin él simplemente no se lo invita.
      */
     email: string | null
+    /**
+     * La contraseña la puso administración (alta o reseteo): al entrar, la
+     * persona tiene que cambiarla antes de usar el sistema.
+     */
+    debeCambiarContrasena: boolean
     /**
      * No se verifican correos: el login es con usuario y contraseña.
      */
@@ -4155,6 +4261,7 @@ export interface UserFieldRefs {
   readonly active: Prisma.FieldRef<"User", 'Boolean'>
   readonly roleId: Prisma.FieldRef<"User", 'Int'>
   readonly email: Prisma.FieldRef<"User", 'String'>
+  readonly debeCambiarContrasena: Prisma.FieldRef<"User", 'Boolean'>
   readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>

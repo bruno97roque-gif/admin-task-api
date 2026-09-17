@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  ForbiddenException,
   Inject,
   Injectable,
   UnauthorizedException,
@@ -9,6 +10,7 @@ import { Reflector } from '@nestjs/core';
 import type { Request } from 'express';
 import { AUTH, type Auth } from '../better-auth';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
+import { PERMITIDO_CON_CAMBIO_PENDIENTE } from '../decorators/cambio-pendiente.decorator';
 import type { UsuarioSesion } from '../sesion.reglas';
 
 export interface RequestConUsuario extends Request {
@@ -64,6 +66,18 @@ export class SesionGuard implements CanActivate {
     }
     if (sesion.user.active === false) {
       throw new UnauthorizedException('El usuario está desactivado');
+    }
+
+    if (sesion.user.debeCambiarContrasena) {
+      const permitida = this.reflector.getAllAndOverride<boolean>(
+        PERMITIDO_CON_CAMBIO_PENDIENTE,
+        [context.getHandler(), context.getClass()],
+      );
+      if (!permitida) {
+        throw new ForbiddenException(
+          'Antes de seguir tienes que cambiar la contraseña temporal.',
+        );
+      }
     }
 
     request.usuario = {

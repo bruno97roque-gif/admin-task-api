@@ -27,4 +27,11 @@ export class PerfilRespuestaDto {
     nullable: true,
   })
   fotoVersion: number | null;
+
+  @ApiProperty({
+    description:
+      'Tiene una contraseña temporal puesta por administración: hasta cambiarla, solo puede usar `/perfil`.',
+    example: false,
+  })
+  debeCambiarContrasena: boolean;
 }

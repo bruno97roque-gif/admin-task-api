@@ -107,6 +107,11 @@ export function crearAuth(deps: {
       additionalFields: {
         roleId: { type: 'number', required: false, input: false },
         active: { type: 'boolean', required: false, input: false },
+        debeCambiarContrasena: {
+          type: 'boolean',
+          required: false,
+          input: false,
+        },
       },
     },
 
@@ -233,5 +238,6 @@ export interface SesionDeAuth {
     username?: string | null;
     roleId?: number | null;
     active?: boolean | null;
+    debeCambiarContrasena?: boolean | null;
   };
 }

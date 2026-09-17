@@ -27,6 +27,7 @@ import type { Response } from 'express';
 import { AUTH_BEARER, TAGS } from '../../swagger';
 import { Public } from '../auth/decorators/public.decorator';
 import { UsuarioActual } from '../auth/decorators/usuario-actual.decorator';
+import { PermitidoConCambioPendiente } from '../auth/decorators/cambio-pendiente.decorator';
 import { ActualizarPerfilDto } from './dto/actualizar-perfil.dto';
 import { CambiarContrasenaDto } from './dto/cambiar-contrasena.dto';
 import { FotoPerfilDto } from './dto/foto-perfil.dto';
@@ -39,6 +40,7 @@ import { PerfilService } from './perfil.service';
 export class PerfilController {
   constructor(private readonly perfil: PerfilService) {}
 
+  @PermitidoConCambioPendiente()
   @Get('perfil')
   @ApiOperation({ summary: 'Ver mi perfil' })
   @ApiOkResponse({ type: PerfilRespuestaDto })
@@ -56,6 +58,7 @@ export class PerfilController {
     return this.perfil.actualizar(usuarioId, dto);
   }
 
+  @PermitidoConCambioPendiente()
   @Put('perfil/contrasena')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({

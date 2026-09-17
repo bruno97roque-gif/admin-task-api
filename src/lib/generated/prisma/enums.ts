@@ -78,7 +78,8 @@ export const TipoNotificacion = {
   ReunionProxima: 'ReunionProxima',
   NotaRecibida: 'NotaRecibida',
   NotaRespondida: 'NotaRespondida',
-  Comunicado: 'Comunicado'
+  Comunicado: 'Comunicado',
+  RecuperarContrasena: 'RecuperarContrasena'
 } as const
 
 export type TipoNotificacion = (typeof TipoNotificacion)[keyof typeof TipoNotificacion]

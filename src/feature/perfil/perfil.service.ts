@@ -24,6 +24,8 @@ export interface Perfil {
   roleId: number;
   roleName: string;
   fotoVersion: number | null;
+  /** Tiene una contraseña temporal y debe cambiarla antes de seguir. */
+  debeCambiarContrasena: boolean;
 }
 
 const perfilSelect = {
@@ -32,6 +34,7 @@ const perfilSelect = {
   user: true,
   email: true,
   roleId: true,
+  debeCambiarContrasena: true,
   rol: { select: { name: true } },
   fotoPerfil: { select: { updatedAt: true } },
 } as const;
@@ -135,6 +138,7 @@ export class PerfilService {
       this.prisma,
       usuarioId,
       await this.argon2.hash(dto.nueva),
+      false,
     );
     await cerrarSesiones(this.prisma, usuarioId, sesionActual);
   }

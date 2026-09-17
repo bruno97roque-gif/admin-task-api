@@ -1,20 +1,27 @@
 import {
+  Body,
   Controller,
   GoneException,
   HttpCode,
   HttpStatus,
   Post,
+  Req,
   UnauthorizedException,
 } from '@nestjs/common';
 import {
+  ApiAcceptedResponse,
   ApiGoneResponse,
   ApiNoContentResponse,
   ApiOperation,
   ApiTags,
+  ApiTooManyRequestsResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import type { Request } from 'express';
 import { TAGS } from '../../swagger';
 import { Public } from './decorators/public.decorator';
+import { RecuperarContrasenaDto } from './dto/recuperar-contrasena.dto';
+import { RecuperacionService } from './recuperacion.service';
 
 const RECARGA =
   'El sistema se actualizó. Recarga la página (Ctrl + F5) para iniciar sesión.';
@@ -27,6 +34,25 @@ const RECARGA =
 @ApiTags(TAGS.auth)
 @Controller('auth')
 export class AuthController {
+  constructor(private readonly recuperacion: RecuperacionService) {}
+
+  @Public()
+  @Post('recuperar-contrasena')
+  @HttpCode(HttpStatus.ACCEPTED)
+  @ApiOperation({
+    summary: 'Olvidé mi contraseña',
+    description:
+      'Pública. Avisa a administración para que le ponga una contraseña temporal. Responde siempre lo mismo, exista o no el usuario. 5 pedidos por IP cada 15 minutos.',
+  })
+  @ApiAcceptedResponse({ description: 'Pedido recibido.' })
+  @ApiTooManyRequestsResponse({ description: 'Demasiados pedidos.' })
+  async recuperarContrasena(
+    @Body() dto: RecuperarContrasenaDto,
+    @Req() req: Request,
+  ): Promise<{ message: string }> {
+    return { message: await this.recuperacion.pedir(dto.usuario, req.ip) };
+  }
+
   @Public()
   @Post('login')
   @ApiOperation({

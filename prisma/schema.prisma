@@ -87,6 +87,7 @@ enum TipoNotificacion {
   NotaRecibida
   NotaRespondida
   Comunicado
+  RecuperarContrasena
 }
 
 /// En qué va un ticket del equipo. `Pendiente` es el estado de entrada;
@@ -128,15 +129,19 @@ model User {
   /// existían no lo tienen, y sin él simplemente no se lo invita.
   email String?
 
+  /// La contraseña la puso administración (alta o reseteo): al entrar, la
+  /// persona tiene que cambiarla antes de usar el sistema.
+  debeCambiarContrasena Boolean   @default(false) @map("debe_cambiar_contrasena")
+
   // --- Lo que pide better-auth (columnas nuevas, con valor por defecto) ---
   /// No se verifican correos: el login es con usuario y contraseña.
-  emailVerified Boolean   @default(false) @map("email_verified")
+  emailVerified         Boolean   @default(false) @map("email_verified")
   /// better-auth lo espera; las fotos viven en `fotos_perfil`.
-  image         String?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
-  sesiones      Session[]
-  cuentasAcceso Account[]
+  image                 String?
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @default(now()) @updatedAt @map("updated_at")
+  sesiones              Session[]
+  cuentasAcceso         Account[]
 
   rol       Rol               @relation(fields: [roleId], references: [id])
   proyectos UsuarioProyecto[]

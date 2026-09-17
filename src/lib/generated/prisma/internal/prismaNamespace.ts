@@ -2120,6 +2120,7 @@ export const UserScalarFieldEnum = {
   active: 'active',
   roleId: 'roleId',
   email: 'email',
+  debeCambiarContrasena: 'debeCambiarContrasena',
   emailVerified: 'emailVerified',
   image: 'image',
   createdAt: 'createdAt',

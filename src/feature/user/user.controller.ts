@@ -25,6 +25,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRespuestaDto } from './dto/user-respuesta.dto';
 import { AUTH_BEARER, TAGS } from '../../swagger';
+import { UsuarioActual } from '../auth/decorators/usuario-actual.decorator';
 import {
   Roles,
   ROLES_ADMINISTRACION,
@@ -75,7 +76,7 @@ export class UserController {
   @ApiOperation({
     summary: 'Modificar un usuario',
     description:
-      'Solo administración. Acepta los mismos campos que el alta, todos opcionales; si viene `password` se vuelve a hashear. Cada persona edita lo suyo en `/perfil`.',
+      'Solo administración. Acepta los mismos campos que el alta, todos opcionales. Si viene `password`, cierra las sesiones de esa persona y la contraseña queda como temporal (tendrá que cambiarla al entrar), salvo que sea la propia. Cada persona edita lo suyo en `/perfil`.',
   })
   @ApiParam({ name: 'id', description: 'Id del usuario.', example: 1 })
   @ApiOkResponse({ type: UserRespuestaDto })
@@ -86,8 +87,10 @@ export class UserController {
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
+    @UsuarioActual('sub') actorId: number,
+    @UsuarioActual('sesionId') sesionId: number,
   ) {
-    return this.userService.update(id, updateUserDto);
+    return this.userService.update(id, updateUserDto, actorId, sesionId);
   }
 
   @Roles(...ROLES_ADMINISTRACION)

@@ -46,7 +46,8 @@ export class UserService {
     // no lo deja entrar.
     const creado = await this.prisma.$transaction(async (tx) => {
       const user = await tx.user.create({
-        data: { ...createUserDto, password: hash },
+        // La primera contraseña la pone administración: se cambia al entrar.
+        data: { ...createUserDto, password: hash, debeCambiarContrasena: true },
         omit: sinPassword,
         include: conFoto,
       });
@@ -87,7 +88,17 @@ export class UserService {
     return publico(user);
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<UserPublico> {
+  /**
+   * `actorId` es quien pide el cambio. Si administración le cambia la
+   * contraseña a otra persona, queda como temporal; si se la cambia a sí misma
+   * desde acá, no.
+   */
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+    actorId?: number,
+    sesionDelActor?: number,
+  ): Promise<UserPublico> {
     if (updateUserDto.roleId !== undefined) {
       await this.validarRol(updateUserDto.roleId);
     }
@@ -113,13 +124,23 @@ export class UserService {
           this.prisma,
           id,
           await this.argon2.hash(password),
+          actorId !== id,
         );
       }
       if (password !== undefined || datos.active === false) {
-        await cerrarSesiones(this.prisma, id);
+        // A quien se lo cambia a sí mismo no se le cierra la sesión actual.
+        await cerrarSesiones(
+          this.prisma,
+          id,
+          actorId === id ? sesionDelActor : undefined,
+        );
       }
 
-      return publico(actualizado);
+      return publico(
+        password !== undefined
+          ? { ...actualizado, debeCambiarContrasena: actorId !== id }
+          : actualizado,
+      );
     } catch (error) {
       this.rethrow(error, id);
     }
