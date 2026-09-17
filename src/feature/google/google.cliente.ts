@@ -295,26 +295,53 @@ export async function borrarEvento(
 // Meet
 // ---------------------------------------------------------------------------
 
+/** Los tres artefactos automáticos que se pueden pedir para un Meet. */
+export type Artefacto = 'grabacion' | 'transcripcion' | 'notasDeGemini';
+
 /**
- * Deja el Meet grabando y transcribiendo desde que arranca.
+ * Cómo quedó cada artefacto al configurarlo: `null` si Google lo aceptó, o el
+ * motivo con el que lo rechazó.
+ */
+export type ResultadoDeArtefactos = Record<Artefacto, string | null>;
+
+const CUERPO_DE: Record<
+  Artefacto,
+  (modo: 'ON' | 'OFF') => Record<string, unknown>
+> = {
+  grabacion: (modo) => ({
+    recordingConfig: { autoRecordingGeneration: modo },
+  }),
+  transcripcion: (modo) => ({
+    transcriptionConfig: { autoTranscriptionGeneration: modo },
+  }),
+  notasDeGemini: (modo) => ({
+    smartNotesConfig: { autoSmartNotesGeneration: modo },
+  }),
+};
+
+/**
+ * Deja el Meet grabando, transcribiendo y tomando notas desde que arranca (o
+ * lo apaga).
  *
- * **El código de la reunión (`abc-defg-hij`) solo sirve para leer.**
- * `spaces.get` lo acepta como alias, pero `spaces.patch` exige el nombre
- * interno (`spaces/jQCFfuBOdN5z`): con el código, el cambio no se aplica. Por
- * eso primero se lee el espacio y se usa el `name` que devuelve.
+ * Dos cosas que Google no documenta bien y costaron un intento cada una:
  *
- * Grabación y transcripción van juntas y su error sube al llamador. Las notas
- * de Gemini van aparte y sin tumbar nada: dependen de que la licencia tenga
- * Gemini, y sin ella Google rechaza el campo.
+ * - **El código de la reunión (`abc-defg-hij`) solo sirve para leer.**
+ *   `spaces.get` lo acepta como alias, pero `spaces.patch` exige el nombre
+ *   interno (`spaces/jQCFfuBOdN5z`). Por eso primero se lee el espacio.
+ * - **Sin `updateMask`.** Con rutas como
+ *   `config.artifactConfig.recordingConfig` Google responde 400 «Invalid
+ *   update mask provided». Sin máscara actualiza solo los campos que vienen
+ *   en el cuerpo, que es justo lo que se quiere.
  *
- * Requiere una edición de Workspace que habilite grabación y transcripción; si
- * no la tiene, Google responde 403 y el llamador decide qué hacer.
+ * Cada artefacto va en su propio pedido: si la licencia no permite grabar,
+ * igual quedan la transcripción y las notas. Nunca lanza por un artefacto;
+ * solo lanza si no se puede ubicar el espacio.
  */
 export async function configurarGrabacion(
   accessToken: string,
   codigoMeet: string,
   activar: boolean,
-): Promise<{ notasDeGemini: boolean; motivoNotas?: string }> {
+): Promise<ResultadoDeArtefactos> {
   const modo = activar ? 'ON' : 'OFF';
 
   const espacio = await pedir<{ name: string }>(
@@ -325,41 +352,47 @@ export async function configurarGrabacion(
   // `name` ya viene como `spaces/<id>`.
   const url = `https://meet.googleapis.com/v2/${espacio.name}`;
 
-  await pedir(
-    `${url}?updateMask=config.artifactConfig.recordingConfig,config.artifactConfig.transcriptionConfig`,
-    {
-      method: 'PATCH',
-      headers: autorizado(accessToken),
-      body: JSON.stringify({
-        config: {
-          artifactConfig: {
-            recordingConfig: { autoRecordingGeneration: modo },
-            transcriptionConfig: { autoTranscriptionGeneration: modo },
-          },
-        },
-      }),
-    },
-  );
+  const resultado: ResultadoDeArtefactos = {
+    grabacion: null,
+    transcripcion: null,
+    notasDeGemini: null,
+  };
 
-  try {
-    await pedir(`${url}?updateMask=config.artifactConfig.smartNotesConfig`, {
-      method: 'PATCH',
-      headers: autorizado(accessToken),
-      body: JSON.stringify({
-        config: {
-          artifactConfig: {
-            smartNotesConfig: { autoSmartNotesGeneration: modo },
-          },
-        },
-      }),
-    });
-    return { notasDeGemini: true };
-  } catch (error) {
-    return {
-      notasDeGemini: false,
-      motivoNotas: error instanceof Error ? error.message : String(error),
-    };
+  for (const artefacto of Object.keys(CUERPO_DE) as Artefacto[]) {
+    try {
+      await pedir(url, {
+        method: 'PATCH',
+        headers: autorizado(accessToken),
+        body: JSON.stringify({
+          config: { artifactConfig: CUERPO_DE[artefacto](modo) },
+        }),
+      });
+    } catch (error) {
+      resultado[artefacto] =
+        error instanceof ErrorDeGoogle
+          ? motivoDeGoogle(error)
+          : error instanceof Error
+            ? error.message
+            : String(error);
+    }
   }
+
+  return resultado;
+}
+
+/** El `message` que manda Google dentro del JSON de error, si viene. */
+function motivoDeGoogle(error: ErrorDeGoogle): string {
+  try {
+    const cuerpo = JSON.parse(error.detalle) as {
+      error?: { message?: string };
+    };
+    if (cuerpo.error?.message) {
+      return `${error.estado}: ${cuerpo.error.message}`;
+    }
+  } catch {
+    // El detalle no era JSON: se devuelve tal cual.
+  }
+  return `${error.estado}: ${error.detalle}`;
 }
 
 /** Cómo tiene Google cada artefacto automático de un Meet. */

@@ -32,64 +32,83 @@ describe('configurarGrabacion', () => {
     global.fetch = fetchOriginal;
   });
 
-  it('ubica el espacio por el código y edita por su nombre interno', async () => {
+  it('ubica el espacio por el código y edita por su nombre, sin máscara', async () => {
     const llamadas = simularGoogle([
       { status: 200, cuerpo: { name: 'spaces/jQCFfuBOdN5z' } },
+      { status: 200, cuerpo: {} },
       { status: 200, cuerpo: {} },
       { status: 200, cuerpo: {} },
     ]);
 
     const r = await configurarGrabacion('token', 'dcq-rwbr-giy', true);
 
-    expect(r).toEqual({ notasDeGemini: true });
+    expect(r).toEqual({
+      grabacion: null,
+      transcripcion: null,
+      notasDeGemini: null,
+    });
     expect(llamadas[0]).toMatchObject({
       metodo: 'GET',
       url: 'https://meet.googleapis.com/v2/spaces/dcq-rwbr-giy',
     });
-    // El PATCH nunca va con el código: Google lo ignora.
-    expect(llamadas[1].url).toContain('/v2/spaces/jQCFfuBOdN5z?');
-    expect(llamadas[1].metodo).toBe('PATCH');
-    expect(llamadas[1].cuerpo).toEqual({
-      config: {
-        artifactConfig: {
-          recordingConfig: { autoRecordingGeneration: 'ON' },
-          transcriptionConfig: { autoTranscriptionGeneration: 'ON' },
+    // Google rechaza las máscaras con rutas internas: no se manda ninguna.
+    for (const patch of llamadas.slice(1)) {
+      expect(patch.metodo).toBe('PATCH');
+      expect(patch.url).toBe(
+        'https://meet.googleapis.com/v2/spaces/jQCFfuBOdN5z',
+      );
+    }
+    expect(llamadas.slice(1).map((l) => l.cuerpo)).toEqual([
+      {
+        config: {
+          artifactConfig: {
+            recordingConfig: { autoRecordingGeneration: 'ON' },
+          },
         },
       },
-    });
-    expect(llamadas[2].cuerpo).toEqual({
-      config: {
-        artifactConfig: {
-          smartNotesConfig: { autoSmartNotesGeneration: 'ON' },
+      {
+        config: {
+          artifactConfig: {
+            transcriptionConfig: { autoTranscriptionGeneration: 'ON' },
+          },
         },
       },
-    });
+      {
+        config: {
+          artifactConfig: {
+            smartNotesConfig: { autoSmartNotesGeneration: 'ON' },
+          },
+        },
+      },
+    ]);
   });
 
-  it('si Google rechaza las notas, la grabación queda igual', async () => {
+  it('si Google no deja grabar, igual pide transcripción y notas', async () => {
     simularGoogle([
       { status: 200, cuerpo: { name: 'spaces/abc' } },
+      {
+        status: 403,
+        cuerpo: { error: { code: 403, message: 'Recording not allowed' } },
+      },
       { status: 200, cuerpo: {} },
-      { status: 400, cuerpo: { error: 'sin Gemini' } },
+      { status: 200, cuerpo: {} },
     ]);
 
     await expect(
       configurarGrabacion('token', 'dcq-rwbr-giy', true),
     ).resolves.toEqual({
-      notasDeGemini: false,
-      motivoNotas: expect.stringContaining('400') as unknown,
+      grabacion: '403: Recording not allowed',
+      transcripcion: null,
+      notasDeGemini: null,
     });
   });
 
-  it('si falla la grabación, el error sube', async () => {
-    simularGoogle([
-      { status: 200, cuerpo: { name: 'spaces/abc' } },
-      { status: 403, cuerpo: { error: 'sin permiso' } },
-    ]);
+  it('si no se puede ubicar el espacio, el error sube', async () => {
+    simularGoogle([{ status: 404, cuerpo: { error: 'no existe' } }]);
 
     await expect(
       configurarGrabacion('token', 'dcq-rwbr-giy', true),
-    ).rejects.toMatchObject({ estado: 403 });
+    ).rejects.toMatchObject({ estado: 404 });
   });
 });
 

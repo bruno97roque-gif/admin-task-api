@@ -25,8 +25,10 @@ import {
 import {
   cambiaElEvento,
   codigoDeMeet,
+  estadoDeGrabacion,
   eventoDesdeReunion,
   limpiarCorreos,
+  type EstadoDeGrabacion,
 } from '../google/evento.reglas';
 import { Prisma, TipoNotificacion } from '../../lib/generated/prisma/client';
 import { CreateReunionDto } from './dto/create-reunion.dto';
@@ -64,17 +66,7 @@ export type ReunionCompleta = Omit<ReunionConRelaciones, 'participantes'> & {
  */
 export type SincronizacionGoogle = 'actualizada' | 'sin_cambios' | 'error';
 
-/**
- * Qué pasó con la grabación al enviar al Calendar. `activada` incluye las
- * notas de Gemini; `activada_sin_notas` graba y transcribe pero Google no
- * aceptó las notas (la licencia no tiene Gemini).
- */
-export type EstadoDeGrabacion =
-  | 'activada'
-  | 'activada_sin_notas'
-  | 'desactivada'
-  | 'no_disponible'
-  | 'sin_meet';
+export type { EstadoDeGrabacion };
 
 const FORMATO_FECHA = new Intl.DateTimeFormat('es-PE', {
   dateStyle: 'full',
@@ -437,14 +429,16 @@ export class ReunionesService {
     id: number,
   ): Promise<{ grabacion: EstadoDeGrabacion; detalleGrabacion?: string }> {
     try {
-      const { notasDeGemini, motivoNotas } = await configurarGrabacion(
-        token,
-        codigoMeet,
+      const estado = estadoDeGrabacion(
+        await configurarGrabacion(token, codigoMeet, activar),
         activar,
       );
-      if (!activar) return { grabacion: 'desactivada' };
-      if (notasDeGemini) return { grabacion: 'activada' };
-      return { grabacion: 'activada_sin_notas', detalleGrabacion: motivoNotas };
+      if (estado.detalleGrabacion) {
+        this.logger.warn(
+          `Google rechazó parte de la grabación de la reunión ${id}: ${estado.detalleGrabacion}`,
+        );
+      }
+      return estado;
     } catch (error) {
       const detalle = error instanceof Error ? error.message : String(error);
       this.logger.warn(

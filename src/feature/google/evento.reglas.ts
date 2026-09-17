@@ -1,4 +1,9 @@
-import { SCOPES, type EventoDeCalendar } from './google.cliente';
+import {
+  SCOPES,
+  type Artefacto,
+  type EventoDeCalendar,
+  type ResultadoDeArtefactos,
+} from './google.cliente';
 
 /**
  * Las decisiones de la integración con Google, sin base ni red: qué evento
@@ -126,6 +131,47 @@ export function cambiaElEvento(
     a.inicio.getTime() !== d.inicio.getTime() ||
     correos(a) !== correos(d)
   );
+}
+
+/**
+ * Cómo quedó la grabación de un Meet, en una palabra para la pantalla:
+ * `activada` (Google aceptó todo), `parcial` (aceptó algo; por ejemplo
+ * transcribe pero no graba), `no_disponible` (no aceptó nada) o
+ * `desactivada` (se pidió apagar y Google lo aceptó).
+ */
+export type EstadoDeGrabacion =
+  'activada' | 'parcial' | 'desactivada' | 'no_disponible' | 'sin_meet';
+
+const NOMBRE_DE: Record<Artefacto, string> = {
+  grabacion: 'grabar',
+  transcripcion: 'transcribir',
+  notasDeGemini: 'notas de Gemini',
+};
+
+export function estadoDeGrabacion(
+  resultado: ResultadoDeArtefactos,
+  activar: boolean,
+): { grabacion: EstadoDeGrabacion; detalleGrabacion?: string } {
+  const fallos = (Object.keys(NOMBRE_DE) as Artefacto[]).filter(
+    (a) => resultado[a] !== null,
+  );
+
+  if (fallos.length === 0) {
+    return { grabacion: activar ? 'activada' : 'desactivada' };
+  }
+
+  const detalleGrabacion = fallos
+    .map((a) => `${NOMBRE_DE[a]}: ${resultado[a]}`)
+    .join(' | ');
+
+  if (fallos.length === Object.keys(NOMBRE_DE).length) {
+    return { grabacion: 'no_disponible', detalleGrabacion };
+  }
+
+  return {
+    grabacion: activar ? 'parcial' : 'desactivada',
+    detalleGrabacion,
+  };
 }
 
 /** Los permisos que pide la integración y la cuenta no concedió. */

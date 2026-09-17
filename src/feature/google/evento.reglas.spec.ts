@@ -3,6 +3,7 @@ import {
   cambiaElEvento,
   codigoDeMeet,
   DURACION_MINUTOS,
+  estadoDeGrabacion,
   eventoDesdeReunion,
   frontDesde,
   invitadosDe,
@@ -102,6 +103,44 @@ describe('invitados externos', () => {
         { ...base, invitadosExternos: [] },
       ),
     ).toBe(false);
+  });
+});
+
+describe('estadoDeGrabacion', () => {
+  const todoBien = {
+    grabacion: null,
+    transcripcion: null,
+    notasDeGemini: null,
+  };
+
+  it('si Google acepta todo, queda activada', () => {
+    expect(estadoDeGrabacion(todoBien, true)).toEqual({
+      grabacion: 'activada',
+    });
+    expect(estadoDeGrabacion(todoBien, false)).toEqual({
+      grabacion: 'desactivada',
+    });
+  });
+
+  it('si solo falla grabar, es parcial y dice por qué', () => {
+    expect(
+      estadoDeGrabacion({ ...todoBien, grabacion: '403: sin permiso' }, true),
+    ).toEqual({
+      grabacion: 'parcial',
+      detalleGrabacion: 'grabar: 403: sin permiso',
+    });
+  });
+
+  it('si falla todo, no está disponible', () => {
+    expect(
+      estadoDeGrabacion(
+        { grabacion: 'a', transcripcion: 'b', notasDeGemini: 'c' },
+        true,
+      ),
+    ).toEqual({
+      grabacion: 'no_disponible',
+      detalleGrabacion: 'grabar: a | transcribir: b | notas de Gemini: c',
+    });
   });
 });
 
