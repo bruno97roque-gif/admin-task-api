@@ -275,8 +275,21 @@ export class ProjectsService {
           fechaEntrega: this.aFecha(fechaEntrega),
           fechaEntregaDiseno: this.aFecha(fechaEntregaDiseno),
           fechaUltimoCambioEstado: ahora,
+          // Los responsables entran al equipo desde el alta, igual que cuando
+          // se reasignan: sin eso el proyecto no aparece en sus tableros.
           usuarios: {
-            create: (usuariosIds ?? []).map((usuarioId) => ({ usuarioId })),
+            create: [
+              ...new Set([
+                ...(usuariosIds ?? []),
+                ...cambioDeEquipo(
+                  { disenadorId: null, desarrolladorId: null },
+                  {
+                    disenadorId: data.disenadorId ?? null,
+                    desarrolladorId: data.desarrolladorId ?? null,
+                  },
+                ).quedan,
+              ]),
+            ].map((usuarioId) => ({ usuarioId })),
           },
           ...(planCobros && {
             cobros: {

@@ -16,6 +16,7 @@ import {
   IsUrl,
   MaxLength,
   ValidateNested,
+  ValidateBy,
 } from 'class-validator';
 import {
   EstadoProyecto,
@@ -24,6 +25,20 @@ import {
   TipoProyecto,
 } from '../../../lib/generated/prisma/client';
 import { ItemPlanCobrosDto } from './plan-cobros.dto';
+
+/**
+ * Un id de usuario obligatorio: entero positivo. Un solo chequeo para que el
+ * error salga una vez, con un mensaje que se entienda.
+ */
+const IdObligatorio = (message: string) =>
+  ValidateBy({
+    name: 'idObligatorio',
+    validator: {
+      validate: (valor: unknown) =>
+        typeof valor === 'number' && Number.isInteger(valor) && valor > 0,
+      defaultMessage: () => message,
+    },
+  });
 
 export class CreateProjectDto {
   @ApiProperty({
@@ -136,31 +151,30 @@ export class CreateProjectDto {
   @IsPositive()
   seguimientoId: number;
 
-  /** Diseñador asignado en el registro del proyecto. No rota. */
-  @ApiPropertyOptional({
+  /**
+   * Diseñador asignado en el registro del proyecto. **Obligatorio al crear**:
+   * un proyecto sin responsables no aparece en ningún tablero. Al editar
+   * (`UpdateProjectDto`, vía `PartialType`) sigue siendo opcional y admite
+   * `null`.
+   */
+  @ApiProperty({
     description:
-      'Diseñador asignado en el registro. No rota, pero se puede reasignar y queda en el historial.',
+      'Diseñador asignado en el registro. Obligatorio al crear; después se puede reasignar y queda en el historial.',
     example: 4,
-    nullable: true,
     type: Number,
   })
-  @IsOptional()
-  @IsInt()
-  @IsPositive()
-  disenadorId?: number | null;
+  @IdObligatorio('Elige el diseñador del proyecto')
+  disenadorId: number | null;
 
-  /** Desarrollador asignado en el registro del proyecto. No rota. */
-  @ApiPropertyOptional({
+  /** Desarrollador asignado en el registro. Mismo criterio que el diseñador. */
+  @ApiProperty({
     description:
-      'Desarrollador asignado en el registro. Mismo criterio que el diseñador.',
+      'Desarrollador asignado en el registro. Obligatorio al crear, igual que el diseñador.',
     example: 7,
-    nullable: true,
     type: Number,
   })
-  @IsOptional()
-  @IsInt()
-  @IsPositive()
-  desarrolladorId?: number | null;
+  @IdObligatorio('Elige el desarrollador del proyecto')
+  desarrolladorId: number | null;
 
   /** Logo y fotos de banners y secciones. Sin esto no se avanza al diseño. */
   @ApiPropertyOptional({
