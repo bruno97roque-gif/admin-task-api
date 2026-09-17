@@ -9,10 +9,24 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../../lib/prisma/prisma.service';
 import { Argon2Service } from '../../lib/argon2/argon2.service';
 import { Prisma, User } from '../../lib/generated/prisma/client';
+import { versionDeFoto } from '../perfil/perfil.reglas';
 
 const sinPassword = { password: true } as const;
 
-export type UserPublico = Omit<User, 'password'>;
+/** Solo la fecha de la foto: la imagen se sirve aparte. */
+const conFoto = { fotoPerfil: { select: { updatedAt: true } } } as const;
+
+export type UserPublico = Omit<User, 'password'> & {
+  /** Versión de la foto subida (`/user/:id/foto?v=`), o `null`. */
+  fotoVersion: number | null;
+};
+
+function publico(
+  user: Omit<User, 'password'> & { fotoPerfil: { updatedAt: Date } | null },
+): UserPublico {
+  const { fotoPerfil, ...resto } = user;
+  return { ...resto, fotoVersion: versionDeFoto(fotoPerfil) };
+}
 
 @Injectable()
 export class UserService {
@@ -25,33 +39,39 @@ export class UserService {
     await this.validarRol(createUserDto.roleId);
     await this.validarUsuarioLibre(createUserDto.user);
 
-    return this.prisma.user.create({
-      data: {
-        ...createUserDto,
-        password: await this.argon2.hash(createUserDto.password),
-      },
-      omit: sinPassword,
-    });
+    return publico(
+      await this.prisma.user.create({
+        data: {
+          ...createUserDto,
+          password: await this.argon2.hash(createUserDto.password),
+        },
+        omit: sinPassword,
+        include: conFoto,
+      }),
+    );
   }
 
-  findAll(): Promise<UserPublico[]> {
-    return this.prisma.user.findMany({
+  async findAll(): Promise<UserPublico[]> {
+    const users = await this.prisma.user.findMany({
       orderBy: { id: 'asc' },
       omit: sinPassword,
+      include: conFoto,
     });
+    return users.map(publico);
   }
 
   async findOne(id: number): Promise<UserPublico> {
     const user = await this.prisma.user.findUnique({
       where: { id },
       omit: sinPassword,
+      include: conFoto,
     });
 
     if (!user) {
       throw this.notFound(id);
     }
 
-    return user;
+    return publico(user);
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<UserPublico> {
@@ -64,16 +84,19 @@ export class UserService {
     }
 
     try {
-      return await this.prisma.user.update({
-        where: { id },
-        data: {
-          ...updateUserDto,
-          ...(updateUserDto.password !== undefined && {
-            password: await this.argon2.hash(updateUserDto.password),
-          }),
-        },
-        omit: sinPassword,
-      });
+      return publico(
+        await this.prisma.user.update({
+          where: { id },
+          data: {
+            ...updateUserDto,
+            ...(updateUserDto.password !== undefined && {
+              password: await this.argon2.hash(updateUserDto.password),
+            }),
+          },
+          omit: sinPassword,
+          include: conFoto,
+        }),
+      );
     } catch (error) {
       this.rethrow(error, id);
     }
@@ -81,10 +104,13 @@ export class UserService {
 
   async remove(id: number): Promise<UserPublico> {
     try {
-      return await this.prisma.user.delete({
-        where: { id },
-        omit: sinPassword,
-      });
+      return publico(
+        await this.prisma.user.delete({
+          where: { id },
+          omit: sinPassword,
+          include: conFoto,
+        }),
+      );
     } catch (error) {
       this.rethrow(error, id);
     }

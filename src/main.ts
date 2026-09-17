@@ -1,11 +1,19 @@
 import { NestFactory } from '@nestjs/core';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
 import { RUTA_DOCS, configurarSwagger } from './swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // Railway pone un proxy adelante: sin esto `req.ip` sería siempre el del
+  // proxy y el límite de intentos del login bloquearía a todos juntos.
+  app.set('trust proxy', 1);
+  // Las fotos de perfil llegan en base64 (hasta ~400 KB); el tope por defecto
+  // de Express es 100 KB.
+  app.useBodyParser('json', { limit: '600kb' });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

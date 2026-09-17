@@ -13,6 +13,7 @@ import {
   ApiBearerAuth,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -24,6 +25,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRespuestaDto } from './dto/user-respuesta.dto';
 import { AUTH_BEARER, TAGS } from '../../swagger';
+import {
+  Roles,
+  ROLES_ADMINISTRACION,
+} from '../auth/decorators/roles.decorator';
 
 @ApiTags(TAGS.usuarios)
 @ApiBearerAuth(AUTH_BEARER)
@@ -31,15 +36,17 @@ import { AUTH_BEARER, TAGS } from '../../swagger';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Roles(...ROLES_ADMINISTRACION)
   @Post()
   @ApiOperation({
     summary: 'Crear un usuario',
     description:
-      'La contraseña se hashea con Argon2id y nunca vuelve en la respuesta.',
+      'Solo administración. La contraseña se hashea con Argon2id y nunca vuelve en la respuesta.',
   })
   @ApiCreatedResponse({ type: UserRespuestaDto })
   @ApiBadRequestResponse({ description: 'El rol indicado no existe.' })
   @ApiConflictResponse({ description: 'Ya hay un usuario con ese `user`.' })
+  @ApiForbiddenResponse({ description: 'Solo administración.' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
@@ -63,17 +70,19 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
+  @Roles(...ROLES_ADMINISTRACION)
   @Patch(':id')
   @ApiOperation({
     summary: 'Modificar un usuario',
     description:
-      'Acepta los mismos campos que el alta, todos opcionales; si viene `password` se vuelve a hashear. La ruta no exige un rol determinado: la puede llamar cualquier usuario autenticado, sobre cualquier id.',
+      'Solo administración. Acepta los mismos campos que el alta, todos opcionales; si viene `password` se vuelve a hashear. Cada persona edita lo suyo en `/perfil`.',
   })
   @ApiParam({ name: 'id', description: 'Id del usuario.', example: 1 })
   @ApiOkResponse({ type: UserRespuestaDto })
   @ApiBadRequestResponse({ description: 'El rol indicado no existe.' })
   @ApiNotFoundResponse({ description: 'No existe ese usuario.' })
   @ApiConflictResponse({ description: 'Ya hay un usuario con ese `user`.' })
+  @ApiForbiddenResponse({ description: 'Solo administración.' })
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
@@ -81,15 +90,17 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
+  @Roles(...ROLES_ADMINISTRACION)
   @Delete(':id')
   @ApiOperation({
     summary: 'Eliminar un usuario',
     description:
-      'Borrado real. La traza que dejó en historial, recordatorios y cotizaciones sobrevive con el usuario en `null`.',
+      'Solo administración. Borrado real. La traza que dejó en historial, recordatorios y cotizaciones sobrevive con el usuario en `null`.',
   })
   @ApiParam({ name: 'id', description: 'Id del usuario.', example: 1 })
   @ApiOkResponse({ type: UserRespuestaDto })
   @ApiNotFoundResponse({ description: 'No existe ese usuario.' })
+  @ApiForbiddenResponse({ description: 'Solo administración.' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.userService.remove(id);
   }

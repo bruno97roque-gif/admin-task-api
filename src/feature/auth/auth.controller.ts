@@ -14,6 +14,7 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiTags,
+  ApiTooManyRequestsResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import type { Request, Response } from 'express';
@@ -52,11 +53,19 @@ export class AuthController {
   @ApiUnauthorizedResponse({
     description: '`Credenciales inválidas` o `El usuario está desactivado`.',
   })
+  @ApiTooManyRequestsResponse({
+    description:
+      'Demasiados intentos fallidos: 5 por usuario o 20 por IP en 15 minutos.',
+  })
   async login(
     @Body() loginDto: LoginDto,
+    @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ): Promise<LoginResponse> {
-    return this.enviarSesion(await this.authService.login(loginDto), res);
+    return this.enviarSesion(
+      await this.authService.login(loginDto, req.ip),
+      res,
+    );
   }
 
   @Public()

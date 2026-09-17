@@ -65,7 +65,8 @@ export const ModelName = {
   ReunionUsuario: 'ReunionUsuario',
   NotaAdmin: 'NotaAdmin',
   RespuestaNota: 'RespuestaNota',
-  IntegracionGoogle: 'IntegracionGoogle'
+  IntegracionGoogle: 'IntegracionGoogle',
+  FotoPerfil: 'FotoPerfil'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -304,6 +305,16 @@ export const IntegracionGoogleScalarFieldEnum = {
 } as const
 
 export type IntegracionGoogleScalarFieldEnum = (typeof IntegracionGoogleScalarFieldEnum)[keyof typeof IntegracionGoogleScalarFieldEnum]
+
+
+export const FotoPerfilScalarFieldEnum = {
+  usuarioId: 'usuarioId',
+  datos: 'datos',
+  tipo: 'tipo',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FotoPerfilScalarFieldEnum = (typeof FotoPerfilScalarFieldEnum)[keyof typeof FotoPerfilScalarFieldEnum]
 
 
 export const SortOrder = {

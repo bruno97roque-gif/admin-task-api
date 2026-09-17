@@ -30,6 +30,7 @@ export const TAGS = {
   reuniones: 'Reuniones',
   notas: 'Tickets de soporte',
   integraciones: 'Integraciones · Google',
+  perfil: 'Mi perfil',
 } as const;
 
 const DESCRIPCION = `

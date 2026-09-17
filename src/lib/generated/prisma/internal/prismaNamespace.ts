@@ -411,7 +411,8 @@ export const ModelName = {
   ReunionUsuario: 'ReunionUsuario',
   NotaAdmin: 'NotaAdmin',
   RespuestaNota: 'RespuestaNota',
-  IntegracionGoogle: 'IntegracionGoogle'
+  IntegracionGoogle: 'IntegracionGoogle',
+  FotoPerfil: 'FotoPerfil'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -427,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "rol" | "user" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota" | "integracionGoogle"
+    modelProps: "rol" | "user" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota" | "integracionGoogle" | "fotoPerfil"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1615,6 +1616,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FotoPerfil: {
+      payload: Prisma.$FotoPerfilPayload<ExtArgs>
+      fields: Prisma.FotoPerfilFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FotoPerfilFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FotoPerfilFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload>
+        }
+        findFirst: {
+          args: Prisma.FotoPerfilFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FotoPerfilFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload>
+        }
+        findMany: {
+          args: Prisma.FotoPerfilFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload>[]
+        }
+        create: {
+          args: Prisma.FotoPerfilCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload>
+        }
+        createMany: {
+          args: Prisma.FotoPerfilCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FotoPerfilCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload>[]
+        }
+        delete: {
+          args: Prisma.FotoPerfilDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload>
+        }
+        update: {
+          args: Prisma.FotoPerfilUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload>
+        }
+        deleteMany: {
+          args: Prisma.FotoPerfilDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FotoPerfilUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FotoPerfilUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload>[]
+        }
+        upsert: {
+          args: Prisma.FotoPerfilUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FotoPerfilPayload>
+        }
+        aggregate: {
+          args: Prisma.FotoPerfilAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFotoPerfil>
+        }
+        groupBy: {
+          args: Prisma.FotoPerfilGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FotoPerfilGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FotoPerfilCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FotoPerfilCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1876,6 +1951,16 @@ export const IntegracionGoogleScalarFieldEnum = {
 export type IntegracionGoogleScalarFieldEnum = (typeof IntegracionGoogleScalarFieldEnum)[keyof typeof IntegracionGoogleScalarFieldEnum]
 
 
+export const FotoPerfilScalarFieldEnum = {
+  usuarioId: 'usuarioId',
+  datos: 'datos',
+  tipo: 'tipo',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FotoPerfilScalarFieldEnum = (typeof FotoPerfilScalarFieldEnum)[keyof typeof FotoPerfilScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2082,6 +2167,20 @@ export type ListEnumCategoriaNotaFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'Bytes'
+ */
+export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
+    
+
+
+/**
+ * Reference to a field of type 'Bytes[]'
+ */
+export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2261,6 +2360,7 @@ export type GlobalOmitConfig = {
   notaAdmin?: Prisma.NotaAdminOmit
   respuestaNota?: Prisma.RespuestaNotaOmit
   integracionGoogle?: Prisma.IntegracionGoogleOmit
+  fotoPerfil?: Prisma.FotoPerfilOmit
 }
 
 /* Types for Logging */

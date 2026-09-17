@@ -138,6 +138,7 @@ model User {
   notificaciones         Notificacion[]
   reunionesCreadas       Reunion[]              @relation("ReunionesCreadas")
   integracionGoogle      IntegracionGoogle?
+  fotoPerfil             FotoPerfil?
   reuniones              ReunionUsuario[]
   notasEnviadas          NotaAdmin[]
   respuestasNota         RespuestaNota[]
@@ -506,4 +507,19 @@ model IntegracionGoogle {
   usuario User @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 
   @@map("integraciones_google")
+}
+
+/// Foto de perfil que sube cada persona. Tabla aparte para que las consultas
+/// de usuarios no arrastren la imagen. Se guarda ya recortada y achicada por
+/// el navegador (unos pocos KB).
+model FotoPerfil {
+  usuarioId Int      @id @map("usuario_id")
+  datos     Bytes
+  /// Tipo MIME: image/webp, image/jpeg o image/png.
+  tipo      String
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  usuario User @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@map("fotos_perfil")
 }

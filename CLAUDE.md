@@ -118,6 +118,16 @@ Migración **aditiva** `20260909120000_integracion_google_calendar`: columnas `r
 - **Reuniones sin proyecto**: el front ofrece «Websy (interna)» en el selector; se guardan con `proyectoId: null`, igual que la «Reunión de equipo», y cualquiera puede agendarlas.
 - Las decisiones puras están en `evento.reglas.ts` con su spec.
 
+### Mi perfil y endurecimiento de usuarios (`feature/perfil`)
+
+Migración **aditiva** `20260918120000_fotos_perfil` (tabla `fotos_perfil`, una fila por usuario, `bytea`).
+
+- **`/user` ya no está abierto**: `POST`, `PATCH /:id` y `DELETE /:id` llevan `@Roles(ROLES_ADMINISTRACION)`. `GET` sigue abierto (el front lo usa para convocar y para las fotos). Cada persona edita lo suyo en `/perfil`.
+- **`/perfil`** (acotado al `sub` del token): `GET`, `PATCH` (solo `name`), `PUT /contrasena` (`actual` + `nueva`; 400 y no 401 si la actual está mal, para que el front no intente renovar la sesión; 5 fallos en 15 min → 429), `PUT /foto` (data URL WebP/JPG/PNG ≤ 300 KB, se valida la firma de bytes en `perfil.reglas.ts`) y `DELETE /foto`. El correo y el rol los cambia administración.
+- **`GET /user/:id/foto` es `@Public()`** porque un `<img>` no manda token. Se sirve con caché de un año: el front agrega `?v=fotoVersion` (el `updatedAt` de la foto en ms), que viaja en `GET /user`, en `/perfil` y en el login.
+- **Límite de intentos del login** (`auth/limitador-de-intentos.ts`, en memoria): 5 fallos por usuario o 20 por IP en 15 minutos → 429. El usuario inexistente cuenta igual y responde el mismo «Credenciales inválidas». Por eso `main.ts` hace `app.set('trust proxy', 1)` (Railway pone un proxy; sin eso todos comparten IP) y sube el tope del JSON a 600 KB por las fotos.
+- **Pendiente (etapa 2)**: migrar el login a better-auth (sesiones revocables). Ojo: exige correo en cada usuario y tablas propias; ver la conversación del 2026-09-17 antes de empezar.
+
 ## Commands
 
 ```bash

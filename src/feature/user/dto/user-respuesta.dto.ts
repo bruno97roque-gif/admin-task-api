@@ -23,4 +23,12 @@ export class UserRespuestaDto {
 
   @ApiProperty({ description: 'Id del rol asignado.', example: 1 })
   roleId: number;
+
+  @ApiProperty({
+    description:
+      'Versión de la foto de perfil, para armar `/user/{id}/foto?v=...`. `null` si no subió ninguna.',
+    example: 1758067200000,
+    nullable: true,
+  })
+  fotoVersion: number | null;
 }

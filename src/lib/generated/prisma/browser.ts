@@ -127,3 +127,10 @@ export type RespuestaNota = Prisma.RespuestaNotaModel
  * `GOOGLE_TOKEN_SECRET`) y nunca sale en una respuesta de la API.
  */
 export type IntegracionGoogle = Prisma.IntegracionGoogleModel
+/**
+ * Model FotoPerfil
+ * Foto de perfil que sube cada persona. Tabla aparte para que las consultas
+ * de usuarios no arrastren la imagen. Se guarda ya recortada y achicada por
+ * el navegador (unos pocos KB).
+ */
+export type FotoPerfil = Prisma.FotoPerfilModel
