@@ -109,6 +109,25 @@ export class ReunionesController {
     return this.reuniones.enviarAlCalendar(id);
   }
 
+  @Roles(...ROLES_ADMINISTRACION)
+  @Post(':id/revisar-grabacion')
+  @HttpCode(200)
+  @ApiOperation({
+    summary: 'Revisar la grabación del Meet',
+    description:
+      'Solo administración. Vuelve a aplicar en el Meet lo que pide la casilla de grabación y devuelve lo que Google tiene guardado (`enGoogle`: grabación, transcripción y notas de Gemini, cada una ON/OFF/SIN_DEFINIR). Si Google rechaza algo, el motivo viene en `detalleGrabacion`.',
+  })
+  @ApiParam({ name: 'id', description: 'Id de la reunión.', example: 1 })
+  @ApiNotFoundResponse({ description: 'No existe esa reunión.' })
+  @ApiConflictResponse({
+    description:
+      'La reunión no está en Google Calendar, o Google no está conectado.',
+  })
+  @ApiForbiddenResponse({ description: 'Solo administración.' })
+  revisarGrabacion(@Param('id', ParseIntPipe) id: number) {
+    return this.reuniones.revisarGrabacion(id);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Ver una reunión' })
   @ApiParam({ name: 'id', description: 'Id de la reunión.', example: 1 })

@@ -314,7 +314,7 @@ export async function configurarGrabacion(
   accessToken: string,
   codigoMeet: string,
   activar: boolean,
-): Promise<{ notasDeGemini: boolean }> {
+): Promise<{ notasDeGemini: boolean; motivoNotas?: string }> {
   const modo = activar ? 'ON' : 'OFF';
 
   const espacio = await pedir<{ name: string }>(
@@ -354,7 +354,57 @@ export async function configurarGrabacion(
       }),
     });
     return { notasDeGemini: true };
-  } catch {
-    return { notasDeGemini: false };
+  } catch (error) {
+    return {
+      notasDeGemini: false,
+      motivoNotas: error instanceof Error ? error.message : String(error),
+    };
   }
+}
+
+/** Cómo tiene Google cada artefacto automático de un Meet. */
+export type Automatico = 'ON' | 'OFF' | 'SIN_DEFINIR';
+
+export interface ArtefactosDelMeet {
+  grabacion: Automatico;
+  transcripcion: Automatico;
+  notasDeGemini: Automatico;
+}
+
+interface RespuestaEspacio {
+  name: string;
+  config?: {
+    artifactConfig?: {
+      recordingConfig?: { autoRecordingGeneration?: string };
+      transcriptionConfig?: { autoTranscriptionGeneration?: string };
+      smartNotesConfig?: { autoSmartNotesGeneration?: string };
+    };
+  };
+}
+
+function automatico(valor: string | undefined): Automatico {
+  return valor === 'ON' || valor === 'OFF' ? valor : 'SIN_DEFINIR';
+}
+
+/**
+ * Lo que Google tiene guardado de verdad para el Meet. El recuadro del evento
+ * en Calendar no lo muestra, así que es la única forma de comprobarlo.
+ */
+export async function leerArtefactos(
+  accessToken: string,
+  codigoMeet: string,
+): Promise<ArtefactosDelMeet> {
+  const espacio = await pedir<RespuestaEspacio>(
+    `${MEET_SPACES}/${encodeURIComponent(codigoMeet)}`,
+    { headers: autorizado(accessToken) },
+  );
+  const a = espacio.config?.artifactConfig;
+
+  return {
+    grabacion: automatico(a?.recordingConfig?.autoRecordingGeneration),
+    transcripcion: automatico(
+      a?.transcriptionConfig?.autoTranscriptionGeneration,
+    ),
+    notasDeGemini: automatico(a?.smartNotesConfig?.autoSmartNotesGeneration),
+  };
 }

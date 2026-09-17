@@ -1,4 +1,4 @@
-import { configurarGrabacion } from './google.cliente';
+import { configurarGrabacion, leerArtefactos } from './google.cliente';
 
 interface Llamada {
   url: string;
@@ -75,7 +75,10 @@ describe('configurarGrabacion', () => {
 
     await expect(
       configurarGrabacion('token', 'dcq-rwbr-giy', true),
-    ).resolves.toEqual({ notasDeGemini: false });
+    ).resolves.toEqual({
+      notasDeGemini: false,
+      motivoNotas: expect.stringContaining('400') as unknown,
+    });
   });
 
   it('si falla la grabación, el error sube', async () => {
@@ -87,5 +90,35 @@ describe('configurarGrabacion', () => {
     await expect(
       configurarGrabacion('token', 'dcq-rwbr-giy', true),
     ).rejects.toMatchObject({ estado: 403 });
+  });
+});
+
+describe('leerArtefactos', () => {
+  const fetchOriginal = global.fetch;
+  afterEach(() => {
+    global.fetch = fetchOriginal;
+  });
+
+  it('traduce lo que guarda Google, y lo que falta queda sin definir', async () => {
+    simularGoogle([
+      {
+        status: 200,
+        cuerpo: {
+          name: 'spaces/abc',
+          config: {
+            artifactConfig: {
+              recordingConfig: { autoRecordingGeneration: 'ON' },
+              transcriptionConfig: { autoTranscriptionGeneration: 'OFF' },
+            },
+          },
+        },
+      },
+    ]);
+
+    await expect(leerArtefactos('token', 'dcq-rwbr-giy')).resolves.toEqual({
+      grabacion: 'ON',
+      transcripcion: 'OFF',
+      notasDeGemini: 'SIN_DEFINIR',
+    });
   });
 });

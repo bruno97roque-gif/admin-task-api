@@ -19,6 +19,8 @@ import {
   configurarGrabacion,
   crearEvento,
   ErrorDeGoogle,
+  leerArtefactos,
+  type ArtefactosDelMeet,
 } from '../google/google.cliente';
 import {
   cambiaElEvento,
@@ -306,45 +308,32 @@ export class ReunionesService {
    * No se envía dos veces: si otra petición la marcó mientras tanto, el
    * evento recién creado se borra para no dejar un duplicado.
    */
-  async enviarAlCalendar(
-    id: number,
-  ): Promise<ReunionCompleta & { grabacion: EstadoDeGrabacion }> {
+  async enviarAlCalendar(id: number): Promise<
+    ReunionCompleta & {
+      grabacion: EstadoDeGrabacion;
+      detalleGrabacion?: string;
+    }
+  > {
     const reunion = await this.findOne(id);
 
     if (reunion.googleEventId) {
       throw new ConflictException('Esta reunión ya está en Google Calendar');
     }
 
-    const { creado, grabacion } = await this.google.conAccessToken(
-      async (token) => {
+    const { creado, grabacion, detalleGrabacion } =
+      await this.google.conAccessToken(async (token) => {
         const creado = await crearEvento(token, eventoDesdeReunion(reunion));
-
-        let grabacion: EstadoDeGrabacion = 'sin_meet';
-        if (creado.codigoMeet) {
-          try {
-            const { notasDeGemini } = await configurarGrabacion(
+        const resultado = creado.codigoMeet
+          ? await this.aplicarGrabacion(
               token,
               creado.codigoMeet,
               reunion.grabarReunion,
-            );
-            grabacion = !reunion.grabarReunion
-              ? 'desactivada'
-              : notasDeGemini
-                ? 'activada'
-                : 'activada_sin_notas';
-          } catch (error) {
-            // El evento y el Meet ya existen: que la grabación no se pueda
-            // configurar no deshace el envío, se avisa en la respuesta.
-            this.logger.warn(
-              `No se pudo configurar la grabación de la reunión ${id}: ${String(error)}`,
-            );
-            grabacion = 'no_disponible';
-          }
-        }
+              id,
+            )
+          : { grabacion: 'sin_meet' as const, detalleGrabacion: undefined };
 
-        return { creado, grabacion };
-      },
-    );
+        return { creado, ...resultado };
+      });
 
     const marcada = await this.prisma.reunion.updateMany({
       where: { id, googleEventId: null },
@@ -384,7 +373,85 @@ export class ReunionesService {
       );
     }
 
-    return { ...enviada, grabacion };
+    return { ...enviada, grabacion, detalleGrabacion };
+  }
+
+  /**
+   * **REVISAR LA GRABACIÓN** de una reunión ya enviada: vuelve a aplicar lo
+   * que pide la casilla y devuelve lo que Google tiene guardado de verdad. El
+   * recuadro del evento en Calendar no muestra este ajuste, así que es la
+   * forma de comprobarlo (y de reintentar si falló al enviar).
+   */
+  async revisarGrabacion(id: number): Promise<{
+    grabacion: EstadoDeGrabacion;
+    detalleGrabacion?: string;
+    enGoogle: ArtefactosDelMeet | null;
+  }> {
+    const reunion = await this.findOne(id);
+
+    if (!reunion.googleEventId) {
+      throw new ConflictException(
+        'Esta reunión todavía no está en Google Calendar',
+      );
+    }
+
+    const codigo = codigoDeMeet(reunion.linkMeet);
+    if (!codigo) {
+      return {
+        grabacion: 'sin_meet',
+        detalleGrabacion: 'La reunión no tiene un link de Meet válido',
+        enGoogle: null,
+      };
+    }
+
+    return this.google.conAccessToken(async (token) => {
+      const resultado = await this.aplicarGrabacion(
+        token,
+        codigo,
+        reunion.grabarReunion,
+        id,
+      );
+
+      let enGoogle: ArtefactosDelMeet | null = null;
+      try {
+        enGoogle = await leerArtefactos(token, codigo);
+      } catch (error) {
+        this.logger.warn(
+          `No se pudo leer la configuración del Meet de la reunión ${id}: ${String(error)}`,
+        );
+      }
+
+      return { ...resultado, enGoogle };
+    });
+  }
+
+  /**
+   * Deja el Meet grabando (o no) según la casilla. Nunca lanza: el evento ya
+   * existe y un fallo acá no debe deshacer nada. El motivo que da Google viaja
+   * en `detalleGrabacion` para poder mostrarlo.
+   */
+  private async aplicarGrabacion(
+    token: string,
+    codigoMeet: string,
+    activar: boolean,
+    id: number,
+  ): Promise<{ grabacion: EstadoDeGrabacion; detalleGrabacion?: string }> {
+    try {
+      const { notasDeGemini, motivoNotas } = await configurarGrabacion(
+        token,
+        codigoMeet,
+        activar,
+      );
+      if (!activar) return { grabacion: 'desactivada' };
+      if (notasDeGemini) return { grabacion: 'activada' };
+      return { grabacion: 'activada_sin_notas', detalleGrabacion: motivoNotas };
+    } catch (error) {
+      const detalle = error instanceof Error ? error.message : String(error);
+      this.logger.warn(
+        `No se pudo configurar la grabación de la reunión ${id}: ${detalle}`,
+      );
+      return { grabacion: 'no_disponible', detalleGrabacion: detalle };
+    }
   }
 
   /**
