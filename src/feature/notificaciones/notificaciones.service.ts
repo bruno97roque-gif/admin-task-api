@@ -136,6 +136,19 @@ export class NotificacionesService {
     );
   }
 
+  /** Avisa a todos los usuarios activos (los comunicados). */
+  async notificarATodos(aviso: NuevaNotificacion): Promise<void> {
+    const usuarios = await this.prisma.user.findMany({
+      where: { active: true },
+      select: { id: true },
+    });
+
+    await this.notificar(
+      usuarios.map((u) => u.id),
+      aviso,
+    );
+  }
+
   // ---------------------------------------------------------------------------
   // Internas: lectura (siempre acotadas al usuario del token)
   // ---------------------------------------------------------------------------

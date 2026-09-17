@@ -31,6 +31,7 @@ export const TAGS = {
   notas: 'Tickets de soporte',
   integraciones: 'Integraciones · Google',
   perfil: 'Mi perfil',
+  comunicados: 'Comunicados',
 } as const;
 
 const DESCRIPCION = `

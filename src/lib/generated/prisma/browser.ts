@@ -134,3 +134,15 @@ export type IntegracionGoogle = Prisma.IntegracionGoogleModel
  * el navegador (unos pocos KB).
  */
 export type FotoPerfil = Prisma.FotoPerfilModel
+/**
+ * Model Comunicado
+ * Aviso de administración para todos: en la página de login, dentro del
+ * sistema, o en los dos. Vigente entre `desde` y `hasta` (sin `hasta`,
+ * hasta que alguien lo finalice).
+ */
+export type Comunicado = Prisma.ComunicadoModel
+/**
+ * Model ComunicadoCierre
+ * Quién cerró qué comunicado dentro del sistema, para no volver a mostrárselo.
+ */
+export type ComunicadoCierre = Prisma.ComunicadoCierreModel

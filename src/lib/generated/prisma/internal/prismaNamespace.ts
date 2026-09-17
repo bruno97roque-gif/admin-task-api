@@ -412,7 +412,9 @@ export const ModelName = {
   NotaAdmin: 'NotaAdmin',
   RespuestaNota: 'RespuestaNota',
   IntegracionGoogle: 'IntegracionGoogle',
-  FotoPerfil: 'FotoPerfil'
+  FotoPerfil: 'FotoPerfil',
+  Comunicado: 'Comunicado',
+  ComunicadoCierre: 'ComunicadoCierre'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -428,7 +430,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "rol" | "user" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota" | "integracionGoogle" | "fotoPerfil"
+    modelProps: "rol" | "user" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota" | "integracionGoogle" | "fotoPerfil" | "comunicado" | "comunicadoCierre"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1690,6 +1692,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Comunicado: {
+      payload: Prisma.$ComunicadoPayload<ExtArgs>
+      fields: Prisma.ComunicadoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ComunicadoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ComunicadoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload>
+        }
+        findFirst: {
+          args: Prisma.ComunicadoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ComunicadoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload>
+        }
+        findMany: {
+          args: Prisma.ComunicadoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload>[]
+        }
+        create: {
+          args: Prisma.ComunicadoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload>
+        }
+        createMany: {
+          args: Prisma.ComunicadoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ComunicadoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload>[]
+        }
+        delete: {
+          args: Prisma.ComunicadoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload>
+        }
+        update: {
+          args: Prisma.ComunicadoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload>
+        }
+        deleteMany: {
+          args: Prisma.ComunicadoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ComunicadoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ComunicadoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload>[]
+        }
+        upsert: {
+          args: Prisma.ComunicadoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoPayload>
+        }
+        aggregate: {
+          args: Prisma.ComunicadoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateComunicado>
+        }
+        groupBy: {
+          args: Prisma.ComunicadoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComunicadoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ComunicadoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComunicadoCountAggregateOutputType> | number
+        }
+      }
+    }
+    ComunicadoCierre: {
+      payload: Prisma.$ComunicadoCierrePayload<ExtArgs>
+      fields: Prisma.ComunicadoCierreFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ComunicadoCierreFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ComunicadoCierreFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload>
+        }
+        findFirst: {
+          args: Prisma.ComunicadoCierreFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ComunicadoCierreFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload>
+        }
+        findMany: {
+          args: Prisma.ComunicadoCierreFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload>[]
+        }
+        create: {
+          args: Prisma.ComunicadoCierreCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload>
+        }
+        createMany: {
+          args: Prisma.ComunicadoCierreCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ComunicadoCierreCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload>[]
+        }
+        delete: {
+          args: Prisma.ComunicadoCierreDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload>
+        }
+        update: {
+          args: Prisma.ComunicadoCierreUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload>
+        }
+        deleteMany: {
+          args: Prisma.ComunicadoCierreDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ComunicadoCierreUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ComunicadoCierreUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload>[]
+        }
+        upsert: {
+          args: Prisma.ComunicadoCierreUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComunicadoCierrePayload>
+        }
+        aggregate: {
+          args: Prisma.ComunicadoCierreAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateComunicadoCierre>
+        }
+        groupBy: {
+          args: Prisma.ComunicadoCierreGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComunicadoCierreGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ComunicadoCierreCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComunicadoCierreCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1961,6 +2111,32 @@ export const FotoPerfilScalarFieldEnum = {
 export type FotoPerfilScalarFieldEnum = (typeof FotoPerfilScalarFieldEnum)[keyof typeof FotoPerfilScalarFieldEnum]
 
 
+export const ComunicadoScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  mensaje: 'mensaje',
+  nivel: 'nivel',
+  enLogin: 'enLogin',
+  enSistema: 'enSistema',
+  desde: 'desde',
+  hasta: 'hasta',
+  creadorId: 'creadorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ComunicadoScalarFieldEnum = (typeof ComunicadoScalarFieldEnum)[keyof typeof ComunicadoScalarFieldEnum]
+
+
+export const ComunicadoCierreScalarFieldEnum = {
+  comunicadoId: 'comunicadoId',
+  usuarioId: 'usuarioId',
+  cerradoAt: 'cerradoAt'
+} as const
+
+export type ComunicadoCierreScalarFieldEnum = (typeof ComunicadoCierreScalarFieldEnum)[keyof typeof ComunicadoCierreScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2181,6 +2357,20 @@ export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMode
 
 
 /**
+ * Reference to a field of type 'NivelComunicado'
+ */
+export type EnumNivelComunicadoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NivelComunicado'>
+    
+
+
+/**
+ * Reference to a field of type 'NivelComunicado[]'
+ */
+export type ListEnumNivelComunicadoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NivelComunicado[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2361,6 +2551,8 @@ export type GlobalOmitConfig = {
   respuestaNota?: Prisma.RespuestaNotaOmit
   integracionGoogle?: Prisma.IntegracionGoogleOmit
   fotoPerfil?: Prisma.FotoPerfilOmit
+  comunicado?: Prisma.ComunicadoOmit
+  comunicadoCierre?: Prisma.ComunicadoCierreOmit
 }
 
 /* Types for Logging */

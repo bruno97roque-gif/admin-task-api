@@ -86,6 +86,7 @@ enum TipoNotificacion {
   ReunionProxima
   NotaRecibida
   NotaRespondida
+  Comunicado
 }
 
 /// En qué va un ticket del equipo. `Pendiente` es el estado de entrada;
@@ -139,6 +140,8 @@ model User {
   reunionesCreadas       Reunion[]              @relation("ReunionesCreadas")
   integracionGoogle      IntegracionGoogle?
   fotoPerfil             FotoPerfil?
+  comunicadosCreados     Comunicado[]
+  comunicadosCerrados    ComunicadoCierre[]
   reuniones              ReunionUsuario[]
   notasEnviadas          NotaAdmin[]
   respuestasNota         RespuestaNota[]
@@ -387,29 +390,29 @@ model Notificacion {
 /// obligatorio: la reunión existe para que el diseñador o desarrollador lo
 /// tenga a mano en su vista. Puede o no estar ligada a un proyecto.
 model Reunion {
-  id            Int       @id @default(autoincrement())
-  titulo        String
-  descripcion   String?   @db.Text
-  fecha         DateTime
-  linkMeet      String    @map("link_meet")
+  id                Int       @id @default(autoincrement())
+  titulo            String
+  descripcion       String?   @db.Text
+  fecha             DateTime
+  linkMeet          String    @map("link_meet")
   /// Cuándo se mandó el aviso de «empieza en unos minutos». Queda marcado
   /// para que la tarea programada no lo repita en cada pasada.
-  avisoPrevioAt DateTime? @map("aviso_previo_at")
+  avisoPrevioAt     DateTime? @map("aviso_previo_at")
   /// Id del evento en Google Calendar. Mientras sea null la reunión no se
   /// mandó todavía; con valor, editar acá edita ese mismo evento en vez de
   /// crear uno nuevo.
-  googleEventId String?   @map("google_event_id")
+  googleEventId     String?   @map("google_event_id")
   /// Cuándo administración la envió a Calendar.
-  enviadaAt     DateTime? @map("enviada_at")
+  enviadaAt         DateTime? @map("enviada_at")
   /// Si el Meet arranca grabando y transcribiendo solo.
-  grabarReunion Boolean   @default(true) @map("grabar_reunion")
+  grabarReunion     Boolean   @default(true) @map("grabar_reunion")
   /// Correos de gente de afuera del sistema (clientes) que se suman a la
   /// invitación de Google Calendar. No reciben notificaciones internas.
-  invitadosExternos String[] @default([]) @map("invitados_externos")
-  proyectoId    Int?      @map("proyecto_id")
-  creadorId     Int?      @map("creador_id")
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
+  invitadosExternos String[]  @default([]) @map("invitados_externos")
+  proyectoId        Int?      @map("proyecto_id")
+  creadorId         Int?      @map("creador_id")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
 
   proyecto      Proyecto?        @relation(fields: [proyectoId], references: [id], onDelete: SetNull)
   creador       User?            @relation("ReunionesCreadas", fields: [creadorId], references: [id], onDelete: SetNull)
@@ -522,4 +525,47 @@ model FotoPerfil {
   usuario User @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 
   @@map("fotos_perfil")
+}
+
+/// Qué tan importante es un comunicado. Los `Urgente` no se pueden cerrar.
+enum NivelComunicado {
+  Info
+  Importante
+  Urgente
+}
+
+/// Aviso de administración para todos: en la página de login, dentro del
+/// sistema, o en los dos. Vigente entre `desde` y `hasta` (sin `hasta`,
+/// hasta que alguien lo finalice).
+model Comunicado {
+  id        Int             @id @default(autoincrement())
+  titulo    String
+  mensaje   String          @db.Text
+  nivel     NivelComunicado @default(Info)
+  enLogin   Boolean         @default(false) @map("en_login")
+  enSistema Boolean         @default(true) @map("en_sistema")
+  desde     DateTime        @default(now())
+  hasta     DateTime?
+  creadorId Int?            @map("creador_id")
+  createdAt DateTime        @default(now()) @map("created_at")
+  updatedAt DateTime        @updatedAt @map("updated_at")
+
+  creador User?              @relation(fields: [creadorId], references: [id], onDelete: SetNull)
+  cierres ComunicadoCierre[]
+
+  @@index([desde])
+  @@map("comunicados")
+}
+
+/// Quién cerró qué comunicado dentro del sistema, para no volver a mostrárselo.
+model ComunicadoCierre {
+  comunicadoId Int      @map("comunicado_id")
+  usuarioId    Int      @map("usuario_id")
+  cerradoAt    DateTime @default(now()) @map("cerrado_at")
+
+  comunicado Comunicado @relation(fields: [comunicadoId], references: [id], onDelete: Cascade)
+  usuario    User       @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@id([comunicadoId, usuarioId])
+  @@map("comunicados_cierres")
 }

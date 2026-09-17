@@ -66,7 +66,9 @@ export const ModelName = {
   NotaAdmin: 'NotaAdmin',
   RespuestaNota: 'RespuestaNota',
   IntegracionGoogle: 'IntegracionGoogle',
-  FotoPerfil: 'FotoPerfil'
+  FotoPerfil: 'FotoPerfil',
+  Comunicado: 'Comunicado',
+  ComunicadoCierre: 'ComunicadoCierre'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -315,6 +317,32 @@ export const FotoPerfilScalarFieldEnum = {
 } as const
 
 export type FotoPerfilScalarFieldEnum = (typeof FotoPerfilScalarFieldEnum)[keyof typeof FotoPerfilScalarFieldEnum]
+
+
+export const ComunicadoScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  mensaje: 'mensaje',
+  nivel: 'nivel',
+  enLogin: 'enLogin',
+  enSistema: 'enSistema',
+  desde: 'desde',
+  hasta: 'hasta',
+  creadorId: 'creadorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ComunicadoScalarFieldEnum = (typeof ComunicadoScalarFieldEnum)[keyof typeof ComunicadoScalarFieldEnum]
+
+
+export const ComunicadoCierreScalarFieldEnum = {
+  comunicadoId: 'comunicadoId',
+  usuarioId: 'usuarioId',
+  cerradoAt: 'cerradoAt'
+} as const
+
+export type ComunicadoCierreScalarFieldEnum = (typeof ComunicadoCierreScalarFieldEnum)[keyof typeof ComunicadoCierreScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -77,7 +77,8 @@ export const TipoNotificacion = {
   ReunionProgramada: 'ReunionProgramada',
   ReunionProxima: 'ReunionProxima',
   NotaRecibida: 'NotaRecibida',
-  NotaRespondida: 'NotaRespondida'
+  NotaRespondida: 'NotaRespondida',
+  Comunicado: 'Comunicado'
 } as const
 
 export type TipoNotificacion = (typeof TipoNotificacion)[keyof typeof TipoNotificacion]
@@ -101,3 +102,12 @@ export const CategoriaNota = {
 } as const
 
 export type CategoriaNota = (typeof CategoriaNota)[keyof typeof CategoriaNota]
+
+
+export const NivelComunicado = {
+  Info: 'Info',
+  Importante: 'Importante',
+  Urgente: 'Urgente'
+} as const
+
+export type NivelComunicado = (typeof NivelComunicado)[keyof typeof NivelComunicado]

@@ -128,6 +128,15 @@ Migración **aditiva** `20260918120000_fotos_perfil` (tabla `fotos_perfil`, una 
 - **Límite de intentos del login** (`auth/limitador-de-intentos.ts`, en memoria): 10 fallos por usuario o 30 por IP en 15 minutos → 429. El usuario inexistente cuenta igual y responde el mismo «Credenciales inválidas». Por eso `main.ts` hace `app.set('trust proxy', 1)` (Railway pone un proxy; sin eso todos comparten IP) y sube el tope del JSON a 600 KB por las fotos.
 - **Pendiente (etapa 2)**: migrar el login a better-auth (sesiones revocables). Ojo: exige correo en cada usuario y tablas propias; ver la conversación del 2026-09-17 antes de empezar.
 
+### Comunicados (`feature/comunicados`)
+
+Migración **aditiva** `20260919120000_comunicados` (valor `Comunicado` en `TipoNotificacion`, enum `NivelComunicado` y tablas `comunicados` y `comunicados_cierres`).
+
+- Administración publica avisos para todos con `nivel` (`Info`, `Importante`, `Urgente`), dónde se ven (`enLogin`, `enSistema`, al menos uno) y vigencia `desde`/`hasta` (sin `hasta`, hasta que se finalice). Las reglas puras están en `comunicados.reglas.ts`.
+- `GET /comunicados/login` es **`@Public()`** y devuelve solo `id, titulo, mensaje, nivel` de los vigentes con `enLogin`. `GET /comunicados/activos` devuelve los vigentes con `enSistema` que el usuario no cerró; **los urgentes siempre**, aunque haya un cierre viejo. `POST /:id/cerrar` guarda el cierre (409 si es urgente).
+- Solo administración: `GET /`, `POST /` (con `notificar: true` deja una notificación a cada usuario activo, `notificarATodos`), `PATCH /:id`, `POST /:id/finalizar` (pone `hasta = ahora`; si no había empezado, mueve también `desde`) y `DELETE /:id`.
+- El front muestra los de login arriba del formulario y los activos arriba de cada página (consulta cada 2 minutos y al publicar).
+
 ## Commands
 
 ```bash

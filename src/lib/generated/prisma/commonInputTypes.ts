@@ -405,6 +405,23 @@ export type BytesWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedBytesFilter<$PrismaModel>
 }
 
+export type EnumNivelComunicadoFilter<$PrismaModel = never> = {
+  equals?: $Enums.NivelComunicado | Prisma.EnumNivelComunicadoFieldRefInput<$PrismaModel>
+  in?: $Enums.NivelComunicado[] | Prisma.ListEnumNivelComunicadoFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NivelComunicado[] | Prisma.ListEnumNivelComunicadoFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNivelComunicadoFilter<$PrismaModel> | $Enums.NivelComunicado
+}
+
+export type EnumNivelComunicadoWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.NivelComunicado | Prisma.EnumNivelComunicadoFieldRefInput<$PrismaModel>
+  in?: $Enums.NivelComunicado[] | Prisma.ListEnumNivelComunicadoFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NivelComunicado[] | Prisma.ListEnumNivelComunicadoFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNivelComunicadoWithAggregatesFilter<$PrismaModel> | $Enums.NivelComunicado
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumNivelComunicadoFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumNivelComunicadoFilter<$PrismaModel>
+}
+
 export type NestedIntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -808,6 +825,23 @@ export type NestedBytesWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBytesFilter<$PrismaModel>
   _max?: Prisma.NestedBytesFilter<$PrismaModel>
+}
+
+export type NestedEnumNivelComunicadoFilter<$PrismaModel = never> = {
+  equals?: $Enums.NivelComunicado | Prisma.EnumNivelComunicadoFieldRefInput<$PrismaModel>
+  in?: $Enums.NivelComunicado[] | Prisma.ListEnumNivelComunicadoFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NivelComunicado[] | Prisma.ListEnumNivelComunicadoFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNivelComunicadoFilter<$PrismaModel> | $Enums.NivelComunicado
+}
+
+export type NestedEnumNivelComunicadoWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.NivelComunicado | Prisma.EnumNivelComunicadoFieldRefInput<$PrismaModel>
+  in?: $Enums.NivelComunicado[] | Prisma.ListEnumNivelComunicadoFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NivelComunicado[] | Prisma.ListEnumNivelComunicadoFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNivelComunicadoWithAggregatesFilter<$PrismaModel> | $Enums.NivelComunicado
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumNivelComunicadoFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumNivelComunicadoFilter<$PrismaModel>
 }
 
 
