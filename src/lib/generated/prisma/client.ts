@@ -168,3 +168,22 @@ export type Comunicado = Prisma.ComunicadoModel
  * Quién cerró qué comunicado dentro del sistema, para no volver a mostrárselo.
  */
 export type ComunicadoCierre = Prisma.ComunicadoCierreModel
+/**
+ * Model Session
+ * Una sesión abierta. Cerrar sesión o cambiar la contraseña la borra: a
+ * diferencia del JWT de antes, deja de valer en el momento.
+ */
+export type Session = Prisma.SessionModel
+/**
+ * Model Account
+ * Forma de entrar de un usuario. La de usuario y contraseña es
+ * `providerId = 'credential'`, con `accountId` = id del usuario y el hash
+ * argon2 en `password`.
+ */
+export type Account = Prisma.AccountModel
+/**
+ * Model Verification
+ * Tokens de un solo uso de better-auth. Hoy no se usan (no hay verificación
+ * de correo ni recuperación por correo), pero la librería exige la tabla.
+ */
+export type Verification = Prisma.VerificationModel

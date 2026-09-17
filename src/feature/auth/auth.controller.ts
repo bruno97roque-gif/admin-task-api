@@ -1,128 +1,63 @@
 import {
-  Body,
   Controller,
+  GoneException,
   HttpCode,
   HttpStatus,
   Post,
-  Req,
-  Res,
+  UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import {
-  ApiCookieAuth,
+  ApiGoneResponse,
   ApiNoContentResponse,
-  ApiOkResponse,
   ApiOperation,
   ApiTags,
-  ApiTooManyRequestsResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import type { Request, Response } from 'express';
-import { AuthService, LoginResponse, SesionCreada } from './auth.service';
-import { LoginDto } from './dto/login.dto';
-import { LoginRespuestaDto } from './dto/login-respuesta.dto';
+import { TAGS } from '../../swagger';
 import { Public } from './decorators/public.decorator';
-import {
-  COOKIE_PATH,
-  REFRESH_COOKIE,
-  opcionesCookieRefresh,
-} from './auth.cookie';
-import { AUTH_COOKIE_REFRESH, TAGS } from '../../swagger';
 
+const RECARGA =
+  'El sistema se actualizó. Recarga la página (Ctrl + F5) para iniciar sesión.';
+
+/**
+ * **RUTAS VIEJAS DEL LOGIN.** El login ahora es de better-auth, en
+ * `/api/auth/*` (ver `main.ts`). Estas quedan para que una pestaña abierta
+ * con el front anterior no quede muda: le piden recargar.
+ */
 @ApiTags(TAGS.auth)
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly config: ConfigService,
-  ) {}
-
   @Public()
   @Post('login')
-  @HttpCode(HttpStatus.OK)
   @ApiOperation({
-    summary: 'Iniciar sesión',
+    summary: '(Reemplazada) Iniciar sesión',
     description:
-      'Devuelve el access token en el cuerpo y deja el refresh token en una cookie httpOnly acotada a `Path=/auth`. Requiere `credentials: "include"` desde el navegador.',
+      'Ahora es `POST /api/auth/sign-in/username` con `{ username, password }`. Responde 410 para que el front viejo pida recargar.',
   })
-  @ApiOkResponse({
-    description:
-      'Sesión creada. La cookie `refreshToken` viaja en `Set-Cookie`.',
-    type: LoginRespuestaDto,
-  })
-  @ApiUnauthorizedResponse({
-    description: '`Credenciales inválidas` o `El usuario está desactivado`.',
-  })
-  @ApiTooManyRequestsResponse({
-    description:
-      'Demasiados intentos fallidos: 10 por usuario o 30 por IP en 15 minutos.',
-  })
-  async login(
-    @Body() loginDto: LoginDto,
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response,
-  ): Promise<LoginResponse> {
-    return this.enviarSesion(
-      await this.authService.login(loginDto, req.ip),
-      res,
-    );
+  @ApiGoneResponse({ description: RECARGA })
+  login(): never {
+    throw new GoneException(RECARGA);
   }
 
   @Public()
   @Post('refresh')
-  @HttpCode(HttpStatus.OK)
-  @ApiCookieAuth(AUTH_COOKIE_REFRESH)
   @ApiOperation({
-    summary: 'Renovar el access token',
+    summary: '(Reemplazada) Renovar sesión',
     description:
-      'Lee el refresh token de la cookie, relee al usuario de la base (así un cambio de rol o una baja pegan en el próximo refresh) y emite un par nuevo. No lleva cuerpo.',
+      'Las sesiones se renuevan solas. Responde 401 para que el front viejo vuelva al login.',
   })
-  @ApiOkResponse({
-    description: 'Mismo formato que el login.',
-    type: LoginRespuestaDto,
-  })
-  @ApiUnauthorizedResponse({
-    description:
-      '`Refresh token no proporcionado`, `Refresh token inválido o expirado`, `El usuario ya no existe` o `El usuario está desactivado`.',
-  })
-  async refresh(
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response,
-  ): Promise<LoginResponse> {
-    const refreshToken = req.cookies?.[REFRESH_COOKIE] as string | undefined;
-
-    return this.enviarSesion(await this.authService.refresh(refreshToken), res);
+  @ApiUnauthorizedResponse({ description: RECARGA })
+  refresh(): never {
+    throw new UnauthorizedException(RECARGA);
   }
 
   @Public()
   @Post('logout')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Cerrar sesión',
-    description:
-      'Borra la cookie del refresh token. El access token que ya se emitió sigue siendo válido hasta que expire: no hay revocación del lado del servidor.',
+    summary: '(Reemplazada) Cerrar sesión',
+    description: 'Ahora es `POST /api/auth/sign-out`. Esta no hace nada.',
   })
-  @ApiNoContentResponse({
-    description:
-      'Cookie borrada. **No devuelve cuerpo**: no lo parsees como JSON.',
-  })
-  logout(@Res({ passthrough: true }) res: Response): void {
-    res.clearCookie(REFRESH_COOKIE, { path: COOKIE_PATH });
-  }
-
-  /** Deja el refresh token en la cookie httpOnly y devuelve solo el access token. */
-  private enviarSesion(
-    { respuesta, refreshToken }: SesionCreada,
-    res: Response,
-  ): LoginResponse {
-    res.cookie(
-      REFRESH_COOKIE,
-      refreshToken,
-      opcionesCookieRefresh(
-        this.config.get<string>('JWT_REFRESH_EXPIRES_IN') ?? '5d',
-      ),
-    );
-
-    return respuesta;
-  }
+  @ApiNoContentResponse()
+  logout(): void {}
 }

@@ -14,7 +14,7 @@ import { NotasModule } from './feature/notas/notas.module';
 import { GoogleModule } from './feature/google/google.module';
 import { PerfilModule } from './feature/perfil/perfil.module';
 import { ComunicadosModule } from './feature/comunicados/comunicados.module';
-import { JwtAuthGuard } from './feature/auth/guards/jwt-auth.guard';
+import { SesionGuard } from './feature/auth/guards/sesion.guard';
 import { RolesGuard } from './feature/auth/guards/roles.guard';
 
 @Module({
@@ -35,10 +35,10 @@ import { RolesGuard } from './feature/auth/guards/roles.guard';
     PerfilModule,
     ComunicadosModule,
   ],
-  // El orden importa: JwtAuthGuard deja el payload en request.usuario y
+  // El orden importa: SesionGuard deja el payload en request.usuario y
   // RolesGuard lo lee. Invertidos, RolesGuard no encontraría el rol.
   providers: [
-    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: SesionGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
   ],
 })

@@ -43,6 +43,10 @@ export type UserMinAggregateOutputType = {
   active: boolean | null
   roleId: number | null
   email: string | null
+  emailVerified: boolean | null
+  image: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -53,6 +57,10 @@ export type UserMaxAggregateOutputType = {
   active: boolean | null
   roleId: number | null
   email: string | null
+  emailVerified: boolean | null
+  image: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -63,6 +71,10 @@ export type UserCountAggregateOutputType = {
   active: number
   roleId: number
   email: number
+  emailVerified: number
+  image: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -85,6 +97,10 @@ export type UserMinAggregateInputType = {
   active?: true
   roleId?: true
   email?: true
+  emailVerified?: true
+  image?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -95,6 +111,10 @@ export type UserMaxAggregateInputType = {
   active?: true
   roleId?: true
   email?: true
+  emailVerified?: true
+  image?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -105,6 +125,10 @@ export type UserCountAggregateInputType = {
   active?: true
   roleId?: true
   email?: true
+  emailVerified?: true
+  image?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -202,6 +226,10 @@ export type UserGroupByOutputType = {
   active: boolean
   roleId: number
   email: string | null
+  emailVerified: boolean
+  image: string | null
+  createdAt: Date
+  updatedAt: Date
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -235,6 +263,12 @@ export type UserWhereInput = {
   active?: Prisma.BoolFilter<"User"> | boolean
   roleId?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringNullableFilter<"User"> | string | null
+  emailVerified?: Prisma.BoolFilter<"User"> | boolean
+  image?: Prisma.StringNullableFilter<"User"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  sesiones?: Prisma.SessionListRelationFilter
+  cuentasAcceso?: Prisma.AccountListRelationFilter
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
   proyectos?: Prisma.UsuarioProyectoListRelationFilter
   proyectosDisenados?: Prisma.ProyectoListRelationFilter
@@ -261,6 +295,12 @@ export type UserOrderByWithRelationInput = {
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  sesiones?: Prisma.SessionOrderByRelationAggregateInput
+  cuentasAcceso?: Prisma.AccountOrderByRelationAggregateInput
   rol?: Prisma.RolOrderByWithRelationInput
   proyectos?: Prisma.UsuarioProyectoOrderByRelationAggregateInput
   proyectosDisenados?: Prisma.ProyectoOrderByRelationAggregateInput
@@ -290,6 +330,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   active?: Prisma.BoolFilter<"User"> | boolean
   roleId?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringNullableFilter<"User"> | string | null
+  emailVerified?: Prisma.BoolFilter<"User"> | boolean
+  image?: Prisma.StringNullableFilter<"User"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  sesiones?: Prisma.SessionListRelationFilter
+  cuentasAcceso?: Prisma.AccountListRelationFilter
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
   proyectos?: Prisma.UsuarioProyectoListRelationFilter
   proyectosDisenados?: Prisma.ProyectoListRelationFilter
@@ -316,6 +362,10 @@ export type UserOrderByWithAggregationInput = {
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -334,6 +384,10 @@ export type UserScalarWhereWithAggregatesInput = {
   active?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   roleId?: Prisma.IntWithAggregatesFilter<"User"> | number
   email?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
@@ -342,6 +396,12 @@ export type UserCreateInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -368,6 +428,12 @@ export type UserUncheckedCreateInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -391,6 +457,12 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -417,6 +489,12 @@ export type UserUncheckedUpdateInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -442,6 +520,10 @@ export type UserCreateManyInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
@@ -450,6 +532,10 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -460,6 +546,10 @@ export type UserUncheckedUpdateManyInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserListRelationFilter = {
@@ -480,6 +570,10 @@ export type UserCountOrderByAggregateInput = {
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -495,6 +589,10 @@ export type UserMaxOrderByAggregateInput = {
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -505,6 +603,10 @@ export type UserMinOrderByAggregateInput = {
   active?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
+  image?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -570,6 +672,10 @@ export type BoolFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type UserCreateNestedOneWithoutProyectosDisenadosInput = {
@@ -800,12 +906,46 @@ export type UserUpdateOneRequiredWithoutComunicadosCerradosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutComunicadosCerradosInput, Prisma.UserUpdateWithoutComunicadosCerradosInput>, Prisma.UserUncheckedUpdateWithoutComunicadosCerradosInput>
 }
 
+export type UserCreateNestedOneWithoutSesionesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSesionesInput, Prisma.UserUncheckedCreateWithoutSesionesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSesionesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSesionesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSesionesInput, Prisma.UserUncheckedCreateWithoutSesionesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSesionesInput
+  upsert?: Prisma.UserUpsertWithoutSesionesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSesionesInput, Prisma.UserUpdateWithoutSesionesInput>, Prisma.UserUncheckedUpdateWithoutSesionesInput>
+}
+
+export type UserCreateNestedOneWithoutCuentasAccesoInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCuentasAccesoInput, Prisma.UserUncheckedCreateWithoutCuentasAccesoInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCuentasAccesoInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCuentasAccesoNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCuentasAccesoInput, Prisma.UserUncheckedCreateWithoutCuentasAccesoInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCuentasAccesoInput
+  upsert?: Prisma.UserUpsertWithoutCuentasAccesoInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCuentasAccesoInput, Prisma.UserUpdateWithoutCuentasAccesoInput>, Prisma.UserUncheckedUpdateWithoutCuentasAccesoInput>
+}
+
 export type UserCreateWithoutRolInput = {
   name: string
   user: string
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
@@ -830,6 +970,12 @@ export type UserUncheckedCreateWithoutRolInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -884,6 +1030,10 @@ export type UserScalarWhereInput = {
   active?: Prisma.BoolFilter<"User"> | boolean
   roleId?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringNullableFilter<"User"> | string | null
+  emailVerified?: Prisma.BoolFilter<"User"> | boolean
+  image?: Prisma.StringNullableFilter<"User"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
 
 export type UserCreateWithoutProyectosDisenadosInput = {
@@ -892,6 +1042,12 @@ export type UserCreateWithoutProyectosDisenadosInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
@@ -917,6 +1073,12 @@ export type UserUncheckedCreateWithoutProyectosDisenadosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
@@ -944,6 +1106,12 @@ export type UserCreateWithoutProyectosDesarrolladosInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -969,6 +1137,12 @@ export type UserUncheckedCreateWithoutProyectosDesarrolladosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1007,6 +1181,12 @@ export type UserUpdateWithoutProyectosDisenadosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
@@ -1032,6 +1212,12 @@ export type UserUncheckedUpdateWithoutProyectosDisenadosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1065,6 +1251,12 @@ export type UserUpdateWithoutProyectosDesarrolladosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1090,6 +1282,12 @@ export type UserUncheckedUpdateWithoutProyectosDesarrolladosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1112,6 +1310,12 @@ export type UserCreateWithoutCambiosDeEtapaInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1137,6 +1341,12 @@ export type UserUncheckedCreateWithoutCambiosDeEtapaInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1175,6 +1385,12 @@ export type UserUpdateWithoutCambiosDeEtapaInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1200,6 +1416,12 @@ export type UserUncheckedUpdateWithoutCambiosDeEtapaInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1222,6 +1444,12 @@ export type UserCreateWithoutRecordatoriosInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1247,6 +1475,12 @@ export type UserUncheckedCreateWithoutRecordatoriosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1285,6 +1519,12 @@ export type UserUpdateWithoutRecordatoriosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1310,6 +1550,12 @@ export type UserUncheckedUpdateWithoutRecordatoriosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1332,6 +1578,12 @@ export type UserCreateWithoutCotizacionesInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1357,6 +1609,12 @@ export type UserUncheckedCreateWithoutCotizacionesInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1395,6 +1653,12 @@ export type UserUpdateWithoutCotizacionesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1420,6 +1684,12 @@ export type UserUncheckedUpdateWithoutCotizacionesInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1442,6 +1712,12 @@ export type UserCreateWithoutProyectosInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
@@ -1467,6 +1743,12 @@ export type UserUncheckedCreateWithoutProyectosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1505,6 +1787,12 @@ export type UserUpdateWithoutProyectosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
@@ -1530,6 +1818,12 @@ export type UserUncheckedUpdateWithoutProyectosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1552,6 +1846,12 @@ export type UserCreateWithoutNotificacionesInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1577,6 +1877,12 @@ export type UserUncheckedCreateWithoutNotificacionesInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1615,6 +1921,12 @@ export type UserUpdateWithoutNotificacionesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1640,6 +1952,12 @@ export type UserUncheckedUpdateWithoutNotificacionesInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1662,6 +1980,12 @@ export type UserCreateWithoutReunionesCreadasInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1687,6 +2011,12 @@ export type UserUncheckedCreateWithoutReunionesCreadasInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1725,6 +2055,12 @@ export type UserUpdateWithoutReunionesCreadasInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1750,6 +2086,12 @@ export type UserUncheckedUpdateWithoutReunionesCreadasInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1772,6 +2114,12 @@ export type UserCreateWithoutReunionesInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1797,6 +2145,12 @@ export type UserUncheckedCreateWithoutReunionesInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1835,6 +2189,12 @@ export type UserUpdateWithoutReunionesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1860,6 +2220,12 @@ export type UserUncheckedUpdateWithoutReunionesInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1882,6 +2248,12 @@ export type UserCreateWithoutNotasEnviadasInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -1907,6 +2279,12 @@ export type UserUncheckedCreateWithoutNotasEnviadasInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -1945,6 +2323,12 @@ export type UserUpdateWithoutNotasEnviadasInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -1970,6 +2354,12 @@ export type UserUncheckedUpdateWithoutNotasEnviadasInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -1992,6 +2382,12 @@ export type UserCreateWithoutRespuestasNotaInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -2017,6 +2413,12 @@ export type UserUncheckedCreateWithoutRespuestasNotaInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -2055,6 +2457,12 @@ export type UserUpdateWithoutRespuestasNotaInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -2080,6 +2488,12 @@ export type UserUncheckedUpdateWithoutRespuestasNotaInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -2102,6 +2516,12 @@ export type UserCreateWithoutIntegracionGoogleInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -2127,6 +2547,12 @@ export type UserUncheckedCreateWithoutIntegracionGoogleInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -2165,6 +2591,12 @@ export type UserUpdateWithoutIntegracionGoogleInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -2190,6 +2622,12 @@ export type UserUncheckedUpdateWithoutIntegracionGoogleInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -2212,6 +2650,12 @@ export type UserCreateWithoutFotoPerfilInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -2237,6 +2681,12 @@ export type UserUncheckedCreateWithoutFotoPerfilInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -2275,6 +2725,12 @@ export type UserUpdateWithoutFotoPerfilInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -2300,6 +2756,12 @@ export type UserUncheckedUpdateWithoutFotoPerfilInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -2322,6 +2784,12 @@ export type UserCreateWithoutComunicadosCreadosInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -2347,6 +2815,12 @@ export type UserUncheckedCreateWithoutComunicadosCreadosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -2385,6 +2859,12 @@ export type UserUpdateWithoutComunicadosCreadosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -2410,6 +2890,12 @@ export type UserUncheckedUpdateWithoutComunicadosCreadosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -2432,6 +2918,12 @@ export type UserCreateWithoutComunicadosCerradosInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
   rol: Prisma.RolCreateNestedOneWithoutUsersInput
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
@@ -2457,6 +2949,12 @@ export type UserUncheckedCreateWithoutComunicadosCerradosInput = {
   active?: boolean
   roleId: number
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
@@ -2495,6 +2993,12 @@ export type UserUpdateWithoutComunicadosCerradosInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
@@ -2520,6 +3024,12 @@ export type UserUncheckedUpdateWithoutComunicadosCerradosInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -2536,6 +3046,274 @@ export type UserUncheckedUpdateWithoutComunicadosCerradosInput = {
   respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
 }
 
+export type UserCreateWithoutSesionesInput = {
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
+  rol: Prisma.RolCreateNestedOneWithoutUsersInput
+  proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
+  notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
+  reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
+  fotoPerfil?: Prisma.FotoPerfilCreateNestedOneWithoutUsuarioInput
+  comunicadosCreados?: Prisma.ComunicadoCreateNestedManyWithoutCreadorInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreCreateNestedManyWithoutUsuarioInput
+  reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
+  notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
+  respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
+}
+
+export type UserUncheckedCreateWithoutSesionesInput = {
+  id?: number
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  roleId: number
+  email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
+  notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
+  reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
+  fotoPerfil?: Prisma.FotoPerfilUncheckedCreateNestedOneWithoutUsuarioInput
+  comunicadosCreados?: Prisma.ComunicadoUncheckedCreateNestedManyWithoutCreadorInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreUncheckedCreateNestedManyWithoutUsuarioInput
+  reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
+  notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
+  respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
+}
+
+export type UserCreateOrConnectWithoutSesionesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSesionesInput, Prisma.UserUncheckedCreateWithoutSesionesInput>
+}
+
+export type UserUpsertWithoutSesionesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSesionesInput, Prisma.UserUncheckedUpdateWithoutSesionesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSesionesInput, Prisma.UserUncheckedCreateWithoutSesionesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSesionesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSesionesInput, Prisma.UserUncheckedUpdateWithoutSesionesInput>
+}
+
+export type UserUpdateWithoutSesionesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
+  proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
+  notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
+  reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
+  fotoPerfil?: Prisma.FotoPerfilUpdateOneWithoutUsuarioNestedInput
+  comunicadosCreados?: Prisma.ComunicadoUpdateManyWithoutCreadorNestedInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreUpdateManyWithoutUsuarioNestedInput
+  reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
+  notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
+  respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSesionesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
+  notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
+  reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
+  fotoPerfil?: Prisma.FotoPerfilUncheckedUpdateOneWithoutUsuarioNestedInput
+  comunicadosCreados?: Prisma.ComunicadoUncheckedUpdateManyWithoutCreadorNestedInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreUncheckedUpdateManyWithoutUsuarioNestedInput
+  reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
+  notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
+  respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
+}
+
+export type UserCreateWithoutCuentasAccesoInput = {
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  rol: Prisma.RolCreateNestedOneWithoutUsersInput
+  proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
+  notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
+  reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
+  fotoPerfil?: Prisma.FotoPerfilCreateNestedOneWithoutUsuarioInput
+  comunicadosCreados?: Prisma.ComunicadoCreateNestedManyWithoutCreadorInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreCreateNestedManyWithoutUsuarioInput
+  reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
+  notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
+  respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
+}
+
+export type UserUncheckedCreateWithoutCuentasAccesoInput = {
+  id?: number
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  roleId: number
+  email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
+  notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
+  reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
+  fotoPerfil?: Prisma.FotoPerfilUncheckedCreateNestedOneWithoutUsuarioInput
+  comunicadosCreados?: Prisma.ComunicadoUncheckedCreateNestedManyWithoutCreadorInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreUncheckedCreateNestedManyWithoutUsuarioInput
+  reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
+  notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
+  respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
+}
+
+export type UserCreateOrConnectWithoutCuentasAccesoInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCuentasAccesoInput, Prisma.UserUncheckedCreateWithoutCuentasAccesoInput>
+}
+
+export type UserUpsertWithoutCuentasAccesoInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCuentasAccesoInput, Prisma.UserUncheckedUpdateWithoutCuentasAccesoInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCuentasAccesoInput, Prisma.UserUncheckedCreateWithoutCuentasAccesoInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCuentasAccesoInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCuentasAccesoInput, Prisma.UserUncheckedUpdateWithoutCuentasAccesoInput>
+}
+
+export type UserUpdateWithoutCuentasAccesoInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
+  proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
+  notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
+  reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
+  fotoPerfil?: Prisma.FotoPerfilUpdateOneWithoutUsuarioNestedInput
+  comunicadosCreados?: Prisma.ComunicadoUpdateManyWithoutCreadorNestedInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreUpdateManyWithoutUsuarioNestedInput
+  reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
+  notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
+  respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCuentasAccesoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
+  notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
+  reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
+  fotoPerfil?: Prisma.FotoPerfilUncheckedUpdateOneWithoutUsuarioNestedInput
+  comunicadosCreados?: Prisma.ComunicadoUncheckedUpdateManyWithoutCreadorNestedInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreUncheckedUpdateManyWithoutUsuarioNestedInput
+  reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
+  notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
+  respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
+}
+
 export type UserCreateManyRolInput = {
   id?: number
   name: string
@@ -2543,6 +3321,10 @@ export type UserCreateManyRolInput = {
   password: string
   active?: boolean
   email?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUpdateWithoutRolInput = {
@@ -2551,6 +3333,12 @@ export type UserUpdateWithoutRolInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
@@ -2575,6 +3363,12 @@ export type UserUncheckedUpdateWithoutRolInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
@@ -2599,6 +3393,10 @@ export type UserUncheckedUpdateManyWithoutRolInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -2607,6 +3405,8 @@ export type UserUncheckedUpdateManyWithoutRolInput = {
  */
 
 export type UserCountOutputType = {
+  sesiones: number
+  cuentasAcceso: number
   proyectos: number
   proyectosDisenados: number
   proyectosDesarrollados: number
@@ -2623,6 +3423,8 @@ export type UserCountOutputType = {
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  sesiones?: boolean | UserCountOutputTypeCountSesionesArgs
+  cuentasAcceso?: boolean | UserCountOutputTypeCountCuentasAccesoArgs
   proyectos?: boolean | UserCountOutputTypeCountProyectosArgs
   proyectosDisenados?: boolean | UserCountOutputTypeCountProyectosDisenadosArgs
   proyectosDesarrollados?: boolean | UserCountOutputTypeCountProyectosDesarrolladosArgs
@@ -2646,6 +3448,20 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UserCountOutputType
    */
   select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSesionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCuentasAccesoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AccountWhereInput
 }
 
 /**
@@ -2748,6 +3564,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   active?: boolean
   roleId?: boolean
   email?: boolean
+  emailVerified?: boolean
+  image?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  sesiones?: boolean | Prisma.User$sesionesArgs<ExtArgs>
+  cuentasAcceso?: boolean | Prisma.User$cuentasAccesoArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
   proyectos?: boolean | Prisma.User$proyectosArgs<ExtArgs>
   proyectosDisenados?: boolean | Prisma.User$proyectosDisenadosArgs<ExtArgs>
@@ -2775,6 +3597,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   active?: boolean
   roleId?: boolean
   email?: boolean
+  emailVerified?: boolean
+  image?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2786,6 +3612,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   active?: boolean
   roleId?: boolean
   email?: boolean
+  emailVerified?: boolean
+  image?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2797,10 +3627,16 @@ export type UserSelectScalar = {
   active?: boolean
   roleId?: boolean
   email?: boolean
+  emailVerified?: boolean
+  image?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "user" | "password" | "active" | "roleId" | "email", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "user" | "password" | "active" | "roleId" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  sesiones?: boolean | Prisma.User$sesionesArgs<ExtArgs>
+  cuentasAcceso?: boolean | Prisma.User$cuentasAccesoArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
   proyectos?: boolean | Prisma.User$proyectosArgs<ExtArgs>
   proyectosDisenados?: boolean | Prisma.User$proyectosDisenadosArgs<ExtArgs>
@@ -2829,6 +3665,8 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    sesiones: Prisma.$SessionPayload<ExtArgs>[]
+    cuentasAcceso: Prisma.$AccountPayload<ExtArgs>[]
     rol: Prisma.$RolPayload<ExtArgs>
     proyectos: Prisma.$UsuarioProyectoPayload<ExtArgs>[]
     proyectosDisenados: Prisma.$ProyectoPayload<ExtArgs>[]
@@ -2859,6 +3697,16 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
      * existían no lo tienen, y sin él simplemente no se lo invita.
      */
     email: string | null
+    /**
+     * No se verifican correos: el login es con usuario y contraseña.
+     */
+    emailVerified: boolean
+    /**
+     * better-auth lo espera; las fotos viven en `fotos_perfil`.
+     */
+    image: string | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -3253,6 +4101,8 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  sesiones<T extends Prisma.User$sesionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sesionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cuentasAcceso<T extends Prisma.User$cuentasAccesoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cuentasAccesoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rol<T extends Prisma.RolDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RolDefaultArgs<ExtArgs>>): Prisma.Prisma__RolClient<runtime.Types.Result.GetResult<Prisma.$RolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   proyectos<T extends Prisma.User$proyectosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$proyectosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsuarioProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proyectosDisenados<T extends Prisma.User$proyectosDisenadosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$proyectosDisenadosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3305,6 +4155,10 @@ export interface UserFieldRefs {
   readonly active: Prisma.FieldRef<"User", 'Boolean'>
   readonly roleId: Prisma.FieldRef<"User", 'Int'>
   readonly email: Prisma.FieldRef<"User", 'String'>
+  readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly image: Prisma.FieldRef<"User", 'String'>
+  readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 
@@ -3703,6 +4557,54 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.sesiones
+ */
+export type User$sesionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.cuentasAcceso
+ */
+export type User$cuentasAccesoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Account
+   */
+  select?: Prisma.AccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Account
+   */
+  omit?: Prisma.AccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AccountInclude<ExtArgs> | null
+  where?: Prisma.AccountWhereInput
+  orderBy?: Prisma.AccountOrderByWithRelationInput | Prisma.AccountOrderByWithRelationInput[]
+  cursor?: Prisma.AccountWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
 }
 
 /**

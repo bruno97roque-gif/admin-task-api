@@ -11,6 +11,7 @@ import {
   LimitadorDeIntentos,
   mensajeDeEspera,
 } from '../auth/limitador-de-intentos';
+import { cerrarSesiones, guardarContrasena } from '../auth/cuentas';
 import { ActualizarPerfilDto } from './dto/actualizar-perfil.dto';
 import { CambiarContrasenaDto } from './dto/cambiar-contrasena.dto';
 import { leerImagen, versionDeFoto } from './perfil.reglas';
@@ -81,9 +82,15 @@ export class PerfilService {
     return this.obtener(usuarioId);
   }
 
+  /**
+   * Cambia la contraseña y **cierra las demás sesiones** del usuario: si
+   * alguien más tenía la contraseña vieja, queda afuera. La sesión desde la que
+   * se hizo el cambio sigue abierta.
+   */
   async cambiarContrasena(
     usuarioId: number,
     dto: CambiarContrasenaDto,
+    sesionActual?: number,
   ): Promise<void> {
     const clave = `perfil:${usuarioId}`;
     const espera = this.intentos.esperaPara(clave);
@@ -96,14 +103,23 @@ export class PerfilService {
 
     const usuario = await this.prisma.user.findUnique({
       where: { id: usuarioId },
-      select: { password: true },
+      select: {
+        password: true,
+        cuentasAcceso: {
+          where: { providerId: 'credential' },
+          select: { password: true },
+        },
+      },
     });
     if (!usuario) {
       throw new NotFoundException('Tu usuario ya no existe');
     }
 
-    // 400 y no 401: un 401 haría que el front intente renovar la sesión.
-    if (!(await this.argon2.verify(usuario.password, dto.actual))) {
+    // La que vale para el login es la de la cuenta de acceso.
+    const hashActual = usuario.cuentasAcceso[0]?.password ?? usuario.password;
+
+    // 400 y no 401: un 401 cerraría la sesión en el front.
+    if (!(await this.argon2.verify(hashActual, dto.actual))) {
       this.intentos.registrarFallo(clave);
       throw new BadRequestException('La contraseña actual no es correcta');
     }
@@ -115,10 +131,12 @@ export class PerfilService {
       );
     }
 
-    await this.prisma.user.update({
-      where: { id: usuarioId },
-      data: { password: await this.argon2.hash(dto.nueva) },
-    });
+    await guardarContrasena(
+      this.prisma,
+      usuarioId,
+      await this.argon2.hash(dto.nueva),
+    );
+    await cerrarSesiones(this.prisma, usuarioId, sesionActual);
   }
 
   async guardarFoto(usuarioId: number, dataUrl: string): Promise<Perfil> {

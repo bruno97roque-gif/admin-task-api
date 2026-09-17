@@ -61,7 +61,7 @@ export class PerfilController {
   @ApiOperation({
     summary: 'Cambiar mi contraseña',
     description:
-      'Pide la contraseña actual. Diez fallos en 15 minutos bloquean la ruta un rato. La sesión abierta sigue valiendo.',
+      'Pide la contraseña actual. Diez fallos en 15 minutos bloquean la ruta un rato. Cierra las demás sesiones del usuario; la actual sigue abierta.',
   })
   @ApiNoContentResponse({ description: 'Contraseña cambiada.' })
   @ApiBadRequestResponse({
@@ -71,9 +71,10 @@ export class PerfilController {
   @ApiTooManyRequestsResponse({ description: 'Demasiados intentos.' })
   cambiarContrasena(
     @UsuarioActual('sub') usuarioId: number,
+    @UsuarioActual('sesionId') sesionId: number,
     @Body() dto: CambiarContrasenaDto,
   ) {
-    return this.perfil.cambiarContrasena(usuarioId, dto);
+    return this.perfil.cambiarContrasena(usuarioId, dto, sesionId);
   }
 
   @Put('perfil/foto')

@@ -128,6 +128,16 @@ model User {
   /// existían no lo tienen, y sin él simplemente no se lo invita.
   email String?
 
+  // --- Lo que pide better-auth (columnas nuevas, con valor por defecto) ---
+  /// No se verifican correos: el login es con usuario y contraseña.
+  emailVerified Boolean   @default(false) @map("email_verified")
+  /// better-auth lo espera; las fotos viven en `fotos_perfil`.
+  image         String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
+  sesiones      Session[]
+  cuentasAcceso Account[]
+
   rol       Rol               @relation(fields: [roleId], references: [id])
   proyectos UsuarioProyecto[]
 
@@ -568,4 +578,67 @@ model ComunicadoCierre {
 
   @@id([comunicadoId, usuarioId])
   @@map("comunicados_cierres")
+}
+
+// ---------------------------------------------------------------------------
+// better-auth: sesiones, cuentas de acceso y verificaciones. Los nombres de
+// modelo (Session, Account, Verification) son los que busca el adaptador de
+// Prisma; las tablas van en español.
+// ---------------------------------------------------------------------------
+
+/// Una sesión abierta. Cerrar sesión o cambiar la contraseña la borra: a
+/// diferencia del JWT de antes, deja de valer en el momento.
+model Session {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  userId    Int      @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sesiones")
+}
+
+/// Forma de entrar de un usuario. La de usuario y contraseña es
+/// `providerId = 'credential'`, con `accountId` = id del usuario y el hash
+/// argon2 en `password`.
+model Account {
+  id                    Int       @id @default(autoincrement())
+  accountId             String    @map("account_id")
+  providerId            String    @map("provider_id")
+  userId                Int       @map("user_id")
+  accessToken           String?   @map("access_token")
+  refreshToken          String?   @map("refresh_token")
+  idToken               String?   @map("id_token")
+  accessTokenExpiresAt  DateTime? @map("access_token_expires_at")
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at")
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+  @@map("cuentas_acceso")
+}
+
+/// Tokens de un solo uso de better-auth. Hoy no se usan (no hay verificación
+/// de correo ni recuperación por correo), pero la librería exige la tabla.
+model Verification {
+  id         Int      @id @default(autoincrement())
+  identifier String
+  value      String
+  expiresAt  DateTime @map("expires_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@index([identifier])
+  @@map("verificaciones")
 }

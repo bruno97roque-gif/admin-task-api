@@ -1,20 +1,15 @@
 import type { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { REFRESH_COOKIE } from './feature/auth/auth.cookie';
 
 /** Dónde queda la UI. El JSON crudo sale en `/docs-json`. */
 export const RUTA_DOCS = 'docs';
 
 /**
- * Nombre del esquema de seguridad del access token. Es la cadena que hay que
- * pasarle a `@ApiBearerAuth()` en los controllers: si no coincide con la que
- * se registra acá, el candado sale abierto en la UI y el botón «Authorize»
- * no manda el header.
+ * Nombre del esquema de seguridad de la sesión. Es la cadena que hay que
+ * pasarle a `@ApiBearerAuth()` en los controllers (el nombre quedó de cuando
+ * era un token; hoy es la cookie de better-auth).
  */
-export const AUTH_BEARER = 'access-token';
-
-/** Ídem para la cookie httpOnly del refresh, que solo usa POST /auth/refresh. */
-export const AUTH_COOKIE_REFRESH = 'refresh-cookie';
+export const AUTH_BEARER = 'sesion';
 
 /** Nombres de las secciones de la UI, en un solo lugar para no tipearlos mal. */
 export const TAGS = {
@@ -70,7 +65,7 @@ Un proyecto se lee cruzando tres cosas distintas, que es lo que más se confunde
 
 - **400** — el cuerpo está mal (falta un campo, sobra uno, tipo equivocado). El
   \`ValidationPipe\` global rechaza cualquier propiedad no declarada.
-- **401** — falta el token, venció o el usuario está desactivado.
+- **401** — no hay sesión, venció o el usuario está desactivado.
 - **403** — el rol no alcanza para esa ruta (cobros, archivar y reactivar son
   solo de administración).
 - **404** — no existe o está borrado (los proyectos son *soft-delete*).
@@ -91,27 +86,20 @@ export function configurarSwagger(app: INestApplication): void {
     .setTitle('API Admin Proyectos · Websy')
     .setDescription(DESCRIPCION)
     .setVersion('1.0')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        description:
-          'Access token devuelto por POST /auth/login. Pegá solo el token, sin la palabra «Bearer».',
-      },
-      AUTH_BEARER,
-    )
     .addCookieAuth(
-      REFRESH_COOKIE,
+      'websy.session_token',
       {
         type: 'apiKey',
         in: 'cookie',
         description:
-          'Cookie httpOnly con el refresh token. La setea el login y la manda el navegador solo; no se puede cargar a mano.',
+          'Cookie httpOnly de la sesión. La deja `POST /api/auth/sign-in/username` y el navegador la manda sola (en producción se llama `__Secure-websy.session_token`).',
       },
-      AUTH_COOKIE_REFRESH,
+      AUTH_BEARER,
     )
-    .addTag(TAGS.auth, 'Login, refresh y logout. Lo único público de la API.')
+    .addTag(
+      TAGS.auth,
+      'Rutas viejas del login. El login real es de better-auth: POST /api/auth/sign-in/username, POST /api/auth/sign-out y GET /api/auth/get-session.',
+    )
     .addTag(TAGS.proyectos, 'Alta, consulta y tableros por rol.')
     .addTag(
       TAGS.flujo,

@@ -10,6 +10,7 @@ import { PrismaService } from '../../lib/prisma/prisma.service';
 import { Argon2Service } from '../../lib/argon2/argon2.service';
 import { Prisma, User } from '../../lib/generated/prisma/client';
 import { versionDeFoto } from '../perfil/perfil.reglas';
+import { cerrarSesiones, guardarContrasena } from '../auth/cuentas';
 
 const sinPassword = { password: true } as const;
 
@@ -39,16 +40,28 @@ export class UserService {
     await this.validarRol(createUserDto.roleId);
     await this.validarUsuarioLibre(createUserDto.user);
 
-    return publico(
-      await this.prisma.user.create({
-        data: {
-          ...createUserDto,
-          password: await this.argon2.hash(createUserDto.password),
-        },
+    const hash = await this.argon2.hash(createUserDto.password);
+
+    // El usuario y su cuenta de acceso nacen juntos: sin la cuenta, better-auth
+    // no lo deja entrar.
+    const creado = await this.prisma.$transaction(async (tx) => {
+      const user = await tx.user.create({
+        data: { ...createUserDto, password: hash },
         omit: sinPassword,
         include: conFoto,
-      }),
-    );
+      });
+      await tx.account.create({
+        data: {
+          providerId: 'credential',
+          accountId: String(user.id),
+          userId: user.id,
+          password: hash,
+        },
+      });
+      return user;
+    });
+
+    return publico(creado);
   }
 
   async findAll(): Promise<UserPublico[]> {
@@ -83,20 +96,30 @@ export class UserService {
       await this.validarUsuarioLibre(updateUserDto.user, id);
     }
 
+    const { password, ...datos } = updateUserDto;
+
     try {
-      return publico(
-        await this.prisma.user.update({
-          where: { id },
-          data: {
-            ...updateUserDto,
-            ...(updateUserDto.password !== undefined && {
-              password: await this.argon2.hash(updateUserDto.password),
-            }),
-          },
-          omit: sinPassword,
-          include: conFoto,
-        }),
-      );
+      const actualizado = await this.prisma.user.update({
+        where: { id },
+        data: datos,
+        omit: sinPassword,
+        include: conFoto,
+      });
+
+      // Contraseña nueva o usuario desactivado: se cierran todas sus sesiones,
+      // así el cambio vale en el acto y no recién cuando vuelva a entrar.
+      if (password !== undefined) {
+        await guardarContrasena(
+          this.prisma,
+          id,
+          await this.argon2.hash(password),
+        );
+      }
+      if (password !== undefined || datos.active === false) {
+        await cerrarSesiones(this.prisma, id);
+      }
+
+      return publico(actualizado);
     } catch (error) {
       this.rethrow(error, id);
     }

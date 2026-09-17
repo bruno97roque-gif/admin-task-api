@@ -125,8 +125,7 @@ Migración **aditiva** `20260918120000_fotos_perfil` (tabla `fotos_perfil`, una 
 - **`/user` ya no está abierto**: `POST`, `PATCH /:id` y `DELETE /:id` llevan `@Roles(ROLES_ADMINISTRACION)`. `GET` sigue abierto (el front lo usa para convocar y para las fotos). Cada persona edita lo suyo en `/perfil`.
 - **`/perfil`** (acotado al `sub` del token): `GET`, `PATCH` (solo `name`), `PUT /contrasena` (`actual` + `nueva`; 400 y no 401 si la actual está mal, para que el front no intente renovar la sesión; 10 fallos en 15 min → 429), `PUT /foto` (data URL WebP/JPG/PNG ≤ 300 KB, se valida la firma de bytes en `perfil.reglas.ts`) y `DELETE /foto`. El correo y el rol los cambia administración.
 - **`GET /user/:id/foto` es `@Public()`** porque un `<img>` no manda token. Se sirve con caché de un año: el front agrega `?v=fotoVersion` (el `updatedAt` de la foto en ms), que viaja en `GET /user`, en `/perfil` y en el login.
-- **Límite de intentos del login** (`auth/limitador-de-intentos.ts`, en memoria): 10 fallos por usuario o 30 por IP en 15 minutos → 429. El usuario inexistente cuenta igual y responde el mismo «Credenciales inválidas». Por eso `main.ts` hace `app.set('trust proxy', 1)` (Railway pone un proxy; sin eso todos comparten IP) y sube el tope del JSON a 600 KB por las fotos.
-- **Pendiente (etapa 2)**: migrar el login a better-auth (sesiones revocables). Ojo: exige correo en cada usuario y tablas propias; ver la conversación del 2026-09-17 antes de empezar.
+- **Límite de intentos del login**: ver «Auth (better-auth)». `main.ts` sube el tope del JSON a 600 KB por las fotos.
 
 ### Comunicados (`feature/comunicados`)
 
@@ -171,7 +170,7 @@ Además de los tests, la verificación disponible es `pnpm exec tsc --noEmit`, `
 
 Las rutas de Swagger (`/docs`, `/docs-json`) **no** salen en ese conteo: se montan sobre Express, por fuera del router de Nest. `curl localhost:3000/docs-json` es la cuarta herramienta de verificación y la más barata para revisar la documentación: `paths` tiene que dar 53 operaciones, cada una con exactamente un `tag`, y `components.schemas` muestra qué campos quedaron expuestos en cada DTO.
 
-Booting also exercises the config wiring: `JWT_SECRET` and `JWT_REFRESH_SECRET` are read with `getOrThrow`, so a missing one fails at startup (secret) or on first refresh (refresh secret).
+Booting also exercises the config wiring: `JWT_SECRET` is read with `getOrThrow` (it signs the Google OAuth `state` and, without `BETTER_AUTH_SECRET`, seeds the session secret), so a missing one fails at startup.
 
 ## Environment
 
@@ -181,9 +180,9 @@ Booting also exercises the config wiring: `JWT_SECRET` and `JWT_REFRESH_SECRET` 
 |---|---|---|
 | `DATABASE_URL` | yes | — |
 | `JWT_SECRET` | yes (`getOrThrow`) | — |
-| `JWT_REFRESH_SECRET` | yes (`getOrThrow`, on refresh) | — |
-| `JWT_EXPIRES_IN` | no | `1h` (`lib.module.ts`) |
-| `JWT_REFRESH_EXPIRES_IN` | no | `5d` — set in **two** places (`auth.service.ts` for the token, `auth.controller.ts` for the cookie `maxAge`); change both or the cookie outlives the token |
+| `BETTER_AUTH_SECRET` | no | secreto de las sesiones; sin él se deriva de `JWT_SECRET` |
+| `BETTER_AUTH_URL` | no | URL pública del API; sin ella se toma el origen de `GOOGLE_REDIRECT_URI` o `localhost:PORT` |
+| `JWT_EXPIRES_IN` | no | `1h` (`lib.module.ts`); ya no afecta a las sesiones |
 | `CORS_ORIGIN` | no | comma-separated list; unset reflects the request origin |
 | `PORT` | no | `3000` |
 | `SWAGGER_ENABLED` | no | solo `false` apaga la documentación; cualquier otro valor (o ausente) la deja publicada en `/docs` |
@@ -216,22 +215,21 @@ Nest 11 runs on Express 5 (`express@5.2.1`, `path-to-regexp@8`), which changes t
 
 Do **not** add a global prefix (`app.setGlobalPrefix`) casually: the refresh cookie is scoped to `Path=/auth`, so moving auth under `/api/auth` silently stops the browser from sending it. `COOKIE_PATH` in `auth.cookie.ts` would have to change with it.
 
-### Auth
+### Auth (better-auth)
 
-Fully wired — access token in the `Authorization` header, refresh token in an httpOnly cookie.
+Desde la migración **aditiva** `20260920120000_better_auth` el login es de **better-auth** (1.7.5), con sesiones en la base y una cookie httpOnly. El JWT de antes ya no se usa para sesiones.
 
-- **Global guard.** `AppModule` registers `{ provide: APP_GUARD, useClass: JwtAuthGuard }`, so **every route is protected by default**. `JwtAuthGuard` (`feature/auth/guards/`) reads `Bearer` from the `Authorization` header, verifies it with the access-token secret, and assigns the payload to **`request.usuario`** (Spanish, not `request.user`). Opt out with `@Public()` (`feature/auth/decorators/public.decorator.ts`), which sets the `isPublic` metadata the guard checks via `Reflector.getAllAndOverride` — it works on a handler or a whole controller.
-- **Public routes are only** `POST /auth/login`, `POST /auth/refresh`, `POST /auth/logout`. Everything else 401s without a token.
-- **Segundo guard global: `RolesGuard`**, registrado en `AppModule` **después** de `JwtAuthGuard` (lee el `roleId` que aquel deja en `request.usuario`; invertidos no encuentra nada). Sin `@Roles()` la ruta queda como siempre: cualquier usuario autenticado. Con `@Roles('Admin','Owner')` responde `403`. El decorador toma **nombres** de `rols.name`, no ids — los ids ya tienen huecos por borrados y difieren entre entornos; el guard resuelve nombre por id contra la base y lo cachea en memoria. `ROLES_ADMINISTRACION` marca hoy `plan-cobros`, `cobros/:hito`, `archivar` y `reactivar`, y nada más: el resto de las rutas del flujo las puede llamar cualquier usuario logueado.
-- **Two token types, two secrets.** `AuthService` signs the access token with the `LibModule` defaults (`JwtPayload = { sub, user, roleId }`) and the refresh token with `JWT_REFRESH_SECRET` and its own expiry (`RefreshPayload = { sub }`). `JwtService` in `src/lib/jwt` takes optional per-call `options` precisely so the refresh token can override secret and expiry.
-- **Refresh re-reads the user from the database** on every call, so a role change or deactivation takes effect on the next refresh. It returns the same shape as login (`accessToken` + `user`), and the response body **never** contains the refresh token — `AuthService` returns `SesionCreada { respuesta, refreshToken }` and the controller peels the refresh token off into the cookie in `enviarSesion()`.
-- **Cookie options** live in `auth.cookie.ts`: `httpOnly`, `path=/auth`, and `secure`/`sameSite` keyed off `NODE_ENV === 'production'`. `duracionAMs()` converts `"7d"`/`"12h"`/`"30m"` to the cookie `maxAge` so the cookie expires with the token.
-- **CORS is not wide open.** `main.ts` sets `credentials: true`, which forbids `origin: '*'`; it therefore uses the `CORS_ORIGIN` list or reflects the request origin (`origin: true`). `cookie-parser` is installed globally in `main.ts` — without it `req.cookies` is undefined and every refresh 401s.
-- **Reading the current user in a handler**: `@UsuarioActual()` (`feature/auth/decorators/usuario-actual.decorator.ts`) returns `request.usuario`, or one key of it — `@UsuarioActual('sub') actorId: number` is how every write in `ProjectsController` gets the id it stamps on the history row. It reads the guard's output, so on a `@Public()` route it is `undefined`; the service signatures take `actorId?` and fall back to `null` for that reason.
-- **Known limits, both intencionales hasta hoy pero fáciles de pisar:**
-  - El refresh token es stateless. El logout borra la cookie pero el JWT sigue siendo criptográficamente válido hasta que expira; no hay revocación del lado del servidor. No construyas nada que asuma que el logout lo invalida.
-  - `UserController` no tiene `@Roles()` y `UpdateUserDto` es `PartialType(CreateUserDto)`: **cualquier usuario autenticado puede hacer `PATCH /user/:id` sobre cualquier id** y cambiar `password`, `roleId` o `active` — incluidos los de otro. Tampoco existe un "cambiar mi contraseña" que pida la actual. Si tocás ese módulo, tenelo presente.
-- **Client-side contract**, since the doc that described it is gone: `POST /auth/login` and `POST /auth/refresh` both return `200` with `{ accessToken, user: { id, name, user, roleId, roleName } }`; `POST /auth/logout` returns **`204` with no body** and must not be `.json()`-parsed. All three are `@Public()` and all three need `credentials: 'include'` for the cookie. Failures are `401` (`Credenciales inválidas`, `Refresh token inválido o expirado`, `El usuario está desactivado`). A client should single-flight the refresh call and retry the original request once.
+- **Dónde**: `feature/auth/better-auth.ts` arma la instancia (`crearAuth`, provista como `AUTH` por el `AuthModule` global). `main.ts` la monta con `toNodeHandler` en `/api/auth/*splat` **por fuera del router de Nest, después de CORS y antes del lector de JSON** (better-auth lee el cuerpo él mismo; invertido, el login se cuelga). Rutas que se usan: `POST /api/auth/sign-in/username` (`{ username, password }`), `POST /api/auth/sign-out` y `GET /api/auth/get-session`. El resto está en `disabledPaths` (nadie se registra solo ni cambia su correo por ahí).
+- **Base de siempre**: `generateId: 'serial'` (ids numéricos); modelos Prisma `Session`, `Account`, `Verification` (tablas `sesiones`, `cuentas_acceso`, `verificaciones`); el `username` del plugin está mapeado a la columna `user` **sin normalizar ni validar caracteres** (`usernameNormalization: false`, validador que solo pide no vacío): «Julio Admin» y «JCConquistador» entran tal cual. El login distingue mayúsculas, como antes.
+- **Contraseñas**: se verifican con el mismo `Argon2Service`. La migración copió `users.password` a `cuentas_acceso.password` (`providerId = 'credential'`, `accountId = id` como texto). **La que vale para el login es la de `cuentas_acceso`**; `users.password` se mantiene al día como respaldo porque es `NOT NULL`. Todo cambio de contraseña pasa por `auth/cuentas.ts` (`guardarContrasena`), y `UserService.create` crea la cuenta en la misma transacción que el usuario: un usuario sin cuenta no puede entrar.
+- **Sesiones revocables**: `cerrarSesiones()` borra filas de `sesiones`. Se llama al cambiar la contraseña propia (menos la sesión actual), cuando administración resetea una contraseña y al desactivar un usuario. Duran 7 días y se renuevan de a un día al usarlas.
+- **Guard global `SesionGuard`** (reemplaza a `JwtAuthGuard`): llama a `auth.api.getSession` en cada pedido (sin caché de cookie, para que revocar sea inmediato) y deja en `request.usuario` `{ sub, user, roleId, sesionId }`, la misma forma que el payload del JWT, así que `@UsuarioActual('sub')` y `RolesGuard` no cambiaron. `@Public()` sigue igual.
+- **Desactivados**: `databaseHooks.session.create.before` tira 403 «El usuario está desactivado» (se chequea después de validar la contraseña, para no revelar qué usuarios existen).
+- **Límite de intentos** (`hooks.before`/`after` sobre `/sign-in/username`, con `LimitadorDeIntentos`): 10 fallos por usuario o 30 por IP en 15 minutos → 429 con mensaje en español. La IP es la **última** de `x-forwarded-for` (la que agrega el proxy de Railway). El límite propio de better-auth está **apagado para el login** (`customRules: false`): si no puede leer la IP detrás del proxy junta a todos en un solo contador. En el resto de sus rutas sigue (200 por minuto; si llega a responder, su mensaje viene en inglés y el front lo traduce). Los mensajes de error de better-auth se traducen en el `after`.
+- **Configuración**: `secret` = `BETTER_AUTH_SECRET` o, si no está, un SHA-256 derivado de `JWT_SECRET`. `baseURL` = `BETTER_AUTH_URL`, o el origen de `GOOGLE_REDIRECT_URI`, o `localhost:PORT`. `trustedOrigins` = `CORS_ORIGIN`. Cookie `websy.session_token` (en producción, `__Secure-websy.session_token`, por `NODE_ENV=production`). Front y API están en el mismo sitio (`*.websy.com.pe`), así que `SameSite=Lax` alcanza.
+- **ESM**: better-auth es solo ESM y el API compila a CommonJS; funciona por el `require(esm)` de Node ≥ 22.12 y TypeScript ≥ 5.8. Por eso `crearAuth` devuelve el tipo mínimo `Auth` y no el inferido (que arrastra genéricos de zod que no se pueden emitir). Los specs no deben importar `better-auth.ts`.
+- **Rutas viejas** (`AuthController`): `POST /auth/login` responde 410 «El sistema se actualizó. Recarga la página…», `/auth/refresh` 401 y `/auth/logout` 204, para que una pestaña con el front anterior no quede muda.
+- `JwtService` (`src/lib/jwt`) sigue existiendo: lo usa la integración con Google para firmar el `state` de OAuth.
 
 ### Documentación (Swagger)
 

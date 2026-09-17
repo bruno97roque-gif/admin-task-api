@@ -7,13 +7,13 @@ import {
 import { Reflector } from '@nestjs/core';
 import { PrismaService } from '../../../lib/prisma/prisma.service';
 import { ROLES_KEY } from '../decorators/roles.decorator';
-import { RequestConUsuario } from './jwt-auth.guard';
+import { RequestConUsuario } from './sesion.guard';
 
 /**
- * Restringe una ruta a ciertos roles. Corre **después** de `JwtAuthGuard`, que
- * es quien deja el payload en `request.usuario`.
+ * Restringe una ruta a ciertos roles. Corre **después** de `SesionGuard`, que
+ * es quien deja el usuario en `request.usuario`.
  *
- * El token solo trae `roleId`, así que el nombre del rol se resuelve contra la
+ * La sesión solo trae `roleId`, así que el nombre del rol se resuelve contra la
  * base. Los roles cambian muy de vez en cuando, por eso se cachean en memoria:
  * sin eso cada request protegida sumaría una consulta.
  */
