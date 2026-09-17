@@ -55,7 +55,7 @@ export class AuthController {
   })
   @ApiTooManyRequestsResponse({
     description:
-      'Demasiados intentos fallidos: 5 por usuario o 20 por IP en 15 minutos.',
+      'Demasiados intentos fallidos: 10 por usuario o 30 por IP en 15 minutos.',
   })
   async login(
     @Body() loginDto: LoginDto,

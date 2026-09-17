@@ -61,7 +61,7 @@ export class PerfilController {
   @ApiOperation({
     summary: 'Cambiar mi contraseña',
     description:
-      'Pide la contraseña actual. Cinco fallos en 15 minutos bloquean la ruta un rato. La sesión abierta sigue valiendo.',
+      'Pide la contraseña actual. Diez fallos en 15 minutos bloquean la ruta un rato. La sesión abierta sigue valiendo.',
   })
   @ApiNoContentResponse({ description: 'Contraseña cambiada.' })
   @ApiBadRequestResponse({

@@ -43,9 +43,9 @@ const perfilSelect = {
 export class PerfilService {
   /**
    * Adivinar la contraseña actual por esta ruta tiene el mismo límite que el
-   * login: 5 fallos en 15 minutos por usuario.
+   * login: 10 fallos en 15 minutos por usuario.
    */
-  private readonly intentos = new LimitadorDeIntentos(5, 15 * 60_000);
+  private readonly intentos = new LimitadorDeIntentos(10, 15 * 60_000);
 
   constructor(
     private readonly prisma: PrismaService,

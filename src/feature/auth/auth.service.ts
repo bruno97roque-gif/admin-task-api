@@ -64,14 +64,14 @@ const usuarioSelect = {
 @Injectable()
 export class AuthService {
   /**
-   * Freno a quien prueba contraseñas: 5 fallos por usuario, o 20 por IP (una
+   * Freno a quien prueba contraseñas: 10 fallos por usuario, o 30 por IP (una
    * oficina comparte IP), en 15 minutos. Un acierto limpia el del usuario.
    */
   private readonly fallosPorUsuario = new LimitadorDeIntentos(
-    5,
+    10,
     QUINCE_MINUTOS,
   );
-  private readonly fallosPorIp = new LimitadorDeIntentos(20, QUINCE_MINUTOS);
+  private readonly fallosPorIp = new LimitadorDeIntentos(30, QUINCE_MINUTOS);
 
   constructor(
     private readonly prisma: PrismaService,
