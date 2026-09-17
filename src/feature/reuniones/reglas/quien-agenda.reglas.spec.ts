@@ -25,6 +25,9 @@ describe('rolQueAgenda', () => {
   it('reconoce a administración por rol, no por persona', () => {
     expect(rolQueAgenda('Admin', ROLES_ADMINISTRACION)).toBe('administracion');
     expect(rolQueAgenda('Owner', ROLES_ADMINISTRACION)).toBe('administracion');
+    expect(rolQueAgenda('Supervisor', ROLES_ADMINISTRACION)).toBe(
+      'administracion',
+    );
   });
 
   it('reconoce los dos roles del equipo', () => {

@@ -23,6 +23,10 @@ import { CreateRolDto } from './dto/create-rol.dto';
 import { UpdateRolDto } from './dto/update-rol.dto';
 import { RolRespuestaDto } from './dto/rol-respuesta.dto';
 import { AUTH_BEARER, TAGS } from '../../swagger';
+import {
+  Roles,
+  ROLES_ADMINISTRACION,
+} from '../auth/decorators/roles.decorator';
 
 @ApiTags(TAGS.roles)
 @ApiBearerAuth(AUTH_BEARER)
@@ -30,6 +34,9 @@ import { AUTH_BEARER, TAGS } from '../../swagger';
 export class RolController {
   constructor(private readonly rolService: RolService) {}
 
+  // Escribir roles es de administración: renombrar uno a «Admin» daría
+  // permisos de administración a todos los que lo tienen.
+  @Roles(...ROLES_ADMINISTRACION)
   @Post()
   @ApiOperation({ summary: 'Crear un rol' })
   @ApiCreatedResponse({ type: RolRespuestaDto })
@@ -53,6 +60,7 @@ export class RolController {
     return this.rolService.findOne(id);
   }
 
+  @Roles(...ROLES_ADMINISTRACION)
   @Patch(':id')
   @ApiOperation({
     summary: 'Renombrar un rol',
@@ -69,6 +77,7 @@ export class RolController {
     return this.rolService.update(id, updateRolDto);
   }
 
+  @Roles(...ROLES_ADMINISTRACION)
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar un rol' })
   @ApiParam({ name: 'id', description: 'Id del rol.', example: 1 })
