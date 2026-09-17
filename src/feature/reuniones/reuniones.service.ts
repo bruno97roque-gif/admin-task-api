@@ -35,6 +35,7 @@ import { CreateReunionDto } from './dto/create-reunion.dto';
 import { UpdateReunionDto } from './dto/update-reunion.dto';
 import {
   correspondeAvisar,
+  hayQueEntrarParaGrabar,
   limiteDeAviso,
   minutosQueFaltan,
   naceDentroDeLaVentana,
@@ -549,6 +550,15 @@ export class ReunionesService {
             proyectoId: reunion.proyectoId,
           },
         );
+
+        if (hayQueEntrarParaGrabar(reunion)) {
+          await this.notificaciones.notificarAdministracion({
+            tipo: TipoNotificacion.ReunionProxima,
+            titulo: 'Entra al Meet para que empiece a grabar',
+            mensaje: `${this.describir(reunion)} · Con la cuenta de Websy: cuando veas «Grabando» ya puedes salir.`,
+            proyectoId: reunion.proyectoId,
+          });
+        }
       } catch (error) {
         // La reunión queda marcada igual: es preferible perder un aviso a
         // mandarlo en bucle cada minuto hasta que arranque.

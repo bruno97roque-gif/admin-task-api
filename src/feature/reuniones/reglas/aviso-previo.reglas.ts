@@ -36,6 +36,24 @@ export function correspondeAvisar(
 }
 
 /**
+ * ¿Hay que recordarle a administración que entre al Meet? La grabación
+ * automática solo arranca cuando se une alguien con permiso de grabar, y el
+ * equipo (@websydev.site) y los clientes no lo tienen: tiene que entrar la
+ * cuenta de Websy, aunque sea un momento (después puede salir y sigue).
+ */
+export function hayQueEntrarParaGrabar(reunion: {
+  grabarReunion: boolean;
+  googleEventId: string | null;
+  linkMeet: string;
+}): boolean {
+  return (
+    reunion.grabarReunion &&
+    reunion.googleEventId !== null &&
+    reunion.linkMeet !== ''
+  );
+}
+
+/**
  * Minutos que faltan, redondeados hacia arriba, para el texto del aviso.
  * Nunca menos de 1: a falta de 20 segundos se dice «en 1 minuto» y no
  * «en 0 minutos».

@@ -1,5 +1,6 @@
 import {
   correspondeAvisar,
+  hayQueEntrarParaGrabar,
   limiteDeAviso,
   MINUTOS_DE_AVISO,
   minutosQueFaltan,
@@ -78,5 +79,27 @@ describe('naceDentroDeLaVentana', () => {
 
   it('deja pasar la que se agenda con tiempo', () => {
     expect(naceDentroDeLaVentana(en(30), AHORA)).toBe(false);
+  });
+});
+
+describe('hayQueEntrarParaGrabar', () => {
+  const enviada = {
+    grabarReunion: true,
+    googleEventId: 'evento',
+    linkMeet: 'https://meet.google.com/abc-defg-hij',
+  };
+
+  it('avisa si se graba y ya está en Google con su Meet', () => {
+    expect(hayQueEntrarParaGrabar(enviada)).toBe(true);
+  });
+
+  it('no avisa si no se graba, no se envió o no tiene link', () => {
+    expect(hayQueEntrarParaGrabar({ ...enviada, grabarReunion: false })).toBe(
+      false,
+    );
+    expect(hayQueEntrarParaGrabar({ ...enviada, googleEventId: null })).toBe(
+      false,
+    );
+    expect(hayQueEntrarParaGrabar({ ...enviada, linkMeet: '' })).toBe(false);
   });
 });
