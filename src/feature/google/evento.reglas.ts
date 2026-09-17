@@ -18,6 +18,18 @@ export interface ReunionParaCalendar {
   readonly fecha: Date;
   readonly proyecto: { readonly name: string } | null;
   readonly participantes: readonly { readonly email: string | null }[];
+  /** Correos de clientes, fuera del sistema. */
+  readonly invitadosExternos?: readonly string[];
+}
+
+/**
+ * Los correos externos como se guardan: sin espacios, en minúsculas y sin
+ * repetir. Así la comparación de `cambiaElEvento` no ve cambios donde no los hay.
+ */
+export function limpiarCorreos(correos: readonly string[]): string[] {
+  return [
+    ...new Set(correos.map((c) => c.trim().toLowerCase()).filter(Boolean)),
+  ];
 }
 
 /**
@@ -57,7 +69,12 @@ export function eventoDesdeReunion(
     descripcion: lineas.join('\n\n'),
     inicio: reunion.fecha,
     fin: new Date(reunion.fecha.getTime() + DURACION_MINUTOS * 60_000),
-    invitados: invitadosDe(reunion.participantes),
+    // Los de afuera van después del equipo; si un cliente coincide con alguien
+    // del sistema, `invitadosDe` lo deja una sola vez.
+    invitados: invitadosDe([
+      ...reunion.participantes,
+      ...(reunion.invitadosExternos ?? []).map((email) => ({ email })),
+    ]),
     zonaHoraria: ZONA_HORARIA,
   };
 }
@@ -82,6 +99,7 @@ interface EstadoSincronizable {
   readonly fecha: Date;
   readonly proyecto: { readonly name: string } | null;
   readonly participantes: readonly { readonly email: string | null }[];
+  readonly invitadosExternos?: readonly string[];
 }
 
 /**

@@ -6,6 +6,7 @@ import {
   eventoDesdeReunion,
   frontDesde,
   invitadosDe,
+  limpiarCorreos,
   permisosFaltantes,
   ZONA_HORARIA,
   type ReunionParaCalendar,
@@ -66,6 +67,41 @@ describe('eventoDesdeReunion', () => {
       proyecto: null,
     });
     expect(e.descripcion).toBe('Agendada desde el sistema de Websy.');
+  });
+});
+
+describe('invitados externos', () => {
+  it('limpia, pasa a minúsculas y no repite', () => {
+    expect(
+      limpiarCorreos([' Cliente@Empresa.com', 'cliente@empresa.com', '  ']),
+    ).toEqual(['cliente@empresa.com']);
+  });
+
+  it('se suman a la invitación sin duplicar a alguien del equipo', () => {
+    const e = eventoDesdeReunion({
+      ...base,
+      invitadosExternos: ['cliente@empresa.com', 'ana@websydev.site'],
+    });
+    expect(e.invitados.map((i) => i.email)).toEqual([
+      'ana@websydev.site',
+      'dev_bruno@websydev.site',
+      'cliente@empresa.com',
+    ]);
+  });
+
+  it('sumar o quitar un cliente cambia el evento', () => {
+    expect(
+      cambiaElEvento(base, {
+        ...base,
+        invitadosExternos: ['cliente@empresa.com'],
+      }),
+    ).toBe(true);
+    expect(
+      cambiaElEvento(
+        { ...base, invitadosExternos: [] },
+        { ...base, invitadosExternos: [] },
+      ),
+    ).toBe(false);
   });
 });
 

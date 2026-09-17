@@ -402,6 +402,9 @@ model Reunion {
   enviadaAt     DateTime? @map("enviada_at")
   /// Si el Meet arranca grabando y transcribiendo solo.
   grabarReunion Boolean   @default(true) @map("grabar_reunion")
+  /// Correos de gente de afuera del sistema (clientes) que se suman a la
+  /// invitación de Google Calendar. No reciben notificaciones internas.
+  invitadosExternos String[] @default([]) @map("invitados_externos")
   proyectoId    Int?      @map("proyecto_id")
   creadorId     Int?      @map("creador_id")
   createdAt     DateTime  @default(now()) @map("created_at")

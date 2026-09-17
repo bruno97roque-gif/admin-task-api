@@ -1,9 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
+  ArrayMaxSize,
   ArrayNotEmpty,
   ArrayUnique,
   IsArray,
   IsBoolean,
+  IsEmail,
   IsInt,
   IsISO8601,
   IsNotEmpty,
@@ -14,6 +16,9 @@ import {
   MaxLength,
   ValidateIf,
 } from 'class-validator';
+
+/** Tope de correos externos por reunión: alcanza para un cliente con su equipo. */
+export const MAXIMO_INVITADOS_EXTERNOS = 20;
 
 export class CreateReunionDto {
   @ApiProperty({
@@ -87,4 +92,22 @@ export class CreateReunionDto {
   @ArrayUnique()
   @IsInt({ each: true })
   participantesIds: number[];
+
+  @ApiPropertyOptional({
+    description:
+      'Correos de clientes u otra gente de afuera del sistema. Se suman a la invitación cuando la reunión se envía a Google Calendar; no reciben notificaciones internas.',
+    example: ['cliente@empresa.com'],
+    type: [String],
+    maxItems: MAXIMO_INVITADOS_EXTERNOS,
+  })
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(MAXIMO_INVITADOS_EXTERNOS, {
+    message: `Como máximo ${MAXIMO_INVITADOS_EXTERNOS} invitados externos por reunión`,
+  })
+  @IsEmail(
+    {},
+    { each: true, message: 'Cada invitado externo debe ser un correo válido' },
+  )
+  invitadosExternos?: string[];
 }

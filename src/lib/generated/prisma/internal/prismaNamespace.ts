@@ -1819,6 +1819,7 @@ export const ReunionScalarFieldEnum = {
   googleEventId: 'googleEventId',
   enviadaAt: 'enviadaAt',
   grabarReunion: 'grabarReunion',
+  invitadosExternos: 'invitadosExternos',
   proyectoId: 'proyectoId',
   creadorId: 'creadorId',
   createdAt: 'createdAt',

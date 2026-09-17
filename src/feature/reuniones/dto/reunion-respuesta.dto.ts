@@ -59,6 +59,14 @@ export class ReunionRespuestaDto {
   grabarReunion: boolean;
 
   @ApiProperty({
+    type: [String],
+    example: ['cliente@empresa.com'],
+    description:
+      'Correos de afuera del sistema que se suman a la invitación de Google Calendar.',
+  })
+  invitadosExternos: string[];
+
+  @ApiProperty({
     nullable: true,
     example: 'abc123def456',
     description:

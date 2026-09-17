@@ -298,10 +298,14 @@ export async function borrarEvento(
 /**
  * Deja el Meet grabando y transcribiendo desde que arranca.
  *
- * El espacio se ubica por el código de la reunión (`abc-defg-hij`), que es un
- * alias válido en `spaces/{meetingCode}`. Google avisa que ese código no
- * conviene guardarlo a largo plazo porque se puede reasignar, así que acá se
- * usa apenas creado el evento y no se persiste como identificador.
+ * **El código de la reunión (`abc-defg-hij`) solo sirve para leer.**
+ * `spaces.get` lo acepta como alias, pero `spaces.patch` exige el nombre
+ * interno (`spaces/jQCFfuBOdN5z`): con el código, el cambio no se aplica. Por
+ * eso primero se lee el espacio y se usa el `name` que devuelve.
+ *
+ * Grabación y transcripción van juntas y su error sube al llamador. Las notas
+ * de Gemini van aparte y sin tumbar nada: dependen de que la licencia tenga
+ * Gemini, y sin ella Google rechaza el campo.
  *
  * Requiere una edición de Workspace que habilite grabación y transcripción; si
  * no la tiene, Google responde 403 y el llamador decide qué hacer.
@@ -310,11 +314,19 @@ export async function configurarGrabacion(
   accessToken: string,
   codigoMeet: string,
   activar: boolean,
-): Promise<void> {
+): Promise<{ notasDeGemini: boolean }> {
   const modo = activar ? 'ON' : 'OFF';
 
+  const espacio = await pedir<{ name: string }>(
+    `${MEET_SPACES}/${encodeURIComponent(codigoMeet)}`,
+    { headers: autorizado(accessToken) },
+  );
+
+  // `name` ya viene como `spaces/<id>`.
+  const url = `https://meet.googleapis.com/v2/${espacio.name}`;
+
   await pedir(
-    `${MEET_SPACES}/${encodeURIComponent(codigoMeet)}?updateMask=config.artifactConfig`,
+    `${url}?updateMask=config.artifactConfig.recordingConfig,config.artifactConfig.transcriptionConfig`,
     {
       method: 'PATCH',
       headers: autorizado(accessToken),
@@ -328,4 +340,21 @@ export async function configurarGrabacion(
       }),
     },
   );
+
+  try {
+    await pedir(`${url}?updateMask=config.artifactConfig.smartNotesConfig`, {
+      method: 'PATCH',
+      headers: autorizado(accessToken),
+      body: JSON.stringify({
+        config: {
+          artifactConfig: {
+            smartNotesConfig: { autoSmartNotesGeneration: modo },
+          },
+        },
+      }),
+    });
+    return { notasDeGemini: true };
+  } catch {
+    return { notasDeGemini: false };
+  }
 }

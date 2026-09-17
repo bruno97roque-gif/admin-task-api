@@ -24,6 +24,7 @@ import {
   cambiaElEvento,
   codigoDeMeet,
   eventoDesdeReunion,
+  limpiarCorreos,
 } from '../google/evento.reglas';
 import { Prisma, TipoNotificacion } from '../../lib/generated/prisma/client';
 import { CreateReunionDto } from './dto/create-reunion.dto';
@@ -61,9 +62,17 @@ export type ReunionCompleta = Omit<ReunionConRelaciones, 'participantes'> & {
  */
 export type SincronizacionGoogle = 'actualizada' | 'sin_cambios' | 'error';
 
-/** Qué pasó con la grabación al enviar al Calendar. */
+/**
+ * Qué pasó con la grabación al enviar al Calendar. `activada` incluye las
+ * notas de Gemini; `activada_sin_notas` graba y transcribe pero Google no
+ * aceptó las notas (la licencia no tiene Gemini).
+ */
 export type EstadoDeGrabacion =
-  'activada' | 'desactivada' | 'no_disponible' | 'sin_meet';
+  | 'activada'
+  | 'activada_sin_notas'
+  | 'desactivada'
+  | 'no_disponible'
+  | 'sin_meet';
 
 const FORMATO_FECHA = new Intl.DateTimeFormat('es-PE', {
   dateStyle: 'full',
@@ -109,6 +118,7 @@ export class ReunionesService {
         avisoPrevioAt: naceDentroDeLaVentana(fecha, ahora) ? ahora : null,
         // Encendida salvo que quien agenda la apague: pesa recién al enviar.
         grabarReunion: dto.grabarReunion ?? true,
+        invitadosExternos: limpiarCorreos(dto.invitadosExternos ?? []),
         proyectoId: dto.proyectoId ?? null,
         creadorId: creadorId ?? null,
         participantes: {
@@ -206,7 +216,8 @@ export class ReunionesService {
 
     // `linkMeet` sale aparte porque el DTO lo acepta nulo («todavía no hay»)
     // y la columna no admite null: se guarda como cadena vacía.
-    const { participantesIds, fecha, linkMeet, ...data } = dto;
+    const { participantesIds, fecha, linkMeet, invitadosExternos, ...data } =
+      dto;
     const nuevoLink = linkMeet === undefined ? undefined : (linkMeet ?? '');
     const ahora = new Date();
 
@@ -230,6 +241,9 @@ export class ReunionesService {
         ...data,
         ...(nuevaFecha !== undefined && { fecha: nuevaFecha }),
         ...(nuevoLink !== undefined && { linkMeet: nuevoLink }),
+        ...(invitadosExternos !== undefined && {
+          invitadosExternos: limpiarCorreos(invitadosExternos),
+        }),
         ...reinicioDeAviso,
         ...(participantesIds !== undefined && {
           participantes: {
@@ -308,12 +322,16 @@ export class ReunionesService {
         let grabacion: EstadoDeGrabacion = 'sin_meet';
         if (creado.codigoMeet) {
           try {
-            await configurarGrabacion(
+            const { notasDeGemini } = await configurarGrabacion(
               token,
               creado.codigoMeet,
               reunion.grabarReunion,
             );
-            grabacion = reunion.grabarReunion ? 'activada' : 'desactivada';
+            grabacion = !reunion.grabarReunion
+              ? 'desactivada'
+              : notasDeGemini
+                ? 'activada'
+                : 'activada_sin_notas';
           } catch (error) {
             // El evento y el Meet ya existen: que la grabación no se pueda
             // configurar no deshace el envío, se avisa en la respuesta.
