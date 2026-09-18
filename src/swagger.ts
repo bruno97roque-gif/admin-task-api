@@ -27,6 +27,7 @@ export const TAGS = {
   integraciones: 'Integraciones · Google',
   perfil: 'Mi perfil',
   comunicados: 'Comunicados',
+  pendientes: 'Pendientes',
 } as const;
 
 const DESCRIPCION = `

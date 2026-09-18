@@ -447,6 +447,7 @@ export type ProyectoWhereInput = {
   historial?: Prisma.HistorialEtapaListRelationFilter
   recordatorios?: Prisma.RecordatorioProyectoListRelationFilter
   cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
+  pendientes?: Prisma.PendienteListRelationFilter
   notificaciones?: Prisma.NotificacionListRelationFilter
   reuniones?: Prisma.ReunionListRelationFilter
   notas?: Prisma.NotaAdminListRelationFilter
@@ -492,6 +493,7 @@ export type ProyectoOrderByWithRelationInput = {
   historial?: Prisma.HistorialEtapaOrderByRelationAggregateInput
   recordatorios?: Prisma.RecordatorioProyectoOrderByRelationAggregateInput
   cotizaciones?: Prisma.CotizacionAdicionalOrderByRelationAggregateInput
+  pendientes?: Prisma.PendienteOrderByRelationAggregateInput
   notificaciones?: Prisma.NotificacionOrderByRelationAggregateInput
   reuniones?: Prisma.ReunionOrderByRelationAggregateInput
   notas?: Prisma.NotaAdminOrderByRelationAggregateInput
@@ -540,6 +542,7 @@ export type ProyectoWhereUniqueInput = Prisma.AtLeast<{
   historial?: Prisma.HistorialEtapaListRelationFilter
   recordatorios?: Prisma.RecordatorioProyectoListRelationFilter
   cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
+  pendientes?: Prisma.PendienteListRelationFilter
   notificaciones?: Prisma.NotificacionListRelationFilter
   reuniones?: Prisma.ReunionListRelationFilter
   notas?: Prisma.NotaAdminListRelationFilter
@@ -657,6 +660,7 @@ export type ProyectoCreateInput = {
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
@@ -699,6 +703,7 @@ export type ProyectoUncheckedCreateInput = {
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
@@ -740,6 +745,7 @@ export type ProyectoUpdateInput = {
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
@@ -782,6 +788,7 @@ export type ProyectoUncheckedUpdateInput = {
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
@@ -1293,6 +1300,20 @@ export type ProyectoUpdateOneRequiredWithoutNotasNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProyectoUpdateToOneWithWhereWithoutNotasInput, Prisma.ProyectoUpdateWithoutNotasInput>, Prisma.ProyectoUncheckedUpdateWithoutNotasInput>
 }
 
+export type ProyectoCreateNestedOneWithoutPendientesInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutPendientesInput, Prisma.ProyectoUncheckedCreateWithoutPendientesInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutPendientesInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+}
+
+export type ProyectoUpdateOneRequiredWithoutPendientesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutPendientesInput, Prisma.ProyectoUncheckedCreateWithoutPendientesInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutPendientesInput
+  upsert?: Prisma.ProyectoUpsertWithoutPendientesInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProyectoUpdateToOneWithWhereWithoutPendientesInput, Prisma.ProyectoUpdateWithoutPendientesInput>, Prisma.ProyectoUncheckedUpdateWithoutPendientesInput>
+}
+
 export type ProyectoCreateWithoutDisenadorInput = {
   name: string
   estadoPago?: string
@@ -1328,6 +1349,7 @@ export type ProyectoCreateWithoutDisenadorInput = {
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
@@ -1369,6 +1391,7 @@ export type ProyectoUncheckedCreateWithoutDisenadorInput = {
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
@@ -1419,6 +1442,7 @@ export type ProyectoCreateWithoutDesarrolladorInput = {
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
@@ -1460,6 +1484,7 @@ export type ProyectoUncheckedCreateWithoutDesarrolladorInput = {
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
@@ -1579,6 +1604,7 @@ export type ProyectoCreateWithoutSeguimientoInput = {
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
@@ -1620,6 +1646,7 @@ export type ProyectoUncheckedCreateWithoutSeguimientoInput = {
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
@@ -1686,6 +1713,7 @@ export type ProyectoCreateWithoutCobrosInput = {
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
@@ -1727,6 +1755,7 @@ export type ProyectoUncheckedCreateWithoutCobrosInput = {
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
@@ -1783,6 +1812,7 @@ export type ProyectoUpdateWithoutCobrosInput = {
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
@@ -1824,6 +1854,7 @@ export type ProyectoUncheckedUpdateWithoutCobrosInput = {
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
@@ -1864,6 +1895,7 @@ export type ProyectoCreateWithoutHistorialInput = {
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
@@ -1905,6 +1937,7 @@ export type ProyectoUncheckedCreateWithoutHistorialInput = {
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
@@ -1961,6 +1994,7 @@ export type ProyectoUpdateWithoutHistorialInput = {
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
@@ -2002,6 +2036,7 @@ export type ProyectoUncheckedUpdateWithoutHistorialInput = {
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2042,6 +2077,7 @@ export type ProyectoCreateWithoutRecordatoriosInput = {
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
@@ -2083,6 +2119,7 @@ export type ProyectoUncheckedCreateWithoutRecordatoriosInput = {
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
@@ -2139,6 +2176,7 @@ export type ProyectoUpdateWithoutRecordatoriosInput = {
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
@@ -2180,6 +2218,7 @@ export type ProyectoUncheckedUpdateWithoutRecordatoriosInput = {
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2220,6 +2259,7 @@ export type ProyectoCreateWithoutCotizacionesInput = {
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
@@ -2261,6 +2301,7 @@ export type ProyectoUncheckedCreateWithoutCotizacionesInput = {
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
@@ -2317,6 +2358,7 @@ export type ProyectoUpdateWithoutCotizacionesInput = {
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
@@ -2358,6 +2400,7 @@ export type ProyectoUncheckedUpdateWithoutCotizacionesInput = {
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2398,6 +2441,7 @@ export type ProyectoCreateWithoutUsuariosInput = {
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
@@ -2439,6 +2483,7 @@ export type ProyectoUncheckedCreateWithoutUsuariosInput = {
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
@@ -2495,6 +2540,7 @@ export type ProyectoUpdateWithoutUsuariosInput = {
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
@@ -2536,6 +2582,7 @@ export type ProyectoUncheckedUpdateWithoutUsuariosInput = {
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2577,6 +2624,7 @@ export type ProyectoCreateWithoutNotificacionesInput = {
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
 }
@@ -2618,6 +2666,7 @@ export type ProyectoUncheckedCreateWithoutNotificacionesInput = {
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
 }
@@ -2674,6 +2723,7 @@ export type ProyectoUpdateWithoutNotificacionesInput = {
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
 }
@@ -2715,6 +2765,7 @@ export type ProyectoUncheckedUpdateWithoutNotificacionesInput = {
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
 }
@@ -2755,6 +2806,7 @@ export type ProyectoCreateWithoutReunionesInput = {
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
 }
@@ -2796,6 +2848,7 @@ export type ProyectoUncheckedCreateWithoutReunionesInput = {
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
 }
@@ -2852,6 +2905,7 @@ export type ProyectoUpdateWithoutReunionesInput = {
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
 }
@@ -2893,6 +2947,7 @@ export type ProyectoUncheckedUpdateWithoutReunionesInput = {
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
 }
@@ -2933,6 +2988,7 @@ export type ProyectoCreateWithoutNotasInput = {
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
 }
@@ -2974,6 +3030,7 @@ export type ProyectoUncheckedCreateWithoutNotasInput = {
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
   reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
 }
@@ -3030,6 +3087,7 @@ export type ProyectoUpdateWithoutNotasInput = {
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
 }
@@ -3071,8 +3129,191 @@ export type ProyectoUncheckedUpdateWithoutNotasInput = {
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoCreateWithoutPendientesInput = {
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
+  seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
+  usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
+  disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
+  desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
+  cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
+  reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
+  notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoUncheckedCreateWithoutPendientesInput = {
+  id?: number
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  seguimientoId: number
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
+  reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
+  notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoCreateOrConnectWithoutPendientesInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutPendientesInput, Prisma.ProyectoUncheckedCreateWithoutPendientesInput>
+}
+
+export type ProyectoUpsertWithoutPendientesInput = {
+  update: Prisma.XOR<Prisma.ProyectoUpdateWithoutPendientesInput, Prisma.ProyectoUncheckedUpdateWithoutPendientesInput>
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutPendientesInput, Prisma.ProyectoUncheckedCreateWithoutPendientesInput>
+  where?: Prisma.ProyectoWhereInput
+}
+
+export type ProyectoUpdateToOneWithWhereWithoutPendientesInput = {
+  where?: Prisma.ProyectoWhereInput
+  data: Prisma.XOR<Prisma.ProyectoUpdateWithoutPendientesInput, Prisma.ProyectoUncheckedUpdateWithoutPendientesInput>
+}
+
+export type ProyectoUpdateWithoutPendientesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
+  usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
+  disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
+  desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
+  cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
+  reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
+  notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoUncheckedUpdateWithoutPendientesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
+  reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
+  notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoCreateManyDisenadorInput = {
@@ -3176,6 +3417,7 @@ export type ProyectoUpdateWithoutDisenadorInput = {
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
@@ -3217,6 +3459,7 @@ export type ProyectoUncheckedUpdateWithoutDisenadorInput = {
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3290,6 +3533,7 @@ export type ProyectoUpdateWithoutDesarrolladorInput = {
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
@@ -3331,6 +3575,7 @@ export type ProyectoUncheckedUpdateWithoutDesarrolladorInput = {
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3437,6 +3682,7 @@ export type ProyectoUpdateWithoutSeguimientoInput = {
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
@@ -3478,6 +3724,7 @@ export type ProyectoUncheckedUpdateWithoutSeguimientoInput = {
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
   reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
   notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3527,6 +3774,7 @@ export type ProyectoCountOutputType = {
   historial: number
   recordatorios: number
   cotizaciones: number
+  pendientes: number
   notificaciones: number
   reuniones: number
   notas: number
@@ -3538,6 +3786,7 @@ export type ProyectoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   historial?: boolean | ProyectoCountOutputTypeCountHistorialArgs
   recordatorios?: boolean | ProyectoCountOutputTypeCountRecordatoriosArgs
   cotizaciones?: boolean | ProyectoCountOutputTypeCountCotizacionesArgs
+  pendientes?: boolean | ProyectoCountOutputTypeCountPendientesArgs
   notificaciones?: boolean | ProyectoCountOutputTypeCountNotificacionesArgs
   reuniones?: boolean | ProyectoCountOutputTypeCountReunionesArgs
   notas?: boolean | ProyectoCountOutputTypeCountNotasArgs
@@ -3586,6 +3835,13 @@ export type ProyectoCountOutputTypeCountRecordatoriosArgs<ExtArgs extends runtim
  */
 export type ProyectoCountOutputTypeCountCotizacionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CotizacionAdicionalWhereInput
+}
+
+/**
+ * ProyectoCountOutputType without action
+ */
+export type ProyectoCountOutputTypeCountPendientesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PendienteWhereInput
 }
 
 /**
@@ -3650,6 +3906,7 @@ export type ProyectoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   historial?: boolean | Prisma.Proyecto$historialArgs<ExtArgs>
   recordatorios?: boolean | Prisma.Proyecto$recordatoriosArgs<ExtArgs>
   cotizaciones?: boolean | Prisma.Proyecto$cotizacionesArgs<ExtArgs>
+  pendientes?: boolean | Prisma.Proyecto$pendientesArgs<ExtArgs>
   notificaciones?: boolean | Prisma.Proyecto$notificacionesArgs<ExtArgs>
   reuniones?: boolean | Prisma.Proyecto$reunionesArgs<ExtArgs>
   notas?: boolean | Prisma.Proyecto$notasArgs<ExtArgs>
@@ -3774,6 +4031,7 @@ export type ProyectoInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   historial?: boolean | Prisma.Proyecto$historialArgs<ExtArgs>
   recordatorios?: boolean | Prisma.Proyecto$recordatoriosArgs<ExtArgs>
   cotizaciones?: boolean | Prisma.Proyecto$cotizacionesArgs<ExtArgs>
+  pendientes?: boolean | Prisma.Proyecto$pendientesArgs<ExtArgs>
   notificaciones?: boolean | Prisma.Proyecto$notificacionesArgs<ExtArgs>
   reuniones?: boolean | Prisma.Proyecto$reunionesArgs<ExtArgs>
   notas?: boolean | Prisma.Proyecto$notasArgs<ExtArgs>
@@ -3801,6 +4059,7 @@ export type $ProyectoPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     historial: Prisma.$HistorialEtapaPayload<ExtArgs>[]
     recordatorios: Prisma.$RecordatorioProyectoPayload<ExtArgs>[]
     cotizaciones: Prisma.$CotizacionAdicionalPayload<ExtArgs>[]
+    pendientes: Prisma.$PendientePayload<ExtArgs>[]
     notificaciones: Prisma.$NotificacionPayload<ExtArgs>[]
     reuniones: Prisma.$ReunionPayload<ExtArgs>[]
     notas: Prisma.$NotaAdminPayload<ExtArgs>[]
@@ -4285,6 +4544,7 @@ export interface Prisma__ProyectoClient<T, Null = never, ExtArgs extends runtime
   historial<T extends Prisma.Proyecto$historialArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$historialArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HistorialEtapaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recordatorios<T extends Prisma.Proyecto$recordatoriosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$recordatoriosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecordatorioProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cotizaciones<T extends Prisma.Proyecto$cotizacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$cotizacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CotizacionAdicionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pendientes<T extends Prisma.Proyecto$pendientesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$pendientesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PendientePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notificaciones<T extends Prisma.Proyecto$notificacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$notificacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificacionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reuniones<T extends Prisma.Proyecto$reunionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$reunionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReunionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notas<T extends Prisma.Proyecto$notasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$notasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotaAdminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4904,6 +5164,30 @@ export type Proyecto$cotizacionesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.CotizacionAdicionalScalarFieldEnum | Prisma.CotizacionAdicionalScalarFieldEnum[]
+}
+
+/**
+ * Proyecto.pendientes
+ */
+export type Proyecto$pendientesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Pendiente
+   */
+  select?: Prisma.PendienteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Pendiente
+   */
+  omit?: Prisma.PendienteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PendienteInclude<ExtArgs> | null
+  where?: Prisma.PendienteWhereInput
+  orderBy?: Prisma.PendienteOrderByWithRelationInput | Prisma.PendienteOrderByWithRelationInput[]
+  cursor?: Prisma.PendienteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PendienteScalarFieldEnum | Prisma.PendienteScalarFieldEnum[]
 }
 
 /**

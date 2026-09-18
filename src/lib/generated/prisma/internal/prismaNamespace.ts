@@ -417,7 +417,8 @@ export const ModelName = {
   ComunicadoCierre: 'ComunicadoCierre',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  Pendiente: 'Pendiente'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -433,7 +434,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "rol" | "user" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota" | "integracionGoogle" | "fotoPerfil" | "comunicado" | "comunicadoCierre" | "session" | "account" | "verification"
+    modelProps: "rol" | "user" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota" | "integracionGoogle" | "fotoPerfil" | "comunicado" | "comunicadoCierre" | "session" | "account" | "verification" | "pendiente"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2065,6 +2066,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Pendiente: {
+      payload: Prisma.$PendientePayload<ExtArgs>
+      fields: Prisma.PendienteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PendienteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PendienteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload>
+        }
+        findFirst: {
+          args: Prisma.PendienteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PendienteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload>
+        }
+        findMany: {
+          args: Prisma.PendienteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload>[]
+        }
+        create: {
+          args: Prisma.PendienteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload>
+        }
+        createMany: {
+          args: Prisma.PendienteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PendienteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload>[]
+        }
+        delete: {
+          args: Prisma.PendienteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload>
+        }
+        update: {
+          args: Prisma.PendienteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload>
+        }
+        deleteMany: {
+          args: Prisma.PendienteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PendienteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PendienteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload>[]
+        }
+        upsert: {
+          args: Prisma.PendienteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PendientePayload>
+        }
+        aggregate: {
+          args: Prisma.PendienteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePendiente>
+        }
+        groupBy: {
+          args: Prisma.PendienteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PendienteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PendienteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PendienteCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2410,6 +2485,21 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const PendienteScalarFieldEnum = {
+  id: 'id',
+  proyectoId: 'proyectoId',
+  usuarioId: 'usuarioId',
+  texto: 'texto',
+  hecho: 'hecho',
+  hechoAt: 'hechoAt',
+  orden: 'orden',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PendienteScalarFieldEnum = (typeof PendienteScalarFieldEnum)[keyof typeof PendienteScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2831,6 +2921,7 @@ export type GlobalOmitConfig = {
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit
+  pendiente?: Prisma.PendienteOmit
 }
 
 /* Types for Logging */

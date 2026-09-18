@@ -14,6 +14,7 @@ import { NotasModule } from './feature/notas/notas.module';
 import { GoogleModule } from './feature/google/google.module';
 import { PerfilModule } from './feature/perfil/perfil.module';
 import { ComunicadosModule } from './feature/comunicados/comunicados.module';
+import { PendientesModule } from './feature/pendientes/pendientes.module';
 import { SesionGuard } from './feature/auth/guards/sesion.guard';
 import { RolesGuard } from './feature/auth/guards/roles.guard';
 
@@ -34,6 +35,7 @@ import { RolesGuard } from './feature/auth/guards/roles.guard';
     GoogleModule,
     PerfilModule,
     ComunicadosModule,
+    PendientesModule,
   ],
   // El orden importa: SesionGuard deja el payload en request.usuario y
   // RolesGuard lo lee. Invertidos, RolesGuard no encontraría el rol.

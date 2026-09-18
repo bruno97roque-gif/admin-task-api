@@ -165,3 +165,10 @@ export type Account = Prisma.AccountModel
  * de correo ni recuperación por correo), pero la librería exige la tabla.
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Pendiente
+ * Lista de pendientes personal: cada persona tiene la suya en cada proyecto
+ * (el diseñador no ve la del desarrollador). Administración las ve, pero no
+ * las edita.
+ */
+export type Pendiente = Prisma.PendienteModel

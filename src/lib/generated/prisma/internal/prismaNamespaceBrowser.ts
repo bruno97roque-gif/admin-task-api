@@ -71,7 +71,8 @@ export const ModelName = {
   ComunicadoCierre: 'ComunicadoCierre',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  Pendiente: 'Pendiente'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -396,6 +397,21 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const PendienteScalarFieldEnum = {
+  id: 'id',
+  proyectoId: 'proyectoId',
+  usuarioId: 'usuarioId',
+  texto: 'texto',
+  hecho: 'hecho',
+  hechoAt: 'hechoAt',
+  orden: 'orden',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PendienteScalarFieldEnum = (typeof PendienteScalarFieldEnum)[keyof typeof PendienteScalarFieldEnum]
 
 
 export const SortOrder = {

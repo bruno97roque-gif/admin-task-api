@@ -131,17 +131,17 @@ model User {
 
   /// La contraseña la puso administración (alta o reseteo): al entrar, la
   /// persona tiene que cambiarla antes de usar el sistema.
-  debeCambiarContrasena Boolean   @default(false) @map("debe_cambiar_contrasena")
+  debeCambiarContrasena Boolean @default(false) @map("debe_cambiar_contrasena")
 
   // --- Lo que pide better-auth (columnas nuevas, con valor por defecto) ---
   /// No se verifican correos: el login es con usuario y contraseña.
-  emailVerified         Boolean   @default(false) @map("email_verified")
+  emailVerified Boolean   @default(false) @map("email_verified")
   /// better-auth lo espera; las fotos viven en `fotos_perfil`.
-  image                 String?
-  createdAt             DateTime  @default(now()) @map("created_at")
-  updatedAt             DateTime  @default(now()) @updatedAt @map("updated_at")
-  sesiones              Session[]
-  cuentasAcceso         Account[]
+  image         String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
+  sesiones      Session[]
+  cuentasAcceso Account[]
 
   rol       Rol               @relation(fields: [roleId], references: [id])
   proyectos UsuarioProyecto[]
@@ -151,6 +151,7 @@ model User {
   cambiosDeEtapa         HistorialEtapa[]
   recordatorios          RecordatorioProyecto[]
   cotizaciones           CotizacionAdicional[]
+  pendientes             Pendiente[]
   notificaciones         Notificacion[]
   reunionesCreadas       Reunion[]              @relation("ReunionesCreadas")
   integracionGoogle      IntegracionGoogle?
@@ -256,6 +257,7 @@ model Proyecto {
   historial      HistorialEtapa[]
   recordatorios  RecordatorioProyecto[]
   cotizaciones   CotizacionAdicional[]
+  pendientes     Pendiente[]
   notificaciones Notificacion[]
   reuniones      Reunion[]
   notas          NotaAdmin[]
@@ -646,4 +648,28 @@ model Verification {
 
   @@index([identifier])
   @@map("verificaciones")
+}
+
+/// Lista de pendientes personal: cada persona tiene la suya en cada proyecto
+/// (el diseñador no ve la del desarrollador). Administración las ve, pero no
+/// las edita.
+model Pendiente {
+  id         Int       @id @default(autoincrement())
+  proyectoId Int       @map("proyecto_id")
+  /// Dueño de la lista.
+  usuarioId  Int       @map("usuario_id")
+  texto      String    @db.Text
+  hecho      Boolean   @default(false)
+  hechoAt    DateTime? @map("hecho_at")
+  /// Posición dentro de la lista del dueño; los nuevos van al final.
+  orden      Int       @default(0)
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  proyecto Proyecto @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+  usuario  User     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@index([proyectoId, usuarioId])
+  @@index([usuarioId])
+  @@map("pendientes")
 }
