@@ -143,9 +143,15 @@ export interface AnaliticaProyectoMovimiento {
 export interface AnaliticaFlujoMes {
   mes: string;
   entraron: number;
+  /** Llegaron por primera vez a Diseño Finalizado en el mes. */
+  disenosFinalizados: number;
+  /** Llegaron por primera vez a Desarrollo Finalizado en el mes. */
+  desarrollosFinalizados: number;
   finalizados: number;
   archivados: number;
   entrantes: AnaliticaProyectoMovimiento[];
+  disenos: AnaliticaProyectoMovimiento[];
+  desarrollos: AnaliticaProyectoMovimiento[];
   salientes: AnaliticaProyectoMovimiento[];
 }
 
@@ -644,9 +650,13 @@ export class ProjectsService {
       const actual = flujo.get(mes) ?? {
         mes,
         entraron: 0,
+        disenosFinalizados: 0,
+        desarrollosFinalizados: 0,
         finalizados: 0,
         archivados: 0,
         entrantes: [],
+        disenos: [],
+        desarrollos: [],
         salientes: [],
       };
       flujo.set(mes, actual);
@@ -661,6 +671,37 @@ export class ProjectsService {
         nombre: proyecto.name,
         fecha: proyecto.createdAt,
       });
+    }
+
+    // Los hitos de la mitad del camino: la primera vez que cada proyecto llegó
+    // a Diseño Finalizado y a Desarrollo Finalizado (mismo criterio que el
+    // gráfico de `porMes`), con el detalle de cuáles fueron.
+    for (const proyecto of proyectos) {
+      const diseno = primeraEntrada.get(
+        `${proyecto.id}:${EstadoProyecto.DisenoFinalizado}`,
+      );
+      if (diseno) {
+        const mes = mesDeFlujo(mesDe(diseno));
+        mes.disenosFinalizados += 1;
+        mes.disenos.push({
+          proyectoId: proyecto.id,
+          nombre: proyecto.name,
+          fecha: diseno,
+        });
+      }
+
+      const desarrollo = primeraEntrada.get(
+        `${proyecto.id}:${EstadoProyecto.DesarrolloFinalizado}`,
+      );
+      if (desarrollo) {
+        const mes = mesDeFlujo(mesDe(desarrollo));
+        mes.desarrollosFinalizados += 1;
+        mes.desarrollos.push({
+          proyectoId: proyecto.id,
+          nombre: proyecto.name,
+          fecha: desarrollo,
+        });
+      }
     }
 
     const nombrePorId = new Map(proyectos.map((p) => [p.id, p.name]));
