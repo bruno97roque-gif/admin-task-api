@@ -5,6 +5,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import {
+  calcularAnaliticaAvanzada,
+  type AnaliticaAvanzada,
+} from './reglas/analitica.reglas';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { DefinirPlanCobrosDto } from './dto/plan-cobros.dto';
@@ -155,8 +159,12 @@ export interface AnaliticaFlujoMes {
   salientes: AnaliticaProyectoMovimiento[];
 }
 
-/** Analítica de diseño y desarrollo: totales por mes, por persona, y duración. */
-export interface Analitica {
+/**
+ * Analítica de diseño y desarrollo: totales por mes, por persona, y duración,
+ * más lo avanzado (`AnaliticaAvanzada`: estancados, carga por responsable,
+ * tendencia, cumplimiento de fechas, retrocesos y tiempo total).
+ */
+export interface Analitica extends AnaliticaAvanzada {
   /**
    * Altas y cierres mes a mes. Entrar es darse de alta (`createdAt`); salir es
    * llegar a `ProyectoFinalizado` o a `Archivado`, lo que pase primero. Un
@@ -516,30 +524,47 @@ export class ProjectsService {
       EstadoProyecto.Archivado,
     ];
 
-    const [proyectos, historial, salidas] = await Promise.all([
-      this.prisma.proyecto.findMany({
-        where: { deletedAt: null },
-        select: {
-          id: true,
-          name: true,
-          createdAt: true,
-          disenadorId: true,
-          desarrolladorId: true,
-          disenador: { select: { name: true } },
-          desarrollador: { select: { name: true } },
-        },
-      }),
-      this.prisma.historialEtapa.findMany({
-        where: { estadoNuevo: { in: ESTADOS_RELEVANTES } },
-        orderBy: { createdAt: 'asc' },
-        select: { proyectoId: true, estadoNuevo: true, createdAt: true },
-      }),
-      this.prisma.historialEtapa.findMany({
-        where: { estadoNuevo: { in: ESTADOS_SALIDA } },
-        orderBy: { createdAt: 'asc' },
-        select: { proyectoId: true, estadoNuevo: true, createdAt: true },
-      }),
-    ]);
+    const [proyectos, historial, salidas, historialCompleto] =
+      await Promise.all([
+        this.prisma.proyecto.findMany({
+          where: { deletedAt: null },
+          select: {
+            id: true,
+            name: true,
+            createdAt: true,
+            estadoProyecto: true,
+            grupo: true,
+            fechaUltimoCambioEstado: true,
+            fechaEntrega: true,
+            fechaEntregaDiseno: true,
+            disenadorId: true,
+            desarrolladorId: true,
+            disenador: { select: { name: true } },
+            desarrollador: { select: { name: true } },
+          },
+        }),
+        this.prisma.historialEtapa.findMany({
+          where: { estadoNuevo: { in: ESTADOS_RELEVANTES } },
+          orderBy: { createdAt: 'asc' },
+          select: { proyectoId: true, estadoNuevo: true, createdAt: true },
+        }),
+        this.prisma.historialEtapa.findMany({
+          where: { estadoNuevo: { in: ESTADOS_SALIDA } },
+          orderBy: { createdAt: 'asc' },
+          select: { proyectoId: true, estadoNuevo: true, createdAt: true },
+        }),
+        // Todo el recorrido, para la analítica avanzada (retrocesos, último
+        // cambio de etapa y los cierres de cada tramo).
+        this.prisma.historialEtapa.findMany({
+          orderBy: { createdAt: 'asc' },
+          select: {
+            proyectoId: true,
+            estadoAnterior: true,
+            estadoNuevo: true,
+            createdAt: true,
+          },
+        }),
+      ]);
 
     // La primera fila de cada (proyecto, estado) es la primera vez que entró,
     // sin importar si después retrocedió y volvió a entrar: `orderBy asc` +
@@ -741,7 +766,27 @@ export class ProjectsService {
               10,
           ) / 10;
 
+    const avanzada = calcularAnaliticaAvanzada(
+      proyectos.map((p) => ({
+        id: p.id,
+        name: p.name,
+        createdAt: p.createdAt,
+        estadoProyecto: p.estadoProyecto,
+        grupo: p.grupo,
+        fechaUltimoCambioEstado: p.fechaUltimoCambioEstado,
+        fechaEntrega: p.fechaEntrega,
+        fechaEntregaDiseno: p.fechaEntregaDiseno,
+        disenadorId: p.disenadorId,
+        disenadorNombre: p.disenador?.name ?? null,
+        desarrolladorId: p.desarrolladorId,
+        desarrolladorNombre: p.desarrollador?.name ?? null,
+      })),
+      historialCompleto,
+      new Date(),
+    );
+
     return {
+      ...avanzada,
       flujoMensual: [...flujo.values()].sort((a, b) =>
         a.mes.localeCompare(b.mes),
       ),

@@ -192,7 +192,7 @@ export class ProjectsController {
   @ApiOperation({
     summary: 'Analítica de diseño y desarrollo',
     description:
-      'Proyectos que llegaron a Diseño Finalizado / Desarrollo Finalizado por mes, quién los cerró, y cuánto tardan en promedio. Calculado al vuelo desde `historial_etapas`: no hay tabla propia, y la duración solo se puede medir para lo que pasó desde que existe ese registro.',
+      'Proyectos que llegaron a Diseño Finalizado / Desarrollo Finalizado por mes, quién los cerró, y cuánto tardan en promedio. Calculado al vuelo desde `historial_etapas`: no hay tabla propia, y la duración solo se puede medir para lo que pasó desde que existe ese registro. Suma además `estancados` (activos por antigüedad en su etapa: 0–7, 8–14, 15+ días), `porResponsable` (cerrados, promedio, activos y estancados por persona), `tendencia` (duraciones promedio por mes de cierre), `cumplimiento` (fechas objetivo de diseño y de entrega), `retrocesos` (vueltas a una etapa anterior) y `tiempoTotal` (del alta a Proyecto Finalizado).',
   })
   @ApiOkResponse({ type: AnaliticaRespuestaDto })
   getAnalitica() {

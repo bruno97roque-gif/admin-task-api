@@ -129,6 +129,19 @@ Migración **aditiva** `20260918120000_fotos_perfil` (tabla `fotos_perfil`, una 
 - **`GET /user/:id/foto` es `@Public()`** porque un `<img>` no manda token. Se sirve con caché de un año: el front agrega `?v=fotoVersion` (el `updatedAt` de la foto en ms), que viaja en `GET /user`, en `/perfil` y en el login.
 - **Límite de intentos del login**: ver «Auth (better-auth)». `main.ts` sube el tope del JSON a 600 KB por las fotos.
 
+### Analítica avanzada (`GET /projects/analitica`)
+
+Sin migración: todo sale de `historial_etapas` y de columnas que ya existían. Además de `flujoMensual`, `porMes`, rankings y `duracionPromedio`, la respuesta suma lo que calcula `reglas/analitica.reglas.ts` (`calcularAnaliticaAvanzada`, funciones puras con spec):
+
+- `estancados`: proyectos activos (no terminales) con los días sin cambiar de etapa (`fechaUltimoCambioEstado`, si no el último cambio del historial, si no el alta), en rangos 0–7, 8–14 y 15+. **Estancado = 15 días o más** (`DIAS_ESTANCADO`, el front repite el número).
+- `porResponsable`: por diseñador y desarrollador, etapas cerradas (primera llegada a Diseño/Desarrollo Finalizado, atribuida al `disenadorId`/`desarrolladorId` **actual**), promedio de días, activos hoy en su etapa y estancados.
+- `tendencia`: promedio de días de Diseño, Desarrollo y total (alta → Proyecto Finalizado) por mes de cierre.
+- `cumplimiento`: cierre real (día en hora de Lima) contra `fechaEntregaDiseno` y `fechaEntrega` (esta contra Desarrollo Finalizado). Sin cerrar y con la fecha pasada = vencido; los archivados sin cerrar no cuentan.
+- `retrocesos`: filas donde `estadoNuevo` está antes que `estadoAnterior` en `ORDEN_ETAPAS`; archivar/reactivar no cuentan.
+- `tiempoTotal`: del alta a la primera llegada a Proyecto Finalizado.
+
+La meta de días por etapa de «Duración por etapa» es del front (`META_DIAS` en `components/analitica/graficos/comun.ts`), no del API.
+
 ### Comunicados (`feature/comunicados`)
 
 Migración **aditiva** `20260919120000_comunicados` (valor `Comunicado` en `TipoNotificacion`, enum `NivelComunicado` y tablas `comunicados` y `comunicados_cierres`).
