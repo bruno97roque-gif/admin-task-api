@@ -1,7 +1,10 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
+  ArrayUnique,
+  IsArray,
   IsBoolean,
   IsEmail,
+  IsEnum,
   IsInt,
   IsNotEmpty,
   IsOptional,
@@ -10,6 +13,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { Puesto } from '../../../lib/generated/prisma/client';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -74,4 +78,18 @@ export class CreateUserDto {
   @IsInt()
   @IsPositive()
   roleId: number;
+
+  @ApiPropertyOptional({
+    description:
+      'En qué trabaja la persona, aparte de su rol. El rol decide permisos; el puesto decide en qué tablero y en qué selector aparece, así que un programador que también diseña lleva los dos. Si no se manda nada, se usan los puestos que implica el rol (`Diseñador` diseña, `Programador` y `Supervisor` desarrollan).',
+    enum: Puesto,
+    enumName: 'Puesto',
+    isArray: true,
+    example: [Puesto.Diseno, Puesto.Desarrollo],
+  })
+  @IsOptional()
+  @IsArray()
+  @ArrayUnique()
+  @IsEnum(Puesto, { each: true })
+  puestos?: Puesto[];
 }

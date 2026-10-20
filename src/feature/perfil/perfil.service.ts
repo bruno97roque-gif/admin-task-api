@@ -15,6 +15,8 @@ import { cerrarSesiones, guardarContrasena } from '../auth/cuentas';
 import { ActualizarPerfilDto } from './dto/actualizar-perfil.dto';
 import { CambiarContrasenaDto } from './dto/cambiar-contrasena.dto';
 import { leerImagen, versionDeFoto } from './perfil.reglas';
+import { puestosDe } from '../user/puestos.reglas';
+import { Puesto } from '../../lib/generated/prisma/client';
 
 export interface Perfil {
   id: number;
@@ -26,6 +28,8 @@ export interface Perfil {
   fotoVersion: number | null;
   /** Tiene una contraseña temporal y debe cambiarla antes de seguir. */
   debeCambiarContrasena: boolean;
+  /** En qué trabaja: decide qué tableros ve. */
+  puestos: Puesto[];
 }
 
 const perfilSelect = {
@@ -37,6 +41,7 @@ const perfilSelect = {
   debeCambiarContrasena: true,
   rol: { select: { name: true } },
   fotoPerfil: { select: { updatedAt: true } },
+  puestos: { select: { puesto: true } },
 } as const;
 
 /**
@@ -66,11 +71,26 @@ export class PerfilService {
       throw new NotFoundException('Tu usuario ya no existe');
     }
 
-    const { rol, fotoPerfil, ...resto } = usuario;
+    return this.aPerfil(usuario);
+  }
+
+  /** La forma que espera el front, con los puestos ya resueltos. */
+  private aPerfil(
+    usuario: Omit<Perfil, 'roleName' | 'fotoVersion' | 'puestos'> & {
+      rol: { name: string };
+      fotoPerfil: { updatedAt: Date } | null;
+      puestos: { puesto: Puesto }[];
+    },
+  ): Perfil {
+    const { rol, fotoPerfil, puestos, ...resto } = usuario;
     return {
       ...resto,
       roleName: rol.name,
       fotoVersion: versionDeFoto(fotoPerfil),
+      puestos: puestosDe(
+        rol.name,
+        puestos.map((p) => p.puesto),
+      ),
     };
   }
 
