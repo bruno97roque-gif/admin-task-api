@@ -13,6 +13,7 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { DefinirPlanCobrosDto } from './dto/plan-cobros.dto';
 import { MarcarCobroDto } from './dto/marcar-cobro.dto';
+import { TraspasarProyectosDto } from './dto/traspasar-proyectos.dto';
 import { ObservacionesDto } from './dto/observaciones.dto';
 import { AsignarResponsablesDto } from './dto/asignar-responsables.dto';
 import { PrismaService } from '../../lib/prisma/prisma.service';
@@ -113,6 +114,16 @@ export interface ResumenReactivacion {
   /** Con 50% se rehacen inicio y diseño. */
   seRehaceInicioYDiseno: boolean;
   proyecto: ProyectoCompleto;
+}
+
+/** Cuántos proyectos cambiaron de manos en un traspaso. */
+export interface ResumenTraspaso {
+  /** Proyectos donde cambió el diseñador. */
+  diseno: number;
+  /** Proyectos donde cambió el desarrollador. */
+  desarrollo: number;
+  /** Los proyectos movidos, para mostrarlos. */
+  proyectos: { id: number; name: string }[];
 }
 
 /** Una fila del ranking de diseñadores o desarrolladores para un mes dado. */
@@ -1667,6 +1678,163 @@ export class ProjectsService {
    * Deja el equipo acorde a los responsables: saca a los que dejaron de serlo
    * y engancha a los nuevos. Al resto del equipo no lo toca.
    */
+  /**
+   * Le pasa a otra persona los proyectos **activos** de alguien que deja el
+   * equipo: los entregados y los archivados se quedan a nombre de quien los
+   * hizo, para no reescribir la historia ni la analítica. Cada proyecto se
+   * mueve con la misma mecánica que `asignarResponsables`, así el equipo del
+   * join queda sincronizado y queda su fila en el historial.
+   */
+  async traspasarProyectos(
+    dto: TraspasarProyectosDto,
+    actorId?: number,
+  ): Promise<ResumenTraspaso> {
+    const { deUsuarioId, disenadorDestinoId, desarrolladorDestinoId } = dto;
+
+    if (
+      disenadorDestinoId === undefined &&
+      desarrolladorDestinoId === undefined
+    ) {
+      throw new BadRequestException(
+        'Indica a quién le pasas los proyectos: diseño, desarrollo o los dos',
+      );
+    }
+    if (
+      disenadorDestinoId === deUsuarioId ||
+      desarrolladorDestinoId === deUsuarioId
+    ) {
+      throw new BadRequestException(
+        'No se puede traspasar un proyecto a la misma persona',
+      );
+    }
+
+    await this.validarUsuarios(
+      [
+        ...new Set([deUsuarioId, disenadorDestinoId, desarrolladorDestinoId]),
+      ].filter((id): id is number => typeof id === 'number'),
+    );
+
+    const suyos = await this.prisma.proyecto.findMany({
+      where: {
+        deletedAt: null,
+        estadoProyecto: {
+          notIn: [EstadoProyecto.ProyectoFinalizado, EstadoProyecto.Archivado],
+        },
+        OR: [
+          ...(disenadorDestinoId !== undefined
+            ? [{ disenadorId: deUsuarioId }]
+            : []),
+          ...(desarrolladorDestinoId !== undefined
+            ? [{ desarrolladorId: deUsuarioId }]
+            : []),
+        ],
+      },
+      select: {
+        id: true,
+        name: true,
+        disenadorId: true,
+        desarrolladorId: true,
+        estadoProyecto: true,
+        grupo: true,
+      },
+      orderBy: { id: 'asc' },
+    });
+
+    const resumen: ResumenTraspaso = {
+      diseno: 0,
+      desarrollo: 0,
+      proyectos: [],
+    };
+
+    for (const proyecto of suyos) {
+      const cambiaDiseno =
+        disenadorDestinoId !== undefined &&
+        proyecto.disenadorId === deUsuarioId;
+      const cambiaDesarrollo =
+        desarrolladorDestinoId !== undefined &&
+        proyecto.desarrolladorId === deUsuarioId;
+      if (!cambiaDiseno && !cambiaDesarrollo) continue;
+
+      const antes = {
+        disenadorId: proyecto.disenadorId,
+        desarrolladorId: proyecto.desarrolladorId,
+      };
+      const despues = {
+        disenadorId: cambiaDiseno ? disenadorDestinoId : proyecto.disenadorId,
+        desarrolladorId: cambiaDesarrollo
+          ? desarrolladorDestinoId
+          : proyecto.desarrolladorId,
+      };
+
+      await this.prisma.$transaction(async (tx) => {
+        await tx.proyecto.update({
+          where: { id: proyecto.id },
+          data: {
+            disenadorId: despues.disenadorId,
+            desarrolladorId: despues.desarrolladorId,
+          },
+        });
+
+        await this.acomodarEquipo(
+          tx,
+          proyecto.id,
+          cambioDeEquipo(antes, despues),
+        );
+
+        await tx.historialEtapa.create({
+          data: {
+            proyectoId: proyecto.id,
+            estadoAnterior: proyecto.estadoProyecto,
+            estadoNuevo: proyecto.estadoProyecto,
+            grupoAnterior: proyecto.grupo,
+            grupoNuevo: proyecto.grupo,
+            motivo: dto.motivo ?? motivoDeResponsables(antes, despues),
+            usuarioId: actorId,
+          },
+        });
+      });
+
+      if (cambiaDiseno) resumen.diseno += 1;
+      if (cambiaDesarrollo) resumen.desarrollo += 1;
+      resumen.proyectos.push({ id: proyecto.id, name: proyecto.name });
+    }
+
+    // Quien recibe se entera de lo que le cayó.
+    await this.notificarTraspaso(
+      resumen,
+      disenadorDestinoId,
+      desarrolladorDestinoId,
+    );
+
+    return resumen;
+  }
+
+  private async notificarTraspaso(
+    resumen: ResumenTraspaso,
+    disenadorDestinoId?: number,
+    desarrolladorDestinoId?: number,
+  ): Promise<void> {
+    const avisos: [number, number][] = [
+      ...(disenadorDestinoId !== undefined && resumen.diseno > 0
+        ? ([[disenadorDestinoId, resumen.diseno]] as [number, number][])
+        : []),
+      ...(desarrolladorDestinoId !== undefined && resumen.desarrollo > 0
+        ? ([[desarrolladorDestinoId, resumen.desarrollo]] as [number, number][])
+        : []),
+    ];
+
+    for (const [usuarioId, cuantos] of avisos) {
+      await this.notificaciones.notificar([usuarioId], {
+        tipo: TipoNotificacion.ProyectoAsignado,
+        titulo: 'Te traspasaron proyectos',
+        mensaje:
+          cuantos === 1
+            ? 'Ahora tienes 1 proyecto más a tu cargo.'
+            : `Ahora tienes ${cuantos} proyectos más a tu cargo.`,
+      });
+    }
+  }
+
   private async acomodarEquipo(
     tx: Prisma.TransactionClient,
     proyectoId: number,

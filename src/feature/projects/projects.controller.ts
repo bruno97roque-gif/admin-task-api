@@ -31,6 +31,7 @@ import { AsignarUsuariosDto } from './dto/asignar-usuarios.dto';
 import { AsignarResponsablesDto } from './dto/asignar-responsables.dto';
 import { DefinirPlanCobrosDto } from './dto/plan-cobros.dto';
 import { MarcarCobroDto } from './dto/marcar-cobro.dto';
+import { TraspasarProyectosDto } from './dto/traspasar-proyectos.dto';
 import { MotivoDto } from './dto/motivo.dto';
 import { ObservacionesDto } from './dto/observaciones.dto';
 import { BloqueoClienteDto } from './dto/bloqueo-cliente.dto';
@@ -185,6 +186,28 @@ export class ProjectsController {
   @ApiOkResponse({ type: ProyectoRespuestaDto, isArray: true })
   findPorArchivar() {
     return this.projectsService.findPorArchivar();
+  }
+
+  /**
+   * Traspaso en bloque: lo que alguien tenía a su cargo pasa a otra persona.
+   * Va antes de `:id` como el resto de las rutas estáticas.
+   */
+  @Post('traspasar')
+  @ApiTags(TAGS.proyectos)
+  @Roles(...ROLES_ADMINISTRACION)
+  @ApiOperation({
+    summary: 'Traspasar los proyectos de una persona a otra',
+    description:
+      'Mueve los proyectos **activos** (ni entregados ni archivados) de una persona a otra, por puesto: `disenadorDestinoId` para lo que tenía como diseñadora y `desarrolladorDestinoId` para lo que tenía como desarrolladora. Sincroniza el equipo del proyecto, deja la fila en el historial y avisa a quien recibe. Lo entregado y lo archivado se queda a nombre de quien lo hizo.',
+  })
+  @ApiBadRequestResponse({
+    description: 'Falta indicar un destino, o el destino es la misma persona.',
+  })
+  traspasar(
+    @Body() dto: TraspasarProyectosDto,
+    @UsuarioActual('sub') actorId: number,
+  ) {
+    return this.projectsService.traspasarProyectos(dto, actorId);
   }
 
   @Get('analitica')

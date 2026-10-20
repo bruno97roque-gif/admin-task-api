@@ -8,25 +8,43 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../../lib/prisma/prisma.service';
 import { Argon2Service } from '../../lib/argon2/argon2.service';
-import { Prisma, User } from '../../lib/generated/prisma/client';
+import { Prisma, Puesto, User } from '../../lib/generated/prisma/client';
 import { versionDeFoto } from '../perfil/perfil.reglas';
 import { cerrarSesiones, guardarContrasena } from '../auth/cuentas';
+import { ordenar, puestosDe } from './puestos.reglas';
 
 const sinPassword = { password: true } as const;
 
-/** Solo la fecha de la foto: la imagen se sirve aparte. */
-const conFoto = { fotoPerfil: { select: { updatedAt: true } } } as const;
+/** La foto (solo su fecha), el rol y los puestos cargados. */
+const conFoto = {
+  fotoPerfil: { select: { updatedAt: true } },
+  rol: { select: { name: true } },
+  puestos: { select: { puesto: true } },
+} as const;
 
 export type UserPublico = Omit<User, 'password'> & {
   /** Versión de la foto subida (`/user/:id/foto?v=`), o `null`. */
   fotoVersion: number | null;
+  /** En qué trabaja: lo cargado a mano o, si no hay nada, lo que implica su rol. */
+  puestos: Puesto[];
 };
 
 function publico(
-  user: Omit<User, 'password'> & { fotoPerfil: { updatedAt: Date } | null },
+  user: Omit<User, 'password'> & {
+    fotoPerfil: { updatedAt: Date } | null;
+    rol?: { name: string } | null;
+    puestos?: { puesto: Puesto }[];
+  },
 ): UserPublico {
-  const { fotoPerfil, ...resto } = user;
-  return { ...resto, fotoVersion: versionDeFoto(fotoPerfil) };
+  const { fotoPerfil, rol, puestos, ...resto } = user;
+  return {
+    ...resto,
+    fotoVersion: versionDeFoto(fotoPerfil),
+    puestos: puestosDe(
+      rol?.name,
+      puestos?.map((p) => p.puesto),
+    ),
+  };
 }
 
 @Injectable()
@@ -40,14 +58,22 @@ export class UserService {
     await this.validarRol(createUserDto.roleId);
     await this.validarUsuarioLibre(createUserDto.user);
 
-    const hash = await this.argon2.hash(createUserDto.password);
+    const { puestos, ...datosDeAlta } = createUserDto;
+    const hash = await this.argon2.hash(datosDeAlta.password);
 
     // El usuario y su cuenta de acceso nacen juntos: sin la cuenta, better-auth
     // no lo deja entrar.
     const creado = await this.prisma.$transaction(async (tx) => {
       const user = await tx.user.create({
         // La primera contraseña la pone administración: se cambia al entrar.
-        data: { ...createUserDto, password: hash, debeCambiarContrasena: true },
+        data: {
+          ...datosDeAlta,
+          password: hash,
+          debeCambiarContrasena: true,
+          ...(puestos && {
+            puestos: { create: ordenar(puestos).map((puesto) => ({ puesto })) },
+          }),
+        },
         omit: sinPassword,
         include: conFoto,
       });
@@ -107,12 +133,21 @@ export class UserService {
       await this.validarUsuarioLibre(updateUserDto.user, id);
     }
 
-    const { password, ...datos } = updateUserDto;
+    const { password, puestos, ...datos } = updateUserDto;
 
     try {
       const actualizado = await this.prisma.user.update({
         where: { id },
-        data: datos,
+        data: {
+          ...datos,
+          // Mandar la lista la reemplaza entera; omitirla no toca los puestos.
+          ...(puestos && {
+            puestos: {
+              deleteMany: {},
+              create: ordenar(puestos).map((puesto) => ({ puesto })),
+            },
+          }),
+        },
         omit: sinPassword,
         include: conFoto,
       });

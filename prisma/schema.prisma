@@ -71,6 +71,13 @@ enum Tecnologia {
   Personalizado @map("personalizado")
 }
 
+/// Los dos puestos de trabajo del equipo. No son roles: el rol decide
+/// permisos, el puesto decide en qué tablero y en qué selector aparece.
+enum Puesto {
+  Diseno
+  Desarrollo
+}
+
 enum Grupo {
   A
   B
@@ -161,9 +168,24 @@ model User {
   reuniones              ReunionUsuario[]
   notasEnviadas          NotaAdmin[]
   respuestasNota         RespuestaNota[]
+  puestos                UsuarioPuesto[]
 
   @@index([roleId])
   @@map("users")
+}
+
+/// En qué trabaja una persona, aparte de su rol (que es el de permisos). Una
+/// misma persona puede diseñar y desarrollar: aparece en los dos selectores y
+/// ve los dos tableros. Sin filas, se usan los puestos que implica su rol.
+model UsuarioPuesto {
+  usuarioId Int      @map("usuario_id")
+  puesto    Puesto
+  createdAt DateTime @default(now()) @map("created_at")
+
+  usuario User @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@id([usuarioId, puesto])
+  @@map("usuarios_puestos")
 }
 
 model Seguimiento {
