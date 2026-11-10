@@ -403,6 +403,7 @@ export const ModelName = {
   Seguimiento: 'Seguimiento',
   Proyecto: 'Proyecto',
   Cobro: 'Cobro',
+  HistorialPago: 'HistorialPago',
   HistorialEtapa: 'HistorialEtapa',
   RecordatorioProyecto: 'RecordatorioProyecto',
   CotizacionAdicional: 'CotizacionAdicional',
@@ -436,7 +437,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "rol" | "user" | "usuarioPuesto" | "seguimiento" | "proyecto" | "cobro" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota" | "integracionGoogle" | "fotoPerfil" | "comunicado" | "comunicadoCierre" | "session" | "account" | "verification" | "pendiente"
+    modelProps: "rol" | "user" | "usuarioPuesto" | "seguimiento" | "proyecto" | "cobro" | "historialPago" | "historialEtapa" | "recordatorioProyecto" | "cotizacionAdicional" | "usuarioProyecto" | "recordatorio" | "notificacion" | "reunion" | "reunionUsuario" | "notaAdmin" | "respuestaNota" | "integracionGoogle" | "fotoPerfil" | "comunicado" | "comunicadoCierre" | "session" | "account" | "verification" | "pendiente"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -881,6 +882,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CobroCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CobroCountAggregateOutputType> | number
+        }
+      }
+    }
+    HistorialPago: {
+      payload: Prisma.$HistorialPagoPayload<ExtArgs>
+      fields: Prisma.HistorialPagoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HistorialPagoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HistorialPagoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload>
+        }
+        findFirst: {
+          args: Prisma.HistorialPagoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HistorialPagoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload>
+        }
+        findMany: {
+          args: Prisma.HistorialPagoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload>[]
+        }
+        create: {
+          args: Prisma.HistorialPagoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload>
+        }
+        createMany: {
+          args: Prisma.HistorialPagoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.HistorialPagoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload>[]
+        }
+        delete: {
+          args: Prisma.HistorialPagoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload>
+        }
+        update: {
+          args: Prisma.HistorialPagoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload>
+        }
+        deleteMany: {
+          args: Prisma.HistorialPagoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HistorialPagoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.HistorialPagoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload>[]
+        }
+        upsert: {
+          args: Prisma.HistorialPagoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HistorialPagoPayload>
+        }
+        aggregate: {
+          args: Prisma.HistorialPagoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHistorialPago>
+        }
+        groupBy: {
+          args: Prisma.HistorialPagoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HistorialPagoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.HistorialPagoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HistorialPagoCountAggregateOutputType> | number
         }
       }
     }
@@ -2329,6 +2404,7 @@ export const ProyectoScalarFieldEnum = {
   fechaUltimoCambioEstado: 'fechaUltimoCambioEstado',
   archivadoAt: 'archivadoAt',
   enlaceMateriales: 'enlaceMateriales',
+  observaciones: 'observaciones',
   disenadorId: 'disenadorId',
   desarrolladorId: 'desarrolladorId'
 } as const
@@ -2348,6 +2424,19 @@ export const CobroScalarFieldEnum = {
 } as const
 
 export type CobroScalarFieldEnum = (typeof CobroScalarFieldEnum)[keyof typeof CobroScalarFieldEnum]
+
+
+export const HistorialPagoScalarFieldEnum = {
+  id: 'id',
+  proyectoId: 'proyectoId',
+  estadoAnterior: 'estadoAnterior',
+  estadoNuevo: 'estadoNuevo',
+  nota: 'nota',
+  usuarioId: 'usuarioId',
+  createdAt: 'createdAt'
+} as const
+
+export type HistorialPagoScalarFieldEnum = (typeof HistorialPagoScalarFieldEnum)[keyof typeof HistorialPagoScalarFieldEnum]
 
 
 export const HistorialEtapaScalarFieldEnum = {
@@ -3004,6 +3093,7 @@ export type GlobalOmitConfig = {
   seguimiento?: Prisma.SeguimientoOmit
   proyecto?: Prisma.ProyectoOmit
   cobro?: Prisma.CobroOmit
+  historialPago?: Prisma.HistorialPagoOmit
   historialEtapa?: Prisma.HistorialEtapaOmit
   recordatorioProyecto?: Prisma.RecordatorioProyectoOmit
   cotizacionAdicional?: Prisma.CotizacionAdicionalOmit

@@ -57,6 +57,7 @@ export const ModelName = {
   Seguimiento: 'Seguimiento',
   Proyecto: 'Proyecto',
   Cobro: 'Cobro',
+  HistorialPago: 'HistorialPago',
   HistorialEtapa: 'HistorialEtapa',
   RecordatorioProyecto: 'RecordatorioProyecto',
   CotizacionAdicional: 'CotizacionAdicional',
@@ -167,6 +168,7 @@ export const ProyectoScalarFieldEnum = {
   fechaUltimoCambioEstado: 'fechaUltimoCambioEstado',
   archivadoAt: 'archivadoAt',
   enlaceMateriales: 'enlaceMateriales',
+  observaciones: 'observaciones',
   disenadorId: 'disenadorId',
   desarrolladorId: 'desarrolladorId'
 } as const
@@ -186,6 +188,19 @@ export const CobroScalarFieldEnum = {
 } as const
 
 export type CobroScalarFieldEnum = (typeof CobroScalarFieldEnum)[keyof typeof CobroScalarFieldEnum]
+
+
+export const HistorialPagoScalarFieldEnum = {
+  id: 'id',
+  proyectoId: 'proyectoId',
+  estadoAnterior: 'estadoAnterior',
+  estadoNuevo: 'estadoNuevo',
+  nota: 'nota',
+  usuarioId: 'usuarioId',
+  createdAt: 'createdAt'
+} as const
+
+export type HistorialPagoScalarFieldEnum = (typeof HistorialPagoScalarFieldEnum)[keyof typeof HistorialPagoScalarFieldEnum]
 
 
 export const HistorialEtapaScalarFieldEnum = {

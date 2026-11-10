@@ -33,6 +33,11 @@ import { DefinirPlanCobrosDto } from './dto/plan-cobros.dto';
 import { MarcarCobroDto } from './dto/marcar-cobro.dto';
 import { TraspasarProyectosDto } from './dto/traspasar-proyectos.dto';
 import { MotivoDto } from './dto/motivo.dto';
+import {
+  CrearHistorialPagoDto,
+  EditarHistorialPagoDto,
+  HistorialPagoDto,
+} from './dto/historial-pago.dto';
 import { ObservacionesDto } from './dto/observaciones.dto';
 import { BloqueoClienteDto } from './dto/bloqueo-cliente.dto';
 import {
@@ -244,6 +249,79 @@ export class ProjectsController {
   @ApiNotFoundResponse(NO_ENCONTRADO)
   findHistorial(@Param('id', ParseIntPipe) id: number) {
     return this.projectsService.findHistorial(id);
+  }
+
+  @Get(':id/historial-pagos')
+  @ApiTags(TAGS.cobros)
+  @ApiOperation({
+    summary: 'Historial del estado de pago',
+    description:
+      'Cada cambio de `estadoPago`, del más reciente al más viejo, con quién lo hizo. Se escribe solo en el alta, en cada `PATCH /projects/:id` que lo cambie y con `POST /projects/:id/historial-pagos`.',
+  })
+  @ApiParam(PARAM_ID)
+  @ApiOkResponse({ type: HistorialPagoDto, isArray: true })
+  @ApiNotFoundResponse(NO_ENCONTRADO)
+  findHistorialPagos(@Param('id', ParseIntPipe) id: number) {
+    return this.projectsService.findHistorialPagos(id);
+  }
+
+  @Post(':id/historial-pagos')
+  @ApiTags(TAGS.cobros)
+  @ApiOperation({
+    summary: 'Registrar un pago',
+    description:
+      'Cambia el `estadoPago` del proyecto y deja la fila en el historial con la nota. Es lo mismo que mandar `estadoPago` por el `PATCH`, más la nota. Devuelve el proyecto actualizado.',
+  })
+  @ApiParam(PARAM_ID)
+  @ApiOkResponse({ type: ProyectoRespuestaDto })
+  @ApiNotFoundResponse(NO_ENCONTRADO)
+  @ApiConflictResponse({ description: 'El estado de pago ya es ese.' })
+  registrarPago(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: CrearHistorialPagoDto,
+    @UsuarioActual('sub') actorId: number,
+  ) {
+    return this.projectsService.registrarPago(id, dto, actorId);
+  }
+
+  // Corregir o borrar la traza de pagos es de administración.
+  @Roles(...ROLES_ADMINISTRACION)
+  @Patch(':id/historial-pagos/:pagoId')
+  @ApiTags(TAGS.cobros)
+  @ApiOperation({
+    summary: 'Corregir la nota de un pago',
+    description:
+      'Solo administración. Solo cambia la nota: los valores anterior/nuevo son la traza y no se reescriben.',
+  })
+  @ApiParam(PARAM_ID)
+  @ApiParam({ name: 'pagoId', type: Number })
+  @ApiOkResponse({ type: HistorialPagoDto })
+  @ApiNotFoundResponse(NO_ENCONTRADO)
+  editarNotaPago(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('pagoId', ParseIntPipe) pagoId: number,
+    @Body() dto: EditarHistorialPagoDto,
+  ) {
+    return this.projectsService.editarNotaPago(id, pagoId, dto.nota ?? null);
+  }
+
+  @Roles(...ROLES_ADMINISTRACION)
+  @Delete(':id/historial-pagos/:pagoId')
+  @ApiTags(TAGS.cobros)
+  @ApiOperation({
+    summary: 'Borrar un registro de pago',
+    description:
+      'Solo administración, para registros cargados por error. No cambia el `estadoPago` actual del proyecto.',
+  })
+  @ApiParam(PARAM_ID)
+  @ApiParam({ name: 'pagoId', type: Number })
+  @ApiOkResponse({ description: 'Borrado. No devuelve cuerpo.' })
+  @ApiNotFoundResponse(NO_ENCONTRADO)
+  borrarPago(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('pagoId', ParseIntPipe) pagoId: number,
+  ) {
+    return this.projectsService.borrarPago(id, pagoId);
   }
 
   /** Los cinco recordatorios del flujo, abiertos y ya resueltos. */

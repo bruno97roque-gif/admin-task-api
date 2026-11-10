@@ -11,6 +11,7 @@ import {
 } from './reglas/analitica.reglas';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { CrearHistorialPagoDto } from './dto/historial-pago.dto';
 import { DefinirPlanCobrosDto } from './dto/plan-cobros.dto';
 import { MarcarCobroDto } from './dto/marcar-cobro.dto';
 import { TraspasarProyectosDto } from './dto/traspasar-proyectos.dto';
@@ -333,7 +334,7 @@ export class ProjectsService {
             },
           }),
         },
-        select: { id: true },
+        select: { id: true, estadoPago: true },
       });
 
       await tx.historialEtapa.create({
@@ -344,6 +345,16 @@ export class ProjectsService {
           grupoAnterior: null,
           grupoNuevo: grupoFinal,
           motivo: 'Registro del proyecto',
+          usuarioId: actorId ?? null,
+        },
+      });
+
+      await tx.historialPago.create({
+        data: {
+          proyectoId: creado.id,
+          estadoAnterior: null,
+          estadoNuevo: creado.estadoPago,
+          nota: 'Registro del proyecto',
           usuarioId: actorId ?? null,
         },
       });
@@ -851,6 +862,65 @@ export class ProjectsService {
     });
   }
 
+  /** Cada cambio de `estadoPago`, del más reciente al más viejo. */
+  async findHistorialPagos(id: number) {
+    await this.findOne(id);
+
+    return this.prisma.historialPago.findMany({
+      where: { proyectoId: id },
+      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+      include: { usuario: { select: { id: true, name: true, user: true } } },
+    });
+  }
+
+  /**
+   * Registra un pago: cambia `estadoPago` por el mismo camino que el `PATCH`
+   * (fila de historial, aviso a Discord) y le suma la nota.
+   */
+  async registrarPago(
+    id: number,
+    dto: CrearHistorialPagoDto,
+    actorId?: number,
+  ): Promise<ProyectoCompleto> {
+    const actual = await this.findOne(id);
+    const nuevo = dto.estadoPago.trim();
+    if (nuevo === actual.estadoPago) {
+      throw new ConflictException(
+        `El estado de pago ya es «${actual.estadoPago}»`,
+      );
+    }
+    return this.update(id, { estadoPago: nuevo }, actorId, dto.nota);
+  }
+
+  /** Corrige la nota de una fila; los valores no se tocan. */
+  async editarNotaPago(id: number, pagoId: number, nota: string | null) {
+    await this.filaDePago(id, pagoId);
+    return this.prisma.historialPago.update({
+      where: { id: pagoId },
+      data: { nota: nota ?? null },
+      include: { usuario: { select: { id: true, name: true, user: true } } },
+    });
+  }
+
+  /** Borra una fila del historial. No cambia el `estadoPago` del proyecto. */
+  async borrarPago(id: number, pagoId: number): Promise<void> {
+    await this.filaDePago(id, pagoId);
+    await this.prisma.historialPago.delete({ where: { id: pagoId } });
+  }
+
+  private async filaDePago(id: number, pagoId: number) {
+    await this.findOne(id);
+    const fila = await this.prisma.historialPago.findFirst({
+      where: { id: pagoId, proyectoId: id },
+      select: { id: true },
+    });
+    if (!fila) {
+      throw new NotFoundException(
+        `El registro de pago con id ${pagoId} no existe en este proyecto`,
+      );
+    }
+  }
+
   /** Todos los recordatorios del proyecto, abiertos y ya resueltos. */
   async findRecordatorios(id: number) {
     await this.findOne(id);
@@ -866,6 +936,8 @@ export class ProjectsService {
     id: number,
     updateProjectDto: UpdateProjectDto,
     actorId?: number,
+    /** Nota para la fila de `historial_pagos`, si cambia `estadoPago`. */
+    notaPago?: string,
   ): Promise<ProyectoCompleto> {
     const actual = await this.findOne(id);
 
@@ -987,6 +1059,21 @@ export class ProjectsService {
             estadoNuevo,
             grupoAnterior: actual.grupo,
             grupoNuevo,
+            usuarioId: actorId ?? null,
+          },
+        });
+      }
+
+      if (
+        data.estadoPago !== undefined &&
+        data.estadoPago !== actual.estadoPago
+      ) {
+        await tx.historialPago.create({
+          data: {
+            proyectoId: id,
+            estadoAnterior: actual.estadoPago,
+            estadoNuevo: data.estadoPago,
+            nota: notaPago ?? null,
             usuarioId: actorId ?? null,
           },
         });

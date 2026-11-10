@@ -14,9 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model HistorialEtapa
- * Trazabilidad: una fila por cambio de etapa o de grupo, con quién lo movió y
- * cuándo. Es la base de los KPIs (cuánto dura cada etapa, cuántos días estuvo
- * el proyecto esperando al cliente).
+ * 
  */
 export type HistorialEtapaModel = runtime.Types.Result.DefaultSelection<Prisma.$HistorialEtapaPayload>
 

@@ -72,6 +72,7 @@ export type ProyectoMinAggregateOutputType = {
   fechaUltimoCambioEstado: Date | null
   archivadoAt: Date | null
   enlaceMateriales: string | null
+  observaciones: string | null
   disenadorId: number | null
   desarrolladorId: number | null
 }
@@ -106,6 +107,7 @@ export type ProyectoMaxAggregateOutputType = {
   fechaUltimoCambioEstado: Date | null
   archivadoAt: Date | null
   enlaceMateriales: string | null
+  observaciones: string | null
   disenadorId: number | null
   desarrolladorId: number | null
 }
@@ -140,6 +142,7 @@ export type ProyectoCountAggregateOutputType = {
   fechaUltimoCambioEstado: number
   archivadoAt: number
   enlaceMateriales: number
+  observaciones: number
   disenadorId: number
   desarrolladorId: number
   _all: number
@@ -192,6 +195,7 @@ export type ProyectoMinAggregateInputType = {
   fechaUltimoCambioEstado?: true
   archivadoAt?: true
   enlaceMateriales?: true
+  observaciones?: true
   disenadorId?: true
   desarrolladorId?: true
 }
@@ -226,6 +230,7 @@ export type ProyectoMaxAggregateInputType = {
   fechaUltimoCambioEstado?: true
   archivadoAt?: true
   enlaceMateriales?: true
+  observaciones?: true
   disenadorId?: true
   desarrolladorId?: true
 }
@@ -260,6 +265,7 @@ export type ProyectoCountAggregateInputType = {
   fechaUltimoCambioEstado?: true
   archivadoAt?: true
   enlaceMateriales?: true
+  observaciones?: true
   disenadorId?: true
   desarrolladorId?: true
   _all?: true
@@ -381,6 +387,7 @@ export type ProyectoGroupByOutputType = {
   fechaUltimoCambioEstado: Date | null
   archivadoAt: Date | null
   enlaceMateriales: string | null
+  observaciones: string | null
   disenadorId: number | null
   desarrolladorId: number | null
   _count: ProyectoCountAggregateOutputType | null
@@ -438,6 +445,7 @@ export type ProyectoWhereInput = {
   fechaUltimoCambioEstado?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   archivadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   enlaceMateriales?: Prisma.StringNullableFilter<"Proyecto"> | string | null
+  observaciones?: Prisma.StringNullableFilter<"Proyecto"> | string | null
   disenadorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   desarrolladorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   seguimiento?: Prisma.XOR<Prisma.SeguimientoScalarRelationFilter, Prisma.SeguimientoWhereInput>
@@ -446,6 +454,7 @@ export type ProyectoWhereInput = {
   desarrollador?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   cobros?: Prisma.CobroListRelationFilter
   historial?: Prisma.HistorialEtapaListRelationFilter
+  historialPagos?: Prisma.HistorialPagoListRelationFilter
   recordatorios?: Prisma.RecordatorioProyectoListRelationFilter
   cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
   pendientes?: Prisma.PendienteListRelationFilter
@@ -484,6 +493,7 @@ export type ProyectoOrderByWithRelationInput = {
   fechaUltimoCambioEstado?: Prisma.SortOrderInput | Prisma.SortOrder
   archivadoAt?: Prisma.SortOrderInput | Prisma.SortOrder
   enlaceMateriales?: Prisma.SortOrderInput | Prisma.SortOrder
+  observaciones?: Prisma.SortOrderInput | Prisma.SortOrder
   disenadorId?: Prisma.SortOrderInput | Prisma.SortOrder
   desarrolladorId?: Prisma.SortOrderInput | Prisma.SortOrder
   seguimiento?: Prisma.SeguimientoOrderByWithRelationInput
@@ -492,6 +502,7 @@ export type ProyectoOrderByWithRelationInput = {
   desarrollador?: Prisma.UserOrderByWithRelationInput
   cobros?: Prisma.CobroOrderByRelationAggregateInput
   historial?: Prisma.HistorialEtapaOrderByRelationAggregateInput
+  historialPagos?: Prisma.HistorialPagoOrderByRelationAggregateInput
   recordatorios?: Prisma.RecordatorioProyectoOrderByRelationAggregateInput
   cotizaciones?: Prisma.CotizacionAdicionalOrderByRelationAggregateInput
   pendientes?: Prisma.PendienteOrderByRelationAggregateInput
@@ -533,6 +544,7 @@ export type ProyectoWhereUniqueInput = Prisma.AtLeast<{
   fechaUltimoCambioEstado?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   archivadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   enlaceMateriales?: Prisma.StringNullableFilter<"Proyecto"> | string | null
+  observaciones?: Prisma.StringNullableFilter<"Proyecto"> | string | null
   disenadorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   desarrolladorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   seguimiento?: Prisma.XOR<Prisma.SeguimientoScalarRelationFilter, Prisma.SeguimientoWhereInput>
@@ -541,6 +553,7 @@ export type ProyectoWhereUniqueInput = Prisma.AtLeast<{
   desarrollador?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   cobros?: Prisma.CobroListRelationFilter
   historial?: Prisma.HistorialEtapaListRelationFilter
+  historialPagos?: Prisma.HistorialPagoListRelationFilter
   recordatorios?: Prisma.RecordatorioProyectoListRelationFilter
   cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
   pendientes?: Prisma.PendienteListRelationFilter
@@ -579,6 +592,7 @@ export type ProyectoOrderByWithAggregationInput = {
   fechaUltimoCambioEstado?: Prisma.SortOrderInput | Prisma.SortOrder
   archivadoAt?: Prisma.SortOrderInput | Prisma.SortOrder
   enlaceMateriales?: Prisma.SortOrderInput | Prisma.SortOrder
+  observaciones?: Prisma.SortOrderInput | Prisma.SortOrder
   disenadorId?: Prisma.SortOrderInput | Prisma.SortOrder
   desarrolladorId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ProyectoCountOrderByAggregateInput
@@ -621,6 +635,7 @@ export type ProyectoScalarWhereWithAggregatesInput = {
   fechaUltimoCambioEstado?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
   archivadoAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proyecto"> | Date | string | null
   enlaceMateriales?: Prisma.StringNullableWithAggregatesFilter<"Proyecto"> | string | null
+  observaciones?: Prisma.StringNullableWithAggregatesFilter<"Proyecto"> | string | null
   disenadorId?: Prisma.IntNullableWithAggregatesFilter<"Proyecto"> | number | null
   desarrolladorId?: Prisma.IntNullableWithAggregatesFilter<"Proyecto"> | number | null
 }
@@ -653,12 +668,14 @@ export type ProyectoCreateInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
@@ -697,11 +714,13 @@ export type ProyectoUncheckedCreateInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
@@ -738,12 +757,14 @@ export type ProyectoUpdateInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
@@ -782,11 +803,13 @@ export type ProyectoUncheckedUpdateInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
@@ -825,6 +848,7 @@ export type ProyectoCreateManyInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
 }
@@ -857,6 +881,7 @@ export type ProyectoUpdateManyMutationInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ProyectoUncheckedUpdateManyInput = {
@@ -889,6 +914,7 @@ export type ProyectoUncheckedUpdateManyInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -933,6 +959,7 @@ export type ProyectoCountOrderByAggregateInput = {
   fechaUltimoCambioEstado?: Prisma.SortOrder
   archivadoAt?: Prisma.SortOrder
   enlaceMateriales?: Prisma.SortOrder
+  observaciones?: Prisma.SortOrder
   disenadorId?: Prisma.SortOrder
   desarrolladorId?: Prisma.SortOrder
 }
@@ -975,6 +1002,7 @@ export type ProyectoMaxOrderByAggregateInput = {
   fechaUltimoCambioEstado?: Prisma.SortOrder
   archivadoAt?: Prisma.SortOrder
   enlaceMateriales?: Prisma.SortOrder
+  observaciones?: Prisma.SortOrder
   disenadorId?: Prisma.SortOrder
   desarrolladorId?: Prisma.SortOrder
 }
@@ -1009,6 +1037,7 @@ export type ProyectoMinOrderByAggregateInput = {
   fechaUltimoCambioEstado?: Prisma.SortOrder
   archivadoAt?: Prisma.SortOrder
   enlaceMateriales?: Prisma.SortOrder
+  observaciones?: Prisma.SortOrder
   disenadorId?: Prisma.SortOrder
   desarrolladorId?: Prisma.SortOrder
 }
@@ -1199,6 +1228,20 @@ export type ProyectoUpdateOneRequiredWithoutCobrosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProyectoUpdateToOneWithWhereWithoutCobrosInput, Prisma.ProyectoUpdateWithoutCobrosInput>, Prisma.ProyectoUncheckedUpdateWithoutCobrosInput>
 }
 
+export type ProyectoCreateNestedOneWithoutHistorialPagosInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutHistorialPagosInput, Prisma.ProyectoUncheckedCreateWithoutHistorialPagosInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutHistorialPagosInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+}
+
+export type ProyectoUpdateOneRequiredWithoutHistorialPagosNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoCreateWithoutHistorialPagosInput, Prisma.ProyectoUncheckedCreateWithoutHistorialPagosInput>
+  connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutHistorialPagosInput
+  upsert?: Prisma.ProyectoUpsertWithoutHistorialPagosInput
+  connect?: Prisma.ProyectoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProyectoUpdateToOneWithWhereWithoutHistorialPagosInput, Prisma.ProyectoUpdateWithoutHistorialPagosInput>, Prisma.ProyectoUncheckedUpdateWithoutHistorialPagosInput>
+}
+
 export type ProyectoCreateNestedOneWithoutHistorialInput = {
   create?: Prisma.XOR<Prisma.ProyectoCreateWithoutHistorialInput, Prisma.ProyectoUncheckedCreateWithoutHistorialInput>
   connectOrCreate?: Prisma.ProyectoCreateOrConnectWithoutHistorialInput
@@ -1343,11 +1386,13 @@ export type ProyectoCreateWithoutDisenadorInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
@@ -1386,10 +1431,12 @@ export type ProyectoUncheckedCreateWithoutDisenadorInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
@@ -1436,11 +1483,13 @@ export type ProyectoCreateWithoutDesarrolladorInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
@@ -1479,10 +1528,12 @@ export type ProyectoUncheckedCreateWithoutDesarrolladorInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
@@ -1550,6 +1601,7 @@ export type ProyectoScalarWhereInput = {
   fechaUltimoCambioEstado?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   archivadoAt?: Prisma.DateTimeNullableFilter<"Proyecto"> | Date | string | null
   enlaceMateriales?: Prisma.StringNullableFilter<"Proyecto"> | string | null
+  observaciones?: Prisma.StringNullableFilter<"Proyecto"> | string | null
   disenadorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
   desarrolladorId?: Prisma.IntNullableFilter<"Proyecto"> | number | null
 }
@@ -1598,11 +1650,13 @@ export type ProyectoCreateWithoutSeguimientoInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
@@ -1640,11 +1694,13 @@ export type ProyectoUncheckedCreateWithoutSeguimientoInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
@@ -1707,11 +1763,13 @@ export type ProyectoCreateWithoutCobrosInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
@@ -1750,10 +1808,12 @@ export type ProyectoUncheckedCreateWithoutCobrosInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
@@ -1806,11 +1866,13 @@ export type ProyectoUpdateWithoutCobrosInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
@@ -1849,9 +1911,201 @@ export type ProyectoUncheckedUpdateWithoutCobrosInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
+  notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
+  reuniones?: Prisma.ReunionUncheckedUpdateManyWithoutProyectoNestedInput
+  notas?: Prisma.NotaAdminUncheckedUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoCreateWithoutHistorialPagosInput = {
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
+  observaciones?: string | null
+  seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
+  usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
+  disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
+  desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
+  cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
+  notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
+  reuniones?: Prisma.ReunionCreateNestedManyWithoutProyectoInput
+  notas?: Prisma.NotaAdminCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoUncheckedCreateWithoutHistorialPagosInput = {
+  id?: number
+  name: string
+  estadoPago?: string
+  estadoProyecto?: $Enums.EstadoProyecto
+  descripcion: string
+  tecnologia?: $Enums.Tecnologia | null
+  tipoProyecto?: $Enums.TipoProyecto | null
+  grupo: $Enums.Grupo
+  seguimientoId: number
+  comentario: string
+  diasSinResponder?: string | null
+  fechaEntrega?: Date | string | null
+  fechaEntregaDiseno?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  materialMarcaRecibido?: boolean
+  catalogoRecibido?: boolean
+  rondasCambiosUsadas?: number
+  hostingContratado?: boolean
+  factibilidadRevisadaAt?: Date | string | null
+  disenoAprobadoAt?: Date | string | null
+  productosCargados?: boolean
+  presentadoAt?: Date | string | null
+  subidoProduccionAt?: Date | string | null
+  capacitacionAt?: Date | string | null
+  fechaUltimoCambioEstado?: Date | string | null
+  archivadoAt?: Date | string | null
+  enlaceMateriales?: string | null
+  observaciones?: string | null
+  disenadorId?: number | null
+  desarrolladorId?: number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
+  notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
+  reuniones?: Prisma.ReunionUncheckedCreateNestedManyWithoutProyectoInput
+  notas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutProyectoInput
+}
+
+export type ProyectoCreateOrConnectWithoutHistorialPagosInput = {
+  where: Prisma.ProyectoWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutHistorialPagosInput, Prisma.ProyectoUncheckedCreateWithoutHistorialPagosInput>
+}
+
+export type ProyectoUpsertWithoutHistorialPagosInput = {
+  update: Prisma.XOR<Prisma.ProyectoUpdateWithoutHistorialPagosInput, Prisma.ProyectoUncheckedUpdateWithoutHistorialPagosInput>
+  create: Prisma.XOR<Prisma.ProyectoCreateWithoutHistorialPagosInput, Prisma.ProyectoUncheckedCreateWithoutHistorialPagosInput>
+  where?: Prisma.ProyectoWhereInput
+}
+
+export type ProyectoUpdateToOneWithWhereWithoutHistorialPagosInput = {
+  where?: Prisma.ProyectoWhereInput
+  data: Prisma.XOR<Prisma.ProyectoUpdateWithoutHistorialPagosInput, Prisma.ProyectoUncheckedUpdateWithoutHistorialPagosInput>
+}
+
+export type ProyectoUpdateWithoutHistorialPagosInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
+  usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
+  disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
+  desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
+  cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
+  notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
+  reuniones?: Prisma.ReunionUpdateManyWithoutProyectoNestedInput
+  notas?: Prisma.NotaAdminUpdateManyWithoutProyectoNestedInput
+}
+
+export type ProyectoUncheckedUpdateWithoutHistorialPagosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoPago?: Prisma.StringFieldUpdateOperationsInput | string
+  estadoProyecto?: Prisma.EnumEstadoProyectoFieldUpdateOperationsInput | $Enums.EstadoProyecto
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnologia?: Prisma.NullableEnumTecnologiaFieldUpdateOperationsInput | $Enums.Tecnologia | null
+  tipoProyecto?: Prisma.NullableEnumTipoProyectoFieldUpdateOperationsInput | $Enums.TipoProyecto | null
+  grupo?: Prisma.EnumGrupoFieldUpdateOperationsInput | $Enums.Grupo
+  seguimientoId?: Prisma.IntFieldUpdateOperationsInput | number
+  comentario?: Prisma.StringFieldUpdateOperationsInput | string
+  diasSinResponder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaEntregaDiseno?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  materialMarcaRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  catalogoRecibido?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rondasCambiosUsadas?: Prisma.IntFieldUpdateOperationsInput | number
+  hostingContratado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  factibilidadRevisadaAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  disenoAprobadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productosCargados?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  presentadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subidoProduccionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capacitacionAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
+  cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
@@ -1889,11 +2143,13 @@ export type ProyectoCreateWithoutHistorialInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
@@ -1932,10 +2188,12 @@ export type ProyectoUncheckedCreateWithoutHistorialInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
@@ -1988,11 +2246,13 @@ export type ProyectoUpdateWithoutHistorialInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
@@ -2031,10 +2291,12 @@ export type ProyectoUncheckedUpdateWithoutHistorialInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2071,12 +2333,14 @@ export type ProyectoCreateWithoutRecordatoriosInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
@@ -2114,11 +2378,13 @@ export type ProyectoUncheckedCreateWithoutRecordatoriosInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
@@ -2170,12 +2436,14 @@ export type ProyectoUpdateWithoutRecordatoriosInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
@@ -2213,11 +2481,13 @@ export type ProyectoUncheckedUpdateWithoutRecordatoriosInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2253,12 +2523,14 @@ export type ProyectoCreateWithoutCotizacionesInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
@@ -2296,11 +2568,13 @@ export type ProyectoUncheckedCreateWithoutCotizacionesInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
@@ -2352,12 +2626,14 @@ export type ProyectoUpdateWithoutCotizacionesInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
@@ -2395,11 +2671,13 @@ export type ProyectoUncheckedUpdateWithoutCotizacionesInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2435,11 +2713,13 @@ export type ProyectoCreateWithoutUsuariosInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
@@ -2478,10 +2758,12 @@ export type ProyectoUncheckedCreateWithoutUsuariosInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
@@ -2534,11 +2816,13 @@ export type ProyectoUpdateWithoutUsuariosInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
@@ -2577,10 +2861,12 @@ export type ProyectoUncheckedUpdateWithoutUsuariosInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2617,12 +2903,14 @@ export type ProyectoCreateWithoutNotificacionesInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
@@ -2660,11 +2948,13 @@ export type ProyectoUncheckedCreateWithoutNotificacionesInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
@@ -2716,12 +3006,14 @@ export type ProyectoUpdateWithoutNotificacionesInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
@@ -2759,11 +3051,13 @@ export type ProyectoUncheckedUpdateWithoutNotificacionesInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2799,12 +3093,14 @@ export type ProyectoCreateWithoutReunionesInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
@@ -2842,11 +3138,13 @@ export type ProyectoUncheckedCreateWithoutReunionesInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
@@ -2898,12 +3196,14 @@ export type ProyectoUpdateWithoutReunionesInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
@@ -2941,11 +3241,13 @@ export type ProyectoUncheckedUpdateWithoutReunionesInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
@@ -2981,12 +3283,14 @@ export type ProyectoCreateWithoutNotasInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutProyectoInput
@@ -3024,11 +3328,13 @@ export type ProyectoUncheckedCreateWithoutNotasInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutProyectoInput
@@ -3080,12 +3386,14 @@ export type ProyectoUpdateWithoutNotasInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
@@ -3123,11 +3431,13 @@ export type ProyectoUncheckedUpdateWithoutNotasInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3163,12 +3473,14 @@ export type ProyectoCreateWithoutPendientesInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   seguimiento: Prisma.SeguimientoCreateNestedOneWithoutProyectosInput
   usuarios?: Prisma.UsuarioProyectoCreateNestedManyWithoutProyectoInput
   disenador?: Prisma.UserCreateNestedOneWithoutProyectosDisenadosInput
   desarrollador?: Prisma.UserCreateNestedOneWithoutProyectosDesarrolladosInput
   cobros?: Prisma.CobroCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutProyectoInput
@@ -3206,11 +3518,13 @@ export type ProyectoUncheckedCreateWithoutPendientesInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cobros?: Prisma.CobroUncheckedCreateNestedManyWithoutProyectoInput
   historial?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutProyectoInput
+  historialPagos?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutProyectoInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutProyectoInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutProyectoInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutProyectoInput
@@ -3262,12 +3576,14 @@ export type ProyectoUpdateWithoutPendientesInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutProyectoNestedInput
@@ -3305,11 +3621,13 @@ export type ProyectoUncheckedUpdateWithoutPendientesInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3347,6 +3665,7 @@ export type ProyectoCreateManyDisenadorInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   desarrolladorId?: number | null
 }
 
@@ -3380,6 +3699,7 @@ export type ProyectoCreateManyDesarrolladorInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
 }
 
@@ -3411,11 +3731,13 @@ export type ProyectoUpdateWithoutDisenadorInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
@@ -3454,10 +3776,12 @@ export type ProyectoUncheckedUpdateWithoutDisenadorInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3496,6 +3820,7 @@ export type ProyectoUncheckedUpdateManyWithoutDisenadorInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -3527,11 +3852,13 @@ export type ProyectoUpdateWithoutDesarrolladorInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seguimiento?: Prisma.SeguimientoUpdateOneRequiredWithoutProyectosNestedInput
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
@@ -3570,10 +3897,12 @@ export type ProyectoUncheckedUpdateWithoutDesarrolladorInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3612,6 +3941,7 @@ export type ProyectoUncheckedUpdateManyWithoutDesarrolladorInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -3644,6 +3974,7 @@ export type ProyectoCreateManySeguimientoInput = {
   fechaUltimoCambioEstado?: Date | string | null
   archivadoAt?: Date | string | null
   enlaceMateriales?: string | null
+  observaciones?: string | null
   disenadorId?: number | null
   desarrolladorId?: number | null
 }
@@ -3676,11 +4007,13 @@ export type ProyectoUpdateWithoutSeguimientoInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usuarios?: Prisma.UsuarioProyectoUpdateManyWithoutProyectoNestedInput
   disenador?: Prisma.UserUpdateOneWithoutProyectosDisenadosNestedInput
   desarrollador?: Prisma.UserUpdateOneWithoutProyectosDesarrolladosNestedInput
   cobros?: Prisma.CobroUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutProyectoNestedInput
@@ -3718,11 +4051,13 @@ export type ProyectoUncheckedUpdateWithoutSeguimientoInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   usuarios?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cobros?: Prisma.CobroUncheckedUpdateManyWithoutProyectoNestedInput
   historial?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutProyectoNestedInput
+  historialPagos?: Prisma.HistorialPagoUncheckedUpdateManyWithoutProyectoNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutProyectoNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutProyectoNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutProyectoNestedInput
@@ -3760,6 +4095,7 @@ export type ProyectoUncheckedUpdateManyWithoutSeguimientoInput = {
   fechaUltimoCambioEstado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   archivadoAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enlaceMateriales?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disenadorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   desarrolladorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -3773,6 +4109,7 @@ export type ProyectoCountOutputType = {
   usuarios: number
   cobros: number
   historial: number
+  historialPagos: number
   recordatorios: number
   cotizaciones: number
   pendientes: number
@@ -3785,6 +4122,7 @@ export type ProyectoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   usuarios?: boolean | ProyectoCountOutputTypeCountUsuariosArgs
   cobros?: boolean | ProyectoCountOutputTypeCountCobrosArgs
   historial?: boolean | ProyectoCountOutputTypeCountHistorialArgs
+  historialPagos?: boolean | ProyectoCountOutputTypeCountHistorialPagosArgs
   recordatorios?: boolean | ProyectoCountOutputTypeCountRecordatoriosArgs
   cotizaciones?: boolean | ProyectoCountOutputTypeCountCotizacionesArgs
   pendientes?: boolean | ProyectoCountOutputTypeCountPendientesArgs
@@ -3822,6 +4160,13 @@ export type ProyectoCountOutputTypeCountCobrosArgs<ExtArgs extends runtime.Types
  */
 export type ProyectoCountOutputTypeCountHistorialArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.HistorialEtapaWhereInput
+}
+
+/**
+ * ProyectoCountOutputType without action
+ */
+export type ProyectoCountOutputTypeCountHistorialPagosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HistorialPagoWhereInput
 }
 
 /**
@@ -3897,6 +4242,7 @@ export type ProyectoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   fechaUltimoCambioEstado?: boolean
   archivadoAt?: boolean
   enlaceMateriales?: boolean
+  observaciones?: boolean
   disenadorId?: boolean
   desarrolladorId?: boolean
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
@@ -3905,6 +4251,7 @@ export type ProyectoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   desarrollador?: boolean | Prisma.Proyecto$desarrolladorArgs<ExtArgs>
   cobros?: boolean | Prisma.Proyecto$cobrosArgs<ExtArgs>
   historial?: boolean | Prisma.Proyecto$historialArgs<ExtArgs>
+  historialPagos?: boolean | Prisma.Proyecto$historialPagosArgs<ExtArgs>
   recordatorios?: boolean | Prisma.Proyecto$recordatoriosArgs<ExtArgs>
   cotizaciones?: boolean | Prisma.Proyecto$cotizacionesArgs<ExtArgs>
   pendientes?: boolean | Prisma.Proyecto$pendientesArgs<ExtArgs>
@@ -3944,6 +4291,7 @@ export type ProyectoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   fechaUltimoCambioEstado?: boolean
   archivadoAt?: boolean
   enlaceMateriales?: boolean
+  observaciones?: boolean
   disenadorId?: boolean
   desarrolladorId?: boolean
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
@@ -3981,6 +4329,7 @@ export type ProyectoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   fechaUltimoCambioEstado?: boolean
   archivadoAt?: boolean
   enlaceMateriales?: boolean
+  observaciones?: boolean
   disenadorId?: boolean
   desarrolladorId?: boolean
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
@@ -4018,11 +4367,12 @@ export type ProyectoSelectScalar = {
   fechaUltimoCambioEstado?: boolean
   archivadoAt?: boolean
   enlaceMateriales?: boolean
+  observaciones?: boolean
   disenadorId?: boolean
   desarrolladorId?: boolean
 }
 
-export type ProyectoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "estadoPago" | "estadoProyecto" | "descripcion" | "tecnologia" | "tipoProyecto" | "grupo" | "seguimientoId" | "comentario" | "diasSinResponder" | "fechaEntrega" | "fechaEntregaDiseno" | "createdAt" | "updatedAt" | "deletedAt" | "materialMarcaRecibido" | "catalogoRecibido" | "rondasCambiosUsadas" | "hostingContratado" | "factibilidadRevisadaAt" | "disenoAprobadoAt" | "productosCargados" | "presentadoAt" | "subidoProduccionAt" | "capacitacionAt" | "fechaUltimoCambioEstado" | "archivadoAt" | "enlaceMateriales" | "disenadorId" | "desarrolladorId", ExtArgs["result"]["proyecto"]>
+export type ProyectoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "estadoPago" | "estadoProyecto" | "descripcion" | "tecnologia" | "tipoProyecto" | "grupo" | "seguimientoId" | "comentario" | "diasSinResponder" | "fechaEntrega" | "fechaEntregaDiseno" | "createdAt" | "updatedAt" | "deletedAt" | "materialMarcaRecibido" | "catalogoRecibido" | "rondasCambiosUsadas" | "hostingContratado" | "factibilidadRevisadaAt" | "disenoAprobadoAt" | "productosCargados" | "presentadoAt" | "subidoProduccionAt" | "capacitacionAt" | "fechaUltimoCambioEstado" | "archivadoAt" | "enlaceMateriales" | "observaciones" | "disenadorId" | "desarrolladorId", ExtArgs["result"]["proyecto"]>
 export type ProyectoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seguimiento?: boolean | Prisma.SeguimientoDefaultArgs<ExtArgs>
   usuarios?: boolean | Prisma.Proyecto$usuariosArgs<ExtArgs>
@@ -4030,6 +4380,7 @@ export type ProyectoInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   desarrollador?: boolean | Prisma.Proyecto$desarrolladorArgs<ExtArgs>
   cobros?: boolean | Prisma.Proyecto$cobrosArgs<ExtArgs>
   historial?: boolean | Prisma.Proyecto$historialArgs<ExtArgs>
+  historialPagos?: boolean | Prisma.Proyecto$historialPagosArgs<ExtArgs>
   recordatorios?: boolean | Prisma.Proyecto$recordatoriosArgs<ExtArgs>
   cotizaciones?: boolean | Prisma.Proyecto$cotizacionesArgs<ExtArgs>
   pendientes?: boolean | Prisma.Proyecto$pendientesArgs<ExtArgs>
@@ -4058,6 +4409,7 @@ export type $ProyectoPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     desarrollador: Prisma.$UserPayload<ExtArgs> | null
     cobros: Prisma.$CobroPayload<ExtArgs>[]
     historial: Prisma.$HistorialEtapaPayload<ExtArgs>[]
+    historialPagos: Prisma.$HistorialPagoPayload<ExtArgs>[]
     recordatorios: Prisma.$RecordatorioProyectoPayload<ExtArgs>[]
     cotizaciones: Prisma.$CotizacionAdicionalPayload<ExtArgs>[]
     pendientes: Prisma.$PendientePayload<ExtArgs>[]
@@ -4137,6 +4489,12 @@ export type $ProyectoPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
      * equipo. Se carga en el alta para que esté listo desde el día uno.
      */
     enlaceMateriales: string | null
+    /**
+     * Observaciones internas del proyecto, texto libre. Distinta de
+     * `comentario` y de la ruta `POST /:id/observaciones` (las del cliente tras
+     * presentar, que abren cotización o vuelven a presentar).
+     */
+    observaciones: string | null
     /**
      * Asignados en el registro del proyecto. No rotan, pero se pueden reasignar
      * y el cambio queda en el historial.
@@ -4543,6 +4901,7 @@ export interface Prisma__ProyectoClient<T, Null = never, ExtArgs extends runtime
   desarrollador<T extends Prisma.Proyecto$desarrolladorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$desarrolladorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   cobros<T extends Prisma.Proyecto$cobrosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$cobrosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CobroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   historial<T extends Prisma.Proyecto$historialArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$historialArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HistorialEtapaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  historialPagos<T extends Prisma.Proyecto$historialPagosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$historialPagosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HistorialPagoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recordatorios<T extends Prisma.Proyecto$recordatoriosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$recordatoriosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecordatorioProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cotizaciones<T extends Prisma.Proyecto$cotizacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$cotizacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CotizacionAdicionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pendientes<T extends Prisma.Proyecto$pendientesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proyecto$pendientesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PendientePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4607,6 +4966,7 @@ export interface ProyectoFieldRefs {
   readonly fechaUltimoCambioEstado: Prisma.FieldRef<"Proyecto", 'DateTime'>
   readonly archivadoAt: Prisma.FieldRef<"Proyecto", 'DateTime'>
   readonly enlaceMateriales: Prisma.FieldRef<"Proyecto", 'String'>
+  readonly observaciones: Prisma.FieldRef<"Proyecto", 'String'>
   readonly disenadorId: Prisma.FieldRef<"Proyecto", 'Int'>
   readonly desarrolladorId: Prisma.FieldRef<"Proyecto", 'Int'>
 }
@@ -5117,6 +5477,30 @@ export type Proyecto$historialArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.HistorialEtapaScalarFieldEnum | Prisma.HistorialEtapaScalarFieldEnum[]
+}
+
+/**
+ * Proyecto.historialPagos
+ */
+export type Proyecto$historialPagosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HistorialPago
+   */
+  select?: Prisma.HistorialPagoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HistorialPago
+   */
+  omit?: Prisma.HistorialPagoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HistorialPagoInclude<ExtArgs> | null
+  where?: Prisma.HistorialPagoWhereInput
+  orderBy?: Prisma.HistorialPagoOrderByWithRelationInput | Prisma.HistorialPagoOrderByWithRelationInput[]
+  cursor?: Prisma.HistorialPagoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HistorialPagoScalarFieldEnum | Prisma.HistorialPagoScalarFieldEnum[]
 }
 
 /**

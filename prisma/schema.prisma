@@ -156,6 +156,7 @@ model User {
   proyectosDisenados     Proyecto[]             @relation("ProyectosDisenados")
   proyectosDesarrollados Proyecto[]             @relation("ProyectosDesarrollados")
   cambiosDeEtapa         HistorialEtapa[]
+  cambiosDePago          HistorialPago[]
   recordatorios          RecordatorioProyecto[]
   cotizaciones           CotizacionAdicional[]
   pendientes             Pendiente[]
@@ -266,6 +267,11 @@ model Proyecto {
   /// equipo. Se carga en el alta para que esté listo desde el día uno.
   enlaceMateriales String? @map("enlace_materiales")
 
+  /// Observaciones internas del proyecto, texto libre. Distinta de
+  /// `comentario` y de la ruta `POST /:id/observaciones` (las del cliente tras
+  /// presentar, que abren cotización o vuelven a presentar).
+  observaciones String? @db.Text
+
   /// Asignados en el registro del proyecto. No rotan, pero se pueden reasignar
   /// y el cambio queda en el historial.
   disenadorId     Int? @map("disenador_id")
@@ -277,6 +283,7 @@ model Proyecto {
   desarrollador  User?                  @relation("ProyectosDesarrollados", fields: [desarrolladorId], references: [id])
   cobros         Cobro[]
   historial      HistorialEtapa[]
+  historialPagos HistorialPago[]
   recordatorios  RecordatorioProyecto[]
   cotizaciones   CotizacionAdicional[]
   pendientes     Pendiente[]
@@ -312,6 +319,27 @@ model Cobro {
 /// Trazabilidad: una fila por cambio de etapa o de grupo, con quién lo movió y
 /// cuándo. Es la base de los KPIs (cuánto dura cada etapa, cuántos días estuvo
 /// el proyecto esperando al cliente).
+/// Cada cambio de `proyectos.estado_pago` (el texto que se ve en la tarjeta).
+/// Se escribe solo en el alta y en cada `PATCH /projects/:id` que lo cambie, y
+/// también con `POST /projects/:id/historial-pagos`. Los valores son texto libre,
+/// igual que la columna.
+model HistorialPago {
+  id             Int      @id @default(autoincrement())
+  proyectoId     Int      @map("proyecto_id")
+  estadoAnterior String?  @map("estado_anterior")
+  estadoNuevo    String   @map("estado_nuevo")
+  nota           String?  @db.Text
+  usuarioId      Int?     @map("usuario_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  proyecto Proyecto @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+  usuario  User?    @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+
+  @@index([proyectoId])
+  @@index([usuarioId])
+  @@map("historial_pagos")
+}
+
 model HistorialEtapa {
   id             Int             @id @default(autoincrement())
   proyectoId     Int             @map("proyecto_id")

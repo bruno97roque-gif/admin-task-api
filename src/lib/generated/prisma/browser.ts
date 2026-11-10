@@ -51,10 +51,19 @@ export type Proyecto = Prisma.ProyectoModel
  */
 export type Cobro = Prisma.CobroModel
 /**
- * Model HistorialEtapa
+ * Model HistorialPago
  * Trazabilidad: una fila por cambio de etapa o de grupo, con quién lo movió y
  * cuándo. Es la base de los KPIs (cuánto dura cada etapa, cuántos días estuvo
  * el proyecto esperando al cliente).
+ * Cada cambio de `proyectos.estado_pago` (el texto que se ve en la tarjeta).
+ * Se escribe solo en el alta y en cada `PATCH /projects/:id` que lo cambie, y
+ * también con `POST /projects/:id/historial-pagos`. Los valores son texto libre,
+ * igual que la columna.
+ */
+export type HistorialPago = Prisma.HistorialPagoModel
+/**
+ * Model HistorialEtapa
+ * 
  */
 export type HistorialEtapa = Prisma.HistorialEtapaModel
 /**

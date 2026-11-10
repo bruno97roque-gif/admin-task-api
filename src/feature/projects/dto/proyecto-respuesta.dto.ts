@@ -170,6 +170,13 @@ export class ProyectoRespuestaDto {
   enlaceMateriales: string | null;
 
   @ApiProperty({
+    description: 'Observaciones internas del proyecto, texto libre.',
+    type: String,
+    nullable: true,
+  })
+  observaciones: string | null;
+
+  @ApiProperty({
     enum: Tecnologia,
     enumName: 'Tecnologia',
     nullable: true,

@@ -283,6 +283,7 @@ export type UserWhereInput = {
   proyectosDisenados?: Prisma.ProyectoListRelationFilter
   proyectosDesarrollados?: Prisma.ProyectoListRelationFilter
   cambiosDeEtapa?: Prisma.HistorialEtapaListRelationFilter
+  cambiosDePago?: Prisma.HistorialPagoListRelationFilter
   recordatorios?: Prisma.RecordatorioProyectoListRelationFilter
   cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
   pendientes?: Prisma.PendienteListRelationFilter
@@ -318,6 +319,7 @@ export type UserOrderByWithRelationInput = {
   proyectosDisenados?: Prisma.ProyectoOrderByRelationAggregateInput
   proyectosDesarrollados?: Prisma.ProyectoOrderByRelationAggregateInput
   cambiosDeEtapa?: Prisma.HistorialEtapaOrderByRelationAggregateInput
+  cambiosDePago?: Prisma.HistorialPagoOrderByRelationAggregateInput
   recordatorios?: Prisma.RecordatorioProyectoOrderByRelationAggregateInput
   cotizaciones?: Prisma.CotizacionAdicionalOrderByRelationAggregateInput
   pendientes?: Prisma.PendienteOrderByRelationAggregateInput
@@ -356,6 +358,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   proyectosDisenados?: Prisma.ProyectoListRelationFilter
   proyectosDesarrollados?: Prisma.ProyectoListRelationFilter
   cambiosDeEtapa?: Prisma.HistorialEtapaListRelationFilter
+  cambiosDePago?: Prisma.HistorialPagoListRelationFilter
   recordatorios?: Prisma.RecordatorioProyectoListRelationFilter
   cotizaciones?: Prisma.CotizacionAdicionalListRelationFilter
   pendientes?: Prisma.PendienteListRelationFilter
@@ -427,6 +430,7 @@ export type UserCreateInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -461,6 +465,7 @@ export type UserUncheckedCreateInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -494,6 +499,7 @@ export type UserUpdateInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -528,6 +534,7 @@ export type UserUncheckedUpdateInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -759,6 +766,22 @@ export type UserUpdateOneWithoutProyectosDesarrolladosNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProyectosDesarrolladosInput, Prisma.UserUpdateWithoutProyectosDesarrolladosInput>, Prisma.UserUncheckedUpdateWithoutProyectosDesarrolladosInput>
+}
+
+export type UserCreateNestedOneWithoutCambiosDePagoInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCambiosDePagoInput, Prisma.UserUncheckedCreateWithoutCambiosDePagoInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCambiosDePagoInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCambiosDePagoNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCambiosDePagoInput, Prisma.UserUncheckedCreateWithoutCambiosDePagoInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCambiosDePagoInput
+  upsert?: Prisma.UserUpsertWithoutCambiosDePagoInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCambiosDePagoInput, Prisma.UserUpdateWithoutCambiosDePagoInput>, Prisma.UserUncheckedUpdateWithoutCambiosDePagoInput>
 }
 
 export type UserCreateNestedOneWithoutCambiosDeEtapaInput = {
@@ -1016,6 +1039,7 @@ export type UserCreateWithoutRolInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -1049,6 +1073,7 @@ export type UserUncheckedCreateWithoutRolInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1126,6 +1151,7 @@ export type UserCreateWithoutPuestosInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -1159,6 +1185,7 @@ export type UserUncheckedCreateWithoutPuestosInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1207,6 +1234,7 @@ export type UserUpdateWithoutPuestosInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -1240,6 +1268,7 @@ export type UserUncheckedUpdateWithoutPuestosInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1271,6 +1300,7 @@ export type UserCreateWithoutProyectosDisenadosInput = {
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -1304,6 +1334,7 @@ export type UserUncheckedCreateWithoutProyectosDisenadosInput = {
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1341,6 +1372,7 @@ export type UserCreateWithoutProyectosDesarrolladosInput = {
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -1374,6 +1406,7 @@ export type UserUncheckedCreateWithoutProyectosDesarrolladosInput = {
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1422,6 +1455,7 @@ export type UserUpdateWithoutProyectosDisenadosInput = {
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -1455,6 +1489,7 @@ export type UserUncheckedUpdateWithoutProyectosDisenadosInput = {
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1498,6 +1533,7 @@ export type UserUpdateWithoutProyectosDesarrolladosInput = {
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -1531,6 +1567,157 @@ export type UserUncheckedUpdateWithoutProyectosDesarrolladosInput = {
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
+  pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
+  notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
+  reunionesCreadas?: Prisma.ReunionUncheckedUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedUpdateOneWithoutUsuarioNestedInput
+  fotoPerfil?: Prisma.FotoPerfilUncheckedUpdateOneWithoutUsuarioNestedInput
+  comunicadosCreados?: Prisma.ComunicadoUncheckedUpdateManyWithoutCreadorNestedInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreUncheckedUpdateManyWithoutUsuarioNestedInput
+  reuniones?: Prisma.ReunionUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
+  notasEnviadas?: Prisma.NotaAdminUncheckedUpdateManyWithoutAutorNestedInput
+  respuestasNota?: Prisma.RespuestaNotaUncheckedUpdateManyWithoutAutorNestedInput
+  puestos?: Prisma.UsuarioPuestoUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserCreateWithoutCambiosDePagoInput = {
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  email?: string | null
+  debeCambiarContrasena?: boolean
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountCreateNestedManyWithoutUserInput
+  rol: Prisma.RolCreateNestedOneWithoutUsersInput
+  proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
+  pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
+  notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
+  reunionesCreadas?: Prisma.ReunionCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleCreateNestedOneWithoutUsuarioInput
+  fotoPerfil?: Prisma.FotoPerfilCreateNestedOneWithoutUsuarioInput
+  comunicadosCreados?: Prisma.ComunicadoCreateNestedManyWithoutCreadorInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreCreateNestedManyWithoutUsuarioInput
+  reuniones?: Prisma.ReunionUsuarioCreateNestedManyWithoutUsuarioInput
+  notasEnviadas?: Prisma.NotaAdminCreateNestedManyWithoutAutorInput
+  respuestasNota?: Prisma.RespuestaNotaCreateNestedManyWithoutAutorInput
+  puestos?: Prisma.UsuarioPuestoCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserUncheckedCreateWithoutCambiosDePagoInput = {
+  id?: number
+  name: string
+  user: string
+  password: string
+  active?: boolean
+  roleId: number
+  email?: string | null
+  debeCambiarContrasena?: boolean
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sesiones?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  cuentasAcceso?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
+  pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
+  notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
+  reunionesCreadas?: Prisma.ReunionUncheckedCreateNestedManyWithoutCreadorInput
+  integracionGoogle?: Prisma.IntegracionGoogleUncheckedCreateNestedOneWithoutUsuarioInput
+  fotoPerfil?: Prisma.FotoPerfilUncheckedCreateNestedOneWithoutUsuarioInput
+  comunicadosCreados?: Prisma.ComunicadoUncheckedCreateNestedManyWithoutCreadorInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreUncheckedCreateNestedManyWithoutUsuarioInput
+  reuniones?: Prisma.ReunionUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
+  notasEnviadas?: Prisma.NotaAdminUncheckedCreateNestedManyWithoutAutorInput
+  respuestasNota?: Prisma.RespuestaNotaUncheckedCreateNestedManyWithoutAutorInput
+  puestos?: Prisma.UsuarioPuestoUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UserCreateOrConnectWithoutCambiosDePagoInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCambiosDePagoInput, Prisma.UserUncheckedCreateWithoutCambiosDePagoInput>
+}
+
+export type UserUpsertWithoutCambiosDePagoInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCambiosDePagoInput, Prisma.UserUncheckedUpdateWithoutCambiosDePagoInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCambiosDePagoInput, Prisma.UserUncheckedCreateWithoutCambiosDePagoInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCambiosDePagoInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCambiosDePagoInput, Prisma.UserUncheckedUpdateWithoutCambiosDePagoInput>
+}
+
+export type UserUpdateWithoutCambiosDePagoInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsersNestedInput
+  proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
+  cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
+  pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
+  notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
+  reunionesCreadas?: Prisma.ReunionUpdateManyWithoutCreadorNestedInput
+  integracionGoogle?: Prisma.IntegracionGoogleUpdateOneWithoutUsuarioNestedInput
+  fotoPerfil?: Prisma.FotoPerfilUpdateOneWithoutUsuarioNestedInput
+  comunicadosCreados?: Prisma.ComunicadoUpdateManyWithoutCreadorNestedInput
+  comunicadosCerrados?: Prisma.ComunicadoCierreUpdateManyWithoutUsuarioNestedInput
+  reuniones?: Prisma.ReunionUsuarioUpdateManyWithoutUsuarioNestedInput
+  notasEnviadas?: Prisma.NotaAdminUpdateManyWithoutAutorNestedInput
+  respuestasNota?: Prisma.RespuestaNotaUpdateManyWithoutAutorNestedInput
+  puestos?: Prisma.UsuarioPuestoUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCambiosDePagoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  debeCambiarContrasena?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sesiones?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  cuentasAcceso?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
+  proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1563,6 +1750,7 @@ export type UserCreateWithoutCambiosDeEtapaInput = {
   proyectos?: Prisma.UsuarioProyectoCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -1596,6 +1784,7 @@ export type UserUncheckedCreateWithoutCambiosDeEtapaInput = {
   proyectos?: Prisma.UsuarioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1644,6 +1833,7 @@ export type UserUpdateWithoutCambiosDeEtapaInput = {
   proyectos?: Prisma.UsuarioProyectoUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -1677,6 +1867,7 @@ export type UserUncheckedUpdateWithoutCambiosDeEtapaInput = {
   proyectos?: Prisma.UsuarioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1710,6 +1901,7 @@ export type UserCreateWithoutRecordatoriosInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
@@ -1743,6 +1935,7 @@ export type UserUncheckedCreateWithoutRecordatoriosInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1791,6 +1984,7 @@ export type UserUpdateWithoutRecordatoriosInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
@@ -1824,6 +2018,7 @@ export type UserUncheckedUpdateWithoutRecordatoriosInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1856,6 +2051,7 @@ export type UserCreateWithoutCotizacionesInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
@@ -1889,6 +2085,7 @@ export type UserUncheckedCreateWithoutCotizacionesInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1937,6 +2134,7 @@ export type UserUpdateWithoutCotizacionesInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
@@ -1970,6 +2168,7 @@ export type UserUncheckedUpdateWithoutCotizacionesInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2001,6 +2200,7 @@ export type UserCreateWithoutProyectosInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -2034,6 +2234,7 @@ export type UserUncheckedCreateWithoutProyectosInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2082,6 +2283,7 @@ export type UserUpdateWithoutProyectosInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -2115,6 +2317,7 @@ export type UserUncheckedUpdateWithoutProyectosInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2148,6 +2351,7 @@ export type UserCreateWithoutNotificacionesInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -2181,6 +2385,7 @@ export type UserUncheckedCreateWithoutNotificacionesInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2229,6 +2434,7 @@ export type UserUpdateWithoutNotificacionesInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -2262,6 +2468,7 @@ export type UserUncheckedUpdateWithoutNotificacionesInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2294,6 +2501,7 @@ export type UserCreateWithoutReunionesCreadasInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -2327,6 +2535,7 @@ export type UserUncheckedCreateWithoutReunionesCreadasInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2375,6 +2584,7 @@ export type UserUpdateWithoutReunionesCreadasInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -2408,6 +2618,7 @@ export type UserUncheckedUpdateWithoutReunionesCreadasInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2440,6 +2651,7 @@ export type UserCreateWithoutReunionesInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -2473,6 +2685,7 @@ export type UserUncheckedCreateWithoutReunionesInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2521,6 +2734,7 @@ export type UserUpdateWithoutReunionesInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -2554,6 +2768,7 @@ export type UserUncheckedUpdateWithoutReunionesInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2586,6 +2801,7 @@ export type UserCreateWithoutNotasEnviadasInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -2619,6 +2835,7 @@ export type UserUncheckedCreateWithoutNotasEnviadasInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2667,6 +2884,7 @@ export type UserUpdateWithoutNotasEnviadasInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -2700,6 +2918,7 @@ export type UserUncheckedUpdateWithoutNotasEnviadasInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2732,6 +2951,7 @@ export type UserCreateWithoutRespuestasNotaInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -2765,6 +2985,7 @@ export type UserUncheckedCreateWithoutRespuestasNotaInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2813,6 +3034,7 @@ export type UserUpdateWithoutRespuestasNotaInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -2846,6 +3068,7 @@ export type UserUncheckedUpdateWithoutRespuestasNotaInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2878,6 +3101,7 @@ export type UserCreateWithoutIntegracionGoogleInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -2911,6 +3135,7 @@ export type UserUncheckedCreateWithoutIntegracionGoogleInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2959,6 +3184,7 @@ export type UserUpdateWithoutIntegracionGoogleInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -2992,6 +3218,7 @@ export type UserUncheckedUpdateWithoutIntegracionGoogleInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3024,6 +3251,7 @@ export type UserCreateWithoutFotoPerfilInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -3057,6 +3285,7 @@ export type UserUncheckedCreateWithoutFotoPerfilInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3105,6 +3334,7 @@ export type UserUpdateWithoutFotoPerfilInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -3138,6 +3368,7 @@ export type UserUncheckedUpdateWithoutFotoPerfilInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3170,6 +3401,7 @@ export type UserCreateWithoutComunicadosCreadosInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -3203,6 +3435,7 @@ export type UserUncheckedCreateWithoutComunicadosCreadosInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3251,6 +3484,7 @@ export type UserUpdateWithoutComunicadosCreadosInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -3284,6 +3518,7 @@ export type UserUncheckedUpdateWithoutComunicadosCreadosInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3316,6 +3551,7 @@ export type UserCreateWithoutComunicadosCerradosInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -3349,6 +3585,7 @@ export type UserUncheckedCreateWithoutComunicadosCerradosInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3397,6 +3634,7 @@ export type UserUpdateWithoutComunicadosCerradosInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -3430,6 +3668,7 @@ export type UserUncheckedUpdateWithoutComunicadosCerradosInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3461,6 +3700,7 @@ export type UserCreateWithoutSesionesInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -3494,6 +3734,7 @@ export type UserUncheckedCreateWithoutSesionesInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3542,6 +3783,7 @@ export type UserUpdateWithoutSesionesInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -3575,6 +3817,7 @@ export type UserUncheckedUpdateWithoutSesionesInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3607,6 +3850,7 @@ export type UserCreateWithoutCuentasAccesoInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteCreateNestedManyWithoutUsuarioInput
@@ -3640,6 +3884,7 @@ export type UserUncheckedCreateWithoutCuentasAccesoInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   pendientes?: Prisma.PendienteUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3688,6 +3933,7 @@ export type UserUpdateWithoutCuentasAccesoInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -3721,6 +3967,7 @@ export type UserUncheckedUpdateWithoutCuentasAccesoInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3754,6 +4001,7 @@ export type UserCreateWithoutPendientesInput = {
   proyectosDisenados?: Prisma.ProyectoCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
@@ -3787,6 +4035,7 @@ export type UserUncheckedCreateWithoutPendientesInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDisenadorInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedCreateNestedManyWithoutDesarrolladorInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedCreateNestedManyWithoutUsuarioInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedCreateNestedManyWithoutUsuarioInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedCreateNestedManyWithoutUsuarioInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedCreateNestedManyWithoutUsuarioInput
   notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3835,6 +4084,7 @@ export type UserUpdateWithoutPendientesInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
@@ -3868,6 +4118,7 @@ export type UserUncheckedUpdateWithoutPendientesInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3913,6 +4164,7 @@ export type UserUpdateWithoutRolInput = {
   proyectosDisenados?: Prisma.ProyectoUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUpdateManyWithoutUsuarioNestedInput
@@ -3946,6 +4198,7 @@ export type UserUncheckedUpdateWithoutRolInput = {
   proyectosDisenados?: Prisma.ProyectoUncheckedUpdateManyWithoutDisenadorNestedInput
   proyectosDesarrollados?: Prisma.ProyectoUncheckedUpdateManyWithoutDesarrolladorNestedInput
   cambiosDeEtapa?: Prisma.HistorialEtapaUncheckedUpdateManyWithoutUsuarioNestedInput
+  cambiosDePago?: Prisma.HistorialPagoUncheckedUpdateManyWithoutUsuarioNestedInput
   recordatorios?: Prisma.RecordatorioProyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   cotizaciones?: Prisma.CotizacionAdicionalUncheckedUpdateManyWithoutUsuarioNestedInput
   pendientes?: Prisma.PendienteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3987,6 +4240,7 @@ export type UserCountOutputType = {
   proyectosDisenados: number
   proyectosDesarrollados: number
   cambiosDeEtapa: number
+  cambiosDePago: number
   recordatorios: number
   cotizaciones: number
   pendientes: number
@@ -4007,6 +4261,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   proyectosDisenados?: boolean | UserCountOutputTypeCountProyectosDisenadosArgs
   proyectosDesarrollados?: boolean | UserCountOutputTypeCountProyectosDesarrolladosArgs
   cambiosDeEtapa?: boolean | UserCountOutputTypeCountCambiosDeEtapaArgs
+  cambiosDePago?: boolean | UserCountOutputTypeCountCambiosDePagoArgs
   recordatorios?: boolean | UserCountOutputTypeCountRecordatoriosArgs
   cotizaciones?: boolean | UserCountOutputTypeCountCotizacionesArgs
   pendientes?: boolean | UserCountOutputTypeCountPendientesArgs
@@ -4070,6 +4325,13 @@ export type UserCountOutputTypeCountProyectosDesarrolladosArgs<ExtArgs extends r
  */
 export type UserCountOutputTypeCountCambiosDeEtapaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.HistorialEtapaWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCambiosDePagoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HistorialPagoWhereInput
 }
 
 /**
@@ -4170,6 +4432,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   proyectosDisenados?: boolean | Prisma.User$proyectosDisenadosArgs<ExtArgs>
   proyectosDesarrollados?: boolean | Prisma.User$proyectosDesarrolladosArgs<ExtArgs>
   cambiosDeEtapa?: boolean | Prisma.User$cambiosDeEtapaArgs<ExtArgs>
+  cambiosDePago?: boolean | Prisma.User$cambiosDePagoArgs<ExtArgs>
   recordatorios?: boolean | Prisma.User$recordatoriosArgs<ExtArgs>
   cotizaciones?: boolean | Prisma.User$cotizacionesArgs<ExtArgs>
   pendientes?: boolean | Prisma.User$pendientesArgs<ExtArgs>
@@ -4242,6 +4505,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   proyectosDisenados?: boolean | Prisma.User$proyectosDisenadosArgs<ExtArgs>
   proyectosDesarrollados?: boolean | Prisma.User$proyectosDesarrolladosArgs<ExtArgs>
   cambiosDeEtapa?: boolean | Prisma.User$cambiosDeEtapaArgs<ExtArgs>
+  cambiosDePago?: boolean | Prisma.User$cambiosDePagoArgs<ExtArgs>
   recordatorios?: boolean | Prisma.User$recordatoriosArgs<ExtArgs>
   cotizaciones?: boolean | Prisma.User$cotizacionesArgs<ExtArgs>
   pendientes?: boolean | Prisma.User$pendientesArgs<ExtArgs>
@@ -4274,6 +4538,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     proyectosDisenados: Prisma.$ProyectoPayload<ExtArgs>[]
     proyectosDesarrollados: Prisma.$ProyectoPayload<ExtArgs>[]
     cambiosDeEtapa: Prisma.$HistorialEtapaPayload<ExtArgs>[]
+    cambiosDePago: Prisma.$HistorialPagoPayload<ExtArgs>[]
     recordatorios: Prisma.$RecordatorioProyectoPayload<ExtArgs>[]
     cotizaciones: Prisma.$CotizacionAdicionalPayload<ExtArgs>[]
     pendientes: Prisma.$PendientePayload<ExtArgs>[]
@@ -4717,6 +4982,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   proyectosDisenados<T extends Prisma.User$proyectosDisenadosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$proyectosDisenadosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proyectosDesarrollados<T extends Prisma.User$proyectosDesarrolladosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$proyectosDesarrolladosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cambiosDeEtapa<T extends Prisma.User$cambiosDeEtapaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cambiosDeEtapaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HistorialEtapaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cambiosDePago<T extends Prisma.User$cambiosDePagoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cambiosDePagoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HistorialPagoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recordatorios<T extends Prisma.User$recordatoriosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recordatoriosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecordatorioProyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cotizaciones<T extends Prisma.User$cotizacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cotizacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CotizacionAdicionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pendientes<T extends Prisma.User$pendientesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pendientesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PendientePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5313,6 +5579,30 @@ export type User$cambiosDeEtapaArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.HistorialEtapaScalarFieldEnum | Prisma.HistorialEtapaScalarFieldEnum[]
+}
+
+/**
+ * User.cambiosDePago
+ */
+export type User$cambiosDePagoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HistorialPago
+   */
+  select?: Prisma.HistorialPagoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HistorialPago
+   */
+  omit?: Prisma.HistorialPagoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HistorialPagoInclude<ExtArgs> | null
+  where?: Prisma.HistorialPagoWhereInput
+  orderBy?: Prisma.HistorialPagoOrderByWithRelationInput | Prisma.HistorialPagoOrderByWithRelationInput[]
+  cursor?: Prisma.HistorialPagoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HistorialPagoScalarFieldEnum | Prisma.HistorialPagoScalarFieldEnum[]
 }
 
 /**

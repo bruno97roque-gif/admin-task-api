@@ -129,6 +129,10 @@ Migración **aditiva** `20260918120000_fotos_perfil` (tabla `fotos_perfil`, una 
 - **`GET /user/:id/foto` es `@Public()`** porque un `<img>` no manda token. Se sirve con caché de un año: el front agrega `?v=fotoVersion` (el `updatedAt` de la foto en ms), que viaja en `GET /user`, en `/perfil` y en el login.
 - **Límite de intentos del login**: ver «Auth (better-auth)». `main.ts` sube el tope del JSON a 600 KB por las fotos.
 
+### Historial del estado de pago
+
+Migración **aditiva** `20261110130000_historial_pagos` (tabla `historial_pagos`). Cada cambio de `estadoPago` deja una fila (`estadoAnterior`, `estadoNuevo`, `nota`, usuario, fecha): en el alta (`estadoAnterior: null`), en `PATCH /projects/:id` si cambia, y con `POST /projects/:id/historial-pagos` (`{ estadoPago, nota? }`, 409 si no cambia; reutiliza `update()` con el parámetro `notaPago`). `GET` lista de lo más nuevo a lo más viejo; `PATCH`/`DELETE /:id/historial-pagos/:pagoId` son solo administración y el `PATCH` solo toca la `nota`. Borrar una fila no cambia el `estadoPago` actual. Los proyectos anteriores no tienen filas viejas.
+
 ### Analítica avanzada (`GET /projects/analitica`)
 
 Sin migración: todo sale de `historial_etapas` y de columnas que ya existían. Además de `flujoMensual`, `porMes`, rankings y `duracionPromedio`, la respuesta suma lo que calcula `reglas/analitica.reglas.ts` (`calcularAnaliticaAvanzada`, funciones puras con spec):

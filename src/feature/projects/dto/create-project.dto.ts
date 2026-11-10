@@ -106,6 +106,18 @@ export class CreateProjectDto {
   enlaceMateriales?: string | null;
 
   @ApiPropertyOptional({
+    description:
+      'Observaciones internas del proyecto, texto libre. No es lo mismo que POST /projects/:id/observaciones (las del cliente en el flujo).',
+    example: 'Revisar con el cliente la paleta antes del avance.',
+    maxLength: 5000,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(5000)
+  observaciones?: string | null;
+
+  @ApiPropertyOptional({
     description: 'Con qué se construye.',
     enum: Tecnologia,
     enumName: 'Tecnologia',
